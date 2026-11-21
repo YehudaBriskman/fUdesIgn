@@ -43,7 +43,7 @@
 - [Mixpanel blog: Boards](https://mixpanel.com/blog/boards-collaborate-cards-mixpanel-feature-update/). Recommends text cards to explain how to read key data and why success is measured that way.
 
 ## Bad references
-- [Amplitude Community: 3 things that make for a bad dashboard](https://community.amplitude.com/discussion/12761/3-things-that-make-for-a-bad-dashboard). A practitioner thread on boards with no goal, no ownership and too many charts. Content was only partly retrievable, so cite it as community opinion.
+- [Amplitude Community: 3 things that make for a bad dashboard](https://community.amplitude.com/discussion/12761/3-things-that-make-for-a-bad-dashboard). A September 2024 tips post quoting practitioner Shoin Wolfe: "data overload, poor data visualization in which you can't make actual actions from the data you look at, and lack of customization." One practitioner's opinion, not research.
 - The typical self-serve board after a year: dozens of auto-titled charts ("Pageview count, 30d"), with no text, no owner and conflicting date ranges. This is Few's pitfall #9, "arranging the data poorly".
 
 ## Accessibility

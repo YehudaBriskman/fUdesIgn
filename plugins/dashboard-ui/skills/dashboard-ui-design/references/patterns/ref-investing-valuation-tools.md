@@ -18,7 +18,7 @@
 
 **Morningstar: a 3×3 classification grid**
 - A **3×3 style box**, "a nine-square grid": the vertical axis is market cap (small, mid, large) and the horizontal axis is value, blend, growth. One shaded cell is comparable across hundreds of funds and stays legible at icon size (16–24px is our sizing, not Morningstar's).
-- Show the methodology cadence: say when the classification was last computed and from which holdings. (The commonly cited Morningstar cadence, monthly for stocks and on new holdings for funds, is not on the cited Morningstar page, so it is unverified.)
+- Show the methodology cadence: say when the classification was last computed and from which holdings. Morningstar's methodology recalculates each stock's style box at month-end and each fund's "upon receipt of a new portfolio of holdings" (Equity Style Box methodology, 30 June 2020).
 - Copy this for categorical position on two ordinal axes. It beats a scatter plot when only the bucket matters.
 
 **TradingView heatmaps: user-chosen encodings plus a legend**
@@ -40,9 +40,9 @@
 - One review's main critique is that "Koyfin can feel a little bit crowded" ("Interface can feel crowded at times"). Ship sane templates and density presets, not just a blank canvas.
 
 **Bloomberg Terminal: what density buys and costs**
-- Density works for daily experts: many simultaneous panels, mnemonic commands and colour-coded function keys, and one stable layout for years. (Bloomberg's own story on concealing complexity is the source for the function-key and stability points; it blocks automated fetching, so treat them as unverified.)
+- Density works for daily experts: many simultaneous panels and mnemonic commands that a trained user types without looking. (This skill's reading of the Terminal, not a Bloomberg claim.)
 - Bloomberg ships alternate **colour-vision-deficiency schemes** for deuteranopia and protanomaly in `{PDFU COLORS}`, using blue for "up" and red for "down" while keeping the default amber for non-semantic information. A professional dense tool still needs CVD palettes.
-- Change management is part of the design: in a tool used all day, even a font change or a moved button disrupts users (unverified, from the same Bloomberg story). Evolve in place rather than redesign.
+- Change management is part of the design: in a tool used all day, a moved control costs every expert user a relearning step (this skill's own rule; the UX Magazine piece below describes why Terminal redesigns stall). Evolve in place rather than redesign.
 
 ## Anti-patterns (don't)
 - **Density as status symbol.** UX Magazine's critique of Bloomberg (Leca, 2010): "yellow and orange text" on black, an "86-page manual", "a week and a few painful hours" to handle it, and users who "favor complexity and clutter over efficiency and clarity to sustain a fictive status symbol". Don't copy that learning curve into a product for occasional users.
@@ -54,7 +54,7 @@
 
 ## Good references
 - [Simply Wall St: Company Analysis Model (GitHub)](https://github.com/SimplyWallSt/Company-Analysis-Model/blob/master/MODEL.markdown). Documents 30 binary checks, the 0–6 axis score, size and colour mapping, and stated limits.
-- [Simply Wall St Help: How does the Snowflake work](https://support.simplywall.st/hc/en-us/articles/360001740916-How-does-the-Snowflake-work). The official explainer (blocks automated fetching; the GitHub model above is the verified source).
+- [Simply Wall St Help: How does the Snowflake work](https://support.simplywall.st/hc/en-us/articles/360001740916-How-does-the-Snowflake-work). The official explainer (read via web.archive.org): 6 pass/fail checks per criterion, and the shape turns from red through orange and yellow to green as passed checks add up.
 - [Morningstar: Style Box](https://www.morningstar.com/investing-terms/morningstar-style-box). A nine-square grid for stocks and funds, with a matching fixed-income box (credit quality × interest-rate sensitivity).
 - [TradingView: Heatmaps](https://www.tradingview.com/support/solutions/43000766446). Offers selectable size and colour bases, Mono size, a legend with boundaries, CVD and monochrome schemes, and drill-down.
 - [Finviz: Introducing Finviz Matrix](https://finviz.com/blog/the-finviz-matrix-market-breadth-visualized/). Grid and Clusters views of breadth, a colour-blind mode, and "why is it moving" context.
@@ -125,6 +125,7 @@
 - https://github.com/SimplyWallSt/Company-Analysis-Model/blob/master/MODEL.markdown
 - https://support.simplywall.st/hc/en-us/articles/360001740916-How-does-the-Snowflake-work
 - https://www.morningstar.com/investing-terms/morningstar-style-box
+- https://advisor.morningstar.com/Enterprise/VTC/MorningstarEquityStyleBoxMethodology.pdf (30 June 2020: stocks recalculated at month-end, funds on each new holdings portfolio)
 - https://en.wikipedia.org/wiki/Morningstar_Style_Box
 - https://www.tradingview.com/support/solutions/43000766446
 - https://finviz.com/blog/the-finviz-matrix-market-breadth-visualized/
@@ -132,7 +133,6 @@
 - https://www.koyfin.com/features/custom-dashboards
 - https://daytradereview.com/koyfin-review/
 - https://www.techatbloomberg.com/blog/designing-the-terminal-for-color-accessibility/ (archived 2021-12-03 copy linked above)
-- https://www.bloomberg.com/company/stories/how-bloomberg-terminal-ux-designers-conceal-complexity/ (blocks automated fetching; unverified)
 - https://uxmag.com/articles/the-impossible-bloomberg-makeover
 - https://core77.com/posts/24893/moneymaking-multi-monitor-mayhem-and-why-some-prefer-interface-design-that-sucks-24893
 - https://en.wikipedia.org/wiki/Bloomberg_Terminal

@@ -20,7 +20,7 @@
 - **Compact notation:** `notation: "compact"` plus `maximumSignificantDigits: 3` (money) or `maximumFractionDigits: 1` (counts). Verified outputs (Node 26.12, en-US): `1234 → 1.2K`, `999999 → 1M`, `1234567 → $1.23M`, `987654321 → $988M`. Compact output depends on the locale. For 12,500,000, `en-IN` gives `1.3Cr` and `ja-JP` gives `1250万`. `de-DE` doesn't abbreviate thousands at all (`12345 → 12.345`) and writes millions as `1,2 Mio.` Let the locale decide; don't hand-roll `K/M/B`.
 - **Precision is a property of the metric, not of the value.** Decide decimals per metric (for example "conversion rate: 1 decimal") and keep that across every row and card. Matthew Ström: "keep the same number of significant figures" in a column, and "the fewer sig figs you can get by with, the better."
 - **Negatives:**
-  - Use U+2212 MINUS SIGN (`−`), not U+002D hyphen-minus. The true minus matches the width of `+` and the digits, and sits at the right height. GOV.UK: "Use a minus sign for negative numbers: –6." (Chicago Manual of Style is often cited for the same rule; its FAQ is behind a login, so that is unverified.)
+  - Use U+2212 MINUS SIGN (`−`), not U+002D hyphen-minus. The true minus matches the width of `+` and the digits, and sits at the right height. GOV.UK: "Use a minus sign for negative numbers: –6."
   - `Intl` emits a hyphen-minus for `en-US` (`-1,234.5`) but U+2212 for `sv-SE` and `fi` (`−1 234,5`). Normalise it with `formatToParts`, replacing the `minusSign` part.
   - Accounting contexts (P&L, statements, ledgers) may use parentheses via `currencySign: "accounting"` → `($1,234.50)`. Pick one convention per product, not per screen.
   - Colour is never the only negative signal. The sign or the parentheses must be in the text.
@@ -55,7 +55,7 @@
 ## Accessibility
 - The accessible name should carry the unabbreviated value or long compact form: visible `$1.2M`, accessible "1.2 million US dollars". Use `aria-label` on the `<data>` wrapper or a visually hidden span.
 - Use `<data value="1234567.89">` so the machine value travels with the formatted text.
-- Screen readers vary in how they voice U+2212 (unverified across the current NVDA, JAWS and VoiceOver set), so test it, or put the signed value in words in the accessible name. Parentheses for accounting negatives are not announced as negative, so add visually hidden text "negative" or `aria-label`.
+- Don't assume every screen reader voices U+2212 as "minus": test with the readers your users run, or put the signed value in words in the accessible name. Parentheses for accounting negatives are not announced as negative, so add visually hidden text "negative" or `aria-label`.
 - Never rely on red alone for negatives (WCAG 1.4.1).
 
 ## Motion / interaction (if relevant)
@@ -138,7 +138,6 @@ export function formatNumber(
 - https://data.europa.eu/apps/data-visualisation-guide/number-formatting
 - https://data.europa.eu/apps/data-visualisation-guide/table-design-scannability
 - https://guidance.publishing.service.gov.uk/writing-to-gov-uk-standards/style-guides/a-to-z-style-guide/
-- https://www.chicagomanualofstyle.org/qanda/data/faq/topics/HyphensEnDashesEmDashes/faq0006.html (login required; not verified)
 - https://www.datawrapper.de/blog/text-in-data-visualizations
 - https://www.saasframe.io/patterns/metrics
 - https://www.perceptualedge.com/articles/Whitepapers/Common_Pitfalls.pdf

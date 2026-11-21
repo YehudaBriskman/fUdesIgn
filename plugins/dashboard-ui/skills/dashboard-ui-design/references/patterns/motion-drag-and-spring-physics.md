@@ -10,7 +10,7 @@
 - **Don't** use momentum or projection on a **value control**. A what-if slider, a range handle or a date scrubber must stop exactly where the pointer was released. A thrown slider that lands somewhere else changes the model input without consent (see `comp-slider-with-number-input.md`).
 - **Don't** use bounce on **data marks** (bars, lines, values). Overshoot draws a value that does not exist (see `motion-principles-and-tokens.md`, `motion-chart-transitions.md`).
 - **Don't** apply any of this to keyboard-driven changes. Arrow keys move a splitter or column by a step, instantly (see `comp-keyboard-shortcuts-focus.md`).
-- Spring and duration tokens for everything else stay in `motion-principles-and-tokens.md`. This file covers the gesture-to-spring handoff only.
+- Spring and duration tokens for everything else stay in `motion-principles-and-tokens.md`. This file covers the gesture-to-spring handoff only. For converting between damping/response, Motion's `bounce`/`visualDuration`, M3 and SwiftUI presets, the canonical table is the motion-ui plugin's `mspring-parameters-and-mapping.md`; the values here (ζ 1.0, 0.8 with momentum, response 0.3–0.45 s) sit inside its ranges.
 
 ## Rules (do)
 - **Press, then commit.** Give visual feedback on `pointerdown` (handle highlight within 100 ms, see `prog-perceived-performance-thresholds.md`). Don't commit a direction until the pointer has moved past a threshold. Apple calls this distance *hysteresis* and says it is "usually 10 points in iOS". Use 8–10 CSS px for touch and 3–4 px for a mouse.
@@ -19,7 +19,7 @@
 - **Capture the pointer.** Call `setPointerCapture(pointerId)` on `pointerdown`, so the drag continues when the pointer leaves the handle or the window edge. Set `touch-action: none` (or `pan-y` for a horizontal-only handle) so the browser doesn't scroll instead.
 - **Track velocity from a short history.** Keep the last ~100 ms of `(time, position)` samples and compute velocity from the oldest and newest in that window, in px/s. Using only the last two events gives noisy, sometimes zero velocity, because the final `pointermove` often repeats the last position. Apple's talk: "We use the history of the touch". The 100 ms window is a house value, not an Apple number.
 - **Project, then snap.** On release, compute where the element *would* coast to and snap to the target nearest that projected point, not the target nearest the current point and not by velocity sign alone. Projection distance for a scroll-like deceleration rate `r` (per millisecond) is `(v / 1000) × r / (1 − r)`, with `v` in px/s.
-  - `r = 0.998` matches `UIScrollView.DecelerationRate.normal`; `r = 0.99` matches `.fast`. Apple documents the names but not the numbers; the numbers come from inspection and are repeated across the community write-ups cited below.
+  - `r = 0.998` matches `UIScrollView.DecelerationRate.normal`; `r = 0.99` matches `.fast`. Apple documents the names but not the numbers. These raw values are reported by third-party write-ups (cited below), not Apple; this skill adopts them as its own defaults.
   - The formula is the one shown on screen in the WWDC18 session's sample (the transcript says only that it "mixed in the deceleration rate"). It is the closed-form limit of per-millisecond decay with `ln r` approximated by `(r − 1) / r`.
   - Use `.normal` (0.998) for sheets and drawers that should travel. Use `.fast` (0.99) for small things such as a splitter, where a flick should only nudge the target choice.
 - **Hand the velocity to the spring.** Start the settle spring with the release velocity. APIs that want a *relative* velocity (UIKit's `initialVelocity`, some JS libraries) need `v / (target − current)`, set to 0 when the distance is 0. Motion takes absolute units per second.
@@ -30,7 +30,7 @@
   - Published Apple defaults you *can* cite: SwiftUI `spring()` defaults to response 0.5, damping fraction 0.825; `interactiveSpring()` to response 0.15, damping fraction 0.86.
 - **Interrupt from the live value.** If the user grabs the element mid-settle, read its *current rendered* position and velocity, stop the spring, and continue the drag from there with a new grab offset. Never restart from the old target or the model value. The talk calls for "constant redirection and interruption".
 - **One spring per axis.** A 2D move (widget re-arrange) runs independent X and Y springs, each with its own velocity, so a diagonal throw curves naturally into the slot. The talk discusses mixed two-axis gestures but not the implementation; per-axis springs are the standard way to get it.
-- **Rubber-band at the bounds.** Past a limit, move the element by a damped amount `f(x) = (1 − 1 / (x·c / d + 1))·d`, where `x` is the overshoot, `d` the dimension (pane width or sheet height) and `c ≈ 0.55`. This is the community's reverse-engineered UIScrollView curve (attributed to Grant Paul, 2013), not a formula Apple publishes. It approaches `d` asymptotically, so the element never escapes. On release, spring back to the bound with ζ = 1.
+- **Rubber-band at the bounds.** Past a limit, move the element by a damped amount `f(x) = (1 − 1 / (x·c / d + 1))·d`, where `x` is the overshoot, `d` the dimension (pane width or sheet height) and `c ≈ 0.55`. The curve and constant come from Grant Paul's (@chpwn) 2013 description of UIScrollView, written up in a January 2013 analysis (gist below); Apple doesn't publish them. It approaches `d` asymptotically, so the element never escapes. On release, spring back to the bound with ζ = 1.
 - **Snap targets are few and meaningful.** For a split pane: collapsed (0 or the rail width), the default width and the maximum. For a sheet: closed, peek and full. Three or four detents at most; more make the projection feel random.
 - **Persist the result** (pane width, column order) and put it in the URL or user settings when it changes what the view shows (see `found-overview-filter-details.md`).
 
@@ -74,12 +74,12 @@
 | `--drag-threshold-touch` | 10px | Apple's "usually 10 points" hysteresis |
 | `--drag-threshold-mouse` | 3–4px | house value; mice jitter less |
 | `--velocity-window` | 100ms | sample window for release velocity (house value) |
-| `--decel-normal` | 0.998 / ms | sheets, drawers (UIScrollView `.normal`, community-measured) |
-| `--decel-fast` | 0.99 / ms | splitters, small handles (`.fast`) |
+| `--decel-normal` | 0.998 / ms | sheets, drawers (house value; matches third-party reports of UIScrollView `.normal`) |
+| `--decel-fast` | 0.99 / ms | splitters, small handles (house value; reported `.fast`) |
 | `--spring-damping` | 1.0 | default for all structural moves |
 | `--spring-damping-momentum` | 0.8 | only when the gesture threw toward the target, never on data |
 | `--spring-response` | 0.3–0.45s | tuning start; ≈ Motion `visualDuration` 0.25–0.38s |
-| `--rubber-band-c` | 0.55 | community-derived constant |
+| `--rubber-band-c` | 0.55 | not an Apple number: Grant Paul's (@chpwn) 2013 description, written up in the gist below |
 | `--splitter-step` | 10px or 1 detent | arrow-key step |
 | Motion mapping | `bounce = 1 − ζ`, `visualDuration ≈ R / 1.2` | from Motion's source |
 
@@ -105,7 +105,7 @@ export function nearestTarget(at: number, targets: readonly number[]): number {
   return targets.reduce((best, t) => (Math.abs(t - at) < Math.abs(best - at) ? t : best))
 }
 
-/** Community-derived UIScrollView rubber band; never reaches `dim`. */
+/** UIScrollView-style rubber band (Grant Paul, 2013; not Apple-published); never reaches `dim`. */
 export const rubberBand = (over: number, dim: number, c = 0.55): number =>
   Math.sign(over) * (1 - 1 / ((Math.abs(over) * c) / dim + 1)) * dim
 

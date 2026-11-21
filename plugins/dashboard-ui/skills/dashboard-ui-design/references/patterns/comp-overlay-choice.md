@@ -60,7 +60,7 @@ NN/g's limits for modals: use them for critical warnings, missing critical info,
   | `popover="hint"` | Not Baseline: Chrome/Edge 151, Firefox 153, Safari 27.3 | an unknown `popover` value falls back to `manual` (HTML spec), so the hint still shows but you must hide it yourself on `pointerleave`, `focusout` and Esc |
   | `interestfor` | Chromium only (Chrome/Edge 142), experimental | open on `pointerenter`/`focusin` after the delay, close on `pointerleave`/`focusout`/Esc |
   | Anchor positioning (`anchor-name`, `position-area`, `position-try-fallbacks`) | Baseline newly available since January 2026 (Chrome 125–129, Firefox 147, Safari 26); `position-anchor` only since September 2026 (Safari 27) | gate it in `@supports`; otherwise keep the UA-centred popover or load `@oddbird/css-anchor-positioning` |
-  | `@starting-style`, `transition-behavior: allow-discrete` | Baseline newly available since August 2024 | the overlay appears without animation |
+  | `@starting-style`, `transition-behavior: allow-discrete` | Baseline newly available since August 2024; Firefox does not transition `display` ([bug 1882408](https://bugzil.la/1882408)), so exits snap there | the overlay appears without animation |
   | `overlay` in a transition list | Chromium only | ignored elsewhere; the exit animation may be cut short, which is harmless |
 
 ## Anti-patterns (don't)

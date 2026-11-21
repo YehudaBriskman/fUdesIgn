@@ -30,7 +30,7 @@
 - **Mark non-monotonic inputs.** If the output peaks inside an input's range, draw the bar's extreme with a small tick and note "peak at 2.6%". Crystal Ball switches such charts to one colour because left/right no longer means low/high.
 
 **Sensitivity grid (two-way)**
-- **Rows and columns are the two inputs** with even steps. A common DCF setup is WACC in 0.5-point steps against terminal growth in 0.25-point steps.
+- **Rows and columns are the two inputs** with even steps. Keep the range narrow: FE Training's worked DCF example steps WACC (5.6–6.0%) and terminal growth (1.8–2.2%) by 0.1 point each, and recommends not sensitising either by more than 0.5 point.
 - **The base cell sits in the centre**, outlined 2px and labelled "base". Odd counts (5×5, 7×7) keep it centred.
 - **Colour encodes the output relative to a reference.** Use a diverging scale centred on the current price (value above price on one side), or a sequential scale when there's no reference. Use 5–7 steps, not a continuous rainbow. See `color-dataviz-palettes.md`.
 - **Every cell keeps its number as text.** Colour is a second channel. The grid must work in greyscale.
@@ -207,13 +207,13 @@ export function probabilityHeadline(hits: number, draws: number, locale = 'en-US
 
 ## Sources
 - https://docs.oracle.com/cd/E36352_01/epm.1112/cb_user/ch09s05s01.html
-- https://docs.oracle.com/cd/E36352_01/epm.1112/cb_user/apgs06.html (search summary only)
-- https://www2.seas.gwu.edu/~dorpjr/EMSE269/Lecture%20Notes/Chapter%205.pdf (search summary only)
-- https://www.yhec.co.uk/glossary/tornado-diagram/ (search summary only)
-- https://sk.sagepub.com/ency/edvol/embed/medical/chpt/tornado-diagram (search summary only)
+- https://docs.oracle.com/cd/E36352_01/epm.1112/cb_user/apgs06.html (bibliography: Clemen 1997; Morgan and Henrion 1990)
+- https://www2.seas.gwu.edu/~dorpjr/EMSE269/Lecture%20Notes/Chapter%205.pdf (read via web.archive.org; tornado diagram, then two-way sensitivity on the top variables)
+- https://www.yhec.co.uk/glossary/tornado-diagram/ (bars with the greatest spread at the top)
+- https://sk.sagepub.com/ency/edvol/embed/medical/chpt/tornado-diagram (largest range at the top)
 - https://idl.uw.edu/papers/when-ish-is-my-bus
 - https://www.hullmanlab.northwestern.edu/paper%20discrete-outcome/2018/01/01/uncertainty-bus.html
-- https://pages.ucsd.edu/~scoulson/203/GG_How_1995.pdf (search summary only)
-- https://www.fe.training/?p=10001433 (search summary only)
+- https://pages.ucsd.edu/~scoulson/203/GG_How_1995.pdf (frequency formats improve Bayesian reasoning)
+- https://www.fe.training/?p=10001433 (example grid in 0.1-point steps; sensitise WACC and growth by no more than 0.5%)
 - https://clauswilke.com/dataviz/visualizing-uncertainty.html
 - Repo: patterns/chart-distributions-uncertainty.md, patterns/chart-financial-price-value.md

@@ -41,7 +41,7 @@
 
 **Wise (international money)**
 - Make fees and rates explicit and itemised. Wise's mission page says "No asterisks. No small print. No hidden fees." and publishes its average fee (0.52% when checked in November 2026, a global average across a basket of currencies). In the UI, show the fee, the rate and the amount received as separate labelled lines before confirmation.
-- Use one typeface system with full international script coverage, so amounts and labels don't fall back to mismatched fonts. (Wise's design team wrote about extending its typeface for more scripts; the article blocks automated fetching, so the details are unverified.)
+- Use one typeface system with full international script coverage, so amounts and labels don't fall back to mismatched fonts. (Wise pairs Inter, "140+ languages", with its display face Wise Sans, "342 languages", and adds dedicated fallback stacks for simplified Chinese, Japanese and Thai.)
 
 ## Anti-patterns (don't)
 - Don't show a balance or revenue number without a comparison. Stripe, Mercury and Ramp all pair the number with a period delta, a budget or a breakdown. See ref-dashboard-anti-patterns.md, "No context".
@@ -55,7 +55,7 @@
 - [Stripe Support: Home page charts](https://support.stripe.com/questions/dashboard-home-page-charts-for-business-insights). Shows a date range plus a separate comparison range, and labels the charts as estimates.
 - [Stripe: Designing accessible color systems (2019)](https://stripe.com/blog/accessible-color-systems). A CIELAB palette with contrast and hue distinctness checked together.
 - [Mercury: Updated transactions page (July 2025)](https://mercury.com/blog/updated-transactions-page). Shows the chart linked to table filters, top-5 in and out, saved Data Views, and a current-month default.
-- [Mercury Help: Insights page](https://support.mercury.com/hc/en-us/articles/44277089544084-Insights-page-overview). Described as offering stacked bar, line and Sankey views with period comparison (unverified: the help centre blocks automated fetching).
+- [Mercury Help: Insights page](https://support.mercury.com/hc/en-us/articles/44277089544084-Insights-page-overview). Charts spend over time "using stacked bars, line graphs, or Sankey diagrams", with a compare tool for periods (e.g. this month vs. last month).
 - [Ramp: Reporting](https://ramp.com/reporting). Every chart drills down to transactions, budgets show live against actual, and approval screens include context.
 - [Robinhood Legend widgets](https://robinhood.com/us/en/support/articles/widgets-in-robinhood-legend) and [Using charts](https://robinhood.com/us/en/support/articles/using-charts). Document the colour-by-frame rule, the draggable baseline chart, the range span and the stated return basis.
 - [Wise: mission roadmap](https://wise.com/mission-roadmap/). States the fee transparency commitment as a product principle.
@@ -128,11 +128,11 @@ export function frameTrend(points: readonly number[]): Trend {
 - https://stripe.com/blog/accessible-color-systems
 - https://www.sec.state.ma.us/divisions/securities/download/RH-Consent-Order.pdf
 - https://mercury.com/blog/updated-transactions-page
-- https://support.mercury.com/hc/en-us/articles/44277089544084-Insights-page-overview (blocks automated fetching)
+- https://support.mercury.com/hc/en-us/articles/44277089544084-Insights-page-overview (rendered with a headless browser, November 2026)
 - https://ramp.com/reporting
 - https://robinhood.com/us/en/support/articles/widgets-in-robinhood-legend
 - https://robinhood.com/us/en/support/articles/using-charts
 - https://www.cnbc.com/2021/03/31/robinhood-gets-rid-of-confetti-feature-amid-scrutiny-over-gamification.html
 - https://wise.com/mission-roadmap/
-- https://medium.com/transferwise-design/creating-a-wise-typographic-set-1052503f9f01 (blocks automated fetching; unverified)
+- https://medium.com/transferwise-design/creating-a-wise-typographic-set-1052503f9f01 (read via web.archive.org, July 2025 snapshot)
 - https://adminlte.io/blog/fintech-dashboard-design-examples/

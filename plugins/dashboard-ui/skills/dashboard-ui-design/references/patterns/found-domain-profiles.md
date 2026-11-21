@@ -163,10 +163,11 @@ export const example: Decision = {
 
 ## Sources
 - https://www.nngroup.com/articles/dark-mode/
-- https://blog.isa.org/the-high-performance-hmi (cited via search summary)
-- https://control.com/technical-articles/going-gray/ (cited via search summary)
+- https://blog.isa.org/the-high-performance-hmi (alarms "redundantly coded (shape, color, text)"; gray background, bright colours only for abnormal)
+- https://control.com/technical-articles/going-gray/ (read via web.archive.org; ISA 101 favours contrasting shades of gray)
 - https://psnet.ahrq.gov/primer/alert-fatigue
-- https://grafana.com/docs/grafana/latest/administration/organization-preferences/ (cited via search summary)
+- https://grafana.com/docs/grafana/latest/administration/organization-preferences/ (four levels; "the lowest level always takes precedence")
+- https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/ (`default_theme`: "The default theme is dark.")
 - https://www.benzinga.com/general/education/21/10/23258001/did-you-know-you-dont-want-to-be-in-the-green-if-youre-trading-in-china-japan-or-taiwan
 - https://github.com/nextlevelbuilder/ui-ux-pro-max-skill (studied locally; mechanic of a domain table only, no content copied)
 - Stephen Few, *Information Dashboard Design* (2006), strategic / analytical / operational roles, via `found-dashboard-types.md`

@@ -196,7 +196,7 @@ export function AssumptionPanel(props: {
 - https://design-system.service.gov.uk/patterns/check-answers/
 - https://carbondesignsystem.com/patterns/common-actions/
 - https://www.nngroup.com/articles/reset-and-cancel-buttons/
-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/reset (cited via search summary)
+- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/reset ("You should usually avoid including reset buttons in your forms ... more likely to frustrate users who click them by mistake")
 - https://blog.iseesystems.com/stella-ithink/a-better-chained-slider/
 - https://pages.stern.nyu.edu/~adamodar/New_Home_Page/spreadsh.htm
 - https://pair.withgoogle.com/chapter/explainability-trust/ (explanation via interaction: let users try "what if")
