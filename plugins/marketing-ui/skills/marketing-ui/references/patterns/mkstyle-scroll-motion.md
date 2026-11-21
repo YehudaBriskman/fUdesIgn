@@ -5,13 +5,13 @@
 **Category:** Style (motion) · **Applies to:** hero entrance, section reveals, scroll-driven effects, parallax, sticky storytelling, autoplay video loops, animated backgrounds · **Priority:** must
 
 ## When to use / when not
-- **Use** one hero entrance (headline, lead, CTA, media staggered over ≤ 800ms total), scroll-linked progress that explains something (a product assembling, a timeline filling), and motion that answers a click (open, expand, confirm).
+- **Use** one hero entrance (headline, lead, CTA, media staggered, ≤ 700ms total), scroll-linked progress that explains something (a product assembling, a timeline filling), and motion that answers a click (open, expand, confirm).
 - **Don't** add a fade-up to every section. Anthropic's frontend-design skill names per-section fade-and-slide entrances as the generic default. Scattered motion competes with the one moment that matters.
 - **Skip motion entirely** on pages people use to decide (pricing, docs, comparison). NN/g found users mostly ignore or struggle with parallax effects on goal-driven tasks.
 - Motion tokens and easing come from dashboard-ui (`motion-principles-and-tokens.md`); reduced-motion handling follows `motion-reduced-motion.md`.
 
 ## Rules (do)
-- **One orchestrated moment.** Stagger 3–5 hero elements by 60–100ms each, each 300–500ms, ease-out (`--mk-reveal-ease`). Total under 800ms so the CTA is usable within the first second.
+- **One orchestrated moment.** Stagger 3–5 hero elements by 60–75ms each (300ms of stagger at most, motion-ui's cap in `mfound-choreography-and-stagger.md`), each 300–400ms, ease-out (`--mk-reveal-ease`). Total under 700ms so the CTA is usable within the first second.
 - **Reveals, if any, are small and fast.** Distance 16px (`--mk-reveal-distance`), at most 24px; duration 400ms (`--mk-reveal-duration`), at most 600ms; finish by the time the element is 40% into the viewport (`animation-range: entry 0% entry 40%`). Play once; don't replay on scroll back (NN/g parallax advice).
 - **Use CSS scroll-driven animations, not scroll listeners.** `animation-timeline: view()` and `scroll()` run off the main thread. Support: Chrome/Edge 115, Safari 26, Firefox 159 (enabled by default; web.dev's October 2026 roundup marks it Baseline newly available). Wrap in `@supports (animation-timeline: view())` so older browsers show static content.
 - **Content visible at rest.** The default state is the final state. Never ship `opacity: 0` in base CSS that only JavaScript or an animation removes; if the script fails, the page is blank (Impeccable's `content-hidden-at-rest` check catches this). Use `animation-fill-mode: both` only inside the `@supports` and motion-preference guards.
@@ -20,7 +20,7 @@
 - **Never scroll-jack.** Do not change scroll speed or direction or snap the page between "slides". NN/g (2023) found most test participants at least mildly disoriented, and some left or refreshed. Sticky storytelling is fine if native scroll still drives it at the normal rate.
 - **Parallax limits:** background or peripheral images only, offset ≤ 10–20% of the element's height, never on text. Turn it off under reduced motion.
 - **Autoplay video loops:** muted, `playsinline`, ≤ 5 seconds, or with a visible pause control (WCAG 2.2.2 requires a way to pause anything that moves for more than 5 seconds alongside other content). Pause when off screen and under reduced motion; show the poster frame instead.
-- **Honour `prefers-reduced-motion: reduce`.** Remove translation, parallax, scroll-linked transforms and autoplay; a short opacity fade (≤ 200ms) may stay. WCAG 2.3.3 (AAA) asks that motion from interaction can be disabled; Val Head's A List Apart article lists scaling, spinning, parallax and large-area movement as vestibular triggers.
+- **Honour `prefers-reduced-motion: reduce`.** Remove translation, parallax, scroll-linked transforms and autoplay; a short opacity fade (≤ 150ms, motion-ui's `mfound-reduced-motion-vestibular.md`) may stay. WCAG 2.3.3 (AAA) asks that motion from interaction can be disabled; Val Head's A List Apart article lists scaling, spinning, parallax and large-area movement as vestibular triggers.
 
 ## Anti-patterns (don't)
 - The same fade-up on every section and every card (`mkstyle-generated-default-tells.md`).
@@ -61,7 +61,7 @@
 | `--mk-reveal-duration` | `var(--motion-dur-long)` 400ms (max 600ms) | reveal, hero element |
 | `--mk-reveal-ease` | `var(--motion-ease-enter)` | entrances |
 | `--mk-hover-duration` | `var(--motion-dur-short)` 150ms | hover feedback |
-| Hero stagger | 60–100ms per element, ≤ 800ms total | the one moment |
+| Hero stagger | 60–75ms per element, ≤ 300ms of stagger, ≤ 700ms total | the one moment |
 | Autoplay loop | ≤ 5s or a pause control | WCAG 2.2.2 |
 | Parallax offset | ≤ 10–20% of element height | backgrounds only |
 

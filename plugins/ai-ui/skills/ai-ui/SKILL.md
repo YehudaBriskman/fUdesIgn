@@ -137,7 +137,7 @@ Full set in `assets/ai-ui.css`.
 | Thread | measure 46rem · turn gap 32 · part gap 12 · user bubble ≤ 80%, radius 12, `--surface-2` · side panel 400 (360–480) · history 280 |
 | Composer | min 44 · max 40dvh then scroll · radius 16 · field text ≥ 16px · attachment name ≤ 24ch, thumb 40 |
 | Actions | row reserved at 32 · buttons 32 (44 on coarse pointers) · `--text-muted`, pressed `--accent` |
-| Timing | control busy 400 ms · chat status 1 s · elapsed 5 s · steps and Stop 10 s · reveal lag ≤ 300 ms · ghost text ≤ 300 ms after the pause · Copied 2 s |
+| Timing | control busy after 200 ms, shown ≥ 400 ms · chat status 1 s · elapsed 5 s · steps and Stop 10 s · reveal lag ≤ 300 ms · ghost text ≤ 300 ms after the pause · Copied 2 s |
 | Citations | marker ≥ 24×24, `--accent` on a 12% accent tint · ≤ 3 markers per sentence · 3–5 sources shown, then "+N more" |
 | Code | `--sunken` · 0.8125rem/1.55 mono · collapse past 30 lines to 24lh |
 | Inline AI | ghost `--text-muted` italic · insert `--success-bg` + underline · delete `--danger-bg` + strikethrough · AI passage 8% accent tint + 2px bar |

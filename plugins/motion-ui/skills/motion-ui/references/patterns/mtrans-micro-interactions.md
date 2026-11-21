@@ -20,10 +20,10 @@ Use for the small, frequent responses that make an interface feel alive. Because
 - **Toasts.**
   - Enter from the screen edge they live on, 240 ms ease-out or a spring; exit faster, the same way (Sonner uses CSS transitions, not keyframes, so they can be interrupted).
   - Stack: older toasts move back 14 px and shrink by 0.05 scale per step (Sonner: −14 px / 0.95, −28 px / 0.9); expand the stack on hover.
-  - Auto-dismiss after about 4–6 s (Sonner: 4 s), paused while hovered, focused or the tab is hidden; toasts with an action stay until acted on or dismissed (WCAG 2.2.1 Timing Adjustable).
+  - Timing follows dashboard-ui's `comp-notifications-alerts.md`: auto-dismiss is off by default; when on, at least 6 s for a plain confirmation and 8 s (10 s bulk) for an Undo, paused while hovered, focused or the tab is hidden. Errors never auto-dismiss, and a toast's action is also reachable outside it (WCAG 2.2.1 Timing Adjustable).
   - Swipe to dismiss in the exit direction (`mgesture-sheets-and-swipe-to-dismiss.md`).
   - Announce with a polite live region; never put the only copy of an error in a toast.
-- **Loading buttons keep their size and label**, add a spinner after a 150–300 ms show-delay, and use `aria-disabled` while busy (dashboard-ui's `comp-button-hierarchy.md`).
+- **Loading buttons keep their size and label**, add a spinner after the 200 ms show-delay and keep it at least 400 ms, and use `aria-disabled` while busy (dashboard-ui's `comp-button-hierarchy.md`; form submit buttons go busy at once, per forms-ui's `fflow-submit-buttons-and-double-submit.md`).
 
 ## Anti-patterns (don't)
 - Buttons that bounce, wobble or grow on hover.
@@ -32,7 +32,7 @@ Use for the small, frequent responses that make an interface feel alive. Because
 - Toggles animating their thumb with a bouncy spring, or only changing position with no colour change.
 - Toasts that slide in from the top-left corner while the app's toasts normally live bottom-right.
 - A success toast after an action whose result is already visible on screen.
-- Auto-dismissing toasts that contain an "Undo" or an error.
+- Auto-dismissing error toasts, or Undo toasts shorter than 8 s whose action exists nowhere else.
 
 ## Good references
 - [Emil Kowalski, 7 practical animation tips](https://emilkowal.ski/ui/7-practical-animation-tips): `scale(0.97)` on `:active`, tooltip timing, blur to mask cross-fades.
@@ -62,9 +62,9 @@ All of these are CSS transitions so rapid toggling reverses smoothly (`mgesture-
 | icon swap | 150 ms, scale 0.8 → 1, blur 2 px → 0 | copy → check |
 | confirmation hold | 1.5–2 s | in-place "Copied" |
 | toggle thumb | `spring-fast` or 150 ms | |
-| toast enter / exit | 240 / 180 ms | |
+| toast enter / exit | 240 / 180 ms | exit = 0.75 × enter |
 | toast stack step | −14 px, scale −0.05 | Sonner |
-| toast timer | 4–6 s, paused on hover/focus/hidden | none if actionable |
+| toast timer | off by default; ≥ 6 s plain, 8 s with Undo; paused on hover/focus/hidden | never on errors |
 
 ## Implementation sketch
 ```css
@@ -123,7 +123,7 @@ export function toastTimer(el: HTMLElement, ms: number, onDone: () => void): () 
 - [ ] Results confirmed on the control when visible there; no redundant toast.
 - [ ] Toggles change colour and position together, no bounce, with an accessible state.
 - [ ] Toasts enter from their edge, stack, pause on hover/focus/hidden, and swipe away.
-- [ ] Toasts with actions or errors don't auto-dismiss, and nothing exists only in a toast.
+- [ ] Error toasts don't auto-dismiss, Undo toasts last at least 8 s, and nothing exists only in a toast.
 
 ## Sources
 - https://emilkowal.ski/ui/7-practical-animation-tips

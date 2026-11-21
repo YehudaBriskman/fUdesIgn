@@ -19,7 +19,7 @@
 ## Rules (do)
 - **Detents:** at most three: *collapsed/peek* (non-modal only, e.g. 96–120 px showing a title), *medium* (about 50% of the small viewport; iOS `.medium`), *large* (full height minus the top safe area and a 10–12 px peek of the page behind; iOS `.large`). Size with `svh` so the sheet does not jump as the URL bar moves (`mofound-viewport-units-keyboard.md`).
 - **Anatomy (M3):** drag handle 32×4 dp, centred, with 22 dp padding above and below; the top 48 dp of a resizable sheet is its touch target; top corners 28 dp (extra-large shape); full width up to 640 dp, then 56 dp top and side margins. Modal sheets sit on a scrim (the M3 scrim token is 32% opacity; on Android the system draws it). iOS sheets show a grabber when resizable and a "Done"/close button in the header.
-- **Dismissal, all four:** visible close or Done button (44 px); scrim tap (modal only); swipe down past about 25–30% of the sheet's height or with a fast flick; Esc and the Android back gesture/button (`<dialog>` with `closedby="any"` and `showModal()`).
+- **Dismissal, all four:** visible close or Done button (44 px); scrim tap (modal only); swipe down past 25% of the sheet's height or with a flick faster than 400 px/s; Esc and the Android back gesture/button (`<dialog>` with `closedby="any"` and `showModal()`).
 - **Unsaved input:** a sheet with edits asks before dismissing on swipe (iOS: block the swipe and confirm), or keeps the draft.
 - **Scroll vs drag:** content scrolls inside the sheet; only when scrolled to the top does a downward drag move the sheet. The handle area and header always drag.
 - **Keyboard:** a sheet with a text field expands to the large detent when the field focuses, and the field stays above the keyboard.
@@ -52,8 +52,8 @@
 - The handle is a `<button aria-label="Resize sheet">` reporting its state, not a bare `div`.
 
 ## Motion / interaction (if relevant)
-- Enter: slide up from off-screen in 250–300 ms with an emphasized decelerate curve; exit in about 200 ms. With reduced motion, fade in 150 ms.
-- Follow the finger 1:1 while dragging; on release, project the velocity and snap to the nearest detent; rubber-band past the large detent.
+- Enter: slide up from off-screen over `--motion-dur-sheet` (300 ms, inside motion-ui's 240–400 ms sheet range) with `--motion-ease-drawer`; exit the same way at 0.75× (about 225 ms). With reduced motion, fade in 150 ms.
+- Drag, release and dismissal follow motion-ui's `mgesture-sheets-and-swipe-to-dismiss.md`: 1:1 tracking, velocity from the last 100 ms, snap to the detent nearest the projected position, close past 25% of the height or faster than 400 px/s, rubber-band past the large detent.
 - A light haptic on snapping to a detent is an iOS-native touch (`moinput-haptics-vibration.md`); never required.
 
 ## Tokens and values
@@ -65,7 +65,7 @@
 | `--sheet-handle-w` / `-h` | 32px / 4px | grabber (48px target) |
 | `--sheet-max-w` | 640px | centre above this |
 | `--scrim` | 40% (light) / 60% (dark) black | modal scrim |
-| `--motion-dur-sheet` | 300ms | enter |
+| `--motion-dur-sheet` / `--motion-ease-drawer` | 300ms / `cubic-bezier(0.32, 0.72, 0, 1)` | enter |
 
 ## Implementation sketch
 ```css
@@ -90,7 +90,7 @@ dialog.sheet::backdrop { background: var(--scrim); overflow: hidden; overscroll-
 .sheet-handle { display: block; margin: 0 auto; inline-size: 48px; block-size: 24px; border: 0; background: none; }
 .sheet-handle::before { content: ""; display: block; margin: auto; inline-size: var(--sheet-handle-w); block-size: var(--sheet-handle-h); border-radius: var(--radius-full); background: var(--border-strong); }
 @media (prefers-reduced-motion: no-preference) {
-  dialog.sheet[open] { animation: sheet-in var(--motion-dur-sheet) var(--motion-ease-emphasized); }
+  dialog.sheet[open] { animation: sheet-in var(--motion-dur-sheet) var(--motion-ease-drawer); }
 }
 @keyframes sheet-in { from { translate: 0 100%; } }
 ```

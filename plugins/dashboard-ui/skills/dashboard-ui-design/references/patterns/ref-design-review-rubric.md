@@ -132,7 +132,7 @@
 | Theme lightness (D7) | light surfaces OKLCH L ≥ 0.85, dark surfaces L ≤ 0.35 |
 | Small-screen viewport (H2) | 390 × 844 |
 | Touch target (H3) | ≥ 44 × 44 px for a 2; 24 × 24 px floor (WCAG 2.5.8) |
-| Loader show-delay / minimum visible (F2) | about 200 ms (150–300 ms) / 300–500 ms, matching SKILL.md |
+| Loader show-delay / minimum visible (F2) | 200 ms / 400 ms, matching SKILL.md (150–300 ms / 300–500 ms still score 2) |
 | Determinate progress after (F3) | 10 s |
 | Body text contrast (G4) | ≥ 4.5:1 |
 | Large text, chart mark, control boundary, focus indicator contrast (G3, G4) | ≥ 3:1 |

@@ -23,7 +23,7 @@
 - **Target size:** every target must be **≥24×24 CSS px** (WCAG 2.2 SC 2.5.8, AA), or have a 24px-diameter clear circle around it. Under `@media (pointer: coarse)`, raise targets to **≥44×44** (SC 2.5.5, AAA). Use `min-inline-size` and `min-block-size`, not fixed `width` and `height`, so content can grow the button but never shrink it. A 16px icon in a 28px button is fine. A 16px icon with 4px padding (24px total) is the absolute floor.
 - **Icon-only buttons:** give them an accessible name (`aria-label` or visually hidden text) and a visible tooltip naming the action. Carbon makes the tooltip mandatory. Icons are 16px in buttons and sit 8px from the label. The sketch's `interestfor` + `popover="hint"` tooltip is Chromium-only (Chrome/Edge 142+) for `interestfor`; elsewhere show the hint from `pointerenter`/`focusin` in script (see `comp-overlay-choice.md`). The `aria-label` keeps the button named either way.
 - **Loading state** (see the timings in Tokens):
-  - Show nothing for the first 200 ms (SKILL.md's loading rule; Vercel gives a ~150–300 ms show-delay). Under 1 s, users stay in flow and need no feedback (NN/g response-time limits).
+  - Show nothing for the first 200 ms (SKILL.md's loading rule; Vercel gives a ~150–300 ms show-delay). Under 1 s, users stay in flow and need no feedback (NN/g response-time limits). Exception: a form's submit button takes `aria-disabled` and ignores repeat clicks at once, because the busy state is also the double-submit guard; only its spinner waits (forms-ui `fflow-submit-buttons-and-double-submit.md`).
   - Once the spinner shows, keep it for at least 400 ms (Vercel: minimum visible ~300–500 ms) so a fast response doesn't flicker.
   - Then swap the leading icon, or add one, for a spinner and keep the label (Vercel: "Show a loading indicator & keep the original label"). Put the progressive wording ("Saving…") in the live region, not on the button.
   - **Lock the button's inline size** so the swap causes no layout shift.
@@ -55,7 +55,7 @@
 - [GitLab issue: accessible loading button](https://gitlab.com/gitlab-org/gitlab-ui/-/issues/1044) — documents how a natively `disabled` loading button leaves the focus order and gives screen reader users no change of state.
 
 ## Accessibility
-- Every target is ≥24×24 CSS px (SC 2.5.8). Primary actions on touch are ≥44×44.
+- Every target is ≥24×24 CSS px (SC 2.5.8), and ≥44×44 under `pointer: coarse` (`--target-min`).
 - The focus ring uses `:focus-visible` with an outline ≥2px, ≥3:1 against adjacent colours, and `outline-offset: 2px`. Never use `outline: none` without a replacement.
 - Toggle buttons expose `aria-pressed`. Action buttons don't.
 - Text on filled buttons must meet 4.5:1. The button boundary against the page must meet 3:1 (SC 1.4.11), or the label alone must make it identifiable.
@@ -63,7 +63,7 @@
 
 ## Motion / interaction (if relevant)
 - Hover background change: `--motion-dur-micro` (100 ms) with `--motion-ease-standard`. Press: `scale: 0.98` or a darker background, applied on `:active` with no transition so it paints in the next frame. Wrap the hover transition in `@media (prefers-reduced-motion: no-preference)` and `@media (hover: hover)`.
-- Spinner rotation runs at ~0.8–1 s per turn. Under reduced motion, use a pulsing opacity or static "Saving…" text. See `motion-principles-and-tokens.md`.
+- Spinner rotation runs at about 1 s per turn. Under reduced motion, slow it to 1 turn per 6 s or swap it for a pulsing opacity or "Saving…" text; never leave a frozen glyph (`motion-reduced-motion.md`).
 
 ## Tokens and values
 | Token | Default | Notes |
@@ -114,7 +114,7 @@
   .btn { transition: background-color var(--motion-dur-micro, 100ms) var(--motion-ease-standard, ease-out); }
 }
 .btn[aria-disabled="true"] { cursor: progress; opacity: .8; }
-.btn[aria-disabled="true"] .btn__icon { /* spinner glyph here; under reduced motion, no rotation */ }
+.btn[aria-disabled="true"] .btn__icon { /* spinner glyph here; under reduced motion, 6 s per turn */ }
 ```
 ```ts
 async function runBusy(button: HTMLButtonElement, status: HTMLElement, task: () => Promise<void>): Promise<void> {

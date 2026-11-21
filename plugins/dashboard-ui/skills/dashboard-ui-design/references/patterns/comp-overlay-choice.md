@@ -99,7 +99,7 @@ NN/g's limits for modals: use them for critical warnings, missing critical info,
   - dialog and drawer in: `--motion-dur-medium` (240 ms) with `--motion-ease-enter`; out: `--motion-dur-short` (150 ms) with `--motion-ease-exit`;
   - popover and menu: `--motion-dur-short` (150 ms) in, `--motion-dur-micro` (100 ms) out;
   - backdrop fade: 150 ms, at `rgb(0 0 0 / .4)` (light) or `/.6` (dark).
-- Reduced motion: opacity only, `--motion-dur-micro` (100 ms) or less. Scope animations inside `@media (prefers-reduced-motion: no-preference)` as the sketch does; never use a global `0.01ms` reset.
+- Reduced motion: opacity only, `--motion-dur-short` (150 ms) or less. Scope animations inside `@media (prefers-reduced-motion: no-preference)` as the sketch does; never use a global `0.01ms` reset.
 
 ## Tokens and values
 | Token | Default |

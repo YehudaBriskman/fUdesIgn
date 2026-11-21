@@ -35,7 +35,7 @@
   - Warn on navigation away (`beforeunload` + in-app route guard).
 - **Validation.**
   - Use native constraints (`required`, `min`, `max`, `step`, `pattern`) and style errors with `:user-invalid` (Baseline widely available: Chrome 119, Firefox 88, Safari 16.5), so errors appear only after interaction, not while the user is still typing "1." of "1.5".
-  - Error text sits below the field, starts with an icon carrying a text alternative, says how to fix it ("Enter a rate between 0% and 25%"), and is linked through `aria-describedby` only while invalid.
+  - In panel forms, follow forms-ui's `fvalid-timing-and-inline-errors.md` (check on blur after an edit, never per keystroke; error text between hint and field). In an inline cell, the error sits directly below the cell. Either way it starts with an icon carrying a text alternative, says how to fix it ("Enter a rate between 0% and 25%"), and is linked through `aria-describedby` only while invalid.
 - **Numeric inputs.**
   - Use `<input type="text" inputmode="decimal">`, not `type="number"`. The latter has spinner and scroll-wheel accidents and locale issues.
   - Parse locale formats ("1,234.5", "1.234,5"), shorthand ("10k", "2.5m", "15%") and paste with currency symbols.
@@ -48,7 +48,7 @@
 - **Provenance.** For model inputs, show the default or source value and a "Reset to default" action when a user overrides it ("Overridden · was 8.2% (consensus)").
 - **Forms in panels.**
   - Primary "Save" at the end of the footer, with "Cancel" as ghost.
-  - Disable nothing up front; validate on submit and move focus to the first error, or to an error summary for >3 errors.
+  - Disable nothing up front; validate on submit. For a panel form of 3 fields or fewer, move focus to the first invalid field; otherwise show an error summary and focus it (forms-ui `fvalid-error-summary-and-focus.md`).
 
 ## Anti-patterns (don't)
 - Inline edit inside a form, which gives two competing save models (Atlassian).

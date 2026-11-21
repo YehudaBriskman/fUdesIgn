@@ -100,6 +100,7 @@
 
   /* ── Motion and swipe actions (monav-sheets-detents.md, monav-gestures-swipe-refresh-back.md) ── */
   --motion-dur-sheet: 300ms;        /* within motion-ui's 240–400 ms sheet range */
+  --motion-ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);  /* same as motion-ui's motion-tokens.css */
   --swipe-destructive: var(--danger-fg);   /* swipe-action backgrounds (monav-gestures-swipe-refresh-back.md) */
   --swipe-neutral: var(--info-fg);
 }

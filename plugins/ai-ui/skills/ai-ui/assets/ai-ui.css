@@ -76,7 +76,7 @@
 
   /* Streaming and waiting (aichat-streaming-text.md, aichat-thinking-and-step-progress.md,
      aifound-latency-and-perceived-performance.md). Durations are read by JS. */
-  --ai-busy-delay: 400ms;                             /* busy state on a control */
+  --ai-busy-delay: 200ms;                             /* busy state on a control */
   --ai-thinking-delay: 1000ms;                        /* status line in the chat slot */
   --ai-stream-lag-max: 300ms;                         /* max reveal lag behind arrival */
   --ai-slot-min: 50dvh;                               /* JS sets: viewport minus the pinned user turn */

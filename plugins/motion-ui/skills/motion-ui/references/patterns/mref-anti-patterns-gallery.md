@@ -28,7 +28,7 @@ Use as the quick pass before the full rubric (`mref-motion-review-rubric.md`) an
 | A16 | Popovers scaling from their centre | frames | appear from mid-air | origin at the trigger (`mtrans-spatial-origin-and-continuity.md`) |
 | A17 | Same slide for forward and back | navigate back | spatial model breaks | direction by transition type (`mtrans-view-transitions-and-routes.md`) |
 | A18 | Staggered lists with no cap | load a long list | last items arrive seconds late | ≤ 300 ms total (`mfound-choreography-and-stagger.md`) |
-| A19 | Toasts that auto-dismiss errors or undo | wait 4 s | information and actions lost | persistent if actionable (`mtrans-micro-interactions.md`) |
+| A19 | Toasts that auto-dismiss errors, or Undo in under 8 s | wait 8 s | information and actions lost | errors persist; Undo ≥ 8 s and also reachable elsewhere (`mtrans-micro-interactions.md`) |
 | A20 | Loading masked by a long entrance | throttle network | animation pretends to be speed | real loading states (dashboard-ui `prog-loading-states.md`) |
 
 ## Anti-patterns (don't)
@@ -63,7 +63,7 @@ Most rows can be linted: A1, A2, A3, A13 (global reset), A14 and A15 are greppab
 | UI chrome max | 400 ms | A6 |
 | stagger cap | 300 ms (150 ms menus) | A18 |
 | reveal opacity floor | 0.4 | A8 |
-| toast timer | 4–6 s, none if actionable | A19 |
+| toast timer | off by default; ≥ 6 s plain, 8 s with Undo, never on errors | A19 |
 
 ## Implementation sketch
 A minimal lint pass over CSS text for the greppable rows:
