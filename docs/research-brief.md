@@ -5,7 +5,7 @@ Audience: an engineer or agent building a data-heavy product dashboard, for exam
 
 ## Sources
 - Local clone of GoogleChrome/modern-web-guidance:
-  /tmp/claude-1000/-home-yehuda-projects-colab-Mosa/dfb1bf85-4b12-4a1b-ad5e-02501fca13e7/scratchpad/ext/modern-web-guidance/skills/modern-web-guidance/guides/
+  <clone of GoogleChrome/modern-web-guidance>/skills/modern-web-guidance/guides/
   It has ui-atoms, ui-behaviors, ui-components, visual-design, css, performance, accessibility, user-experience and forms.
   - Read the files relevant to your cluster.
   - Cite them by repo path.
@@ -21,7 +21,7 @@ Audience: an engineer or agent building a data-heavy product dashboard, for exam
 
 ## Output contract
 Write one Markdown file per pattern into:
-/tmp/claude-1000/-home-yehuda-projects-colab-Mosa/dfb1bf85-4b12-4a1b-ad5e-02501fca13e7/scratchpad/fud/patterns/<cluster-prefix>-<kebab-name>.md
+plugins/dashboard-ui/skills/dashboard-ui-design/references/patterns/<cluster-prefix>-<kebab-name>.md
 Use the cluster prefix you were given, for example `color-semantic-status.md`.
 
 Use this template exactly (sections may be short, but keep every one):
