@@ -50,7 +50,7 @@
 - Test at 320 × 256 (responsive mode), at 400% zoom on a 1280 px window, at 200% text-only zoom (Firefox View › Zoom › Zoom Text Only), and with the text-spacing bookmarklet (`atest-manual-test-plan.md`).
 
 ## Motion / interaction (if relevant)
-- Hover content appears after the delay its owning pattern sets (dashboard-ui: tooltips 200 ms in `comp-overlay-choice.md`, hover previews `--interest-delay` 500 ms in `comp-entity-links-and-hover-previews.md`) and stays while hovered; it doesn't animate away when the pointer crosses the gap.
+- Pointer-hover content appears after the delay its owning pattern sets (dashboard-ui: tooltips 200 ms in `comp-overlay-choice.md`, hover previews `--interest-delay` 500 ms in `comp-entity-links-and-hover-previews.md`). Keyboard focus opens it immediately: the hover delay only filters out accidental pointer passes (NN/g, Harley 2015), focus is deliberate, and the WAI-ARIA APG tooltip pattern shows the popup on focus with no delay. Leaving keeps a short close grace period (100 ms tooltips, 250 ms previews) so the pointer can reach the content. It stays while hovered; it doesn't animate away when the pointer crosses the gap.
 
 ## Tokens and values
 | Token | Value | Use |
@@ -94,6 +94,8 @@ export function hasPageHorizontalScroll(doc: Document = document): boolean {
 - https://www.w3.org/WAI/WCAG22/Understanding/resize-text.html
 - https://www.w3.org/WAI/WCAG22/Understanding/reflow.html
 - https://www.w3.org/WAI/WCAG22/Understanding/text-spacing.html
+- https://www.w3.org/WAI/ARIA/apg/patterns/tooltip/ (the tooltip appears on keyboard focus or hover; Esc dismisses; no focus delay specified)
+- https://www.nngroup.com/articles/timing-exposing-content/ (Aurora Harley, 2015: 0.3–0.5 s hover pause against accidental activation; click or tap begins exposing within 0.1 s)
 - https://www.w3.org/WAI/WCAG22/Understanding/content-on-hover-or-focus.html
 - https://www.html5accessibility.com/tests/tsbookmarklet.html
 - https://github.com/GoogleChrome/modern-web-guidance/blob/main/skills/modern-web-guidance/guides/visual-design/typography.md (Apache-2.0, linked, not copied)

@@ -22,7 +22,7 @@ Be restrained:
 - **Distinct, composable states:** hover = tint, press = tint + scale 0.97, focus = outline, selected = fill + check icon or weight. Any combination stays legible.
 - **Durations:** state colour and tint in `--motion-dur-micro` 100 ms, `linear`. Press scale (0.97), switch thumbs (150 ms) and their easing follow `mtrans-micro-interactions.md`.
 - **Selection in charts:** the selected mark keeps full opacity; others drop to 0.3 opacity (the same value as `motion-linked-exploration.md`). Transition opacity over `--motion-dur-micro` 100 ms. Never resize marks on hover (it changes the encoded value).
-- **Tooltip delay:** "Delay the first tooltip in a group; subsequent peers have no delay" (Vercel). Vercel gives no number; use about 200 ms to open and 100 ms to close (house values).
+- **Tooltip delay:** "Delay the first tooltip in a group; subsequent peers have no delay" (Vercel). Vercel gives no number; use about 200 ms to open on hover and 100 ms to close (house values). Keyboard focus opens the tooltip immediately (`comp-overlay-choice.md`).
 - **Hit targets:** ≥ 24 × 24 CSS px (WCAG 2.5.8); 44 px on touch. Expand small icon buttons with padding or pseudo-elements, not visual size.
 - **Cursor:** `pointer` for links/actions; `default` for selectable rows if you follow the platform; `grab`/`grabbing` for pan; `ew-resize` for column resizers.
 - **Loading buttons:** keep size and label, show the spinner after 200 ms and keep it at least 400 ms, `aria-disabled` while busy (`comp-button-hierarchy.md`, `prog-loading-states.md`, motion-ui `mtrans-micro-interactions.md`).
@@ -65,7 +65,7 @@ Be restrained:
 | state colour/tint | `--motion-dur-micro` 100 ms, `linear` |
 | press, switch thumb, loading button | see motion-ui `mtrans-micro-interactions.md` |
 | focus ring | `--focus-ring` colour, 2 px solid, offset 2 px, ≥ 3:1 |
-| tooltip delay start / end | 200 ms / 100 ms; peers 0 ms (house values) |
+| tooltip delay start / end | 200 ms hover / 100 ms; peers and keyboard focus 0 ms (house values) |
 | non-selected mark opacity | 0.3 |
 | min target | 24 px (pointer), 44 px (touch) |
 

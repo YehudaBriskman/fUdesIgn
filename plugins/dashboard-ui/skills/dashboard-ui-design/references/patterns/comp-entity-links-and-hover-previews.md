@@ -1,6 +1,6 @@
 # Entity cross-links and hover previews
 
-> Every entity named on a page (project, person, account, ticker, filing) links to its own detail view, so users move detail → detail without going back to the sidebar. A hover or focus preview answers the quick question in place, after a 300–500 ms pause, shows only what matters from the current context, and is never the only way to reach that information.
+> Every entity named on a page (project, person, account, ticker, filing) links to its own detail view, so users move detail → detail without going back to the sidebar. A hover or focus preview answers the quick question in place (after a 300–500 ms hover pause, at once on keyboard focus), shows only what matters from the current context, and is never the only way to reach that information.
 
 **Category:** Components and interaction · **Applies to:** detail pages, table cells and list rows that name another record, activity feeds, comments and mentions, breadcrumbs of related records, KPI drill links · **Priority:** should
 
@@ -27,7 +27,7 @@
   - 3–5 fields at most, plus the entity's name and type, and a link to the full record. Never dump the full record.
 - **Delay the open, then show fast.** NN/g's timing guidelines: wait 0.3–0.5 s while the pointer rests on the target before exposing hidden content, then display it within 0.1 s. Keep it open until the pointer has been away for about 0.5 s, which also covers the trip from the link onto the card.
   - Use the shared `--interest-delay` token (500 ms) for the open delay and 250 ms for the close delay, the same values as `found-progressive-disclosure.md`. Lower the open delay towards 300 ms only on sparse layouts where links are far apart.
-  - Apply the same delay to keyboard focus, so tabbing through a row of links doesn't flash a card at every stop.
+  - **Keyboard focus opens the preview immediately, with no open delay.** The hover delay exists only to filter out accidental pointer passes (NN/g: revealing content "too quickly on mouseover can result in accidental activations"); focus is a deliberate action, like the click or tap that NN/g says should begin exposing content within 0.1 s. The WAI-ARIA APG tooltip pattern requires the popup to appear on keyboard focus as well as hover and sets no delay for focus. Leaving (blur or pointer-out) still uses the 250 ms close grace period.
 - **Meet WCAG 1.4.13 (Content on Hover or Focus, AA).** The preview must be:
   - *dismissible* without moving the pointer or focus (Esc);
   - *hoverable*: the pointer can move onto the card without it closing;
@@ -35,7 +35,7 @@
 - **Never the only path.** The link itself navigates to the full record; the preview is a shortcut. Nothing in the preview (a field, an action, a status) exists only there.
 - **Touch and keyboard alternatives.**
   - On touch, a tap on the link navigates as usual. Offer the preview through a visible peek control (an info button beside the name) that opens the same content as a popover or, on phones, a sheet. Long-press is a secondary route only: mobile browsers already use a long-press on a link for their own link menu, so it can't be the sole alternative.
-  - On keyboard, focus opens the preview after the delay; Esc closes it and keeps focus on the link. If the card holds links, give a key to move focus into it and Esc to return. GitHub uses Alt+Up to move into a hovercard and Esc to restore focus to the link (GitHub changelog, July 2024).
+  - On keyboard, focus opens the preview immediately; Esc closes it and keeps focus on the link. If the card holds links, give a key to move focus into it and Esc to return. GitHub uses Alt+Up to move into a hovercard and Esc to restore focus to the link (GitHub changelog, July 2024).
   - Offer a setting to turn previews off. Wikipedia and GitHub both do; Wikipedia's 2017–18 A/B tests found about 0.01% of sessions disabled them.
 - **Use the platform.** A `popover="hint"` card with `interestfor` on the link gives hover, focus, long-press and Esc handling natively where supported: `interestfor` is Chromium only (Chrome/Edge 142) and experimental, and `popover="hint"` is not Baseline. Feature-detect it and fall back to scripted `pointerenter` / `focus` timers (sketch below). See the Platform support table in `comp-overlay-choice.md`.
 - **Fetch on interest, cache per entity.** Load the preview data when the delay starts, not on page load; show a compact skeleton if it takes longer than 200 ms and keep it at least 400 ms once shown (see `prog-loading-states.md`); reuse the response for the rest of the session or until it is stale.
@@ -75,8 +75,9 @@
 ## Tokens and values
 | Token | Value | Use |
 |---|---|---|
-| `--interest-delay` | 500 ms (300 ms floor on sparse layouts) | open delay on hover and focus |
-| Close delay | 250 ms (`interest-delay: var(--interest-delay) 250ms`) | lets the pointer reach the card |
+| `--interest-delay` | 500 ms (300 ms floor on sparse layouts) | open delay on pointer hover only |
+| Focus open delay | 0 ms | keyboard focus is deliberate |
+| Close delay | 250 ms (`interest-delay: var(--interest-delay) 250ms`) | grace period on pointer-out and blur; lets the pointer reach the card |
 | Show duration | ≤ 100 ms after the delay | NN/g |
 | Preview fields | 3–5, chosen by context | content budget |
 | Preview width | 280–360 px | card size |
@@ -154,7 +155,10 @@ export function wireEntityPreview(link: HTMLAnchorElement, card: HTMLElement, fe
   }
   card.addEventListener('toggle', () => { if (card.matches(':popover-open')) render() })
 
-  // Native interest invokers handle hover, focus, long-press, delays and Esc.
+  // Keyboard focus is deliberate: open at once, in both the native and the fallback path.
+  link.addEventListener('focus', () => { if (link.matches(':focus-visible') && !card.matches(':popover-open')) card.showPopover() })
+
+  // Native interest invokers handle hover, long-press, the hover delay and Esc.
   if (Object.hasOwn(HTMLAnchorElement.prototype, 'interestForElement')) return
 
   // Fallback: an unknown popover value behaves as "manual", so open and close it ourselves.
@@ -172,7 +176,6 @@ export function wireEntityPreview(link: HTMLAnchorElement, card: HTMLElement, fe
     }, closeDelay)
   }
   link.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') open() })
-  link.addEventListener('focus', open)
   link.addEventListener('pointerleave', close)
   link.addEventListener('blur', close)
   card.addEventListener('pointerenter', () => window.clearTimeout(timer)) // hoverable (WCAG 1.4.13)
@@ -187,7 +190,7 @@ export function wireEntityPreview(link: HTMLAnchorElement, card: HTMLElement, fe
 - [ ] Every entity named on a page links to its canonical detail route; related records link both ways.
 - [ ] A two-entity question ("who owns this task's project?") takes 1–2 clicks, without the sidebar.
 - [ ] Previews show 3–5 fields chosen by the page's context, plus a link to the full record.
-- [ ] The open delay is `--interest-delay` (300–500 ms) on hover and focus; the card opens within 100 ms after it.
+- [ ] The open delay is `--interest-delay` (300–500 ms) on pointer hover and 0 ms on keyboard focus; the card opens within 100 ms after it. Leaving uses the 250 ms grace period.
 - [ ] Previews are dismissible with Esc, hoverable and persistent (WCAG 1.4.13).
 - [ ] Touch has a peek control or long-press alternative; keyboard can reach any links inside the card.
 - [ ] Nothing exists only in a preview; previews can be turned off.
@@ -199,7 +202,8 @@ export function wireEntityPreview(link: HTMLAnchorElement, card: HTMLElement, fe
 - https://github.blog/news-insights/user-hovercards/ (2018, viewer-specific hovercard content)
 - https://github.blog/changelog/2018-10-08-issue-and-pull-request-hovercards
 - https://github.blog/changelog/2024-07-29-keyboard-navigation-improvements-for-hovercards/
-- https://www.nngroup.com/articles/timing-exposing-content/ (Aurora Harley, 2015: 0.3–0.5 s, 0.1 s, 0.5 s)
+- https://www.nngroup.com/articles/timing-exposing-content/ (Aurora Harley, 2015: 0.3–0.5 s hover pause against accidental activation, 0.1 s, 0.5 s; click or tap begins exposing within 0.1 s)
+- https://www.w3.org/WAI/ARIA/apg/patterns/tooltip/ (the popup appears on keyboard focus or hover; Esc dismisses; no focus delay specified)
 - https://www.w3.org/WAI/WCAG22/Understanding/content-on-hover-or-focus.html (SC 1.4.13, Level AA)
 - https://developer.mozilla.org/en-US/docs/Web/API/Popover_API/Using_interest_invokers (`interestfor`, `interest-delay`, hover/focus/long-press, Esc, feature detection)
 - https://html.spec.whatwg.org/multipage/popover.html (an unknown `popover` value falls back to `manual`)

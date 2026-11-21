@@ -41,7 +41,7 @@ Follow these steps in order. Each one names the files to open.
 6. **Components and interaction.**
    - Buttons, tabs, overlays, filters, date ranges, ⌘K, inline edit, sliders, app shell, alerts and keyboard: see the `comp-*` files.
    - For which overlay to use, start at `comp-overlay-choice.md`. First-run notices and disclaimers must not cover content (`comp-onboarding-and-notices.md`).
-   - Link every entity a page names to its own detail view, so users go detail → detail without the sidebar; add hover/focus previews (300–500 ms delay, content chosen by context, touch and keyboard alternatives) for the quick follow-up question (`comp-entity-links-and-hover-previews.md`).
+   - Link every entity a page names to its own detail view, so users go detail → detail without the sidebar; add hover/focus previews (300–500 ms hover delay, immediate on keyboard focus, 250 ms close grace, content chosen by context, touch and keyboard alternatives) for the quick follow-up question (`comp-entity-links-and-hover-previews.md`).
 7. **Motion and progressive UI.**
    - Motion tokens: `motion-principles-and-tokens.md`. Reduced motion: `motion-reduced-motion.md`.
    - Loading: `prog-loading-states.md` and `prog-stale-while-revalidate.md`.
