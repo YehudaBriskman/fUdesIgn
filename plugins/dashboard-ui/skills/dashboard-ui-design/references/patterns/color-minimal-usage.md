@@ -1,6 +1,6 @@
 # Minimal colour: colour only where it carries meaning
 
-> Build the dashboard in neutrals first, then add colour only to encode something (action, status, direction, a data series, a highlight). Target ≤ 10% of the screen area in saturated colour.
+> Build the dashboard in neutrals first, then add colour only to encode something (action, status, direction, a data series, a highlight). As a rule of thumb (not a sourced figure), keep saturated colour under about 10% of the screen area.
 
 **Category:** Color and visual style · **Applies to:** whole dashboard composition, KPI tiles, tables, charts, navigation, badges, empty states · **Priority:** must
 
@@ -18,14 +18,14 @@
   4. the one primary action per view and the focus ring;
   5. selected/current state.
   Everything else (nav, headers, card backgrounds, icons, dividers) is neutral.
-- **Grey first, then restore.** Datawrapper: "make everything grey, then restore colour selectively". Highlight 1–2 categories at most, with everything else in one grey.
+- **Grey first, then restore.** Datawrapper recommends "graying out all your colorful categories first", then moving only the interesting ones back to colour. Highlight "one or two categories by giving all the others the same (gray or desaturated) color".
 - **Soft for most, bright for highlight.** Few's rule #5: soft, natural colours for most information, bright and/or dark colours for what needs attention. Keep three tiers: pale (context), medium (data), bright/dark (highlight).
-- **Non-data ink just visible enough** (Few rule #7): axes thin medium grey, borders usually unnecessary, plot background = card background.
+- **Non-data ink just visible enough** (Few rule #7): axis lines in "thin gray lines of medium intensity", borders "usually they are not" needed, plot background = card background.
 - **Monochrome charts by default.** A single-series chart uses one colour. Bars in a ranked list use one colour, plus a highlight colour for the bar in focus.
-- **Brand appears in 2–3 places:** logo, primary button, focus/selection. Linear deliberately limited how much of the accent hue enters the UI chrome.
-- **Status colour only where action is needed.** Carbon: skip indicators when "no action is needed", and more than 5–6 indicators overwhelm. A wall of green "OK" checks trains people to ignore colour, so show OK as quiet text and failures in colour.
-- **One accent per screen.** If two different things are both bright, neither stands out. Grafana: "Reserve bright colours for what matters… Otherwise, a colorful dashboard leaves users unsure where to look."
-- **Use weight, size and position before colour** for hierarchy: KPI value at 28–32 px semibold in `--text`, label 12–13 px in `--text-muted`. No coloured headings.
+- **Brand appears in 2–3 places:** logo, primary button, focus/selection. Linear limited how much accent blue went into its colour calculations for "a more neutral and timeless appearance".
+- **Status colour only where action is needed.** Carbon: use plain text when no action is needed or the status isn't significant, and more than about five or six indicators can overwhelm. A wall of green "OK" checks trains people to ignore colour, so show OK as quiet text and failures in colour.
+- **One accent per screen.** If two different things are both bright, neither stands out. Grafana suggests salient colours "for meaningful things like errors and hit thresholds" and asks: "What if your dashboard is so colorful that users don't know where to look any more?"
+- **Use weight, size and position before colour** for hierarchy: KPI value at 24–32 px semibold in `--text` (`--type-kpi` 1.5rem, `--type-hero` 2rem), label 12–13 px in `--text-muted`. No coloured headings.
 - **Audit by squint and greyscale.** In greyscale, hierarchy should still be clear. With colour on, the coloured pixels should be exactly the exceptions.
 
 ## Anti-patterns (don't)
@@ -42,13 +42,13 @@
 - [Datawrapper – Emphasize with color](https://www.datawrapper.de/blog/emphasize-with-color-in-data-visualizations) — grey as a storytelling tool, 1–2 highlights, desaturate instead of adding hues. Examples from the Washington Post, WSJ, Economist and FT.
 - [Linear – How we redesigned the Linear UI](https://linear.app/now/how-we-redesigned-the-linear-ui) — reduced the accent's influence on the chrome for a "neutral, timeless" look, while increasing text contrast.
 - [IBM Carbon – Status indicators](https://carbondesignsystem.com/patterns/status-indicator-pattern/) — use plain text when no action is needed, cap of 5–6 indicators.
-- [Grafana – 3 tips](https://grafana.com/blog/2020/08/25/3-tips-to-improve-your-grafana-dashboard-design) — limited consistent palette, bright colours reserved for thresholds and errors.
-- [Vercel Geist](https://vercel.com/geist/colors) — the product UI is almost entirely the gray and gray-alpha scales, and colour scales are used for status and highlights.
+- [Grafana – 3 tips](https://grafana.com/blog/2020/08/25/3-tips-to-improve-your-grafana-dashboard-design) — salient colours reserved for errors and thresholds; "try not to juxtapose red and green".
+- [Vercel Geist](https://vercel.com/geist/colors) — gray is the default "for text, icons, fills, borders, and dividers"; the coloured scales carry status and accents.
+- [insightsoftware – dashboard design](https://insightsoftware.com/blog/3-questions-to-guide-dashboard-design/) — "Reserve bright colors for highlights and keep the rest of the dashboard in neutral tones."
 
 ## Bad references
 - [Few's multicoloured bar chart](https://www.perceptualedge.com/articles/visual_business_intelligence/rules_for_using_color.pdf) (p. 3) — seven hues for seven countries, with labels already on the axis. Pure decoration that slows comparison.
-- [Metabase – Top 5 dashboard fails](https://metabase.com/blog/top-5-dashboard-fails) — charts needing more than 3–4 colours, which signals too much at once.
-- [insightsoftware – dashboard design](https://insightsoftware.com/blog/3-questions-to-guide-dashboard-design/) — red/green applied to neutral metrics, which implies a good/bad judgement that isn't there.
+- [Metabase – Top 5 dashboard fails](https://metabase.com/blog/top-5-dashboard-fails) — "If a chart needs more than 3–4 distinct colors to make sense, you're probably trying to show too much at once."
 - Default BI themes (Excel/Power BI default palettes) — each visual gets the next palette colour automatically, so a page of single-series charts ends up in six unrelated hues.
 
 ## Accessibility
@@ -66,11 +66,11 @@
 | Saturated colour area | ≤ ~10% of viewport pixels on a working screen (heuristic) |
 | Accent (brand) usages per view | primary button (1), focus ring, selected state, logo |
 | Highlighted categories in a chart | 1–2 (Datawrapper) |
-| Categorical colours in one chart | ≤ 6 (see `color-dataviz-palettes.md`) |
+| Categorical colours in one chart | 3–4 comfortable (Metabase); 6 preferred, 8 hard cap (see `color-dataviz-palettes.md`) |
 | Visible status indicators | ≤ 5–6 (Carbon) |
 | Single-series chart | 1 hue (`--cat-1` or `--text-muted` + highlight) |
 | De-emphasised data | `--cat-other` grey or 25–40% opacity of the hue |
-| Hierarchy tools before colour | size (12 → 32 px), weight (400 → 600), position, whitespace |
+| Hierarchy tools before colour | size (`--type-meta` 12 px → `--type-hero` 32 px), weight (400 → 600), position, whitespace |
 
 ## Implementation sketch
 ```css

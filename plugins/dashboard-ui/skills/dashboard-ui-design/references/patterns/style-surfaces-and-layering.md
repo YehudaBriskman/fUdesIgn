@@ -7,7 +7,7 @@
 ## When to use / when not
 - **Card:** one self-contained unit with its own title: a chart, a KPI group, a list. modern-web-guidance `card.md`: a card "groups one related piece of content or one choice".
 - **No card:** a single number with no siblings, toolbar controls, filters, or a full-width table that already *is* the page. A table inside a card inside a section inside a card is "card-ception".
-- **Sunken surface:** a backdrop that groups columns or a canvas area (Kanban column, code well). Atlassian allows sunken only on the default surface.
+- **Sunken surface:** a backdrop that groups columns or a canvas area (Kanban column, code well). Atlassian: "Only use sunken surfaces on the default surface level."
 - **Overlay surface:** anything in the top layer (popover, menu, dialog, toast). These can stack.
 
 ## Rules (do)
@@ -18,15 +18,15 @@
   4. `surface-3` / overlay: menus, popovers, dialogs;
   5. optional `sunken`: grouped backdrop, darker in both themes (Atlassian).
   Material 3 has the same idea as `surfaceContainerLowest → Highest`, five tonal steps.
-- **Light theme: canvas slightly darker than cards** (e.g. #f9fafc canvas, #fff cards). That is the "soft" look: cards lift by tone, not shadow. Linear, Stripe and Vercel all use a near-white canvas with white or very light cards and hairline borders.
+- **Light theme: canvas slightly darker than cards** (e.g. #f9fafc canvas, #fff cards). That is the "soft" look: cards lift by tone, not shadow. Linear, Stripe and Vercel dashboards use a near-white canvas with white cards and hairline borders (observed in their products, not documented).
 - **Dark theme: higher level = lighter** (see `color-dark-mode.md`).
-- **Adjacent levels differ by ~1.05–1.2:1** plus a hairline border. Don't rely on tone alone below 1.1:1.
+- **Adjacent levels differ by only 1.04–1.14:1** in the default tokens (light canvas→surface 1.04, surface-2→surface-3 1.13; dark 1.07–1.14). That is too little for tone alone, so add a hairline `--border` where levels meet.
 - **One nesting level of containers inside a card.** Inside a card, use spacing and `surface-2` wells, not another bordered card. If you need a second card level, the card is too big. Split it.
 - **Grid of cards: equal radius, equal padding, aligned internal rows.** Use `subgrid` so titles, values and footers line up across cards (modern-web-guidance `card.md`).
 - **Card anatomy order:** media/chart, header (title + optional action), content, footer. Keep source order meaningful, use `<article>`, and keep the heading link as the primary destination if the card links.
 - **Container queries, not viewport media queries, for card internals.** `container-type: inline-size` on the card. A KPI card at 240 px stacks, and at 480 px it goes side by side.
 - **Padding scale tied to card size:** 12 px compact / 16 px default / 24 px spacious. Density can be a reactive token with container style queries (modern-web-guidance `design-token-reactivity.md`), with a `data-density` fallback.
-- **Gutters ≥ card padding.** Grid gap 16–24 px. If gap < padding, cards visually merge.
+- **Gutters ≥ card padding.** Grid gap 16 px, 24 px at 1312 px or wider (SKILL.md grid defaults). If gap < padding, cards visually merge.
 - **Overlays live in the top layer** (`popover`, `<dialog>`). No z-index ladders, no clipping by card `overflow`.
 
 ## Anti-patterns (don't)
@@ -38,14 +38,14 @@
 - Sticky card headers inside a scrolling page that also has a sticky page header: stacked sticky bars beyond the 12% viewport budget (modern-web-guidance `content-first-noise-reduction.md`).
 
 ## Good references
-- [Atlassian – Elevation](https://atlassian.design/foundations/elevation) — sunken/default/raised/overlay with a strict pairing and "flat card = default surface + border".
+- [Atlassian – Elevation](https://atlassian.design/foundations/elevation) — sunken/default/raised/overlay with strict surface/shadow pairing, and borders or whitespace instead of raised elevation for grouping.
 - [Material 3 surface containers](https://github.com/material-foundation/material-color-utilities/blob/main/typescript/dynamiccolor/color_spec_2021.ts) — five tonal container roles replacing opacity overlays, with exact tones for light (100/96/94/92/90) and dark (4/10/12/17/22).
-- [Vercel Geist – Colors](https://vercel.com/geist/colors) — only two background tokens (background-1 default, background-2 "use sparingly"), which forces discipline about layering.
-- [Radix Colors scale](https://www.radix-ui.com/colors/docs/palette-composition/understanding-the-scale) — steps 1–2 explicitly "app background" vs "subtle background for cards, sidebars, striped tables".
+- [Vercel Geist – Colors](https://vercel.com/geist/colors) — only two background tokens (Background 1 default; Background 2 "should be used sparingly"), which forces discipline about layering.
+- [Radix Colors scale](https://www.radix-ui.com/colors/docs/palette-composition/understanding-the-scale) — step 1 "App background", step 2 "Subtle background"; steps 3–5 are UI element background, hover and active.
 - modern-web-guidance `guides/ui-components/card.md` (repo path) — semantic `<article>`, region order, container queries, subgrid alignment.
 
 ## Bad references
-- [Grafana – dashboard design tips](https://grafana.com/blog/2020/08/25/3-tips-to-improve-your-grafana-dashboard-design) — warns against panels where every element competes for attention. Default dashboards with a panel border, title bar and coloured background per panel are the typical case.
+- [Grafana – dashboard design tips](https://grafana.com/blog/2020/08/25/3-tips-to-improve-your-grafana-dashboard-design) — warns about dashboards "so colorful that users don't know where to look any more". Panels that each carry a border, a title bar and their own coloured background are the typical case.
 - [Metabase – top dashboard fails](https://metabase.com/blog/top-5-dashboard-fails) — overloaded dashboards where every number gets its own tile and no hierarchy survives.
 - Glassmorphism dashboard kits — every card a different translucent layer over a gradient, so "level" has no meaning (see `style-glass-translucency.md`).
 
@@ -62,12 +62,12 @@
 | Level | Light | Dark | Typical use |
 |---|---|---|---|
 | `--canvas` | #f9fafc (L 0.985) | #101214 (L 0.18) | app background |
-| `--sunken` | #f3f5f8 (L 0.97) | #0c0e10 (L 0.16) | grouped backdrop, code well |
+| `--sunken` (optional, not in tokens.css) | #f3f5f8 (L 0.97) | #0b0d10 (L 0.16) | grouped backdrop, code well |
 | `--surface` | #ffffff | #171a1d (L 0.215) | cards, panels |
 | `--surface-2` | #f3f5f8 (L 0.97) | #1e2226 (L 0.25) | hover/selected row, inner well |
-| `--surface-3` (overlay) | #ffffff + shadow-md | #282c30 (L 0.29) + border | menus, popovers, dialogs |
+| `--surface-3` (overlay) | #e5e8ec (L 0.93) + shadow-md | #282c30 (L 0.29) + border | menus, popovers, dialogs |
 | Card padding | 12 / 16 / 24 px | | compact / default / spacious |
-| Grid gap | 16–24 px (≥ card padding) | | |
+| Grid gap | 16 px; 24 px at ≥ 1312 px (≥ card padding) | | |
 | Card radius | 12 px | | see `style-radius-scale.md` |
 | Max container nesting inside card | 1 (a well) | | |
 
@@ -88,7 +88,7 @@
 ```css
 body { background: var(--canvas); }
 .dash-grid {
-  display: grid; gap: 20px;
+  display: grid; gap: var(--space-4); /* 16px; --space-5 (24px) at ≥ 1312px */
   grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr));
   grid-auto-rows: auto 1fr auto; /* header, chart, footer tracks shared via subgrid */
 }
@@ -99,7 +99,7 @@ body { background: var(--canvas); }
   border-radius: var(--radius-lg); padding: var(--card-pad, 16px);
 }
 :where([data-density="compact"]) .card, .card:where([data-density="compact"]) { --card-pad: 12px; }
-.card .well { background: var(--surface-2); border-radius: max(2px, calc(var(--radius-lg) - var(--card-pad, 16px))); }
+.card .well { background: var(--surface-2); border-radius: max(2px, calc(var(--radius-lg) - var(--card-pad, 16px) - 1px)); }
 .menu { background: var(--surface-3); border: 1px solid var(--border); box-shadow: var(--shadow-md); border-radius: var(--radius-md); }
 @container (inline-size < 280px) { .card-head { flex-direction: column; align-items: start; } }
 ```

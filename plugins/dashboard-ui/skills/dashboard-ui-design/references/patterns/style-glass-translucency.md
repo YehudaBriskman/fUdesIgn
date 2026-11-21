@@ -6,38 +6,38 @@
 
 ## When to use / when not
 - **OK:** a sticky header or toolbar over a scrolling table, where a hint of what scrolled beneath helps orientation. A command palette or dialog over a blurred, dimmed scrim. A small control cluster floating over a map or full-bleed chart.
-- **Not OK:** KPI cards, tables, chart containers, side navigation with dense text, form fields, tooltips over charts. NN/g: glassmorphism is "best when utilized sparingly", and the biggest problems are text legibility and uneven contrast across a translucent card.
-- **Not OK over busy, uncontrolled backgrounds** (user photos, video, live charts) unless blur is very high and the tint is nearly opaque. NN/g's iOS 26 review documents text-over-text and icons-over-photos failures in Mail, Messages and Maps.
+- **Not OK:** KPI cards, tables, chart containers, side navigation with dense text, form fields, tooltips over charts. NN/g: glassmorphism "is best when utilized sparingly to create an illusion of depth", and its main risks are text legibility and uneven contrast across a translucent card.
+- **Not OK over busy, uncontrolled backgrounds** (user photos, video, live charts) unless blur is very high and the tint is nearly opaque. NN/g's iOS 26 review documents text-over-text in Mail ("an illegible mess") and icons lost against photos in Maps.
 - Dashboards rarely have the rich imagery that makes glass look good. Over flat grey, glass is just a slightly transparent card with GPU cost.
 
 ## Rules (do)
-- **Tint opacity ≥ 70–85% for text-bearing glass.** NN/g's examples show 30% opacity with 25 px blur still leaves edges readable through the surface, which competes with text.
-- **Blur ≥ 16–24 px**, more over intricate content (NN/g: "more blur is generally better"). With 100 px blur, background elements merge into a smooth field.
-- **Add a 1 px hairline border** (white at ~15–25% on dark, black at ~8% on light). It defines the edge and gives the "thickness" illusion NN/g describes.
-- **Contrast is tested at the worst case:** sample the darkest and lightest content that can pass beneath. The text token must hit 4.5:1 against the tint composited over both. If it can't, raise opacity.
+- **Tint opacity ≥ 70–85% for text-bearing glass** (our threshold, not a published one). NN/g compares 90%, 60% and 30% opacity, and shows that 30% opacity with a 25 px blur still lets background edges show through the text area.
+- **Blur ≥ 16–24 px**, more over intricate content. NN/g: "More background blur is better, especially with intricate backgrounds." At 100 px blur, background elements merge into a smooth field.
+- **Add a 1 px edge** at about 10% of `--text` (dark on light, light on dark). NN/g describes a "low-opacity or gradient stroke around a component to create an illusion of thickness".
+- **Contrast is tested at the worst case:** sample the darkest and lightest content that can pass beneath. The text token must hit 4.5:1 against the tint composited over both. If it can't, raise opacity. Computed worst cases (no blur credit): at 80% light tint over black, `--text` is 10.8:1 but `--text-muted` only 3.7:1; at 75% dark tint over white, 6.7:1 and 3.4:1. Muted text on glass needs a 90% light / 85% dark tint (4.8:1 each).
 - **Respect user settings:** `prefers-reduced-transparency: reduce` (Chromium), `prefers-contrast: more`, and `forced-colors: active` all fall back to an opaque `--surface`. Apple and Microsoft give users the same switch (Reduce Transparency, Transparency effects).
-- **Prefer a dim scrim to glass for modals.** `::backdrop { background: oklch(0 0 0 / 0.4) }` with an optional light blur (4–8 px) keeps focus on the dialog without making the dialog itself translucent.
-- **Never stack glass on glass.** Two translucent layers compound unpredictably, and Apple's guidance against layering materials exists for this reason.
+- **Prefer a dim scrim to glass for modals.** `::backdrop { background: oklch(0 0 0 / 0.4) }` with an optional light blur (4–8 px) keeps focus on the dialog without making the dialog itself translucent. Apple suggests a 35% dark dimming layer behind clear glass when the content beneath is bright.
+- **Never stack glass on glass, and keep it off content.** Two translucent layers compound unpredictably. Apple: "Don't use Liquid Glass in the content layer" and "Use Liquid Glass effects sparingly."
 - **Mind performance:** `backdrop-filter` re-samples every frame while content scrolls beneath it. Limit it to 1–2 elements per view, avoid it on elements that animate size, and test scrolling a 1,000-row table on a mid-range laptop.
-- **Use system materials where they exist** (NN/g recommends Apple materials / Microsoft Acrylic over hand-rolled effects). On the web, build one `.glass` utility and use only that.
+- **Use an established material instead of inventing one.** NN/g suggests "using already established design systems" (it cites Fluent's Acrylic) to avoid the problems of building glass from scratch. On the web, build one `.glass` utility and use only that.
 
 ## Anti-patterns (don't)
 - Glass KPI cards over a gradient blob background (the 2021 Dribbble "glassmorphism dashboard"). Numbers sit on varying backgrounds, and the gradient competes with the data.
 - Low-opacity (10–30%) tint with light blur behind text.
 - Glass tooltips over line charts: series lines show through the tooltip text.
 - Translucent sidebars where the content behind them shows through, so the nav text contrast changes as the page scrolls.
-- Floating controls that cover content without a reserved area (NN/g: Safari's floating controls and status bar overlapping page content).
+- Floating controls that cover content without a reserved area (NN/g: Safari's floating controls "now compete for attention with in-page floating buttons").
 - Animating blur radius.
 
 ## Good references
-- [NN/g – Glassmorphism](https://www.nngroup.com/articles/glassmorphism/) — when it helps (depth over complex backgrounds), opacity/blur trade-offs with concrete examples (90/60/30% opacity, 25 vs 100 px blur), hairline strokes, and offering reduce-transparency.
+- [NN/g – Glassmorphism](https://www.nngroup.com/articles/glassmorphism/) — when it helps (depth over complex backgrounds), opacity/blur trade-offs with concrete examples (90/60/30% opacity, 25 vs 100 px blur), low-opacity edge strokes, and Apple's reduce-transparency setting.
 - [Microsoft Fluent – Elevation & materials](https://fluent2.microsoft.design/elevation) — Acrylic/Mica are system materials with defined use (transient surfaces), not decoration for content.
-- [Apple HIG – Materials](https://developer.apple.com/design/human-interface-guidelines/materials) — materials for the functional layer that floats above content, vibrancy for text on materials, and Reduce Transparency as a supported user setting.
+- [Apple HIG – Materials](https://developer.apple.com/design/human-interface-guidelines/materials) — Liquid Glass for the controls layer, not the content layer; a 35% dimming layer over bright content; vibrant colours for text on materials; reduce-transparency and increase-contrast settings.
 - [Atlassian – Elevation](https://atlassian.design/foundations/elevation) — overlays are opaque surfaces with paired shadows, a solid dashboard-grade alternative to glass.
 
 ## Bad references
-- [NN/g – Liquid Glass Is Cracked, and Usability Suffers in iOS 26](https://www.nngroup.com/articles/liquid-glass/) — a documented field failure: Mail's search bar overlapping previews gives "an illegible mess", Maps icons blend into photos despite blur, faint floating search bars get missed, and morphing glass controls distract. The verdict: "prioritizing spectacle over usability."
-- [Fast Company / Jakob Nielsen coverage of iOS 26](https://fastcompanyme.com/?p=41660) — notes that low-vision users who don't switch the effect off bear the cost.
+- [NN/g – Liquid Glass Is Cracked, and Usability Suffers in iOS 26](https://www.nngroup.com/articles/liquid-glass/) — a documented field failure: "Text on top of text creates an illegible mess" in Mail, Maps icons blend into photos despite blur, the pale search control "tends to fade into the background, making it easy to miss", and morphing controls distract. The verdict: "prioritizing spectacle over usability."
+- [Fast Company – "Apple's Liquid Glass: The liquid works, but the glass is broken"](https://fastcompanyme.com/?p=41660) — Mark Wilson quotes Jakob Nielsen that "low-vision users and people with various forms of slight cognitive impairments" will suffer, and notes the worst effects can be turned off in Accessibility settings.
 - Glassmorphism dashboard UI kits (Dribbble/Behance, 2021–2022) — frosted KPI cards on neon blobs. Contrast changes card to card, and charts are illegible in screenshots without the blob.
 
 ## Accessibility
@@ -53,12 +53,12 @@
 ## Tokens and values
 | Token | Value | Notes |
 |---|---|---|
-| `--glass-tint` light | `color-mix(in oklab, var(--surface) 80%, transparent)` | ≥ 70% for text |
-| `--glass-tint` dark | `color-mix(in oklab, var(--surface) 75%, transparent)` | |
+| `--glass-tint` light | `color-mix(in oklab, var(--surface) 80%, transparent)` | 90% if it carries `--text-muted` |
+| `--glass-tint` dark | `color-mix(in oklab, var(--surface) 85%, transparent)` | 75% passes for `--text` only |
 | `--glass-blur` | 20px (16–24); 40px+ over imagery | `backdrop-filter: blur()` |
 | `--glass-saturate` | 1.2–1.5 | keeps the backdrop from going muddy grey |
 | `--glass-border` | 1px, `color-mix(in oklab, var(--text) 10%, transparent)` | edge definition |
-| Scrim for modals | oklch(0 0 0 / 0.35–0.5) + 0–8px blur | preferred over glass dialogs |
+| Scrim for modals | oklch(0 0 0 / 0.35–0.5) + 0–8px blur (Apple: 35% dimming over bright content) | preferred over glass dialogs; not yet a tokens.css role |
 | Max glass elements per view | 2 | perf and hierarchy |
 | Fade duration | 150–200 ms opacity | |
 
