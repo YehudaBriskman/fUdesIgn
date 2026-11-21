@@ -11,15 +11,15 @@
 
 ## Rules (do)
 - **Three tiers, one direction of reference.** Base tokens (`--gray-0…13`, `--blue-1…12`) are referenced only by role tokens; role tokens (`--surface`, `--text`, `--border-strong`, `--danger-fg`) are referenced by components. GitHub Primer states base tokens "should never be used directly in code or design".
-- **Neutral ramp: 12–14 steps, each step with a job.** Radix Colors' 12-step scale is the clearest contract: 1–2 app and subtle backgrounds, 3–5 component background normal/hover/pressed, 6–8 borders (subtle, interactive, strong/focus), 9–10 solid fills and their hover, 11 low-contrast text, 12 high-contrast text. Vercel Geist uses the same idea in 10 steps (100–300 backgrounds, 400–600 borders, 700–800 high-contrast fills, 900–1000 text).
-- **Guarantee contrast by step distance, not by eyeballing.** Stripe's rebuilt palette guarantees that any two colours ≥ 5 levels apart pass 4.5:1 (small text) and ≥ 4 levels apart pass 3:1 (icons and large text). Radix guarantees step 11 on step 2 ≥ APCA Lc 60 and step 12 on step 2 ≥ Lc 90. Write your own equivalent rule down and test it in CI.
-- **Author ramps in OKLCH.** Keep hue and chroma roughly fixed and step L. OKLCH lightness is perceptual, so `L 0.50` blue and `L 0.50` yellow look equally light; HSL `l: 50%` does not (Stripe: in HSL "yellows appear lighter and blues darker"). Tailwind v4 moved its whole default palette to `oklch()` for this reason and for P3 gamut.
-- **Tint neutrals slightly.** Chroma 0.003–0.02 toward the brand hue (cool blue-grey for most finance/SaaS). Pure `#808080` greys read dead next to a coloured brand. Datawrapper's style-guide advice is the same for chart greys: a slight warm or cool tint, low saturation.
-- **Semantic roles, each with fg / bg-muted / bg-emphasis / border.** Primer gives every role (`accent`, `success`, `attention`, `danger`, `done`, …) a foreground, a muted background and an emphasis background, with `fgColor-onEmphasis` always paired on emphasis. Material 3 does the same with `primary / onPrimary / primaryContainer / onPrimaryContainer`.
-- **Always pair "on-" colours.** Every background role has a declared foreground role. Material's own example of a bad button is `tertiaryContainer` background with `primaryContainer` text: two legal tokens, illegal pairing.
-- **Keep the brand hue out of the chrome.** Linear's 2024 redesign limited how much of the accent hue feeds into surface calculations "for a more neutral, timeless look". Brand colour = primary action, focus ring, selected state, logo. Not panel backgrounds.
-- **Generate from few inputs.** Linear reduced each theme from 98 hand-set variables to 3 inputs (base colour, accent colour, contrast). A contrast input of 30 → 100 yields a high-contrast theme for free. Aim for a generator, not a spreadsheet.
-- **Keep sRGB-safe defaults.** Provide an in-gamut sRGB value and put wider P3 chroma in `@media (color-gamut: p3)` (Evil Martians). Browsers clip out-of-gamut OKLCH, which can shift hue.
+- **Neutral ramp: 12–14 steps, each step with a job.** Radix Colors' 12-step scale is the clearest contract: 1–2 app and subtle backgrounds, 3–5 UI element background normal/hover/active, 6 subtle borders, 7 element borders and focus rings, 8 hovered borders, 9–10 solid fills and their hover, 11 low-contrast text, 12 high-contrast text. Vercel Geist uses the same idea in 10 steps (100–300 default/hover/active background, 400–600 default/hover/active border, 700–800 high-contrast background and its hover, 900 secondary text, 1000 primary text).
+- **Guarantee contrast by step distance, not by eyeballing.** Stripe: "Any two colors are guaranteed to have sufficient contrast for small text if they are at least five levels apart", and four levels apart for icons and large text (4.5:1 and 3:1). Radix guarantees step 11 on step 2 ≥ APCA Lc 60 and step 12 on step 2 ≥ Lc 90. Write your own equivalent rule down and test it in CI.
+- **Author ramps in OKLCH.** Keep hue and chroma roughly fixed and step L. OKLCH lightness is perceptual, so `L 0.50` blue and `L 0.50` yellow look about equally light; HSL `l: 50%` does not (Stripe: in HSL "the blues appear especially dark and the yellows and greens appear especially light"). Tailwind v4 "upgraded the entire default color palette from `rgb` to `oklch`", mainly to use the wider P3 gamut.
+- **Tint neutrals slightly.** Chroma 0.003–0.02 toward the brand hue (cool blue-grey for most finance/SaaS). Pure `#808080` greys read dead next to a coloured brand. Datawrapper gives the same advice for chart greys: mix in a little yellow/orange/red or blue, but "Make sure your grays don't come with too much saturation."
+- **Semantic roles, each with fg / bg (muted) / emphasis / border.** Primer gives every role (`accent`, `success`, `attention`, `danger`, `done`, …) a foreground, a muted and an emphasis background and border, with emphasis backgrounds "always paired with `fgColor-onEmphasis`". tokens.css ships the fg and muted bg (`--danger-fg`, `--danger-bg`). Material 3 does the same with `primary / onPrimary / primaryContainer / onPrimaryContainer`.
+- **Always pair "on-" colours.** Every background role has a declared foreground role. Material's own example of a poor-contrast button is a `tertiaryContainer` background with `primaryContainer` text (Compose Material 3 docs): two legal tokens, illegal pairing.
+- **Keep the brand hue out of the chrome.** Linear's 2024 redesign limited how much accent blue fed into its colour calculations for "a more neutral and timeless appearance". Brand colour = primary action, focus ring, selected state, logo. Not panel backgrounds.
+- **Generate from few inputs.** Linear replaced "98 specific variables for each theme" with 3 inputs (base colour, accent colour, contrast), generated in LCH. Its article shows contrast 30 next to contrast 100, so a high-contrast theme comes from one input. Aim for a generator, not a spreadsheet.
+- **Keep sRGB-safe defaults.** Provide an in-gamut sRGB value and put wider P3 chroma in `@media (color-gamut: p3)` (Evil Martians). Evil Martians: "Chrome and Safari use the fast, but inaccurate, clipping method", which can shift hue. All role values in tokens.css are in sRGB gamut.
 
 ## Anti-patterns (don't)
 - Components referencing `--blue-600` or `#2563eb` directly. Dark mode then needs per-component overrides.
@@ -38,13 +38,13 @@
 - [Tailwind CSS v4](https://tailwindcss.com/blog/tailwindcss-v4) — full default palette in OKLCH, opacity via `color-mix(in oklab, …)`.
 
 ## Bad references
-- [Stripe's previous palette, as described by Stripe](https://stripe.com/blog/accessible-color-systems) — almost no default text colours passed 4.5:1; darkening each to pass made hues "dark and muddy". The cause was a palette hand-picked in a non-perceptual space.
-- [Evil Martians – OKLCH in CSS](https://evilmartians.com/chronicles/oklch-in-css-why-quit-rgb-hsl) — documents the HSL failure: "+10% lightness" produces different perceived jumps for blue and purple, and LCH drifts blue toward purple as chroma changes.
-- Typical admin templates with `--primary`, `--secondary`, `--success`, `--info`, `--light`, `--dark` (Bootstrap 4-style) — `light` and `dark` are appearance names, and there is no foreground pairing, so `text-warning` on white fails contrast (yellow ~1.6:1).
+- [Stripe's previous palette, as described by Stripe](https://stripe.com/blog/accessible-color-systems) — none of the default small-text colours except black passed; darkening them to pass made them "dark and muddy and it's difficult to tell the hues apart". The cause was a palette hand-picked in a non-perceptual space.
+- [Evil Martians – OKLCH in CSS](https://evilmartians.com/chronicles/oklch-in-css-why-quit-rgb-hsl) — documents the HSL failure ("Adding 10% lightness will have different results for blue and purple colors") and LCH's "unexpected hue shift on chroma and lightness changes in blue colors".
+- Typical admin templates with `--primary`, `--secondary`, `--success`, `--info`, `--light`, `--dark` (Bootstrap 4-style) — `light` and `dark` are appearance names, and there is no foreground pairing, so `text-warning` on white fails contrast (Bootstrap 4 `#ffc107` is 1.6:1, computed).
 
 ## Accessibility
 - Encode contrast guarantees in the system (see Rules) and test every role pair in both themes: text on each surface level, `-fg` on `-bg-muted`, `on-emphasis` on `-bg-emphasis`.
-- Provide a `prefers-contrast: more` variant by shifting role mappings along the ramp (Primer's high-contrast theme uses steps 10 for borders and 11–13 for text, targeting 7:1).
+- Provide a `prefers-contrast: more` variant by shifting role mappings along the ramp (Primer's light high-contrast theme uses step 10 for borders and 11–13 for text, targeting "a minimum of 7:1 for most text and interactive elements").
 - Map roles to system colours under `@media (forced-colors: active)` (`Canvas`, `CanvasText`, `GrayText`, `Highlight`, `LinkText`).
 
 ## Motion / interaction (if relevant)
@@ -54,16 +54,17 @@
 ## Tokens and values
 | Role | Light (OKLCH → hex) | Dark (OKLCH → hex) | Notes |
 |---|---|---|---|
-| `--canvas` | 0.985 0.003 250 → #f9fafc | 0.18 0.006 250 → #101214 | page behind cards |
+| `--canvas` | 0.985 0.003 250 → #f9fafc | 0.18 0.006 250 → #101214 | page behind cards (1.04:1 / 1.07:1 vs surface) |
 | `--surface` | 1 0 0 → #ffffff | 0.215 0.008 250 → #171a1d | cards, panels |
 | `--surface-2` | 0.97 0.004 250 → #f3f5f8 | 0.25 0.009 250 → #1e2226 | raised / hover row |
-| `--surface-3` | 0.93 0.006 250 → #e5e8ec | 0.29 0.010 250 → #282c30 | popovers, menus (dark) |
-| `--border` (decorative) | 0.88 0.008 250 → #d4d8dd | 0.35 0.012 250 → #363b41 | ~1.5:1, separators only |
-| `--border-strong` (controls) | 0.62 0.012 250 → #81878d (3.6:1) | 0.56 0.014 250 → #6e757d (3.8:1) | inputs, chart axes |
+| `--surface-3` | 0.93 0.006 250 → #e5e8ec | 0.29 0.010 250 → #282c30 | popovers, menus (dark), pressed |
+| `--border` (decorative) | 0.88 0.008 250 → #d4d8dd (1.43:1) | 0.35 0.012 250 → #363b41 (1.55:1) | separators only |
+| `--border-strong` (controls) | 0.62 0.012 250 → #81878d (3.6:1; **2.95:1 on surface-3**) | 0.56 0.014 250 → #6e757d (3.75:1; 3.02:1 on surface-3) | inputs, chart axes |
 | `--text-muted` | 0.50 0.016 250 → #5d646c (6.0:1) | 0.74 0.014 250 → #a4acb4 (7.6:1) | labels, captions |
-| `--text` | 0.22 0.02 250 → #141b24 (17.3:1) | 0.95 0.006 250 → #ebeff2 (16.3:1) | body, numbers |
-| `--accent` (brand) | 0.50 0.17 265 → #325ac2 (6.2:1) | 0.72 0.13 265 → #7ca2f6 (7.4:1) | primary action, focus |
-Contrast figures are WCAG 2 ratios against `--surface`, computed for this file.
+| `--text` | 0.22 0.02 250 → #141b24 (17.3:1) | 0.95 0.006 250 → #ebeff2 (15.1:1) | body, numbers |
+| `--accent` (brand) | 0.50 0.17 265 → #325ac2 (6.2:1) | 0.72 0.13 265 → #7ca2f6 (7.0:1) | primary action, focus |
+| `--on-accent` (not in tokens.css) | white (6.2:1 on accent) | 0.18 0.006 250 → #101214 (7.5:1 on accent) | text on filled accent |
+Contrast figures are WCAG 2 ratios against `--surface` unless noted, computed for this file. tokens.css is canonical. Light `--border-strong` needs about oklch(0.60 0.012 250) #7b8187 to reach 3:1 on `--surface-3` (3.2:1; 3.9:1 on surface).
 
 ## Implementation sketch
 ```css

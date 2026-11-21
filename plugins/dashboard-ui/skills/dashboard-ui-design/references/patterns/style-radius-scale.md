@@ -10,15 +10,15 @@
 - Full pill radius (`9999px`) only for chips, tags, toggles and avatars, never for cards or inputs taller than ~40 px.
 
 ## Rules (do)
-- **5–7 named steps, not ad-hoc values.** Material 3 shape scale: none 0, extra-small 4 dp, small 8, medium 12, large 16, extra-large 28, full. Compose examples customise to 4/8/12/16/24. Pick one scale and map components to it.
-- **Radius scales with component size.** About 25–35% of the height for controls (32 px button → 8 px), and 12–16 px for cards ≥ 200 px tall. Bigger surfaces get bigger radii, small elements get small radii.
-- **Concentric nesting:** `inner = outer − gap`, where gap = padding + border width (Cloud Four, CSS-Tricks). A 16 px card with 12 px padding gives an inner chart/image corner of 4 px, not 16.
-- **Or derive outward:** Piccalilli's form is `outer = inner + padding`. Use it when the inner component's radius is the fixed design token, e.g. a 12 px button inside an 8 px-padded toolbar → 20 px toolbar.
-- **Clamp the result.** If padding ≥ outer radius, the formula goes to ≤ 0. Use `max(2px, …)` (Frontend Masters notes a zero inner radius inside a rounded parent often looks wrong).
+- **5–7 named steps, not ad-hoc values.** Material 3's baseline shape scale: none 0, extra-small 4 dp, small 8, medium 12, large 16, extra-large 28, full. The Compose docs' Reply sample customises it to 4/8/12/16/24 and maps Card to medium, FAB to large. The canonical scale here is tokens.css: xs 4, sm 6, md 8, lg 12, xl 16, full.
+- **Radius scales with component size.** About 20% of the height for controls (`--radius-sm` 6 px up to 32 px tall, `--radius-md` 8 px at 36–40 px), `--radius-lg` 12 px for cards and panels, `--radius-xl` 16 px for dialogs. Bigger surfaces get bigger radii.
+- **Concentric nesting:** `inner = outer − gap` (Cloud Four: "outerRadius - gap = innerRadius"), where gap = padding + border width (the DEV article: "`border-width + padding`"). A 16 px dialog with 12 px padding and a 1 px border gives an inner corner of 3 px, not 16.
+- **Or derive outward:** Piccalilli's form is `outer = inner + padding`. Use it when the inner component's radius is the fixed design token, e.g. an 8 px (`--radius-md`) button in a toolbar with 4 px padding → 12 px (`--radius-lg`) toolbar.
+- **Clamp the result.** If padding ≥ outer radius, the formula goes to ≤ 0. Use `max(2px, …)`. Chris Coyier calls the plain formula "a little too simplistic in practice" because a zero inner radius "just doesn't feel right either". With `--radius-lg` 12 px and 16 px card padding, the clamp gives 2 px.
 - **Same radius on siblings at the same level.** All cards in a grid share one radius, and all inputs in a form share one.
 - **Clip children, not content.** Use `overflow: clip` on cards with edge-to-edge media/tables so the child's square corners don't poke out. Prefer `clip` over `hidden` so it doesn't create a scroll container (modern-web-guidance `overflow-clipping-control.md`).
 - **Focus rings follow the radius.** `outline` follows `border-radius` in all evergreen browsers. With `outline-offset: 2px`, the visual ring radius is radius + 2 px, which is automatically concentric.
-- **Progressive enhancement:** `corner-shape: squircle` (Chromium, 2025+) gives continuous "Apple-style" corners. Guard it with `@supports` and keep `border-radius` as the base.
+- **Progressive enhancement:** `corner-shape: squircle` (Chromium only so far) gives continuous "Apple-style" corners. Guard it with `@supports` and keep `border-radius` as the base.
 
 ## Anti-patterns (don't)
 - Same radius inside and outside (16 px image inside a 16 px card with 12 px padding). The inner corner looks bloated and the gap looks uneven at the corners (Cloud Four illustrates this).
@@ -32,11 +32,12 @@
 - [Material 3 shape scale (Compose)](https://developer.android.com/develop/ui/compose/designsystems/material3) — named steps (extraSmall → extraLarge) mapped per component, such as Card = medium, FAB = large.
 - [Cloud Four – The math behind nesting rounded corners](https://cloudfour.com/thinks/the-math-behind-nesting-rounded-corners/) — derivation (each corner is a circle, so the radii differ by the gap) and `calc()` tokens.
 - [Piccalilli – Relative rounded corners](https://piccalil.li/blog/relative-rounded-corners) — `outer = inner + padding` with two custom properties.
-- [Frontend Masters – classic border-radius advice](https://frontendmasters.com/blog/the-classic-border-radius-advice-plus-an-unusual-trick/) — points out that the formula is "a little too simplistic" when it reaches zero, and suggests clamping.
-- [CSSWG issue #7707](https://github.com/w3c/csswg-drafts/issues/7707) — proposal for a native keyword that computes parent radius − parent padding. Shows the problem is common enough to standardise.
+- [Chris Coyier – classic border-radius advice](https://blog.master.dev/the-classic-border-radius-advice-plus-an-unusual-trick/) — says the formula is "a little too simplistic" once it reaches zero and suggests tweaking the inner value by eye.
+- [CSSWG issue #7707](https://github.com/w3c/csswg-drafts/issues/7707) — still-open proposal for a `border-radius` keyword that computes "`parent-radius - parent-padding`". Shows the problem is common enough to standardise.
+- [DEV – The concentric border-radius rule](https://dev.to/sgbp/the-concentric-border-radius-rule-why-nested-rounded-corners-look-slightly-wrong-3hog) — counts the border in the gap and lists pitfalls: negative radii, unitless zero in `max()`, forgetting the border.
 
 ## Bad references
-- [DEV – The concentric border-radius rule](https://dev.to/sgbp/the-concentric-border-radius-rule-why-nested-rounded-corners-look-slightly-wrong-3hog) — catalogues the "slightly wrong" look of matching radii in nested cards and forgets-the-border cases (gap must include border width).
+- [Cloud Four's mismatched example](https://cloudfour.com/thinks/the-math-behind-nesting-rounded-corners/) — "When you use the same radius for both elements, the space between elements increase awkwardly in the corners."
 - Generic admin templates that put `border-radius: 0.5rem` on everything — chart canvases, tables, cards and buttons — so nesting breaks everywhere and the grid loses crispness.
 
 ## Accessibility
@@ -100,7 +101,7 @@
 - https://developer.android.com/develop/ui/compose/designsystems/material3
 - https://cloudfour.com/thinks/the-math-behind-nesting-rounded-corners/
 - https://piccalil.li/blog/relative-rounded-corners
-- https://frontendmasters.com/blog/the-classic-border-radius-advice-plus-an-unusual-trick/
+- https://blog.master.dev/the-classic-border-radius-advice-plus-an-unusual-trick/
 - https://dev.to/sgbp/the-concentric-border-radius-rule-why-nested-rounded-corners-look-slightly-wrong-3hog
 - https://css-tricks.com/?p=19719
 - https://github.com/w3c/csswg-drafts/issues/7707
