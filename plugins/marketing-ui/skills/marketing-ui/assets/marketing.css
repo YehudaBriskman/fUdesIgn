@@ -1,0 +1,176 @@
+/*
+ * Marketing page layer: fluid type, section rhythm, containers, CTAs, inverse bands and reveal motion.
+ * It is built on the dashboard-ui ROLE tokens (--canvas, --surface, --text, --text-muted, --accent,
+ * --on-accent, --border, --border-strong, --focus-ring, --radius-*, --space-*, --motion-*).
+ *   - Best: load plugins/dashboard-ui/skills/dashboard-ui-design/assets/tokens.css first, then this file.
+ *     You get light and dark themes, status colours and elevation for free.
+ *   - Standalone: every role read below has a fallback equal to the dashboard-ui light value, so a
+ *     light page renders correctly without tokens.css (no OS dark theme in that case).
+ * Components use the --mk-* tokens and the roles, never raw values. Brand work changes the
+ * three --brand-* inputs and the type families; everything else derives from them.
+ * Every value traces to a pattern in ../references/patterns (named beside each group).
+ */
+
+:root {
+  /* ── Brand inputs (mkstyle-colour-art-direction.md) ─────────────────────────
+     Pick these from the brief, not from a default. One accent, used sparingly. */
+  --brand-accent: var(--accent, oklch(0.50 0.17 265));
+  --brand-on-accent: var(--on-accent, oklch(1 0 0));
+  --brand-ink: var(--text, oklch(0.22 0.02 250));
+
+  /* ── Type families (mkstyle-display-type-pairing.md) ───────────────────────
+     System stacks so a page renders with zero font requests. Replace --mk-font-display with the
+     brief's display face (self-hosted WOFF2, see mkperf-web-fonts.md). Inter, Roboto, Arial and
+     Space Grotesk as the display face are generated-default tells (mkstyle-generated-default-tells.md). */
+  --mk-font-display: ui-sans-serif, system-ui, sans-serif;
+  --mk-font-body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mk-font-serif: Charter, "Bitstream Charter", "Sitka Text", Cambria, serif;
+  --mk-font-mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, monospace; /* code only */
+
+  /* ── Fluid type scale: 360px → 1280px viewport (mkstyle-display-type-pairing.md)
+     Ratio 1.2 on small screens, 1.25 on large. rem + vw keeps text zoomable (WCAG 1.4.4):
+     every max/min ratio is ≤ 2.5. */
+  --mk-step--1: clamp(0.833rem, 0.807rem + 0.116vw, 0.9rem);    /* fine print, captions */
+  --mk-step-0: clamp(1rem, 0.951rem + 0.217vw, 1.125rem);       /* body */
+  --mk-step-1: clamp(1.2rem, 1.119rem + 0.359vw, 1.406rem);     /* hero subhead, lead */
+  --mk-step-2: clamp(1.44rem, 1.316rem + 0.553vw, 1.758rem);    /* card titles */
+  --mk-step-3: clamp(1.728rem, 1.544rem + 0.816vw, 2.197rem);   /* h3, price */
+  --mk-step-4: clamp(2.074rem, 1.81rem + 1.17vw, 2.747rem);     /* section h2 */
+  --mk-step-display: clamp(2.5rem, 1.717rem + 3.478vw, 4.5rem); /* the one hero h1 */
+  --mk-leading-display: 1.05;
+  --mk-leading-heading: 1.15;
+  --mk-leading-body: 1.6;
+  --mk-track-display: -0.025em;  /* large display type tightens */
+  --mk-track-body: 0;
+  --mk-track-caps: 0.06em;       /* only if all-caps is earned; see the tells file */
+  --mk-measure: 65ch;            /* body copy */
+  --mk-measure-lead: 52ch;       /* hero subhead */
+  --mk-measure-headline: 18ch;   /* hero h1 wraps into 2–3 lines */
+
+  /* ── Layout (mkfound-page-narrative.md) ─────────────────────────────────── */
+  --mk-container: 72rem;          /* 1152px content width */
+  --mk-container-wide: 84rem;     /* full-bleed media, bento grids */
+  --mk-container-prose: 42rem;    /* FAQ, legal, long copy */
+  --mk-gutter: clamp(16px, 4vw, 40px);
+  --mk-section-space: clamp(64px, 3.5rem + 6vw, 144px);  /* between sections */
+  --mk-block-space: clamp(24px, 1rem + 2vw, 48px);       /* heading → content inside a section */
+  --mk-grid-gap: clamp(12px, 0.5rem + 1vw, 24px);        /* bento and card gaps */
+  --mk-sticky-offset: 64px;       /* sticky header height: scroll-padding, sticky table heads */
+
+  /* ── Proof (mksect-social-proof.md) ──────────────────────────────────────── */
+  --mk-logo-h: 24px;              /* wordmarks; square marks use 32px */
+  --mk-logo-max-w: 120px;
+
+  /* ── CTA (mkfound-cta-and-conversion.md, mksect-hero.md) ────────────────── */
+  --mk-cta-height: 48px;          /* ≥ 44px touch target; 24px is the WCAG 2.5.8 floor */
+  --mk-cta-pad-inline: 24px;
+  --mk-cta-radius: var(--radius-md, 8px);
+  --mk-cta-font: 600 var(--mk-step-0) / 1 var(--mk-font-body);
+
+  /* ── Media (mksect-hero.md, mksect-features-and-bento.md) ───────────────── */
+  --mk-media-radius: var(--radius-xl, 16px);
+  --mk-media-border: 1px solid var(--border, oklch(0.88 0.008 250));
+  --mk-card-radius: var(--radius-lg, 12px);
+  --mk-card-pad: clamp(20px, 1rem + 1.5vw, 32px);
+
+  /* ── Motion (mkstyle-scroll-motion.md) ────────────────────────────────────
+     One orchestrated hero moment, then quiet. Reveals move little and finish fast. */
+  --mk-reveal-distance: 16px;
+  --mk-reveal-duration: var(--motion-dur-long, 400ms);
+  --mk-reveal-ease: var(--motion-ease-enter, cubic-bezier(0, 0, 0.38, 0.9));
+  --mk-hover-duration: var(--motion-dur-short, 150ms);
+}
+
+/* ── Inverse band (mkstyle-dark-sections.md) ──────────────────────────────────
+   One dark band on a light page (or the reverse) re-declares the roles locally, so every
+   component inside keeps working and contrast stays verified. Values = dashboard-ui dark theme. */
+[data-tone="inverse"] {
+  color-scheme: dark;
+  --canvas: oklch(0.18 0.006 250);
+  --surface: oklch(0.215 0.008 250);
+  --surface-2: oklch(0.25 0.009 250);
+  --border: oklch(0.35 0.012 250);
+  --border-strong: oklch(0.56 0.014 250);
+  --text: oklch(0.95 0.006 250);
+  --text-muted: oklch(0.77 0.014 250);
+  --accent: oklch(0.72 0.13 265);
+  --on-accent: oklch(0.18 0.006 250);
+  --brand-accent: var(--accent);
+  --brand-on-accent: var(--on-accent);
+  --brand-ink: var(--text);
+  background: var(--canvas);
+  color: var(--text);
+}
+
+/* ── Base marketing primitives ─────────────────────────────────────────────── */
+.mk-container {
+  inline-size: min(100% - 2 * var(--mk-gutter), var(--mk-container));
+  margin-inline: auto;
+}
+.mk-section { padding-block: var(--mk-section-space); }
+.mk-section > * + * { margin-block-start: var(--mk-block-space); }
+
+.mk-display {
+  font: 700 var(--mk-step-display) / var(--mk-leading-display) var(--mk-font-display);
+  letter-spacing: var(--mk-track-display);
+  max-inline-size: var(--mk-measure-headline);
+  text-wrap: balance;
+}
+.mk-h2 {
+  font: 650 var(--mk-step-4) / var(--mk-leading-heading) var(--mk-font-display);
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+.mk-lead {
+  font: 400 var(--mk-step-1) / 1.45 var(--mk-font-body);
+  color: var(--text-muted, oklch(0.50 0.016 250));
+  max-inline-size: var(--mk-measure-lead);
+  text-wrap: pretty;
+}
+.mk-prose {
+  font: 400 var(--mk-step-0) / var(--mk-leading-body) var(--mk-font-body);
+  max-inline-size: var(--mk-measure);
+  text-wrap: pretty;
+}
+
+.mk-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-block-size: var(--mk-cta-height);
+  padding-inline: var(--mk-cta-pad-inline);
+  border-radius: var(--mk-cta-radius);
+  font: var(--mk-cta-font);
+  text-decoration: none;
+  background: var(--brand-accent);
+  color: var(--brand-on-accent);
+  transition: background-color var(--mk-hover-duration) ease-out;
+}
+@media (hover: hover) and (pointer: fine) {
+  .mk-cta:hover { background: color-mix(in oklab, var(--brand-accent) 88%, var(--brand-ink)); }
+}
+.mk-cta:focus-visible {
+  outline: 2px solid var(--focus-ring, var(--brand-accent));
+  outline-offset: 3px;
+}
+.mk-cta[data-variant="secondary"] {
+  background: transparent;
+  color: var(--text, oklch(0.22 0.02 250));
+  box-shadow: inset 0 0 0 1px var(--border-strong, oklch(0.60 0.012 250));
+}
+
+/* Reveal: progressive enhancement, never hides content when unsupported or reduced. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .mk-reveal {
+      animation: mk-reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 40%;
+    }
+  }
+}
+@keyframes mk-reveal {
+  from { opacity: 0; translate: 0 var(--mk-reveal-distance); }
+  to { opacity: 1; translate: 0 0; }
+}
