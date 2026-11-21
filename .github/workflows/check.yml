@@ -1,0 +1,31 @@
+name: check
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  patterns:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: tools
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: tools/package-lock.json
+      - run: npm ci
+      - name: Structure, links and the any-type ban
+        run: npm run check
+      - name: Code sketches compile (CSS via lightningcss, TS/TSX strict)
+        run: npm run check:sketches
+      - name: Plugin manifests are valid JSON
+        working-directory: .
+        run: node -e "for (const f of ['.claude-plugin/marketplace.json','plugins/dashboard-ui/.claude-plugin/plugin.json']) JSON.parse(require('fs').readFileSync(f,'utf8'))"

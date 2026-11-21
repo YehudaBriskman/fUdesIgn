@@ -90,11 +90,16 @@ Avoid:
 ```
 ```ts
 type Direction = 'tab-left' | 'tab-right';
+// Element-scoped View Transitions are newer than the DOM lib types: declare the shape we use.
+type ScopedVT = HTMLElement & {
+  startViewTransition(opts: { update: () => void; types: string[] }): ViewTransition;
+};
+const canScope = (el: HTMLElement): el is ScopedVT => 'startViewTransition' in el;
 
 export async function switchTab(panel: HTMLElement, load: () => Promise<DocumentFragment>, dir: Direction): Promise<void> {
   const content = await load();                         // 1. fetch OUTSIDE the transition
   const apply = (): void => { panel.replaceChildren(content); };
-  if (!('startViewTransition' in panel)) { apply(); return; }
+  if (!canScope(panel)) { apply(); return; }
   const vt = panel.startViewTransition({ update: apply, types: [dir] }); // 2. scoped
   vt.ready.catch(() => {});                             // a rapid re-click skips this one
   await vt.updateCallbackDone;

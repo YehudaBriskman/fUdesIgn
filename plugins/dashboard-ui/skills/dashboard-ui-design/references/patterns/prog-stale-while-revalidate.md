@@ -70,6 +70,13 @@ Exceptions:
 ```tsx
 import { useQuery, keepPreviousData } from '@tanstack/react-query';
 import { z } from 'zod';
+import type { ReactNode } from 'react';
+
+// App components assumed by this sketch (skeleton, delayed indicator, freshness stamp, chart)
+declare function PanelSkeleton(): ReactNode;
+declare function DelayedIndicator(p: { delayMs: number; label: string }): ReactNode;
+declare function Freshness(p: { at: number; error: boolean; onRetry: () => void }): ReactNode;
+declare function RevenueChart(p: { data: { t: string; v: number }[] }): ReactNode;
 
 const Series = z.array(z.object({ t: z.string(), v: z.number() }));
 type Series = z.infer<typeof Series>;
