@@ -27,6 +27,8 @@ jobs:
         run: for d in ../plugins/*/skills/*/; do node check.mjs --dir "${d#../}" || exit 1; done
       - name: Code sketches compile (CSS via lightningcss, TS/TSX strict)
         run: for d in ../plugins/*/skills/*/; do NODE_PATH=./node_modules node check.mjs --sketches --dir "${d#../}" || exit 1; done
+      - name: Token stylesheets parse (lightningcss)
+        run: for f in ../plugins/*/skills/*/assets/*.css; do node -e "require('lightningcss').transform({filename:'$f',code:require('fs').readFileSync('$f'),errorRecovery:false})" || { echo "invalid CSS: $f"; exit 1; }; done
       - name: Plugin manifests are valid JSON
         working-directory: .
         run: for f in .claude-plugin/marketplace.json plugins/*/.claude-plugin/plugin.json; do node -e "JSON.parse(require('fs').readFileSync('$f','utf8'))" || exit 1; done
