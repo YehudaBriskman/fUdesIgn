@@ -72,7 +72,7 @@
 - Put a skip link first. Its target is `<main>` or the H1, with `tabindex="-1"` if not focusable.
 - `aria-current="page"` on the active sidebar item and the last breadcrumb.
 - The collapse toggle is a `<button aria-expanded aria-controls>` with the name "Collapse sidebar".
-- Rail tooltips use `interestfor` hints, open on focus and are positioned `inline-end`.
+- Rail tooltips use `interestfor` hints, open on focus and are positioned `inline-end`. `interestfor` is Chromium-only (Chrome/Edge 142+), so script the same hover and focus behaviour elsewhere (see `comp-overlay-choice.md`).
 - The tab order follows the visual order: skip link → top bar → sidebar → main. Never use positive `tabindex`.
 - At 400% zoom (320px wide), the shell reflows to the drawer pattern with no horizontal scroll (WCAG 1.4.10).
 

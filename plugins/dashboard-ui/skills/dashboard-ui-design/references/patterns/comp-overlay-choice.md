@@ -15,7 +15,7 @@ Decision table, first match wins:
 | Mobile primary navigation | **Navigation drawer** (modal) | `<dialog>` + `showModal()`; optional scroll-snap swipe to close |
 | A list of commands or choices anchored to a trigger | **Menu / listbox popover** | `<div popover>` + anchor positioning |
 | Rich non-blocking content anchored to a control (date picker, column chooser, "how is this metric computed") | **Popover** with a close button | `popover="auto"` (light-dismiss) |
-| A 1-line label for an icon or a term, on hover/focus | **Tooltip** | `popover="hint"` + `interestfor` |
+| A 1-line label for an icon or a term, on hover/focus | **Tooltip** | `popover="hint"` + `interestfor`, with a script fallback (see Platform support) |
 | Explanation the user may want deliberately (an "i" next to a KPI) | **Toggletip** (opens on click or tap) | `popover` (auto) + `popovertarget` or `commandfor`/`command="toggle-popover"`; MDN's interest-invoker example pairs it with a separate `hint` tooltip |
 | Background result of an action that's already visible elsewhere | **Toast**, sparingly, persistent by default | `popover="manual"` in one region. See `comp-notifications-alerts.md` |
 | Error, warning or anything the user must act on | **Inline alert / banner**, never a toast | in-flow element |
@@ -49,6 +49,19 @@ NN/g's limits for modals: use them for critical warnings, missing critical info,
   - Must be hoverable, dismissible with Esc and persistent while hovered (WCAG 1.4.13).
   - In a horizontal toolbar, position them on the axis the toolbar doesn't stack along (`block-end`). Otherwise the hint covers the next button and swallows its click.
 - **Nesting:** never put a modal on a modal. A popover inside a dialog is fine because it's in the top layer.
+- **Platform support** (MDN browser-compat-data 8.1.10 and web-features 3.47, checked November 2026). Feature-detect each one and ship the fallback:
+
+  | Feature | Status | Fallback |
+  |---|---|---|
+  | `<dialog>` + `showModal()` | Baseline widely available | none needed |
+  | `popover` (`auto`, `manual`) | Baseline; core API widely available since October 2026 (Chrome 114, Firefox 125, Safari 17) | none needed |
+  | `command` / `commandfor` | Baseline newly available since December 2025 (Chrome 135, Firefox 144, Safari 26.2) | a click handler that calls `showModal()` / `togglePopover()`, or `popovertarget` for popovers |
+  | `closedby` | Not Baseline: Chrome/Edge 134, Firefox 141, Safari 27.3 | without it a modal behaves as `closerequest`. For `any`, close on a click whose target is the `<dialog>` itself (the backdrop). For `none`, cancel the `cancel` event |
+  | `popover="hint"` | Not Baseline: Chrome/Edge 151, Firefox 153, Safari 27.3 | an unknown `popover` value falls back to `manual` (HTML spec), so the hint still shows but you must hide it yourself on `pointerleave`, `focusout` and Esc |
+  | `interestfor` | Chromium only (Chrome/Edge 142), experimental | open on `pointerenter`/`focusin` after the delay, close on `pointerleave`/`focusout`/Esc |
+  | Anchor positioning (`anchor-name`, `position-area`, `position-try-fallbacks`) | Baseline newly available since January 2026 (Chrome 125–129, Firefox 147, Safari 26); `position-anchor` only since September 2026 (Safari 27) | gate it in `@supports`; otherwise keep the UA-centred popover or load `@oddbird/css-anchor-positioning` |
+  | `@starting-style`, `transition-behavior: allow-discrete` | Baseline newly available since August 2024 | the overlay appears without animation |
+  | `overlay` in a transition list | Chromium only | ignored elsewhere; the exit animation may be cut short, which is harmless |
 
 ## Anti-patterns (don't)
 - `<div class="modal">` with a hand-rolled focus trap, `role="dialog"`, `aria-modal` and `z-index: 9999`. The native element already provides these, and the manual versions drift.
@@ -138,14 +151,14 @@ dlg?.addEventListener('close', () => {
 });
 declare function deleteScenario(): Promise<void>;
 ```
-Feature-detect polyfills, and load them only when missing: `'commandForElement' in HTMLButtonElement.prototype` (invokers), `Object.hasOwn(HTMLElement.prototype, 'popover')`, `CSS.supports('anchor-name: --a')`, and `'interestForElement' in HTMLButtonElement.prototype`.
+Feature-detect polyfills, and load them only when missing: `'commandForElement' in HTMLButtonElement.prototype` (invokers), `Object.hasOwn(HTMLElement.prototype, 'popover')`, `CSS.supports('anchor-name: --a')`, `'interestForElement' in HTMLButtonElement.prototype` and `'closedBy' in HTMLDialogElement.prototype`. See the Platform support table under Rules for each fallback.
 
 ## Checklist
 - [ ] Each overlay matches the decision table. A modal is used only for blocking decisions or required input.
 - [ ] Modals use native `<dialog>` + `showModal()`, have no manual focus trap or `aria-modal`, and are named via `aria-labelledby`.
 - [ ] Destructive confirmations autofocus the safe action and name the action in the confirm button.
 - [ ] Background scroll is contained by `overscroll-behavior`, not by `body { overflow: hidden }`.
-- [ ] Anchored popovers fall back gracefully where anchor positioning or `position-area` is unsupported.
+- [ ] Anchored popovers fall back gracefully where anchor positioning or `position-area` is unsupported, and every non-Baseline feature in use (`closedby`, `popover="hint"`, `interestfor`) has a scripted fallback.
 - [ ] Tooltips hold no task-critical content, open on focus as well as hover, and can be hovered and dismissed with Esc.
 - [ ] No toast carries an error or the only route to an action.
 - [ ] Animations use `allow-discrete` as a separate declaration and are disabled under reduced motion.

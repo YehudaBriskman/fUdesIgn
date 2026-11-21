@@ -11,7 +11,7 @@
 | A grid of numeric inputs users tweak repeatedly (a model's assumptions table) | **Always-editable inputs** styled as quiet cells, with *batch* save ("3 unsaved changes · Save / Discard") or autosave with versioning |
 | 2–8 related fields that must be valid together (a new alert rule) | **Side panel form** (non-modal) or a small modal for ≤6 fields |
 | Long, multi-section configuration | **Full page form** with sections. Not a modal |
-| Toggling a boolean that takes effect immediately | **Switch** (`<input type="checkbox" switch>`), no save button |
+| Toggling a boolean that takes effect immediately | **Switch** (`<input type="checkbox" role="switch">`), no save button. The native `switch` attribute renders a switch only in Safari 17.4+; other browsers show a plain checkbox, which still works |
 
 - Atlassian: inline edit is for *existing* information on screens updated often ("Use a form instead when the information doesn't already exist"), and "Don't use inline edit inside of a form."
 - Don't use inline edit for fields whose change has big consequences (currency, fiscal year start). Route those through a confirm dialog.
@@ -34,7 +34,7 @@
   - A sticky footer bar reads "N unsaved changes · Discard · Save".
   - Warn on navigation away (`beforeunload` + in-app route guard).
 - **Validation.**
-  - Use native constraints (`required`, `min`, `max`, `step`, `pattern`) and style errors with `:user-invalid`, so errors appear only after interaction, not while the user is still typing "1." of "1.5".
+  - Use native constraints (`required`, `min`, `max`, `step`, `pattern`) and style errors with `:user-invalid` (Baseline widely available: Chrome 119, Firefox 88, Safari 16.5), so errors appear only after interaction, not while the user is still typing "1." of "1.5".
   - Error text sits below the field, starts with an icon carrying a text alternative, says how to fix it ("Enter a rate between 0% and 25%"), and is linked through `aria-describedby` only while invalid.
 - **Numeric inputs.**
   - Use `<input type="text" inputmode="decimal">`, not `type="number"`. The latter has spinner and scroll-wheel accidents and locale issues.

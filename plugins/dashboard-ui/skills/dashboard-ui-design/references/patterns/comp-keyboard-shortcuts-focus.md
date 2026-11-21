@@ -16,7 +16,7 @@
   - Use DOM order. Never use positive `tabindex`.
   - Don't put `tabindex="0"` on natively focusable or non-interactive elements.
   - Hidden content is unfocusable: use `hidden`, `inert`, or closed popovers and dialogs.
-- **Composite widgets = one Tab stop.** Tabs, toolbars, menus, radio and segmented groups, listboxes, grids and the sidebar tree all use arrow keys inside. Use native `focusgroup` (`tablist`, `toolbar`, `menu`) where supported (Chrome/Edge 150+). Otherwise use a roving-`tabindex` fallback, loaded only when `'focusGroup' in HTMLElement.prototype` is false. Never run two roving systems at once.
+- **Composite widgets = one Tab stop.** Tabs, toolbars, menus, radio and segmented groups, listboxes, grids and the sidebar tree all use arrow keys inside. Use native `focusgroup` (`tablist`, `toolbar`, `menu`) where supported: it is experimental and Chromium-only (Chrome/Edge 150+, no Firefox or Safari, not Baseline). Everywhere else use the APG roving-`tabindex` pattern, loaded only when `'focusGroup' in HTMLElement.prototype` is false. Never run two roving systems at once.
 - **Overlays.**
   - Native modal `<dialog>` contains focus and restores it automatically.
   - Popovers restore focus for the first `auto` popover in a stack. Nested menus restore it to their trigger explicitly.
@@ -44,7 +44,7 @@
   - Tooltips on buttons append the shortcut ("Refresh data R").
   - The command palette shows a shortcut on every row.
   - Expose shortcuts with `aria-keyshortcuts` on the controls they trigger.
-- **Platform labels.** Show ⌘ ⌥ ⇧ on macOS and Ctrl, Alt, Shift elsewhere. Detect via `navigator.userAgentData?.platform`, falling back to `navigator.platform`. Match on `event.key` for characters and `event.code` only for layout-independent physical keys.
+- **Platform labels.** Show ⌘ ⌥ ⇧ on macOS and Ctrl, Alt, Shift elsewhere. Detect via `navigator.userAgentData?.platform` (Chromium only), falling back to `navigator.platform`. Match on `event.key` for characters and `event.code` only for layout-independent physical keys.
 - **Esc layering.** Esc closes only the topmost layer: open menu → popover → dialog → selection. Children that use Esc (comboboxes inside dialogs) must consume it.
 - **Feedback.** Shortcut actions give the same visible feedback as clicks. Toggles with no visible result announce through a `role="status"` region ("Sidebar collapsed").
 

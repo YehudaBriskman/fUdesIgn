@@ -26,7 +26,7 @@ Rules of thumb:
   - Never change a tab's box size on selection: no `font-weight` jump that reflows neighbours. Pre-reserve the bold width or use `font-variation-settings` with a fixed-width trick.
   - Keyboard: Tab enters the selected tab. Arrow keys move between tabs, and Home/End go to the first and last. Selection follows focus by default.
   - Use *manual activation* (Enter/Space) when a panel is slow to fetch or when selection writes history, sends analytics or reflows the layout heavily.
-  - Hide inactive panels with `hidden="until-found"` so find-in-page still finds their text, and sync the selection on `beforematch`.
+  - Hide inactive panels with `hidden="until-found"` so find-in-page still finds their text, and sync the selection on `beforematch`. Not Baseline (Chrome/Edge 102, Firefox 148, Safari 26.2 partial); elsewhere it acts like plain `hidden`, so the panel is hidden but not findable.
   - When tabs overflow, scroll them horizontally with edge fades. Alternatively, move the tail into a "⋯" More menu *outside* the tablist; the selected tab always stays visible.
 - **Segmented control**
   - Build it as `<fieldset>` + `<input type="radio">` (or `role="radiogroup"`). The value applies immediately.
@@ -69,12 +69,12 @@ Rules of thumb:
 ## Accessibility
 - Tabs: `role="tablist"` with an accessible name, `aria-selected`, and `role="tabpanel"` with `aria-labelledby`. The APG pattern also sets `aria-controls` on each tab; it's harmless, but don't rely on it, because screen reader support for it is uneven.
 - Give a visible panel with no focusable content `tabindex="0"`.
-- Use `focusgroup="tablist nomemory"` where supported (Chrome/Edge 150+). Otherwise use a roving-tabindex fallback, loaded only if `'focusGroup' in HTMLElement.prototype` is false.
+- Use `focusgroup="tablist nomemory"` where supported (experimental, Chrome/Edge 150+ only, not Baseline). Otherwise use the APG roving-tabindex fallback, loaded only if `'focusGroup' in HTMLElement.prototype` is false. Set `role="tablist"` and `role="tab"` explicitly: `focusgroup` infers them on generic elements, but the fallback browsers don't.
 - A segmented control is a radio group: one Tab stop, arrows move *and* select, and it has a `legend` (can be visually hidden).
 - Chips need a ≥24×24 target and a selected state exposed via `aria-pressed` or `checked`.
 
 ## Motion / interaction (if relevant)
-- Slide the tab underline between tabs using anchor positioning (`anchor-name` on the active tab, `position-anchor` on the indicator) with a transition on `inset`, 150–200 ms ease-out, and none under reduced motion. Don't use `position-area`, which can't be transitioned.
+- Slide the tab underline between tabs using anchor positioning (`anchor-name` on the active tab, `position-anchor` on the indicator) with a transition on `inset`, 150–200 ms ease-out, and none under reduced motion. Don't use `position-area`, which can't be transitioned. `position-anchor` is Baseline only since September 2026 (Safari 27), so gate the sliding indicator in `@supports (position-anchor: --a)` and keep the static `::after` underline as the fallback.
 - Cross-fade the panel in ≤150 ms, or not at all. Never slide whole data panels horizontally.
 
 ## Tokens and values
@@ -94,12 +94,12 @@ Rules of thumb:
 ```html
 <!-- In-page tabs, state in ?tab= -->
 <div class="tabs">
-  <!-- focusgroup="tablist" infers role=tablist/tab natively (Chrome/Edge 150+).
-       Where unsupported, the roving-tabindex fallback adds role="tablist"/"tab" and tabindex. -->
-  <div focusgroup="tablist nomemory" aria-label="Company sections">
-    <button type="button" id="t-ov" aria-selected="true" focusgroupstart>Overview</button>
-    <button type="button" id="t-fin" aria-selected="false">Financials</button>
-    <button type="button" id="t-fil" aria-selected="false">Filings</button>
+  <!-- focusgroup (Chrome/Edge 150+) gives arrow keys natively. Roles are explicit so the
+       roving-tabindex fallback in other browsers only has to manage tabindex. -->
+  <div role="tablist" focusgroup="tablist nomemory" aria-label="Company sections">
+    <button type="button" role="tab" id="t-ov" aria-selected="true" focusgroupstart>Overview</button>
+    <button type="button" role="tab" id="t-fin" aria-selected="false">Financials</button>
+    <button type="button" role="tab" id="t-fil" aria-selected="false">Filings</button>
   </div>
   <div role="tabpanel" aria-labelledby="t-ov"><div class="panel-body">…</div></div>
   <div role="tabpanel" aria-labelledby="t-fin" hidden="until-found"><div class="panel-body">…</div></div>
