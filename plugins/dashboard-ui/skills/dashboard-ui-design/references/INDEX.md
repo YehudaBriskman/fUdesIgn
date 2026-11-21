@@ -1,7 +1,7 @@
 # Pattern index
 
 Every pattern file in `patterns/`, grouped by cluster. **Priority** says how binding it is: must = always apply, should = apply unless there's a reason not to, nice = optional.
-79 patterns in total.
+84 patterns in total.
 
 
 ## Foundations: hierarchy, layout, density, type
@@ -19,6 +19,9 @@ Every pattern file in `patterns/`, grouped by cluster. **Priority** says how bin
 | [Typography for data](patterns/found-typography-for-data.md) | must | Set every number in tabular lining figures, right-align numeric columns with their headers, use a short type scale, and cap prose at about 65 characters per line. |
 | [Visual hierarchy: one place to look first](patterns/found-visual-hierarchy.md) | must | Every dashboard view has exactly one primary focal point. It answers the user's first question, and size, contrast, position and space are spent on it before anything else. |
 | [Methodology, "why this number" and provenance](patterns/found-methodology-explainability.md) | must | Every computed number can answer "why this number?" in one step: a short in-place explanation with its formula and inputs, each input traceable to its source, and a dated methodology page for the full story. Explain at three depths and never hide what the decision depends on. |
+| [Microcopy for data: labels, errors, empty states and number words](patterns/found-microcopy-for-data.md) | must | Every word on a dashboard is part of the data. Labels name what is counted, over what period and in what unit; errors state the cause and the fix; empty states say what will appear and how; and number words ("about", "fewer", "percentage points", "no data") mean exactly one thing everywhere. |
+| [Design against worst-case data](patterns/found-worst-case-data.md) | must | Demo data flatters every layout. Before a view ships, swap in plausible worst-case data at the same boundary the real data enters (long names, extreme and negative numbers, empties, many rows, mixed scripts, stale and partial results) and fix what breaks. |
+| [Domain profiles: starting defaults by product type](patterns/found-domain-profiles.md) | should | Start every dashboard from the profile of its domain (dashboard type, density, theme, motion budget, colour rules, must-have states and the domain's typical failure), then change a default only with a written reason. |
 
 ## Colour
 
@@ -92,6 +95,7 @@ Every pattern file in `patterns/`, grouped by cluster. **Priority** says how bin
 | [Sliders paired with numeric inputs](patterns/comp-slider-with-number-input.md) | should | A slider is for approximate, exploratory values in a narrow range. In a data product, always pair it with a typed numeric input bound to the same value, and never let the slider be the only way to enter a precise number. |
 | [Tabs vs segmented controls vs pills (and URL-addressable tabs)](patterns/comp-tabs-segmented-pills.md) | must | Tabs switch *panels of different content*, segmented controls switch *one view's mode or scope*, pills (chips) *filter or select values*. Whichever you use, the selected state belongs in the URL whenever a colleague opening the link should see the same thing. |
 | [Assumption editor panel](patterns/comp-assumption-editor-panel.md) | must | A model-input panel sits beside the outputs it changes, never on top of them. Every field shows its default and where the default came from, marks when the user has changed it, can be reset on its own, and the panel summarises "your inputs vs default" as a diff with the effect on the result. |
+| [Onboarding, first-run notices and disclaimers](patterns/comp-onboarding-and-notices.md) | should | First-run help and legal notices sit in the flow, never on top of data. Show a disclaimer once, in one canonical place, linked from wherever it matters. Teach through empty states and on-demand hints instead of tours. Remember every dismissal. |
 
 ## Motion and interactive exploration
 
@@ -127,3 +131,4 @@ Every pattern file in `patterns/`, grouped by cluster. **Priority** says how bin
 | [Investing and valuation tools: Koyfin, Simply Wall St, TradingView, Morningstar, Finviz, Bloomberg](patterns/ref-investing-valuation-tools.md) | should | Investing UIs succeed when they compress a judgement into a glyph the eye can compare across many securities (a snowflake, a style box, a heatmap tile) while keeping the method open and the raw numbers one hover away. |
 | [Product analytics dashboards: PostHog, Amplitude, Mixpanel](patterns/ref-product-analytics-dashboards.md) | should | An analytics board is a curated narrative of 8–12 insights for a named audience. Each insight carries its comparison period, and text cards say what "good" looks like. |
 | [Dashboard UX research findings: NN/g, Baymard, Few](patterns/ref-ux-research-findings.md) | must | Base dashboard decisions on the few findings that are actually evidenced: position and length beat angle and area, every measure needs context, waits have hard thresholds, and consistency beats variety. |
+| [Tells of a generated dashboard](patterns/ref-ai-default-tells.md) | should | A generated dashboard is recognisable by defaults nobody chose: the same card, radius, shadow, purple accent, eyebrow label and fade-up on every element. Every visual choice must trace to the data, the domain or a token, and anything that would appear unchanged on any other dashboard needs a reason or goes. |
