@@ -32,7 +32,7 @@
   - A worked example with real numbers that a reader can recompute.
   - Sticky TOC on wide screens (≥ 1024px), inline TOC on narrow ones.
 - **Calibration, if you forecast.** Publish how past outputs did: bins of predicted probability vs observed frequency. A model that says "70%" should be right about 70% of the time.
-- **One disclaimer, in one place.** Put the legal or "not advice" line once on the methodology page and once in the footer. Don't repeat it on every card.
+- **One disclaimer, in one place.** Put the legal or "not advice" line once on the methodology page and once in the footer. Don't repeat it on every card (see `comp-onboarding-and-notices.md`).
 
 ## Anti-patterns (don't)
 - A "Learn more" link that goes to a generic marketing page instead of the section for this number.
