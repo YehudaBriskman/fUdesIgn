@@ -50,7 +50,7 @@
 - Test at 320 × 256 (responsive mode), at 400% zoom on a 1280 px window, at 200% text-only zoom (Firefox View › Zoom › Zoom Text Only), and with the text-spacing bookmarklet (`atest-manual-test-plan.md`).
 
 ## Motion / interaction (if relevant)
-- Hover content appears after a short delay (about 300 ms) and stays while hovered; it doesn't animate away when the pointer crosses the gap.
+- Hover content appears after the delay its owning pattern sets (dashboard-ui: tooltips 200 ms in `comp-overlay-choice.md`, hover previews `--interest-delay` 500 ms in `comp-entity-links-and-hover-previews.md`) and stays while hovered; it doesn't animate away when the pointer crosses the gap.
 
 ## Tokens and values
 | Token | Value | Use |

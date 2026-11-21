@@ -10,7 +10,7 @@
 - Don't use the Tailwind variants in a single-direction product. Tailwind's own docs: "If you're building a site that only needs to support a single direction, you don't need these variants."
 
 ## Rules (do)
-- **Prefer `:dir(rtl)` over `[dir="rtl"]`.** `:dir()` matches the element's *computed* directionality, so it handles inheritance, `dir="auto"` and LTR islands nested in RTL pages. An ancestor attribute selector `[dir="rtl"] .icon` still matches an icon inside a nested `dir="ltr"` video player. `:dir()` is Baseline 2023 (Chrome and Edge 120, Firefox, Safari 16.4).
+- **Prefer `:dir(rtl)` over `[dir="rtl"]`.** `:dir()` matches the element's *computed* directionality, so it handles inheritance, `dir="auto"` and LTR islands nested in RTL pages. An ancestor attribute selector `[dir="rtl"] .icon` still matches an icon inside a nested `dir="ltr"` video player. `:dir()` is Baseline widely available since June 2026 (newly available December 2023: Chrome and Edge 120, Firefox 49, Safari 16.4).
 - **Tailwind logical utilities** (v3.3 added them; v4 extends them):
 
   | Need | Tailwind | CSS |

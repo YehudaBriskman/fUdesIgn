@@ -86,7 +86,7 @@
 | "Just now" | under 60s |
 | Stale threshold | more than 2× source cadence |
 | Auto-refresh default | 30–60s (ops), off (finance or analytics) |
-| Tooltip delay | 300ms hover, immediate on focus |
+| Tooltip delay | 200ms hover for the first in a group, immediate on focus (`comp-overlay-choice.md`) |
 | Absolute, table | `YYYY-MM-DD HH:mm` 24h + zone in header |
 | Absolute, prose | `Nov 21, 2026, 2:32 PM UTC` (locale-driven) |
 | Freshness text | 0.75rem (`--type-meta`), `--text-muted`; warning `--warning-fg` + icon |
