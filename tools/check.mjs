@@ -111,5 +111,11 @@ if (sketches) {
 const index = readFileSync(join(SKILL, 'references/INDEX.md'), 'utf8')
 if (!files.length) for (const f of all) if (!index.includes(`patterns/${f}`)) fail('INDEX.md', `does not list ${f}`)
 
+// SKILL.md routes to pattern files by name, so every name it mentions must exist
+const skillMd = join(SKILL, 'SKILL.md')
+if (!files.length && existsSync(skillMd))
+  for (const m of readFileSync(skillMd, 'utf8').matchAll(LINK))
+    if (!known.has(m[1])) fail('SKILL.md', `routes to missing pattern ${m[1]}`)
+
 if (problems.length) { console.log(problems.join('\n')); console.log(`\n${problems.length} problem(s)`); process.exit(1) }
 console.log(`ok: ${basename(SKILL)}: ${targets.length} pattern file(s)${sketches ? ' incl. sketches' : ''}`)
