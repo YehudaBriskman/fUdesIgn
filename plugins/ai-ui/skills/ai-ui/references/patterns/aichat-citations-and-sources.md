@@ -37,7 +37,7 @@
 - [Shape of AI, Citations](https://www.shapeof.ai/patterns/citations) (ideas only): citations as a governor that lets people inspect what an answer relies on.
 
 ## Bad references
-- Mata v. Avianca, 2023 ([sanctions order](https://law.justia.com/cases/federal/district-courts/new-york/nysdce/1:2022cv01461/575368/54/)): a chatbot produced case citations that looked exactly like real ones; the lawyers who filed them were fined $5,000 each. Citations not backed by retrieval are indistinguishable from real ones in plain text.
+- Mata v. Avianca, 22-cv-1461 (S.D.N.Y. 22 June 2023, Castel, J.) ([opinion and order on sanctions](https://storage.courtlistener.com/recap/gov.uscourts.nysd.575368/gov.uscourts.nysd.575368.54.0.pdf)): ChatGPT produced six non-existent decisions that the lawyers cited as real; the court imposed one $5,000 penalty jointly and severally on the two lawyers and their firm. Citations not backed by retrieval are indistinguishable from real ones in plain text.
 - Footnoted chat answers in NN/g's diary study ([Information foraging with generative AI](https://www.nngroup.com/articles/generative-ai-diary/)): footnotes existed but checking them was tedious, and participants verified only 22.4% of conversations.
 - Google AI Overviews, May 2024 ([post-mortem](https://blog.google/products/search/ai-overviews-update-may-2024/)): answers quoted satire and forum jokes; nothing in the UI showed the source type.
 
@@ -129,7 +129,7 @@ export function numberCitations(
 - https://www.nngroup.com/articles/generative-ai-diary/
 - https://www.perplexity.ai/help-center/en/articles/10352895-how-does-perplexity-work
 - https://blog.google/products/search/ai-overviews-update-may-2024/
-- https://law.justia.com/cases/federal/district-courts/new-york/nysdce/1:2022cv01461/575368/54/
+- https://storage.courtlistener.com/recap/gov.uscourts.nysd.575368/gov.uscourts.nysd.575368.54.0.pdf
 - https://pair.withgoogle.com/chapter/explainability-trust/ (CC BY-NC-SA 4.0; paraphrased)
 - https://www.microsoft.com/en-us/haxtoolkit/ai-guidelines/ (G11 "Make clear why the system did what it did")
 - https://developer.mozilla.org/en-US/docs/Web/URI/Reference/Fragment/Text_fragments

@@ -38,7 +38,7 @@
 - [Shape of AI, Branches and Variations](https://www.shapeof.ai/patterns/branches) (ideas only).
 
 ## Bad references
-- Version arrows that disappear in a redesign: early 2026 community reports describe a major chat app replacing inline "‹ 2/2 ›" arrows with a separate "See versions" view and branching into a new chat, leaving users unable to find edited history ([OpenAI community thread](https://community.openai.com/t/chatgpt-web-update-removed-message-version-arrows-cannot-access-edited-message-history/1374666)). Whatever the control, it must stay where the edit happened.
+- Version arrows that disappear: in February 2026 users of a major chat app reported that the inline "‹ 2/2 ›" arrows were gone after a web update, leaving no way to reach edited history; support could still see them in its own tests, so the cause is unconfirmed, but users experienced lost history ([OpenAI community thread](https://community.openai.com/t/chatgpt-web-update-removed-message-version-arrows-cannot-access-edited-message-history/1374666), user reports, not an official change). Whatever the control, it must stay where the edit happened.
 - Generators whose "Try again" overwrites the previous output (common in image tools): the only way to keep a result is to download it before retrying.
 
 ## Accessibility
