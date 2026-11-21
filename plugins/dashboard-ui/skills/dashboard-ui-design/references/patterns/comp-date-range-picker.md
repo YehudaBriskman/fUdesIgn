@@ -127,6 +127,8 @@
 </div>
 ```
 ```ts
+import type { Temporal } from 'temporal-spec'; // or the global Temporal where shipped, or a polyfill
+
 type DateRange = { start: Temporal.PlainDate; end: Temporal.PlainDate }; // end inclusive
 type CompareMode = 'prev' | 'yoy' | 'yoy_dow';
 

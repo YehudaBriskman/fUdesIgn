@@ -51,7 +51,7 @@
 - [Claus Wilke, Fundamentals of Data Visualization, ch. 16 "Visualizing uncertainty"](https://clauswilke.com/dataviz/visualizing-uncertainty.html) — graded error bars, frequency framing, quantile dot plots, HOPs, and why overlap tests mislead.
 - [Claus Wilke, ch. 7 "Histograms and density plots"](https://clauswilke.com/dataviz/histograms-density-plots.html) — bin width examples, no stacked/overlaid histograms, density pitfalls.
 - [Bank of England fan charts (Inflation Report, Feb 2017)](https://www.bankofengland.co.uk/-/media/boe/files/inflation-report/2017/fan-charts-february-2017.pdf) — the reference implementation: graded bands, each pair 10% probability, central 90% shown.
-- [Wikipedia: Fan chart (time series)](https://en.wikipedia.org/wiki/Fan_chart_(time_series)) — symmetric vs HPD construction; centre darkest.
+- [Wikipedia: Fan chart (time series)](https://en.wikipedia.org/wiki/Fan_chart_%28time_series%29) — symmetric vs HPD construction; centre darkest.
 - [FT Visual Vocabulary, Distribution row](https://github.com/Financial-Times/chart-doctor/tree/main/visual-vocabulary) — histogram, box, violin, strip, barcode, cumulative curve, plus fan chart under change over time.
 - [Stephen Few bullet graph spec](https://www.perceptualedge.com/articles/misc/Bullet_Graph_Design_Spec.pdf) — includes a projection segment for "will we hit target by period end", a lightweight uncertainty cue.
 
@@ -134,7 +134,7 @@ export function percentiles(samples: ReadonlyArray<number>, ps: ReadonlyArray<nu
 ## Sources
 - https://clauswilke.com/dataviz/visualizing-uncertainty.html
 - https://clauswilke.com/dataviz/histograms-density-plots.html
-- https://en.wikipedia.org/wiki/Fan_chart_(time_series)
+- https://en.wikipedia.org/wiki/Fan_chart_%28time_series%29
 - https://www.bankofengland.co.uk/-/media/boe/files/inflation-report/2017/fan-charts-february-2017.pdf (search result summary)
 - https://www.bankofengland.co.uk/-/media/boe/files/quarterly-bulletin/1998/the-inflation-report-projections-understanding-the-fan-chart (search result)
 - https://github.com/Financial-Times/chart-doctor/tree/main/visual-vocabulary
