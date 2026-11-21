@@ -17,7 +17,7 @@ Use for every element that appears and disappears. Prefer the platform: `<dialog
 - **Backdrop separately.** `::backdrop` needs its own `@starting-style` block and exit transition; fade it with `linear` over the same duration as the panel.
 - **Asymmetric timing.** Enter 150 ms (menus) or 240 ms (dialogs) with `--motion-ease-enter`; exit at about 0.75 of that with `--motion-ease-exit` or a plain fade.
 - **Final state is the default.** If `@starting-style` or `allow-discrete` isn't supported, the element simply appears and disappears, which is acceptable.
-- **Know the gaps.** `@starting-style` and `transition-behavior` are Baseline newly available (August 2024: Chrome 117, Firefox 129, Safari 17.4–17.5). Firefox doesn't transition `display`, so exits snap there; entries work. The `overlay` property is Chromium-only. Treat exits as an enhancement.
+- **Know the gaps.** `@starting-style` and `transition-behavior` are Baseline newly available (August 2024: Chrome 117, Firefox 129, Safari 17.4–17.5). Firefox doesn't transition `display` with `allow-discrete` (MDN browser-compat-data marks Firefox's `transition-behavior` as partial; [bug 1882408](https://bugzil.la/1882408)), so exits snap there; entries work. The `overlay` property is Chromium-only. Treat exits as an enhancement.
 
 ## Anti-patterns (don't)
 - `transform: scale(0)` → `scale(1)` popovers: the content is unreadable for most of the animation and the motion feels cartoonish.

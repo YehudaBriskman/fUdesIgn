@@ -75,7 +75,7 @@ Break one of these only with a written reason.
 
 | How often | Motion |
 |---|---|
-| Keyboard-triggered, or 100+ times a day | None |
+| Keyboard-triggered, or 100+ times a day (skill's cut-off) | None |
 | Tens of times a day | 100–150 ms fade, maybe a small scale; no movement, no bounce |
 | A few times a session | 150–240 ms, may move 8–24 px |
 | Rare (first run, big success) | Up to 400–600 ms, a spring with bounce allowed |

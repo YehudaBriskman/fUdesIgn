@@ -23,7 +23,7 @@ Do not animate when the job is "it looks nicer", when the content before and aft
 
   | How often | Example | Motion |
   |---|---|---|
-  | Keyboard shortcut, or 100+ times a day | ⌘K palette, list navigation with arrows, tab switch by shortcut | None (0 ms). Emil Kowalski: keyboard-initiated actions should never animate; Raycast opens with no animation |
+  | Keyboard shortcut, or 100+ times a day (this skill's cut-off) | ⌘K palette, list navigation with arrows, tab switch by shortcut | None (0 ms). Emil Kowalski: keyboard-initiated actions "You should never animate them"; Raycast, which he opens "hundreds of times a day", has no open animation |
   | Tens of times a day | context menu, dropdown, hover card | Short (100–180 ms), fade plus at most a small scale, no bounce |
   | Occasional (a few times a session) | dialog, sheet, route change, toast | Standard (200–300 ms), enter and exit, may move |
   | Rare (once a session or less) | onboarding, first success, plan upgraded | May be expressive (400–600 ms, a spring with bounce) |
