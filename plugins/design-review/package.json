@@ -10,7 +10,7 @@
     "capture": "node scripts/capture.mjs",
     "gate": "node scripts/gate.mjs",
     "lint": "node scripts/lint-ui.mjs",
-    "test": "node --test test/"
+    "test": "node --test test/*.test.mjs"
   },
   "dependencies": {
     "playwright-core": "^1.50.0"
