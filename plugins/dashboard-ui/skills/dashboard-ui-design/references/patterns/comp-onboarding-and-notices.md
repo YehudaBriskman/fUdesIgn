@@ -76,7 +76,7 @@ Decision table, first match wins:
 - Respect zoom: at 400% zoom a fixed bar can cover the whole viewport, which is another reason not to fix it.
 
 ## Motion / interaction (if relevant)
-- A dismissed in-flow notice collapses its height in ≤ 200 ms; with reduced motion it disappears at once.
+- A dismissed in-flow notice collapses its height in `--motion-dur-short` (150 ms) with `--motion-ease-exit`, as removed rows do in `prog-optimistic-ui-and-undo.md`; with reduced motion it disappears at once.
 - No pulsing "hotspot" beacons on data. If a beacon is used, it is static.
 
 ## Tokens and values
@@ -88,7 +88,7 @@ Decision table, first match wins:
 | Tour length | ≤ 4 steps, with "Step n of N" | Optional tours |
 | Setup questions | 1–3, each changing the result; skippable | Build-don't-explain onboarding |
 | Dismiss persistence | until notice version changes; consent 1 year | Storage |
-| Collapse duration | ≤ 200 ms | Dismissal |
+| Collapse duration | `--motion-dur-short` 150 ms | Dismissal |
 
 ## Implementation sketch
 ```html
@@ -119,7 +119,7 @@ Decision table, first match wins:
 }
 .notice[hidden] { display: none; }
 .notice-close { min-block-size: 24px; min-inline-size: 24px; }
-@media (pointer: coarse) { .notice-close { min-block-size: 44px; } }
+@media (pointer: coarse) { .notice-close { min-block-size: 44px; min-inline-size: 44px; } }
 /* Only if a sticky legal bar is unavoidable: keep focused items visible */
 html:has(.legal-bar) { scroll-padding-block-end: 96px; }
 ```

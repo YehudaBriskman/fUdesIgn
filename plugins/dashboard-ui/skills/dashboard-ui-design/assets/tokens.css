@@ -65,7 +65,7 @@
   /* critically damped spring x(t) = 1 − (1 + ωt)·e^(−ωt), ωT = 6.6 (bounce 0), sampled for CSS linear();
      use with ~300ms duration for drag release and sheet snap (motion-drag-and-spring-physics.md) */
   --motion-ease-spring: linear(0, 0.044 5%, 0.142 10%, 0.261 15%, 0.380 20%, 0.589 30%, 0.740 40%, 0.841 50%, 0.905 60%, 0.968 80%, 1);
-  --interest-delay: 500ms;     /* hover intent before a tooltip opens */
+  --interest-delay: 500ms;     /* hover intent before a hover preview card opens; tooltips use 200ms */
 
   /* ── Density (found-density-modes.md): comfortable default, compact via [data-density] ── */
   --row-h: 40px;

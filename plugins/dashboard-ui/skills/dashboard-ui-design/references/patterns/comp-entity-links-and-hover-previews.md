@@ -37,8 +37,8 @@
   - On touch, a tap on the link navigates as usual. Offer the preview through a visible peek control (an info button beside the name) that opens the same content as a popover or, on phones, a sheet. Long-press is a secondary route only: mobile browsers already use a long-press on a link for their own link menu, so it can't be the sole alternative.
   - On keyboard, focus opens the preview after the delay; Esc closes it and keeps focus on the link. If the card holds links, give a key to move focus into it and Esc to return. GitHub uses Alt+Up to move into a hovercard and Esc to restore focus to the link (GitHub changelog, July 2024).
   - Offer a setting to turn previews off. Wikipedia and GitHub both do; Wikipedia's 2017–18 A/B tests found about 0.01% of sessions disabled them.
-- **Use the platform.** A `popover="hint"` card with `interestfor` on the link gives hover, focus, long-press and Esc handling natively where supported (Chromium only, experimental). Feature-detect it and fall back to scripted `pointerenter` / `focus` timers (sketch below). See the Platform support table in `comp-overlay-choice.md`.
-- **Fetch on interest, cache per entity.** Load the preview data when the delay starts, not on page load; show a compact skeleton if it takes longer than about 200 ms (see `prog-loading-states.md`); reuse the response for the rest of the session or until it is stale.
+- **Use the platform.** A `popover="hint"` card with `interestfor` on the link gives hover, focus, long-press and Esc handling natively where supported: `interestfor` is Chromium only (Chrome/Edge 142) and experimental, and `popover="hint"` is not Baseline. Feature-detect it and fall back to scripted `pointerenter` / `focus` timers (sketch below). See the Platform support table in `comp-overlay-choice.md`.
+- **Fetch on interest, cache per entity.** Load the preview data when the delay starts, not on page load; show a compact skeleton if it takes longer than 200 ms and keep it at least 400 ms once shown (see `prog-loading-states.md`); reuse the response for the rest of the session or until it is stale.
 
 ## Anti-patterns (don't)
 - **"Every prompt became a page."** Pages that connect only to the sidebar and never to each other: a task names its project in plain text, so answering "who owns this?" means sidebar → Projects → search → open.
@@ -69,7 +69,7 @@
 - The peek control is a labelled button ("Preview Apollo project") of at least 24×24 px (44 px on touch).
 
 ## Motion / interaction (if relevant)
-- The card fades in over 100–150 ms; no movement under `prefers-reduced-motion: reduce`.
+- The card fades in over `--motion-dur-micro` (100 ms), so it is fully shown within NN/g's 0.1 s; no movement under `prefers-reduced-motion: reduce`.
 - Once one preview is open, moving to a neighbouring link swaps the card without a second open delay.
 
 ## Tokens and values
@@ -102,7 +102,7 @@
 .peek { display: none; min-inline-size: 24px; min-block-size: 24px; }
 @media (hover: none) { .peek { display: inline-grid; min-inline-size: 44px; min-block-size: 44px; } }
 @media (prefers-reduced-motion: no-preference) {
-  .entity-peek { transition: opacity 120ms ease-out, display 120ms allow-discrete; }
+  .entity-peek { transition: opacity var(--motion-dur-micro, 100ms) ease-out, display var(--motion-dur-micro, 100ms) allow-discrete; }
   .entity-peek:popover-open { opacity: 1; }
   @starting-style { .entity-peek:popover-open { opacity: 0; } }
 }

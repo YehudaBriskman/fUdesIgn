@@ -92,7 +92,7 @@
 
 ## Motion / interaction (if relevant)
 - The popover opens in `--motion-dur-short` (150 ms) with opacity and translate. Month paging is instant or a 150 ms slide (none under reduced motion).
-- After apply, charts transition their data at ≤300 ms (see `motion-number-tweening.md`). Don't animate both the axis rescale and the data for long.
+- After apply, charts follow `motion-chart-transitions.md`: staged axis then marks, 600–900 ms in total, or a cut or 150 ms cross-fade when the new range shares no data with the old one. KPI numbers tween in 400 ms (`motion-number-tweening.md`).
 
 ## Tokens and values
 | Token | Default |
