@@ -9,6 +9,25 @@ CLUSTERS = {
     'ref': 'References, anti-patterns and review',
     'aifound': 'AI foundations', 'aichat': 'Chat and conversation', 'aiinline': 'Inline AI in documents, forms and dashboards',
     'aiagent': 'Agents and human in the loop', 'airef': 'AI references, anti-patterns and review',
+    'ffound': 'Foundations: layout, labels, required/optional, accessibility, microcopy',
+    'finput': 'Inputs: types and autofill, choice controls, selects and comboboxes, money/number/phone, dates, file upload',
+    'fvalid': 'Validation: timing and inline errors, error summary and focus, error messages',
+    'fflow': 'Flows: submission and double submit, multi-step and saving progress, authentication and passkeys',
+    'fref': 'References: anti-pattern catalogue, review rubric',
+    'mkfound': 'Foundations: narrative, conversion, accessibility', 'mksect': 'Sections: hero, proof, features, pricing, FAQ, footer',
+    'mkstyle': 'Style: type, colour, dark sections, motion, generated-default tells',
+    'mkperf': 'Performance and SEO: LCP, fonts, metadata', 'mkref': 'References: anti-pattern gallery and review rubric',
+    'mfound': 'Foundations: purpose, timing, choreography, reduced motion', 'mspring': 'Springs',
+    'mgesture': 'Gestures and direct manipulation', 'mtrans': 'Transitions and micro-interactions',
+    'mperf': 'Performance', 'mref': 'Review and references',
+    'mofound': 'Foundations: reach, targets, viewport, type, colour, layout', 'monav': 'Navigation, overlays and gestures',
+    'moinput': 'Input and feedback', 'moplat': 'Platform: PWA, performance, native conventions', 'moref': 'Review: rubric and anti-patterns',
+    'dsfound': 'Foundations: token architecture and profiles', 'dstoken': 'Tokens: format, theming and scales',
+    'dsmap': 'Stack mapping', 'dsref': 'Reference: decision record, governance, anti-patterns',
+}
+# optional routing note printed under the count line, keyed by skill folder name
+NOTES = {
+    'motion-ui': "Motion for data (number tweening, chart transitions, linked exploration, loading states) lives in dashboard-ui's `motion-*` and `prog-*` patterns; these files cover general product-UI motion and link there instead of repeating it.",
 }
 def row(path, name):
     text = open(path, encoding='utf-8').read()
@@ -29,6 +48,7 @@ for plugin in sorted(os.listdir(ROOT)):
         for f in files: groups.setdefault(f.split('-')[0], []).append(f)
         order = [p for p in CLUSTERS if p in groups] + [p for p in groups if p not in CLUSTERS]
         out = ['# Pattern index', '', f'{len(files)} patterns. **Priority:** must = always apply · should = apply unless there is a reason not to · nice = optional.', '']
+        if skill in NOTES: out += [NOTES[skill], '']
         for p in order:
             out += [f'## {CLUSTERS.get(p, p)} (`{p}-`)', '', '| Pattern | Priority | Rule |', '|---|---|---|']
             out += [row(os.path.join(pdir, f), f) for f in groups[p]] + ['']
