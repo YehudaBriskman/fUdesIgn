@@ -12,7 +12,7 @@
 ## Rules (do)
 - **Units:** with `width=device-width`, 1 CSS px ≈ 1 iOS pt ≈ 1 Android dp. So 44 pt ≈ 44 px and 48 dp ≈ 48 px.
 - **The three numbers:**
-  - Apple HIG: controls at least **44×44 pt** (60 pt on visionOS).
+  - Apple HIG: **44×44 pt** is the default control size on iOS and iPadOS (60 pt on visionOS); the HIG's absolute minimum is 28×28 pt. This skill uses the 44 pt default as its floor.
   - Material 3: touch targets at least **48×48 dp**, about 9 mm physical, even when the visible element is smaller (a 24 dp icon, a 20 dp checkbox, a 40 dp icon button).
   - WCAG 2.2 SC 2.5.8 Target Size (Minimum), AA: **24×24 CSS px**, or smaller if a 24 px circle centred on each target does not overlap another target or its circle. SC 2.5.5 (AAA) asks for 44×44.
 - **House rule:** `--target-min: 24px` by default and **44 px under `(pointer: coarse)`**. Use 48 px when the app follows Material or Android conventions.
@@ -31,7 +31,7 @@
 - Pagination links "1 2 3 4 5" as 18 px text with no padding.
 
 ## Good references
-- [Apple HIG: Accessibility, buttons and controls](https://developer.apple.com/design/human-interface-guidelines/accessibility#Buttons-and-controls): the 44×44 pt minimum (60 pt in visionOS).
+- [Apple HIG: Accessibility, buttons and controls](https://developer.apple.com/design/human-interface-guidelines/accessibility#Buttons-and-controls): default control size 44×44 pt and minimum 28×28 pt on iOS (60×60 pt default in visionOS).
 - [Material Design 3: Accessibility, designing for touch targets](https://m3.material.io/foundations/designing/structure#dab862b1-e042-4c40-b680-b484b9f077f6): 48×48 dp targets and 8 dp spacing.
 - [W3C: Understanding SC 2.5.8 Target Size (Minimum)](https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html): the 24 px rule, the spacing exception and the inline exemption.
 - [modern-web-guidance: Adapt to the form factor](https://github.com/GoogleChrome/modern-web-guidance/blob/main/skills/modern-web-guidance/guides/user-experience/form-factor-adaptation.md): the `pointer: coarse` token switch and the `::after` hit-area extension.
@@ -101,4 +101,5 @@
 - https://www.w3.org/WAI/WCAG22/Understanding/pointer-cancellation.html
 - https://doi.org/10.1145/1152215.1152260 (Parhi, Karlson, Bederson 2006, "Target size study for one-handed thumb use on small touchscreen devices")
 - https://github.com/GoogleChrome/modern-web-guidance/blob/main/skills/modern-web-guidance/guides/user-experience/form-factor-adaptation.md
-- Note: the HIG and m3.material.io pages render client-side and could not be fetched as text during this research; the 44 pt and 48 dp values are the long-standing published figures, also restated on developer.android.com.
+- https://developer.apple.com/tutorials/data/design/human-interface-guidelines/accessibility.json (HIG as JSON: the default/minimum control size table)
+- Note: the M3 structure page (48×48 dp, about 9 mm, 8 dp spacing) was rendered with a headless browser, November 2026.

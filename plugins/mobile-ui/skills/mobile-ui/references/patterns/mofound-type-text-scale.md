@@ -98,4 +98,4 @@ h1 { font: var(--type-large-title); font-size: clamp(1.75rem, 1.4rem + 2vw, 2.5r
 - https://www.w3.org/WAI/WCAG22/Understanding/text-spacing.html
 - https://github.com/GoogleChrome/modern-web-guidance/blob/main/skills/modern-web-guidance/guides/accessibility/respect-os-text-scale.md
 - https://github.com/GoogleChrome/modern-web-guidance/blob/main/skills/modern-web-guidance/guides/css/fluid-scaling.md
-- Note: the AX5 body size (53 pt) is from Apple's Dynamic Type size table in the HIG; the HIG page renders client-side and was read from its published tables, not fetched as text in this pass.
+- https://developer.apple.com/tutorials/data/design/human-interface-guidelines/typography.json (HIG as JSON: the iOS Dynamic Type tables; Large (default) Body 17 pt, AX5 Body 53 pt / 62 pt leading)
