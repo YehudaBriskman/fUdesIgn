@@ -44,6 +44,15 @@ plugins/
       references/INDEX.md                all 19 patterns, each with its one-line rule
       references/patterns/*.md           ffound-, finput-, fvalid-, fflow-, fref- (see below)
       assets/forms.css                   starter form styles on the dashboard-ui role tokens
+  design-system/
+    .claude-plugin/plugin.json
+    skills/design-system/
+      SKILL.md                           6-step workflow (detect, profile, generate, map, DESIGN.md, keep consistent), 10 non-negotiables
+      references/INDEX.md                all 11 patterns, each with its one-line rule
+      references/patterns/*.md           dsfound-, dstoken-, dsmap-, dsref- (see below)
+      scripts/theme.mjs                  verified OKLCH theme generator: CSS, Tailwind v4, shadcn, DTCG, DESIGN.md front matter
+      scripts/theme.test.mjs             node --test suite (APCA reference values, gamut, outputs, CLI)
+      assets/DESIGN.template.md          the decision record written into your project
 templates/PATTERN_TEMPLATE.md            the format every pattern file follows
 docs/research-brief.md                   how the research was run
 ```
@@ -107,6 +116,17 @@ General product-UI motion and gesture. Motion for data views (number tweening, c
 | `fflow-` | Flows: submit states and double submit, multi-step forms and saving progress, sign-in, sign-up and passkeys | 3 |
 | `fref-` | References: a 16-item anti-pattern catalogue with a DOM audit, a 31-check review rubric | 2 |
 
+### design-system: 11 patterns in 4 clusters, plus a theme generator
+
+| Prefix | Cluster | Files |
+|---|---|---|
+| `dsfound-` | Foundations: token tiers (primitive → semantic → component), naming and semver; evidence-based domain profiles (finance, analytics, dev tools, consumer, marketing, health) | 2 |
+| `dstoken-` | Tokens: DTCG 2025.10 format, theming and multi-brand, dark-mode generation (WCAG 2 + APCA), type scale, spacing and radius | 5 |
+| `dsmap-` | Stack mapping: Tailwind v4 `@theme`, shadcn/ui variables, CSS Modules, vanilla CSS, MUI `createTheme` | 1 |
+| `dsref-` | Reference: the DESIGN.md decision record, governance and drift detection, a 12-item anti-pattern list | 3 |
+
+`scripts/theme.mjs` turns base hue, accent, contrast and density into light, dark and high-contrast OKLCH roles under the dashboard-ui role names. It checks every pair against WCAG 2 and APCA on the sRGB-gamut values it ships, adjusts lightness automatically, and exits 1 naming the pairs when it can't comply.
+
 Each pattern file has these sections: the rule, when to use and when not, rules with numbers, anti-patterns, good references, bad references, accessibility, motion, a tokens table, an implementation sketch, a checklist and sources.
 
 ## Research
@@ -127,9 +147,10 @@ Some claims rest on search summaries because the source page wouldn't load, and 
 /plugin install mobile-ui@fudesign
 /plugin install motion-ui@fudesign
 /plugin install forms-ui@fudesign
+/plugin install design-system@fudesign
 ```
 
-Each skill then triggers on its own design, build and review tasks (dashboards, landing and marketing pages, mobile web and PWAs, product-UI motion and gestures, or forms). You can also copy a skill folder, such as `plugins/marketing-ui/skills/marketing-ui/`, into `~/.claude/skills/`.
+Each skill then triggers on its own design, build and review tasks (dashboards, landing and marketing pages, mobile web and PWAs, product-UI motion and gestures, forms, or setting up and keeping a design system). You can also copy a skill folder, such as `plugins/marketing-ui/skills/marketing-ui/`, into `~/.claude/skills/`.
 
 ## Adding a pattern or plugin
 

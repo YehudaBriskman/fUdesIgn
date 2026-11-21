@@ -47,6 +47,14 @@
       "version": "0.1.0",
       "category": "design",
       "license": "PolyForm-Internal-Use-1.0.0"
+    },
+    {
+      "name": "design-system",
+      "source": "./plugins/design-system",
+      "description": "Set up and keep a coherent design system in your project: 11 researched patterns (token architecture and versioning, DTCG, theming and multi-brand, dark mode, type, spacing and radius scales, Tailwind v4/shadcn/CSS Modules/MUI mappings, evidence-based domain profiles, drift detection), a verified OKLCH theme generator (WCAG 2 + APCA, light/dark/high contrast) and a DESIGN.md decision record.",
+      "version": "0.1.0",
+      "category": "design",
+      "license": "PolyForm-Internal-Use-1.0.0"
     }
   ]
 }
