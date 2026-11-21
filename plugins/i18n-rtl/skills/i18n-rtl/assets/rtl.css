@@ -1,0 +1,162 @@
+/*
+ * i18n-rtl: logical-property utilities and RTL/script defaults.
+ * Self-sufficient: the dashboard-ui role tokens it reads (--space-*, --radius-md, --cell-pad-*,
+ * --surface, --border, --accent) are declared below as zero-specificity defaults, so it works alone
+ * in light and dark, and dashboard-ui's tokens.css or the project's own tokens win in any load order.
+ * Each rule traces to a pattern in ../references/patterns (named in the comments).
+ * Declarations marked "physical-ok" are deliberately physical.
+ */
+
+/* ── Shared roles: dashboard-ui tokens.css values, zero specificity (tools/check.mjs keeps them in sync) ── */
+:where(:root) {
+  color-scheme: light dark;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --radius-md: 8px;
+  --cell-pad-block: var(--space-2);
+  --cell-pad-inline: var(--space-3);
+  --surface: light-dark(oklch(1 0 0), oklch(0.215 0.008 250));
+  --border: light-dark(oklch(0.88 0.008 250), oklch(0.35 0.012 250));
+  --accent: light-dark(oklch(0.50 0.17 265), oklch(0.785 0.10 265));
+}
+:root[data-theme="light"] { color-scheme: light; }
+:root[data-theme="dark"] { color-scheme: dark; }
+
+/* ---- Direction variables (rtl-logical-properties.md) ---- */
+:root {
+  --dir: 1;            /* multiply translate/rotate values by this */
+  --edge-start: left; /* for physical-only APIs: gradients, background-position */
+  --edge-end: right;
+}
+:root:dir(rtl) {
+  --dir: -1;
+  --edge-start: right;
+  --edge-end: left;
+}
+
+/* ---- Script typography (rtl-typography-hebrew-arabic.md) ---- */
+:root {
+  --font-sans-he: "Noto Sans Hebrew", Assistant, Heebo, Rubik, "Segoe UI", "Arial Hebrew", Arial, sans-serif;
+  --font-sans-ar: "Noto Sans Arabic", "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif;
+  --font-serif-ar: "Noto Naskh Arabic", Amiri, serif;
+  --leading-body-he: 1.55;
+  --leading-body-ar: 1.7;
+  --leading-heading-rtl: 1.3;
+}
+/* set on the element that declares the language, so components' own line-heights still inherit */
+:is(:root, [lang]):lang(he) {
+  --font-sans: var(--font-sans-he);
+  --track-display: 0;
+  --track-meta: 0;
+  line-height: var(--leading-body-he);
+}
+:is(:root, [lang]):is(:lang(ar), :lang(fa), :lang(ur)) {
+  --font-sans: var(--font-sans-ar);
+  --track-display: 0;
+  --track-body: 0;
+  --track-meta: 0;
+  line-height: var(--leading-body-ar);
+}
+:is(:lang(ar), :lang(fa), :lang(ur)) {
+  letter-spacing: 0; /* cursive joins: never track Arabic script, on any element */
+}
+:is(:lang(he), :lang(ar), :lang(fa), :lang(ur)) {
+  font-synthesis-style: none; /* no faux italics */
+}
+:is(:lang(he), :lang(ar), :lang(fa), :lang(ur)) :is(h1, h2, h3, h4) {
+  line-height: var(--leading-heading-rtl);
+}
+:is(:lang(he), :lang(ar), :lang(fa), :lang(ur)) :is(em, i, cite, dfn) {
+  font-style: normal;
+  font-weight: 600;
+}
+:is(:lang(he), :lang(ar), :lang(fa), :lang(ur)) .eyebrow {
+  text-transform: none; /* no case in Hebrew or Arabic */
+  letter-spacing: 0;
+  font-weight: 600;
+}
+
+/* ---- Bidi islands (rtl-bidi-isolation-mixed-text.md, rtl-mirroring-what-flips.md) ---- */
+.bidi-isolate { unicode-bidi: isolate; }
+.ltr-island { direction: ltr; unicode-bidi: isolate; } /* prefer dir="ltr" in markup; this guards reused components */
+.num-ltr { direction: ltr; unicode-bidi: isolate; font-variant-numeric: tabular-nums lining-nums; }
+.media-controls, .chart-plot, pre, code, kbd, samp {
+  direction: ltr; /* physical-ok: never mirrored */
+  unicode-bidi: isolate;
+}
+
+/* ---- Icons (rtl-icons-directional.md) ---- */
+:dir(rtl) [data-rtl="mirror"], .flip-rtl:dir(rtl) { scale: -1 1; }
+
+/* ---- Forms (rtl-forms-input-direction.md) ---- */
+input:is([type="email"], [type="url"], [type="tel"], [type="password"]) { direction: ltr; }
+input:is([type="email"], [type="url"], [type="tel"], [type="password"]):placeholder-shown:dir(rtl) { direction: rtl; }
+input[dir="ltr"]:placeholder-shown:dir(rtl) { direction: rtl; }
+
+/* ---- Tables (rtl-tables-and-charts.md) ---- */
+th, td { text-align: start; }
+td.num, th.num, .num {
+  text-align: right; /* physical-ok: digits are LTR, align the units digit in both directions */
+  font-variant-numeric: tabular-nums lining-nums;
+  white-space: nowrap;
+}
+.sticky-start { position: sticky; inset-inline-start: 0; background: var(--surface, #fff); }
+
+/* ---- Logical spacing utilities on the 4px scale (rtl-logical-properties.md) ---- */
+.ms-1 { margin-inline-start: var(--space-1, 4px); }
+.ms-2 { margin-inline-start: var(--space-2, 8px); }
+.ms-3 { margin-inline-start: var(--space-3, 12px); }
+.ms-4 { margin-inline-start: var(--space-4, 16px); }
+.ms-5 { margin-inline-start: var(--space-5, 24px); }
+.ms-6 { margin-inline-start: var(--space-6, 32px); }
+.ms-auto { margin-inline-start: auto; }
+.me-1 { margin-inline-end: var(--space-1, 4px); }
+.me-2 { margin-inline-end: var(--space-2, 8px); }
+.me-3 { margin-inline-end: var(--space-3, 12px); }
+.me-4 { margin-inline-end: var(--space-4, 16px); }
+.me-5 { margin-inline-end: var(--space-5, 24px); }
+.me-6 { margin-inline-end: var(--space-6, 32px); }
+.me-auto { margin-inline-end: auto; }
+.ps-1 { padding-inline-start: var(--space-1, 4px); }
+.ps-2 { padding-inline-start: var(--space-2, 8px); }
+.ps-3 { padding-inline-start: var(--space-3, 12px); }
+.ps-4 { padding-inline-start: var(--space-4, 16px); }
+.ps-5 { padding-inline-start: var(--space-5, 24px); }
+.ps-6 { padding-inline-start: var(--space-6, 32px); }
+.pe-1 { padding-inline-end: var(--space-1, 4px); }
+.pe-2 { padding-inline-end: var(--space-2, 8px); }
+.pe-3 { padding-inline-end: var(--space-3, 12px); }
+.pe-4 { padding-inline-end: var(--space-4, 16px); }
+.pe-5 { padding-inline-end: var(--space-5, 24px); }
+.pe-6 { padding-inline-end: var(--space-6, 32px); }
+.px-cell { padding-inline: var(--cell-pad-inline, 12px); }
+.py-cell { padding-block: var(--cell-pad-block, 8px); }
+
+/* ---- Logical position, alignment, borders and corners ---- */
+.start-0 { inset-inline-start: 0; }
+.end-0 { inset-inline-end: 0; }
+.text-start { text-align: start; }
+.text-end { text-align: end; }
+.float-start { float: inline-start; }
+.float-end { float: inline-end; }
+.border-s { border-inline-start: 1px solid var(--border, #d9dde3); }
+.border-e { border-inline-end: 1px solid var(--border, #d9dde3); }
+.border-s-accent { border-inline-start: 3px solid var(--accent, #3b5bdb); }
+.rounded-s {
+  border-start-start-radius: var(--radius-md, 8px);
+  border-end-start-radius: var(--radius-md, 8px);
+}
+.rounded-e {
+  border-start-end-radius: var(--radius-md, 8px);
+  border-end-end-radius: var(--radius-md, 8px);
+}
+
+/* ---- Physical leftovers driven by the direction variables ---- */
+.fade-end { mask-image: linear-gradient(to var(--edge-end), #000 calc(100% - 24px), transparent); }
+.slide-in-start[data-state="closed"] { translate: calc(var(--dir) * -100%) 0; }
+.slide-in-end[data-state="closed"] { translate: calc(var(--dir) * 100%) 0; }
+.chevron-disclosure[aria-expanded="false"] { rotate: calc(var(--dir) * -90deg); }
