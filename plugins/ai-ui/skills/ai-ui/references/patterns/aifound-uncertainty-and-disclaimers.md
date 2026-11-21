@@ -42,7 +42,7 @@
 
 ## Bad references
 - Google AI Overviews, May 2024 ([Google's own post-mortem](https://blog.google/products/search/ai-overviews-update-may-2024/)): answers drawn from satire and forum jokes were shown above results with no hedge. Google's fix included not showing an overview at all for some queries, the strongest form of "scope services when in doubt" (HAX G10).
-- Lawyers in Mata v. Avianca, 2023 ([sanctions order](https://law.justia.com/cases/federal/district-courts/new-york/nysdce/1:2022cv01461/575368/54/)) filed fabricated case citations a chatbot produced; nothing in the output distinguished invented authorities from real ones.
+- Lawyers in Mata v. Avianca, S.D.N.Y. June 2023 ([opinion and order on sanctions](https://storage.courtlistener.com/recap/gov.uscourts.nysd.575368/gov.uscourts.nysd.575368.54.0.pdf)) filed fabricated case citations a chatbot produced; nothing in the output distinguished invented authorities from real ones.
 - The IEA site chatbot's disclaimer that scrolls away ([NN/g](https://www.nngroup.com/articles/ai-chatbots-discourage-error-checking/)).
 
 ## Accessibility
@@ -112,7 +112,7 @@ export function warningText(signals: Signal[]): string | null {
 - https://www.nngroup.com/articles/less-chat-more-answer/
 - https://blog.google/products/search/ai-overviews-update-may-2024/
 - https://blog.google/products/gemini/google-bard-new-features-update-sept-2023/
-- https://law.justia.com/cases/federal/district-courts/new-york/nysdce/1:2022cv01461/575368/54/
+- https://storage.courtlistener.com/recap/gov.uscourts.nysd.575368/gov.uscourts.nysd.575368.54.0.pdf
 - https://dl.acm.org/doi/10.1145/2702123.2702322 (Anderson et al., polymorphic warnings and habituation, CHI 2015)
 - https://alistapart.com/article/neveruseawarning/
 - https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html

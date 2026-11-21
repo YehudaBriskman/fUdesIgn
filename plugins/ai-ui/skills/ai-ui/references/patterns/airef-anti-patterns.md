@@ -16,7 +16,7 @@ Check each anti-pattern; for each hit, record the evidence and apply the fix fil
 | 1 | **The bot speaks for the company with no grounding.** Policy, price or legal answers generated without retrieval or citation. | A tribunal held an airline liable for its chatbot inventing a refund policy (Moffatt v. Air Canada, 2024). | Ground answers in the source document, cite it, and say the written policy wins (`aichat-citations-and-sources.md`, `aifound-uncertainty-and-disclaimers.md`). | D1, D3 |
 | 2 | **Confident answers above sources, no scope limit.** Showing generated answers for any query, in the most authoritative position. | AI search answers in May 2024 repeated satire and forum jokes; the fix included not answering some query types at all (Google's post-mortem). | Scope the feature; skip AI output when retrieval is weak; signal-driven warnings (`aifound-uncertainty-and-disclaimers.md`). | D3, A2 |
 | 3 | **Fabricated citations that look real.** References rendered the same whether or not they were retrieved. | Lawyers sanctioned for filing invented case citations from a chatbot (Mata v. Avianca, 2023). | Only cite retrieved documents; link to the passage; mark unsourced claims (`aichat-citations-and-sources.md`). | D1 |
-| 4 | **Agents with unchecked write access to production.** No tiering, no dev/prod split, no approval for destructive actions. | An AI coding agent deleted a production database during a code freeze and misreported it (July 2025). | Tier tools in code; tier 3 for production; plan mode; audit log written by the tool layer (`aiagent-approval-and-audit.md`). | I1, I3 |
+| 4 | **Agents with unchecked write access to production.** No tiering, no dev/prod split, no approval for destructive actions. | An AI coding agent deleted a production database despite a code freeze and invented data, per the user's account; the vendor's CEO called it unacceptable (July 2025). | Tier tools in code; tier 3 for production; plan mode; audit log written by the tool layer (`aiagent-approval-and-audit.md`). | I1, I3 |
 | 5 | **Silent consequential choices.** The agent changes the user's request (time, price, recipient) without asking. | A browsing agent changed a booking time and let a hold window expire (NN/g, 2025); hidden fees appeared only at an agent checkout (NN/g, 2026). | Clarify up front; approval with the exact payload and all costs (`aiagent-approval-and-audit.md`). | I1, I2 |
 | 6 | **Audience-widening hidden in a routine flow.** Indexing, publishing or training as a small checkbox. | Shared chats became searchable through a "discoverable" checkbox in the share dialog (2025); the option was removed. | Private, `noindex` defaults; preview of what is shared; training as a named setting (`aifound-privacy-consent-data-use.md`). | G1, G2 |
 | 7 | **No cue about where pasted data goes.** | A large company banned public chatbots after staff pasted internal material (2023). | Data notice at the input; sensitive-paste warning; enterprise controls (`aifound-privacy-consent-data-use.md`). | G1 |
@@ -40,7 +40,7 @@ Check each anti-pattern; for each hit, record the evidence and apply the fix fil
 ## Bad references
 - [ABA on Moffatt v. Air Canada (2024)](https://www.americanbar.org/groups/business_law/resources/business-law-today/2024-february/bc-tribunal-confirms-companies-remain-liable-information-provided-ai-chatbot/) (#1).
 - [Google, "AI Overviews: About last week" (2024)](https://blog.google/products/search/ai-overviews-update-may-2024/) (#2).
-- [Mata v. Avianca sanctions order (2023)](https://law.justia.com/cases/federal/district-courts/new-york/nysdce/1:2022cv01461/575368/54/) (#3).
+- [Mata v. Avianca, opinion and order on sanctions, S.D.N.Y. 22 June 2023](https://storage.courtlistener.com/recap/gov.uscourts.nysd.575368/gov.uscourts.nysd.575368.54.0.pdf) (#3).
 - [The Register on the production-database deletion (2025)](https://www.theregister.com/2025/07/22/replit_saastr_response/) (#4).
 - [NN/g, first look at a browsing agent (2025)](https://www.nngroup.com/articles/impressions-chatgpt-agent/) and [NN/g, designing AI agents (2026)](https://www.nngroup.com/articles/designing-ai-agents/) (#5).
 - [The Register on discoverable shared chats (2025)](https://www.theregister.com/2025/08/01/openai_removes_chatgpt_selfdoxing_option/) (#6).
@@ -85,7 +85,7 @@ export function triage(hits: readonly Hit[]): { mustFix: Hit[]; other: Hit[] } {
 - https://www.americanbar.org/groups/business_law/resources/business-law-today/2024-february/bc-tribunal-confirms-companies-remain-liable-information-provided-ai-chatbot/
 - https://www.mccarthy.ca/en/insights/blogs/techlex/moffatt-v-air-canada-misrepresentation-ai-chatbot
 - https://blog.google/products/search/ai-overviews-update-may-2024/
-- https://law.justia.com/cases/federal/district-courts/new-york/nysdce/1:2022cv01461/575368/54/
+- https://storage.courtlistener.com/recap/gov.uscourts.nysd.575368/gov.uscourts.nysd.575368.54.0.pdf
 - https://www.theregister.com/2025/07/22/replit_saastr_response/
 - https://fortune.com/2025/07/23/ai-coding-tool-replit-wiped-database-called-it-a-catastrophic-failure/
 - https://www.theregister.com/2025/08/01/openai_removes_chatgpt_selfdoxing_option/

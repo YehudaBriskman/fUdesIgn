@@ -116,7 +116,7 @@ Break one of these only with a written reason.
 | Overload or 5xx | Inline message; Retry with backoff; offer a fallback if one exists |
 | Refusal | Say so first, brief reason category, an alternative; never disguised as an error |
 | Context too long | Offer a new chat carrying a summary |
-| Rate limit | Limit, absolute reset time from `Retry-After`, what still works; warn at 80% used |
+| Rate limit | Limit, absolute reset time from `Retry-After`, what still works; warn at 80% used (thresholds are this skill's choice) |
 | Attachment | Limit before upload; per-file error on the chip |
 
 **Feedback and versions** (`aichat-feedback-and-reporting.md`, `aichat-edit-regenerate-branching.md`)

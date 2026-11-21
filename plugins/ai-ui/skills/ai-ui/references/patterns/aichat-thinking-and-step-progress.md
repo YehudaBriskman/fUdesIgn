@@ -10,7 +10,7 @@
 - Budgets and percentiles are in `aifound-latency-and-perceived-performance.md`. Approval prompts that interrupt a run are in `aiagent-approval-and-audit.md`.
 
 ## Rules (do)
-**Escalation by elapsed time** (thresholds follow NN/g's 0.1 / 1 / 10 s response-time limits)
+**Escalation by elapsed time** (the 1 s and 10 s thresholds follow NN/g's 0.1 / 1 / 10 s response-time limits; the 5 s elapsed-time step is this skill's choice)
 - **0–1 s:** the empty assistant slot (author line only) appears with the user's turn. No spinner yet.
 - **≥ 1 s:** a status line in the slot: a small indicator plus specific text, "Thinking…" or better the current phase ("Searching your files…"). Apple's generative AI guidance asks for specific status instead of "Processing…".
 - **≥ 5 s:** add elapsed time ("Thinking · 6 s"). Update it at most once per second visually, and don't announce it.

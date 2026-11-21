@@ -25,7 +25,7 @@
 | Attachment | "report.pdf is 34 MB; the limit is 20 MB." | Remove / compress, before upload where possible |
 
 - **Absolute reset times.** Read `Retry-After` (seconds or an HTTP date) and show the local clock time ("Resets at 14:30"), plus a relative hint once ("in about 2 hours"). Don't run a per-second countdown for waits over 60 s.
-- **Warn before the wall.** Show remaining quota at 80% used ("8 messages left until 14:30"), in the composer meta line, not a modal.
+- **Warn before the wall.** Show remaining quota at 80% used (this skill's threshold; "8 messages left until 14:30"), in the composer meta line, not a modal.
 - **Refusals: first sentence, no lecture.** State the refusal in the first sentence, give one clause of reason by category (not the internal policy name), and offer what the assistant can do. NN/g's "less chat, more answer" study recommends saying up front when the bot can't help and offering an alternative. Keep the tone neutral and don't moralise (PAIR: be "human, not machine"; Apple: coach people toward a better result when a request is blocked).
 - **Don't fake errors.** A policy block must not read "Something went wrong"; a model failure must not read as a refusal. Users retry fake errors endlessly and rephrase working prompts.
 - **Over-refusal is an error too.** Give a "This shouldn't have been refused" feedback option on refusals (see `aichat-feedback-and-reporting.md`).
@@ -67,7 +67,7 @@
 | `--ai-error-bg` / `--ai-error-fg` | `var(--danger-bg)` / `var(--danger-fg)` | inline error block |
 | `--ai-warn-bg` / `--ai-warn-fg` | `var(--warning-bg)` / `var(--warning-fg)` | quota warnings, "Incomplete" label |
 | auto-retry | max 3, backoff 2 s · 4 s · 8 s (+ jitter), idempotent calls only | busy / 5xx |
-| quota warning | at 80% used | composer meta line |
+| quota warning | at 80% used (skill's choice) | composer meta line |
 | countdown announcements | ≤ 1 per 10 s, or start and end only | `role="status"` |
 | per-second countdown | only for waits ≤ 60 s; longer waits show a clock time | |
 
