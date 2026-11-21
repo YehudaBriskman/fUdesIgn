@@ -1,6 +1,6 @@
 # Motion principles and tokens for data UIs
 
-> Every animation in a dashboard must explain a change (where something came from, went, or what it became); use a small set of duration and easing tokens, keep UI motion at or under 300 ms, and never animate what the user does dozens of times a day.
+> Every animation in a dashboard must explain a change (where something came from, went, or what it became); use the duration tokens 100/150/240/400 ms and the four easing tokens, keep most UI motion at or under 300 ms (400 ms only for large panels, 600–900 ms only for staged data transitions), and never animate what the user does dozens of times a day.
 
 **Category:** Motion · **Applies to:** every animated element: panels, popovers, rows, charts, toasts, focus/selection states · **Priority:** must
 
@@ -18,48 +18,49 @@ Do not animate when:
 - the user is an operator scanning for change: entrance animations hide what actually changed.
 
 ## Rules (do)
-- **Budget by size and frequency** (NN/g, Carbon, M3 agree):
-  - Micro feedback (toggle, checkbox, press, hover colour): 70–120 ms.
-  - Small move or expand (dropdown, tooltip, row expand): 150–200 ms.
-  - Medium (dialog, side panel, toast in): 200–300 ms.
-  - Large (full-panel morph, chart re-layout): 300–500 ms. Never exceed 500 ms for UI chrome; NN/g calls >500 ms "a real drag".
-  - Data transitions that people must track (bar sort, axis rescale): up to ~1 s total, staged (see `motion-chart-transitions.md`).
-- **Exit faster than enter**: exit duration ≈ 0.7–0.8 × enter (for example 250 ms in, 200 ms out).
-- **Easing by role**, never `linear` for movement:
-  - Entering or settling: decelerate (ease-out).
-  - Leaving permanently: accelerate (ease-in).
-  - Moving on-screen to on-screen: standard (ease-in-out, asymmetric).
+- **Budget by size and frequency.** Use the four duration tokens from `assets/tokens.css`; each maps to a Carbon duration step, and NN/g's "100–500 ms" range brackets them all:
+  - Micro feedback (toggle, checkbox, press, hover colour): `--motion-dur-micro` 100 ms. Carbon's own steps here are 70 ms (`fast-01`, buttons and toggles) and 110 ms (`fast-02`, fades); NN/g says simple feedback should be "roughly 100 ms".
+  - Small move or expand (dropdown, tooltip, row expand): `--motion-dur-short` 150 ms (Carbon `moderate-01`, "small expansions, and short-distance movements").
+  - Medium (dialog, side panel, toast in): `--motion-dur-medium` 240 ms (Carbon `moderate-02`, "expansions, system communication, and toasts"). NN/g puts large screen changes such as a modal at 200–300 ms.
+  - Large (full-panel morph, one stage of a chart re-layout): `--motion-dur-long` 400 ms (Carbon `slow-01`). NN/g calls 400 ms very slow and says "at 500ms, animations start to feel like a real drag", so no UI-chrome animation goes above 400 ms.
+  - Data transitions that people must track (bar sort, axis rescale): 600–900 ms in total, staged as two or more `long` stages (see `motion-chart-transitions.md`). This is the only band above 400 ms.
+- **Exit faster than enter**: exit duration = 0.75 × enter (240 ms in, 180 ms out). This ratio is a house rule; none of the cited sources gives a number for it.
+- **Easing by role**, never `linear` for movement. The curves are Carbon's productive set (verified against the Carbon motion page):
+  - Entering or settling: `--motion-ease-enter`, `cubic-bezier(0, 0, 0.38, 0.9)`. NN/g: "Most frequently, you'll want to use an ease-out animation."
+  - Leaving permanently: `--motion-ease-exit`, `cubic-bezier(0.2, 0, 1, 0.9)`.
+  - Moving on-screen to on-screen: `--motion-ease-standard`, `cubic-bezier(0.2, 0, 0.38, 0.9)`.
+  - Rare, significant moments only: `--motion-ease-emphasized`, `cubic-bezier(0.2, 0, 0, 1)` (Material 3 `emphasized`).
   - `linear` is allowed only for opacity cross-fades, continuous progress, and spinner rotation.
 - **Productive, not expressive, by default.** Carbon reserves expressive curves for rare, significant moments; data tables and visualisations use productive motion.
 - **Animate only `transform` and `opacity`** (and individual `translate`, `scale`, `rotate`). List properties explicitly; never `transition: all`.
 - **Make motion interruptible**: a new input retargets the animation from its current position. Never queue animations or block input until they finish.
-- **Springs for direct manipulation** (drag, swipe, pan release). Start critically damped (bounce 0 / 100% damping). Add overshoot (≈80% damping) only when the gesture itself carried momentum (Apple, WWDC18 "Designing Fluid Interfaces").
-- **Tokenise.** Ship 4–6 duration tokens and 3–4 easing tokens. Components may not use raw ms values.
+- **Springs for direct manipulation** (drag, swipe, pan release). Start critically damped (bounce 0 / 100% damping): Apple recommends "starting with 100% damping, or no overshoot". Add overshoot only when the gesture itself carried momentum; Apple's example is 80% damping for the swipe-to-dismiss of Now Playing (WWDC18 "Designing Fluid Interfaces"). 80% is one worked example, not a system default.
+- **Tokenise.** Ship the 4 duration tokens and 4 easing tokens in `assets/tokens.css`. Components may not use raw ms values.
 - **One motion at a time per region.** If two things animate together, they must share duration and easing (Gestalt common fate) or be deliberately staggered.
 
 ## Anti-patterns (don't)
 - `transition: all 0.3s` on cards: animates layout, colour and shadow, causes jank and unintended motion.
 - Bouncy springs on data marks: an overshooting bar briefly shows a value that does not exist.
-- Bounce easing on `opacity` (values overshoot past 0 or 1 and flicker; noted in modern-web-guidance physics-based-easing).
-- Slow "luxury" easing (600–1000 ms) on menus and filters in a daily-use tool.
+- Bounce or overshoot easing on `opacity`. Opacity is clamped to 0–1, so the overshoot part of the curve renders as a visible stall at full opacity rather than a bounce.
+- Slow "luxury" durations (600–1000 ms) on menus and filters in a daily-use tool. Emil Kowalski: "A 180ms dropdown animation feels more responsive than a 400ms one." 
 - Entrance choreography that replays on every route change or filter change.
 - Animating `width`/`height`/`top`/`left` per frame on large panels: layout per frame, misses the 10 ms frame budget.
 
 ## Good references
 - [IBM Carbon, Motion](https://carbondesignsystem.com/elements/motion/overview/): explicit productive vs expressive split, six duration tokens (70–700 ms), and three curves per mode. Productive is named as the mode for "rendering data tables and visualizations". The best dashboard-first motion spec.
-- [Material 3 motion tokens (material-web source)](https://github.com/material-components/material-web/blob/main/tokens/versions/v0_192/_md-sys-motion.scss): 16 duration steps (50–1000 ms) and named easing curves (standard, emphasized, decelerate, accelerate), all as tokens.
-- [NN/g, Executing UX Animations: Duration and Motion Characteristics](https://www.nngroup.com/articles/animation-duration/): ~100 ms for simple feedback, 200–300 ms for screen changes, ease-out default, "the more frequent the animation, the more subtle and shorter".
-- [Apple WWDC18, Designing Fluid Interfaces](https://developer.apple.com/videos/play/wwdc2018/803/): springs described by damping and response, not duration; redirectable motion; 100% damping by default, about 80% only when the gesture has momentum.
-- [Emil Kowalski, You don't need animations](https://emilkowal.ski/ui/you-dont-need-animations): frequency is the deciding factor; keyboard actions should never animate; UI animation under 300 ms; a 180 ms dropdown feels faster than a 400 ms one.
+- [Material 3 motion tokens (material-web source)](https://github.com/material-components/material-web/blob/main/tokens/versions/v0_192/_md-sys-motion.scss): 16 duration steps (50–1000 ms) and 10 easing tokens. In this token version `easing-standard` and `easing-emphasized` are the same curve, `cubic-bezier(0.2, 0, 0, 1)`; the older `(0.4, 0, 0.2, 1)` survives only as `easing-legacy`. Our "standard" is Carbon's productive curve, not M3's.
+- [NN/g, Executing UX Animations: Duration and Motion Characteristics](https://www.nngroup.com/articles/animation-duration/): "roughly 100 ms" for simple feedback, 200–300 ms for large screen changes such as a modal, 100–500 ms overall, "at 500ms, animations start to feel like a real drag", ease-out by default, "the more frequent the animation, the more subtle and shorter".
+- [Apple WWDC18, Designing Fluid Interfaces](https://developer.apple.com/videos/play/wwdc2018/803/): springs described by damping and response, not duration; constant redirection and interruption; start at 100% damping (no overshoot) and reward a gesture's momentum with a little overshoot (80% in the Now Playing example).
+- [Emil Kowalski, You don't need animations](https://emilkowal.ski/ui/you-dont-need-animations): frequency is the deciding factor; keyboard-initiated actions: "You should never animate them"; "UI animations should generally stay under 300ms"; a 180 ms dropdown feels more responsive than a 400 ms one.
 - [Vercel Web Interface Guidelines](https://vercel.com/design/guidelines): CSS before WAAPI before JS libraries; compositor-only properties; "Animations are cancelable by user input"; never `transition: all`.
 
 ## Bad references
 - Template "stat card" kits (for example [Framer stat-reveal components](https://www.framer.com/community/marketplace/components/stat-reveal/)) that count every KPI up from zero and slide cards in on each view. The motion is the same whatever the data says, so it carries no information and delays reading by around a second.
-- Marketing-site motion pasted into apps: long staggered fades of 600–1200 ms on dashboard tiles. NN/g's 500 ms ceiling exists for this reason.
+- Marketing-site motion pasted into apps: long staggered fades of 600–1200 ms on dashboard tiles. That is past NN/g's 500 ms "real drag" point and past the 300 ms stagger cap below.
 
 ## Accessibility
-- Respect `prefers-reduced-motion`: drop spatial movement, keep colour and opacity feedback (see `motion-reduced-motion.md`).
-- Anything that moves for more than 5 s alongside other content needs a pause control (WCAG 2.2.2).
+- Respect `prefers-reduced-motion` (Baseline widely available since January 2020): drop spatial movement, keep colour and opacity feedback (see `motion-reduced-motion.md`).
+- Anything that starts automatically, moves for more than 5 s and sits alongside other content needs a pause, stop or hide control (WCAG 2.2.2, Level A).
 - Never flash more than 3 times per second (WCAG 2.3.1).
 - Make the final state the default state, so disabling animation never leaves content at `opacity: 0`.
 
@@ -68,21 +69,24 @@ Do not animate when:
 - When interrupted, retarget from the current value. With springs, preserve velocity: Motion's `visualDuration` springs inherit the velocity of the animation they interrupt.
 
 ## Tokens and values
+Rows marked † are in `assets/tokens.css`; the others are values this file adds and that are not yet tokens there.
+
 | Token | Value | Use |
 |---|---|---|
-| `--motion-dur-instant` | 0 ms | keyboard-driven changes, reduced motion |
-| `--motion-dur-micro` | 100 ms | hover, press, toggle, colour change |
-| `--motion-dur-short` | 150 ms | tooltip, dropdown, row expand |
-| `--motion-dur-medium` | 240 ms | dialog, drawer, toast (Carbon moderate-02) |
-| `--motion-dur-long` | 400 ms | large panel, chart re-layout stage |
-| `--motion-dur-data` | 600–900 ms total | staged chart transitions only |
-| `--motion-ease-standard` | `cubic-bezier(0.2, 0, 0.38, 0.9)` | on-screen moves (Carbon productive) |
-| `--motion-ease-enter` | `cubic-bezier(0, 0, 0.38, 0.9)` | entering, settling |
-| `--motion-ease-exit` | `cubic-bezier(0.2, 0, 1, 0.9)` | leaving permanently |
-| `--motion-ease-emphasized` | `cubic-bezier(0.2, 0, 0, 1)` | rare, important moments (M3 emphasized) |
-| spring (direct manipulation) | bounce 0, visualDuration 0.3 s | drag release, sheet snap |
-| exit / enter ratio | 0.75 | |
-| stagger per item | 20–40 ms, max total 300 ms | list or bar entry |
+| `--motion-dur-instant` | 0 ms | keyboard-driven changes, reduced motion (not in tokens.css; write `0ms`) |
+| `--motion-dur-micro` † | 100 ms | hover, press, toggle, colour change (Carbon fast-01/02: 70/110 ms) |
+| `--motion-dur-short` † | 150 ms | tooltip, dropdown, row expand, reduced-motion fade (Carbon moderate-01) |
+| `--motion-dur-medium` † | 240 ms | dialog, drawer, toast (Carbon moderate-02) |
+| `--motion-dur-long` † | 400 ms | large panel, one chart re-layout stage (Carbon slow-01) |
+| `--motion-dur-data` | 600–900 ms total | staged chart transitions only (SKILL.md "staged data"; not in tokens.css) |
+| `--motion-ease-standard` † | `cubic-bezier(0.2, 0, 0.38, 0.9)` | on-screen moves (Carbon productive standard) |
+| `--motion-ease-enter` † | `cubic-bezier(0, 0, 0.38, 0.9)` | entering, settling (Carbon productive entrance) |
+| `--motion-ease-exit` † | `cubic-bezier(0.2, 0, 1, 0.9)` | leaving permanently (Carbon productive exit) |
+| `--motion-ease-emphasized` † | `cubic-bezier(0.2, 0, 0, 1)` | rare, important moments (M3 emphasized) |
+| `--motion-ease-spring` | `linear()` approximation, below | drag release, sheet snap (not in tokens.css) |
+| spring in JS (Motion) | bounce 0, visualDuration 0.3 s | drag release, sheet snap |
+| exit / enter ratio | 0.75 (house rule) | 240 → 180 ms, 150 → 110 ms |
+| stagger per item | 20–40 ms, max total 300 ms (house rule) | list or bar entry |
 
 ## Implementation sketch
 ```css
@@ -94,7 +98,7 @@ Do not animate when:
   --motion-ease-standard: cubic-bezier(0.2, 0, 0.38, 0.9);
   --motion-ease-enter: cubic-bezier(0, 0, 0.38, 0.9);
   --motion-ease-exit: cubic-bezier(0.2, 0, 1, 0.9);
-  /* Critically damped spring approximation via linear() (Baseline 2023) */
+  /* Critically damped spring approximation via linear() (Baseline widely available; newly available Dec 2023) */
   --motion-ease-spring: linear(0, 0.25 8%, 0.6 18%, 0.86 30%, 0.97 45%, 1);
 }
 
@@ -117,11 +121,12 @@ Do not animate when:
   @starting-style { .panel { translate: none; } }
 }
 ```
+Support and fallback: `@starting-style` and `transition-behavior: allow-discrete` (the `display … allow-discrete` line) are Baseline 2024, newly available since August 2024 (Chrome 117, Firefox 129, Safari 17.4/17.5). Older browsers ignore both, so the panel simply appears and disappears without the entry or exit animation, which is an acceptable fallback because the final state is the default state. Individual `translate`/`scale`/`rotate` properties are Baseline widely available.
 
 ## Checklist
 - [ ] Every animation has a stated purpose: continuity, feedback, orientation or attention.
 - [ ] No raw ms or `cubic-bezier` values outside the token file.
-- [ ] UI chrome animations ≤ 300 ms; nothing over 500 ms except staged data transitions.
+- [ ] Every duration is one of 0 / 100 / 150 / 240 / 400 ms, or 600–900 ms total for a staged data transition; no other values.
 - [ ] Keyboard-triggered and high-frequency actions have 0 ms motion.
 - [ ] Only `transform`/`opacity` (or individual transform properties) animate; no `transition: all`.
 - [ ] New input interrupts and retargets any running animation.
@@ -137,7 +142,6 @@ Do not animate when:
 - https://motion.dev/docs/spring
 - https://www.joshwcomeau.com/animation/a-friendly-introduction-to-spring-physics/
 - https://web.dev/articles/rail
-- modern-web-guidance: skills/modern-web-guidance/guides/ui-behaviors/motion.md
-- modern-web-guidance: skills/modern-web-guidance/guides/ui-behaviors/physics-based-easing.md
-- modern-web-guidance: skills/modern-web-guidance/guides/ui-behaviors/animate-element-entry-exit.md
-- modern-web-guidance: skills/modern-web-guidance/guides/user-experience/natural-interactions.md
+- https://www.w3.org/WAI/WCAG22/Understanding/pause-stop-hide.html
+- https://developer.mozilla.org/en-US/docs/Web/CSS/@starting-style
+- https://developer.mozilla.org/en-US/docs/Web/CSS/transition-behavior

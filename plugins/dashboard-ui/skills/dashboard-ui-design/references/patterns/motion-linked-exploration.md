@@ -20,18 +20,18 @@ Don't use:
 - Scroll-wheel zoom that captures page scroll without a modifier key or explicit focus.
 
 ## Rules (do)
-- **Latency:** dynamic queries need display updates in < 100 ms (Shneiderman). Crossfilter shows this is achievable (< 30 ms over ~250 K records) with incremental indexes. If you can't meet it, update on release (batch), not on every move.
-- **No animation during manipulation.** Brushing, panning and slider drags redraw synchronously each frame. Animate only the discrete commit (drill-in, reset) at 250–400 ms (see `motion-chart-transitions.md`).
-- **Highlight before filter:** default linked behaviour is *highlight* (selected at full opacity, others at 25–35%), which preserves context. Offer *filter* (others removed) as an explicit choice. Keep totals honest: show "Filtered: 1,204 of 18,330 rows".
+- **Latency:** dynamic queries need display updates in < 100 ms (Shneiderman: "less than 100 milliseconds … even when there are tens of thousands of displayed items"). Crossfilter shows this is achievable ("<30ms" over nearly a quarter-million flights) with incremental indexes. If you can't meet it, update on release (batch), not on every move.
+- **No animation during manipulation.** Brushing, panning and slider drags redraw synchronously each frame. Animate only the discrete commit: button zoom and reset at `--motion-dur-medium` 240 ms, a drill-in re-layout at `--motion-dur-long` 400 ms per stage (see `motion-chart-transitions.md`).
+- **Highlight before filter:** default linked behaviour is *highlight* (selected at full opacity, others at 0.3), which preserves context. Offer *filter* (others removed) as an explicit choice. Keep totals honest: show "Filtered: 1,204 of 18,330 rows".
 - **Filters are visible state:** every active cross-filter or brush appears as a chip in a filter bar ("Sector: Energy ✕", "Mar 3–Apr 18 ✕") with "Clear all". Never hide state only inside a chart.
-- **One-step reversal:** `Esc` clears the current brush or selection; a click on empty plot area clears point selections; "Reset zoom" appears only when zoomed; double-click resets zoom (mirrors Vega-Lite's `bind: "scales"` reset).
+- **One-step reversal:** `Esc` clears the current brush or selection; a click on empty plot area clears point selections; "Reset zoom" appears only when zoomed; double-click resets zoom (mirrors Vega-Lite, whose default `clear` event is `dblclick` and which resets a scale-bound view to its initial domains).
 - **Drill-down shows the path:** breadcrumbs (Portfolio › Equities › AAPL), and Back returns to the parent with the previous selection and scroll restored. Each level is a URL (`?path=equities/aapl`).
 - **URL state:** filters, brush ranges, zoom domain, drill path, selected tab. Share/refresh/back must reproduce the view (Vercel guidelines).
-- **Brush mechanics:** minimum brush size 8 px (avoid accidental 1-pixel brushes on click); handles ≥ 8 px wide with an `ew-resize` cursor; drag the body to move; brushed range labelled with exact values.
+- **Brush mechanics (house values):** minimum brush size 8 px (avoid accidental 1-pixel brushes on click); handles ≥ 8 px wide with an `ew-resize` cursor; drag the body to move; brushed range labelled with exact values.
 - **Zoom/pan mechanics:** wheel zoom only with `Ctrl/⌘` or after the chart has focus (or provide +/− buttons). Pinch on touch. Clamp to the data extent. Show an overview "minimap" strip with the visible window for long series. Keyboard: arrows pan, `+`/`−` zoom.
-- **Shared crosshair:** on time-aligned panels, hovering one shows the crosshair or tooltip at the same timestamp on all (Grafana "Shared crosshair"). Cheap linking with no state change.
+- **Shared crosshair:** on time-aligned panels, hovering one shows the crosshair (Grafana "Shared crosshair") or crosshair plus tooltips (Grafana "Shared tooltip") on all other graph panels. Cheap linking with no state change.
 - **Details on demand:** click opens a side panel or drawer with the record. Hover tooltips are not the only path to details.
-- **Resolve multi-brush semantics** explicitly when there are several brushes: *intersect* (AND across dimensions) is the default for filtering; *union* only when the user asks (Vega-Lite `resolve`).
+- **Resolve multi-brush semantics** explicitly when there are several brushes: use *intersect* (AND across dimensions) for filtering, and *union* only when the user asks. Vega-Lite's `resolve` offers `global | union | intersect`, and its default is `global` (one brush shared by all views), so set it explicitly.
 
 ## Anti-patterns (don't)
 - Hidden cross-filters: clicking a bar silently filters other charts with no chip or indicator. Users then misread totals.
@@ -45,14 +45,14 @@ Don't use:
 ## Good references
 - [Shneiderman, The Eyes Have It (1996)](https://www.cs.umd.edu/~ben/papers/Shneiderman1996eyes.pdf): the Visual Information-Seeking Mantra and seven tasks (overview, zoom, filter, details-on-demand, relate, history, extract). Dynamic queries need "rapid display update (less than 100 milliseconds)" with "rapid, incremental, and reversible actions".
 - [Square Crossfilter](https://square.github.io/crossfilter/): the reference coordinated-views demo. Brush any histogram; all others plus a detail table update in < 30 ms over a quarter-million flights.
-- [Vega-Lite selections](https://vega.github.io/vega-lite/docs/selection.html): a declarative grammar for point and interval selections, conditional encodings (highlight), filter transforms (cross-filter), scale binding (zoom/pan with reset on clear) and `resolve: global | union | intersect` for multi-view brushes.
-- [Grafana dashboard settings](https://grafana.com/docs/grafana/latest/dashboards/build-dashboards/modify-dashboard-settings/): Shared crosshair / Shared tooltip as a dashboard-level setting, plus a global time picker that every panel follows.
-- [NN/g, Applying Filters](https://www.nngroup.com/articles/applying-filters/): live filtering only if results arrive in < 1 s; otherwise batch with Apply; don't auto-scroll after filter changes.
-- modern-web-guidance [2d-panning](skills/modern-web-guidance/guides/ui-behaviors/2d-panning.md): `scroll-axis-lock: none` + `overscroll-behavior: contain` on native 2D scroll containers, with `tabindex="0"`, role and label for keyboard panning.
+- [Vega-Lite selections](https://vega.github.io/vega-lite/docs/selection.html): a declarative grammar for point and interval selections, conditional encodings (highlight), filter transforms (cross-filter), scale binding (zoom/pan; clearing resets to the initial domains), `clear` on `dblclick` by default, and `resolve: global | union | intersect` (default `global`) for multi-view brushes.
+- [Grafana dashboard settings](https://grafana.com/docs/grafana/latest/dashboards/build-dashboards/modify-dashboard-settings/): the Graph tooltip setting (Default, Shared crosshair, Shared tooltip) at dashboard level, plus a global time picker that every panel follows.
+- [NN/g, Applying Filters](https://www.nngroup.com/articles/applying-filters/): live filtering works when results are "shown less than one second" after each selection; otherwise batch with an *Apply* button. Scrolling the page to the top after a filter change can disorient users; NN/g suggests detecting intent before scrolling.
+- [MDN, overscroll-behavior](https://developer.mozilla.org/en-US/docs/Web/CSS/overscroll-behavior): `overscroll-behavior: contain` on a pannable chart container stops scroll chaining to the page (Baseline widely available).
 
 ## Bad references
 - Gapminder-style playback as the exploration mechanism: [Robertson et al. 2008](https://www.microsoft.com/en-us/research/?p=145396) found it the least accurate format for trend analysis compared with static traces or small multiples.
-- [Power BI, Change how visuals interact](https://learn.microsoft.com/en-us/power-bi/create-reports/service-reports-visual-interactions): "By default, visualizations on a report page cross-filter and cross-highlight the other visualizations on the page", and only report editors can change it. The interaction model is mixed: some targets are highlighted and some filtered, from one click. The resulting cross-filter state is not shown as a page-level list of active filters. Readers can misread filtered totals as global, especially in screenshots. The fix is visible chips, an explicit filtered count, and one consistent behaviour (highlight by default).
+- [Power BI, Change how visuals interact](https://learn.microsoft.com/en-us/power-bi/create-reports/service-reports-visual-interactions): "By default, visualizations on a report page cross-filter and cross-highlight the other visualizations on the page", and only users with edit permission can change it. The model is mixed: the doc's own example has one click on a map highlight the column chart and filter the line chart, and line charts, scatter charts and maps can only be cross-filtered, never cross-highlighted. Readers can misread filtered totals as global, especially in screenshots. The fix is visible chips, an explicit filtered count, and one consistent behaviour (highlight by default).
 
 ## Accessibility
 - Every pointer exploration has a keyboard and form equivalent: date-range inputs mirror the brush; a select or list mirrors bar clicks; +/−/reset buttons mirror wheel zoom.
@@ -62,9 +62,9 @@ Don't use:
 - Highlighted versus dimmed differs by more than colour (opacity plus outline); dimmed marks stay ≥ 3:1 if they still convey data.
 
 ## Motion / interaction (if relevant)
-- During drag: 0 ms; frame budget ≤ 10 ms per redraw (RAIL). Use canvas/WebGL beyond ~5 K marks; split heavy recompute with `scheduler.yield()`.
-- On commit (drill-in, reset zoom): 300 ms scale transition, keyed marks.
-- Zoom with the wheel/pinch tracks input directly; animate only the button-triggered zoom (250 ms).
+- During drag: 0 ms; frame budget ≤ 10 ms per redraw (RAIL: "Produce each frame in an animation in 10 ms or less"). Use canvas/WebGL beyond ~5 K marks (house heuristic); split heavy recompute with `scheduler.yield()` (Chrome 129+, Firefox 142+, not Safari, so fall back to `setTimeout(0)`).
+- On commit: reset zoom 240 ms, drill-in re-layout 400 ms per stage, both `--motion-ease-standard`, keyed marks.
+- Zoom with the wheel/pinch tracks input directly; animate only the button-triggered zoom (240 ms).
 
 ## Tokens and values
 | Token | Value |
@@ -74,9 +74,9 @@ Don't use:
 | dimmed (non-selected) opacity | 0.3 |
 | min brush size | 8 px |
 | brush handle width | 8 px hit, 2 px visual |
-| brush fill | `--color-accent` at 12% + 1 px border |
-| commit transition | 300 ms standard easing |
-| button zoom step | ×2 / ×0.5, 250 ms |
+| brush fill | `--accent` at 12% + 1 px border |
+| commit transition | 240 ms (reset, button zoom) or 400 ms per stage (drill-in), `--motion-ease-standard` |
+| button zoom step | ×2 / ×0.5, `--motion-dur-medium` 240 ms |
 | filter chip | 24–28 px tall, removable ✕ ≥ 24 px target |
 
 ## Implementation sketch
@@ -144,7 +144,6 @@ addEventListener('keydown', (e) => { if (e.key === 'Escape') setState({ from: un
 - https://vercel.com/design/guidelines
 - https://web.dev/articles/rail
 - https://learn.microsoft.com/en-us/power-bi/create-reports/service-reports-visual-interactions
-- modern-web-guidance: skills/modern-web-guidance/guides/ui-behaviors/2d-panning.md
-- modern-web-guidance: skills/modern-web-guidance/guides/ui-components/stack-drill-down.md
-- modern-web-guidance: skills/modern-web-guidance/guides/ui-components/breadcrumbs.md
-- modern-web-guidance: skills/modern-web-guidance/guides/performance/break-up-long-tasks.md
+- https://developer.mozilla.org/en-US/docs/Web/CSS/overscroll-behavior
+- https://www.w3.org/WAI/ARIA/apg/patterns/breadcrumb/
+- https://web.dev/articles/optimize-long-tasks
