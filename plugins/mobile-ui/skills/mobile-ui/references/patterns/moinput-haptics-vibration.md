@@ -15,10 +15,10 @@
   - The web cannot reach the iOS Taptic Engine's refined patterns (selection, impact light/medium/heavy, success/warning/error) or Android's `HapticFeedbackConstants`; only a motor buzz with on/off durations.
   - Chrome requires sticky user activation: calls before the user has interacted with the page are ignored, and cross-origin iframes need permission.
 - **Feature-detect** (`'vibrate' in navigator`) and wrap the call; it returns `false` when blocked.
-- **Durations:** 8–15 ms for a tick (snap, threshold), 20–30 ms for a confirm, a short pattern like `[30, 60, 30]` for an error. Never above 100 ms in ordinary UI; long buzzes feel like a phone call.
+- **Durations** (this skill's own values; no platform publishes web vibration durations): 8–15 ms for a tick (snap, threshold), 20–30 ms for a confirm, a short pattern like `[30, 60, 30]` for an error. Never above 100 ms in ordinary UI; long buzzes feel like a phone call.
 - **Same frame as the visual.** Fire the haptic in the same event handler as the visual change (Apple's multimodal guidance: causality and harmony), not after a network round-trip. For success that depends on the server, haptic on the result, not on tap.
 - **User control:** respect a site setting to turn haptics off; default on only for moments listed above. There is no web media query for the OS haptics setting.
-- **Native-feeling toggles on iOS:** Safari 17.4+ renders `<input type="checkbox" switch>` as a native switch; on iOS 18 some developers report it gives the system haptic when toggled. Treat that as a bonus, not a mechanism to rely on.
+- **Native-feeling toggles on iOS:** Safari 17.4+ renders `<input type="checkbox" switch>` as a native switch; since Safari 18 on iOS it plays a haptic when toggled (Safari 18.0 release notes: "Added haptic feedback for `<input type=checkbox switch>` on iOS"). Treat that as a bonus, not a mechanism to rely on.
 - **Hybrid apps** (Capacitor, React Native, Expo) should call the native haptics API (UIFeedbackGenerator, Android `performHapticFeedback`) rather than vibrate.
 
 ## Anti-patterns (don't)
@@ -109,4 +109,5 @@ export function onDetentSnap(sheet: HTMLElement, detent: string): void {
 - https://developer.apple.com/videos/play/wwdc2019/810/
 - https://developer.chrome.com/blog/user-activation
 - https://webkit.org/blog/15054/an-html-switch-control/
-- Note: the iOS 18 switch haptic is reported by developers and not documented by Apple or WebKit; it is listed as unverified. Vibration support follows caniuse (October 2026 data).
+- https://developer.apple.com/documentation/safari-release-notes/safari-18-release-notes (Forms: haptic feedback for switch checkboxes on iOS)
+- Note: vibration support follows the caniuse data file (Firefox supported through 128, unsupported from 129; no Safari support), checked November 2026.

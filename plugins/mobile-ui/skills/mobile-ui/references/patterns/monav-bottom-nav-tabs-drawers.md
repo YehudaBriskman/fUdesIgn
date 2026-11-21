@@ -17,10 +17,10 @@
 - **Not** a bottom bar on content sites with deep hierarchies (news, docs); use a top bar with search and a menu, and keep the primary action in reach.
 
 ## Rules (do)
-- **3–5 items.** Material 3's navigation bar holds 3–5 destinations; Apple's HIG recommends keeping iPhone tab bars to about five, with extra tabs in a More tab. Never 6+ squeezed items.
+- **3–5 items.** Material 3's navigation bar holds 3–5 destinations ("Avoid putting more than five navigation items in a navigation bar"; fewer than three, use tabs). Apple's HIG gives no fixed count: it says fewer tabs are easier to navigate and that, when horizontal space runs out, the trailing tab becomes a More tab. The 5-item cap is this skill's rule for both platforms. Never 6+ squeezed items.
 - **Icon plus label, always.** Labels are 1–2 short words, 12–14 px, never truncated; icons 24 px. Label-less bars hurt recognition.
-- **Height:** about 49 pt for the iOS tab bar (83 pt with the home indicator area); 80 dp for the M3 navigation bar (M3 Expressive adds a shorter flexible bar). On the web use 56–64 px plus `env(safe-area-inset-bottom)`.
-- **Selected state:** a filled icon and/or an indicator pill (M3: 64×32 dp active indicator) plus `aria-current="page"`; not colour alone.
+- **Height:** M3 Expressive's flexible navigation bar is 64 dp and is now the recommended one; the baseline 80 dp bar is marked "not recommended". Apple's HIG publishes no iPhone tab bar height, so do not copy a point value. On the web use 56–64 px plus `env(safe-area-inset-bottom)` (this skill's choice, matching the 64 dp flexible bar).
+- **Selected state:** a filled icon and/or an indicator pill (M3 flexible bar: 56×32 dp active indicator; the baseline bar used 64×32 dp) plus `aria-current="page"`; not colour alone.
 - **Each tab keeps its own history.** Re-tapping the active tab scrolls to top, then pops to the tab's root (iOS convention). Switching tabs never loses scroll position or form state.
 - **Top-level only.** The bar appears on top-level screens; full-screen tasks (compose, checkout, media) can hide it. Do not change the bar's items by context.
 - **No primary action in the bar.** A "+" in the middle is acceptable only if it is genuinely the most common action and opens a sheet; otherwise use a FAB or a screen-level button.
@@ -65,9 +65,9 @@
 | `--bottom-bar-h` | 64px + `--safe-bottom` | web bottom bar |
 | `--bottom-bar-max-items` | 5 | destinations |
 | bar icon / label | 24px / 12–14px | bar items |
-| active indicator | 64×32px pill | M3 style selected state |
+| active indicator | 56×32px pill | M3 flexible-bar selected state |
 | drawer width | up to 360px, max 85vw | modal drawer |
-| rail | 80px wide | 600–1199px windows |
+| rail | 80px wide | 600–1199px windows (M3 narrow collapsed rail; the default Expressive collapsed rail is 96 dp) |
 
 ## Implementation sketch
 ```css
@@ -127,4 +127,6 @@
 - https://github.com/GoogleChrome/modern-web-guidance/blob/main/skills/modern-web-guidance/guides/ui-components/navbar.md
 - https://github.com/GoogleChrome/modern-web-guidance/blob/main/skills/modern-web-guidance/guides/user-experience/content-first-noise-reduction.md
 - plugins/dashboard-ui/skills/dashboard-ui-design/references/patterns/comp-app-shell-navigation.md
-- Note: the m3.material.io and HIG pages render client-side and could not be fetched as text in this pass; the 3–5 count, 80 dp height and 64×32 dp indicator are the published M3 specs, and the iOS 49 pt figure is the long-standing UIKit tab bar height.
+- https://m3.material.io/components/navigation-bar/guidelines (3–5 destinations; rendered with a headless browser, November 2026)
+- https://github.com/androidx/androidx/tree/androidx-main/compose/material3/material3/src/commonMain/kotlin/androidx/compose/material3/tokens (NavigationBarTokens: ContainerHeight 64 dp, TallContainerHeight 80 dp; NavigationBarVerticalItemTokens: indicator 56×32 dp; NavigationRailCollapsedTokens: 96 dp, narrow 80 dp; NavigationDrawerTokens: 360 dp)
+- https://developer.apple.com/tutorials/data/design/human-interface-guidelines/tab-bars.json (HIG tab bars as JSON; More tab and "fewer tabs" guidance)

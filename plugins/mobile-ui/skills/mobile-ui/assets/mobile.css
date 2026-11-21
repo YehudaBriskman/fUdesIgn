@@ -35,7 +35,7 @@
   --safe-left: env(safe-area-inset-left, 0px);
 
   /* ── Bars (monav-bottom-nav-tabs-drawers.md) ─────────────────────────────── */
-  --top-bar-h: 56px;                /* iOS nav bar 44pt; M3 small top app bar 64dp; 56 is a web middle */
+  --top-bar-h: 56px;                /* M3 small top app bar 64dp; HIG publishes no iOS nav bar height; 56 is this skill's web choice */
   --bottom-bar-h: 64px;             /* content height, safe-area padding is added on top */
   --bottom-bar-max-items: 5;        /* HIG and M3 both cap the bar at 5 destinations */
 

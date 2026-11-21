@@ -14,7 +14,7 @@
 - **Meta tag:** `<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">`. Never add `maximum-scale=1` or `user-scalable=no` (see `moref-mobile-anti-patterns.md`).
 - **Backgrounds bleed, content does not.** A bottom bar's background extends to the screen edge; its items sit above `env(safe-area-inset-bottom)`.
 - **Always use a fallback and a minimum:** `padding-bottom: max(12px, env(safe-area-inset-bottom, 0px))` for padding that should not grow when the inset exists, or `calc(12px + env(safe-area-inset-bottom, 0px))` when the bar needs its own padding *plus* the inset (most bottom bars).
-- **Typical iPhone values** (portrait, Face ID models): top 47–62 pt depending on the model (status bar plus the Dynamic Island), bottom 34 pt (home indicator). Landscape: left and right 44–59 pt, bottom 21 pt. Android with gesture navigation reports a bottom inset of about 16–24 dp in Chrome when edge-to-edge.
+- **Values vary by model and orientation.** On Face ID iPhones the top inset covers the status bar and the notch or Dynamic Island and the bottom inset covers the home indicator; in landscape the sides are inset too. Neither Apple nor Google publishes a per-device table, so never design to a remembered number: read `env()` and check in the iOS Simulator and an Android emulator.
 - **Android:** Chrome on Android 15+ exposes the system bar insets through the same `env()` variables when the page draws edge to edge. Apps targeting Android 15 are edge-to-edge by default, so WebView-based apps must handle insets too.
 - **Pad all four sides of fixed UI:** a bottom bar needs left and right insets in landscape as well as bottom.
 - **Scroll padding:** `scroll-padding-bottom` on `html` is the bar height *plus* the bottom inset, so focused elements are not hidden (WCAG 2.4.11).
@@ -55,7 +55,6 @@
 | `--safe-right` | `env(safe-area-inset-right, 0px)` | landscape bars and FABs |
 | `--safe-bottom` | `env(safe-area-inset-bottom, 0px)` | bottom bars, CTAs, sheets |
 | `--safe-left` | `env(safe-area-inset-left, 0px)` | landscape bars and FABs |
-| iPhone bottom inset | 34 pt portrait · 21 pt landscape | reference values only, never hard-code |
 
 ## Implementation sketch
 ```css
@@ -102,4 +101,3 @@ html { scroll-padding-bottom: calc(var(--bottom-bar-h) + var(--safe-bottom)); }
 - https://developer.apple.com/design/human-interface-guidelines/layout
 - https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/meta/name/theme-color
 - https://github.com/GoogleChrome/modern-web-guidance/blob/main/skills/modern-web-guidance/guides/user-experience/form-factor-adaptation.md
-- Note: the per-model iPhone inset values are from Apple's simulator and device measurements reported by developers; Apple publishes them per device, not as a table.

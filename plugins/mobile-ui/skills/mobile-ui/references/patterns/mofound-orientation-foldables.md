@@ -15,7 +15,7 @@
 - **Window classes (Material):** compact < 600, medium 600–839, expanded 840–1199, large 1200–1599, extra-large ≥ 1600 (dp ≈ CSS px). A folded phone is compact; most unfolded book-style foldables are medium or expanded in portrait.
 - **Medium and up:** bottom bar → navigation rail; full-screen detail → list-detail two panes; full-screen sheet → side sheet or dialog.
 - **Keep state across rotation and folding.** The same DOM node restyled by media or container queries keeps scroll, focus and form input; do not re-mount views on `orientationchange`.
-- **Foldable hinge (Chromium only):** the Viewport Segments API reports `@media (horizontal-viewport-segments: 2)` (side-by-side) or `(vertical-viewport-segments: 2)` (top and bottom, "laptop" posture), and the `env(viewport-segment-width 0 0)` / `env(viewport-segment-right 0 0)` family of variables gives segment geometry. The Device Posture API adds `@media (device-posture: folded)`. Use them as progressive enhancement: put the list in segment 1 and the detail in segment 2, and never place a control across the hinge.
+- **Foldable hinge (Chromium only: Device Posture since Chrome 132, Viewport Segments since Chrome 138; no Firefox or Safari):** the Viewport Segments API reports `@media (horizontal-viewport-segments: 2)` (side-by-side) or `(vertical-viewport-segments: 2)` (top and bottom, "laptop" posture), and the `env(viewport-segment-width 0 0)` / `env(viewport-segment-right 0 0)` family of variables gives segment geometry. The Device Posture API adds `@media (device-posture: folded)`. Use them as progressive enhancement: put the list in segment 1 and the detail in segment 2, and never place a control across the hinge.
 - **Media:** `aspect-ratio` on video and images; in landscape, play video full width and move controls to the sides.
 - **Test matrix:** 390×844 and 844×390; 360×800 and 800×360; 768×1024; an unfolded foldable at about 884×1104 (Chrome DevTools has Galaxy Z Fold and Surface Duo presets with dual-screen emulation).
 
@@ -94,4 +94,4 @@
 - https://www.nngroup.com/articles/mobile-tables/
 - https://github.com/GoogleChrome/modern-web-guidance/blob/main/skills/modern-web-guidance/guides/user-experience/content-first-noise-reduction.md
 - plugins/dashboard-ui/skills/dashboard-ui-design/references/patterns/found-responsive-reflow.md
-- Note: Viewport Segments and Device Posture are Chromium-only at the time of writing; the exact shipping versions could not be confirmed (the Chrome blog URL tried returned 404), so feature-detect rather than version-check.
+- https://github.com/mdn/browser-compat-data (api/DevicePosture.json: Chrome 132; api/Viewport.json `segments` and css/at-rules/media.json `*-viewport-segments`: Chrome 138; checked November 2026). Feature-detect rather than version-check.

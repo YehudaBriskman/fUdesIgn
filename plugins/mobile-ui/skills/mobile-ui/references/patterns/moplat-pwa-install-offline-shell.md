@@ -10,7 +10,7 @@
 - **Not** a reason to block the web experience. Installation and standalone display are enhancements; everything works in a tab (modern-web-guidance `pwa/install-web-app.md`).
 
 ## Rules (do)
-- **Manifest** (linked with `<link rel="manifest">`): `id` (stable), `name`, `short_name` (12 characters or fewer for the home-screen label), `start_url`, `scope`, `display: "standalone"`, `background_color`, `theme_color`, and icons at 192×192 and 512×512 PNG plus a `"purpose": "maskable"` icon with its content inside the central 80% safe zone. Add `screenshots` and `description` for the richer install dialog on Android and desktop Chrome.
+- **Manifest** (linked with `<link rel="manifest">`): `id` (stable), `name`, `short_name` (under 12 characters for the home-screen label, web.dev's recommendation to avoid truncation), `start_url`, `scope`, `display: "standalone"`, `background_color`, `theme_color`, and icons at 192×192 and 512×512 PNG plus a `"purpose": "maskable"` icon with its content inside the central 80% safe zone. Add `screenshots` and `description` for the richer install dialog on Android and desktop Chrome.
 - **iOS specifics:** Safari reads the manifest (iOS 15.4+) but also uses `<link rel="apple-touch-icon" href="/icons/180.png">` (180×180). Install is user-initiated via Share → Add to Home Screen; there is no install event on iOS. Since iOS 16.4, home-screen web apps can receive Web Push after the user grants permission from a gesture.
 - **Install offer:**
   - Chromium: capture `beforeinstallprompt`, prevent the mini-infobar, reveal your own "Install app" button only after the event fires, and call `prompt()` from a click. The event is single-use.
@@ -57,7 +57,7 @@
 |---|---|---|
 | icons | 192, 512 PNG + 512 maskable; 180 apple-touch-icon | install surfaces |
 | maskable safe zone | central 80% (radius 40% of size) | icon content |
-| `short_name` | ≤ 12 characters | home-screen label |
+| `short_name` | < 12 characters | home-screen label (web.dev) |
 | install ask | after a value moment, second visit or later | timing |
 | dismissal memory | 30+ days | do not re-ask |
 | Safari storage cap | 7 days without use (not for home-screen apps) | persistence |
@@ -137,6 +137,7 @@ export async function fetchWithOfflineState(url: string, banner: HTMLElement): P
 
 ## Sources
 - https://web.dev/learn/pwa/
+- https://web.dev/learn/pwa/web-app-manifest (short_name: "Keep it under 12 characters")
 - https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Guides/Making_PWAs_installable
 - https://developer.mozilla.org/en-US/docs/Web/API/StorageManager/persist
 - https://webkit.org/blog/13878/web-push-for-web-apps-on-ios-and-ipados/

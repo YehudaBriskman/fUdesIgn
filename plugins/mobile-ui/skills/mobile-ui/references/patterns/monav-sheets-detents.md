@@ -18,7 +18,7 @@
 
 ## Rules (do)
 - **Detents:** at most three: *collapsed/peek* (non-modal only, e.g. 96–120 px showing a title), *medium* (about 50% of the small viewport; iOS `.medium`), *large* (full height minus the top safe area and a 10–12 px peek of the page behind; iOS `.large`). Size with `svh` so the sheet does not jump as the URL bar moves (`mofound-viewport-units-keyboard.md`).
-- **Anatomy (M3):** drag handle 32×4 dp centred 16–22 px from the top (its touch target is 48 px), top corners 28 dp, scrim about 32% black on modal sheets, max width 640 dp then centred. iOS sheets show a grabber when resizable and a "Done"/close button in the header.
+- **Anatomy (M3):** drag handle 32×4 dp, centred, with 22 dp padding above and below; the top 48 dp of a resizable sheet is its touch target; top corners 28 dp (extra-large shape); full width up to 640 dp, then 56 dp top and side margins. Modal sheets sit on a scrim (the M3 scrim token is 32% opacity; on Android the system draws it). iOS sheets show a grabber when resizable and a "Done"/close button in the header.
 - **Dismissal, all four:** visible close or Done button (44 px); scrim tap (modal only); swipe down past about 25–30% of the sheet's height or with a fast flick; Esc and the Android back gesture/button (`<dialog>` with `closedby="any"` and `showModal()`).
 - **Unsaved input:** a sheet with edits asks before dismissing on swipe (iOS: block the swipe and confirm), or keeps the draft.
 - **Scroll vs drag:** content scrolls inside the sheet; only when scrolled to the top does a downward drag move the sheet. The handle area and header always drag.
@@ -159,4 +159,6 @@ export function attachSheetDrag(sheet: HTMLDialogElement, handle: HTMLElement): 
 - https://github.com/GoogleChrome/modern-web-guidance/blob/main/skills/modern-web-guidance/guides/ui-behaviors/prevent-page-scroll-under-modal-dialog.md
 - https://github.com/GoogleChrome/modern-web-guidance/blob/main/skills/modern-web-guidance/guides/ui-components/dialog.md
 - plugins/dashboard-ui/skills/dashboard-ui-design/references/patterns/comp-overlay-choice.md
-- Note: the M3 bottom-sheet spec values (32×4 dp handle, 28 dp corners, 640 dp max width, 32% scrim) are from the published spec page, which renders client-side and could not be re-fetched as text in this pass.
+- https://m3.material.io/components/bottom-sheets/accessibility (top 48 dp is the touch target)
+- https://github.com/androidx/androidx/tree/androidx-main/compose/material3/material3/src/commonMain/kotlin/androidx/compose/material3/tokens (SheetBottomTokens: handle 32×4 dp, shape CornerExtraLargeTop = 28 dp; ScrimTokens: opacity 0.32)
+- Note: the m3.material.io spec and accessibility pages were rendered with a headless browser (November 2026) to read the 22 dp padding, 640 dp width and 56 dp margins.
