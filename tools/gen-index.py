@@ -24,9 +24,13 @@ CLUSTERS = {
     'moinput': 'Input and feedback', 'moplat': 'Platform: PWA, performance, native conventions', 'moref': 'Review: rubric and anti-patterns',
     'dsfound': 'Foundations: token architecture and profiles', 'dstoken': 'Tokens: format, theming and scales',
     'dsmap': 'Stack mapping', 'dsref': 'Reference: decision record, governance, anti-patterns',
+    'rtl': 'Right-to-left: logical layout, mirroring, bidi text, numbers, icons, typography, forms, tables and charts, CSS tooling',
+    'i18n': 'Internationalisation: dates and calendars, strings, plurals and gender, text expansion, locale negotiation, testing',
+    'iref': 'References: review rubric, anti-pattern catalogue, Hebrew-site teardown and Israeli accessibility',
 }
 # optional routing note printed under the count line, keyed by skill folder name
 NOTES = {
+    'i18n-rtl': "General number and money formatting lives in dashboard-ui's `data-number-formatting.md`; `rtl-numbers-digits-currency.md` covers only what changes in RTL and links there.",
     'motion-ui': "Motion for data (number tweening, chart transitions, linked exploration, loading states) lives in dashboard-ui's `motion-*` and `prog-*` patterns; these files cover general product-UI motion and link there instead of repeating it.",
 }
 def row(path, name):
