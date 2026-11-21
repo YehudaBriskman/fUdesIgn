@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Lint fixture (bad)</title>
+<style>
+  .row { transition: all 150ms; }
+  button:focus { outline: 0; }
+</style></head>
+<body>
+  <div class="row" onclick="openRow()" style="color: #333">Row</div>
+  <button class="loading" aria-busy="true" disabled>Saving…</button>
+  <script>
+    function openRow() {}
+    const total = 1234.5
+    document.title = '$' + total.toFixed(2)
+  </script>
+</body>
+</html>

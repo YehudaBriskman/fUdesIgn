@@ -1,0 +1,7 @@
+/* Token file: raw hex values belong here and only here. */
+:root {
+  --surface: #ffffff;
+  --text: #1a1a1a;
+  --danger: #b3261e;
+  --focus: #1f5fbf;
+}

@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bad dashboard (gate fixture)</title>
+<!-- Every block below breaks exactly one rendered detector on purpose. -->
+<style>
+  body { margin: 0; font: 14px/1.4 system-ui, sans-serif; background: #f7f7f4; color: #1a1a1a; }
+  .wrap { padding: 16px; }
+  /* DR-MIXED-THEME: a panel forced dark whatever the OS theme */
+  .panel { background: #0b0f14; color: #e6e6e6; padding: 16px; min-height: 520px; }
+  /* DR-CONTRAST: light grey on white */
+  .faint { color: #a8a8a8; background: #fff; padding: 4px; }
+  /* DR-OVERFLOW-X: a fixed-width row wider than a phone */
+  .wide { width: 620px; background: #fff; padding: 4px; }
+  /* DR-TEXT-OVERLAP: tabs pulled into each other */
+  .tabs { display: flex; }
+  .tabs a { display: block; padding: 8px 12px; white-space: nowrap; color: #1a1a1a; }
+  .tabs a + a { margin-left: -40px; }
+  /* DR-TARGET-SIZE and DR-FOCUS-VISIBLE: tiny icon button with its focus ring removed */
+  .icon { width: 16px; height: 16px; padding: 0; border: 1px solid #555; background: #fff; }
+  .icon:focus { outline: none; }
+  /* DR-TRUNCATE-NO-TITLE */
+  .name { width: 120px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  /* DR-TEXT-CLIPPED: hidden overflow with no ellipsis and no scroll */
+  .chip { width: 60px; white-space: nowrap; overflow: hidden; }
+  /* DR-REDUCED-MOTION: spins whatever the user asked for */
+  .spinner { width: 24px; height: 24px; border: 3px solid #555; border-top-color: transparent; border-radius: 50%; animation: spin 1s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  /* DR-TABULAR-NUMS: numeric cells left with proportional figures */
+  table { border-collapse: collapse; background: #fff; }
+  td { padding: 4px 8px; text-align: right; }
+  canvas { display: block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Revenue</h1>
+  <p class="faint">Updated 4 min ago from the billing export</p>
+  <div class="wide">This row is 620 pixels wide and pushes the page sideways on a phone.</div>
+  <nav class="tabs-nav" aria-label="Sections"><div class="tabs"><a href="#a">Summary</a><a href="#b">Financials</a></div></nav>
+  <p><button class="icon" type="button" aria-label="Refresh">↻</button></p>
+  <div class="name">Acme International Holdings Limited</div>
+  <div class="chip">Quarterly revenue</div>
+  <div class="spinner" role="status" aria-label="Loading"></div>
+  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Crect width='40' height='40' fill='%23888'/%3E%3C/svg%3E" width="40" height="40">
+  <table>
+    <tr><th scope="row">Q1</th><td>1,204.50</td><td>11.1%</td></tr>
+    <tr><th scope="row">Q2</th><td>987.00</td><td>−8.0%</td></tr>
+  </table>
+</div>
+<main class="panel">
+  <h2>Price history</h2>
+  <!-- DR-MEDIA-ALT and DR-CANVAS-INK: unlabelled chart drawn from the OS theme, not its dark panel -->
+  <canvas id="chart" width="600" height="240" style="width:100%;max-width:600px;height:240px"></canvas>
+</main>
+<script>
+  const c = document.getElementById('chart')
+  const ctx = c.getContext('2d')
+  const dark = matchMedia('(prefers-color-scheme: dark)').matches
+  ctx.fillStyle = '#0b0f14'
+  ctx.fillRect(0, 0, c.width, c.height)
+  ctx.strokeStyle = dark ? '#d8dee6' : '#2e3742'
+  ctx.fillStyle = ctx.strokeStyle
+  ctx.lineWidth = 3
+  ctx.beginPath()
+  for (let x = 0; x <= 600; x += 10) ctx.lineTo(x, 120 + Math.sin(x / 40) * 60)
+  ctx.stroke()
+  ctx.font = 'bold 20px sans-serif'
+  ctx.fillText('Price $343', 440, 40)
+</script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Good dashboard (gate fixture)</title>
+<!-- The same content as bad.html with each fault fixed. The gate must pass it at zero. -->
+<style>
+  :root {
+    color-scheme: light dark;
+    --canvas: #f7f7f4; --surface: #ffffff; --text: #1a1a1a; --text-muted: #5c5c5c;
+    --border: #8a8a8a; --focus: #1f5fbf; --chart-line: #1f5fbf; --chart-label: #1a1a1a;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --canvas: #16191d; --surface: #1f2328; --text: #e8eaed; --text-muted: #a9b0b8;
+      --border: #6b737c; --focus: #8ab4f8; --chart-line: #8ab4f8; --chart-label: #e8eaed;
+    }
+  }
+  body { margin: 0; font: 14px/1.4 system-ui, sans-serif; background: var(--canvas); color: var(--text); }
+  .wrap { padding: 16px; }
+  .panel { background: var(--surface); padding: 16px; }
+  .muted { color: var(--text-muted); }
+  .wide { max-width: 620px; }
+  .tabs { display: flex; flex-wrap: wrap; gap: 4px; }
+  .tabs a { display: flex; align-items: center; min-height: 44px; padding: 0 12px; color: var(--text); }
+  .icon { inline-size: 44px; block-size: 44px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--text); }
+  :focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+  .name { max-width: 120px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .spinner { width: 24px; height: 24px; border: 3px solid var(--border); border-top-color: transparent; border-radius: 50%; }
+  @media (prefers-reduced-motion: no-preference) {
+    .spinner { animation: spin 1s linear infinite; }
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  table { border-collapse: collapse; font-variant-numeric: tabular-nums; }
+  td { padding: 4px 8px; text-align: right; }
+  canvas { display: block; inline-size: 100%; max-inline-size: 600px; block-size: 240px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Revenue</h1>
+  <p class="muted">Updated 4 min ago from the billing export</p>
+  <p class="wide">This row wraps inside the viewport on a phone.</p>
+  <nav aria-label="Sections"><div class="tabs"><a href="#a">Summary</a><a href="#b">Financials</a></div></nav>
+  <p><button class="icon" type="button" aria-label="Refresh">↻</button></p>
+  <div class="name" title="Acme International Holdings Limited">Acme International Holdings Limited</div>
+  <div>Quarterly revenue</div>
+  <div class="spinner" role="status" aria-label="Loading"></div>
+  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Crect width='40' height='40' fill='%23888'/%3E%3C/svg%3E" width="40" height="40" alt="">
+  <table>
+    <tr><th scope="row">Q1</th><td>1,204.50</td><td>11.1%</td></tr>
+    <tr><th scope="row">Q2</th><td>987.00</td><td>−8.0%</td></tr>
+  </table>
+</div>
+<main class="panel">
+  <h2>Price history</h2>
+  <figure>
+    <canvas id="chart" width="600" height="240" role="img" aria-label="Price rose from $129 to $343 over the year"></canvas>
+    <figcaption>Price over 12 months. A data table follows the chart.</figcaption>
+  </figure>
+</main>
+<script>
+  // Colours come from the chart's container, so the chart always matches its surface.
+  const c = document.getElementById('chart')
+  const ctx = c.getContext('2d')
+  const css = getComputedStyle(c.parentElement)
+  ctx.fillStyle = getComputedStyle(document.querySelector('.panel')).backgroundColor
+  ctx.fillRect(0, 0, c.width, c.height)
+  ctx.strokeStyle = css.getPropertyValue('--chart-line').trim()
+  ctx.lineWidth = 3
+  ctx.beginPath()
+  for (let x = 0; x <= 600; x += 10) ctx.lineTo(x, 120 + Math.sin(x / 40) * 60)
+  ctx.stroke()
+  ctx.fillStyle = css.getPropertyValue('--chart-label').trim()
+  ctx.font = 'bold 20px sans-serif'
+  ctx.fillText('Price $343', 440, 40)
+</script>
+</body>
+</html>

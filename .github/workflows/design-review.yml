@@ -1,0 +1,39 @@
+name: design-review
+
+on:
+  pull_request:
+    paths:
+      - 'plugins/design-review/**'
+      - '.github/workflows/design-review.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'plugins/design-review/**'
+      - '.github/workflows/design-review.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  gate-and-lint:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: plugins/design-review
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: plugins/design-review/package-lock.json
+      - run: npm ci
+      - name: Install Playwright's Chromium
+        run: npx playwright-core install --with-deps chromium
+      - name: Gate and lint fail the bad fixtures and pass the good ones
+        env:
+          # use the Chromium installed above, not whatever Chrome the runner image ships
+          DESIGN_REVIEW_CHROME: bundled
+        run: npm test
+      - name: Plugin manifest is valid JSON
+        run: node -e "JSON.parse(require('fs').readFileSync('.claude-plugin/plugin.json','utf8'))"

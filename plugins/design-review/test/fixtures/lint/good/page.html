@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Lint fixture (good)</title>
+<style>
+  .row { transition: background-color 150ms; }
+  button:focus-visible { outline: 2px solid var(--focus); }
+</style></head>
+<body>
+  <button class="row" type="button" onclick="openRow()">Row</button>
+  <button aria-busy="true" aria-disabled="true">Saving…</button>
+  <script>
+    function openRow() {}
+    const total = 1234.5
+    document.title = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(total)
+  </script>
+</body>
+</html>
