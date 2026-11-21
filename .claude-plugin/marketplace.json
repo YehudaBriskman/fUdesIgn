@@ -1,6 +1,8 @@
 {
   "name": "fudesign",
-  "owner": { "name": "Yehuda Briskman" },
+  "owner": {
+    "name": "Yehuda Briskman"
+  },
   "metadata": {
     "description": "UI design skills and plugins, built from researched patterns with concrete tokens.",
     "version": "0.1.0"
@@ -11,7 +13,8 @@
       "source": "./plugins/dashboard-ui",
       "description": "Dashboard UI design: 71 researched patterns (hierarchy, data display, charts, colour, components, motion, progressive UI) plus a review rubric and starter tokens.",
       "version": "0.1.0",
-      "category": "design"
+      "category": "design",
+      "license": "PolyForm-Internal-Use-1.0.0"
     }
   ]
 }
