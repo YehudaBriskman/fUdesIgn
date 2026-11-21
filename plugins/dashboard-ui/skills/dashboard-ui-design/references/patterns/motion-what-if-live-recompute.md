@@ -5,7 +5,7 @@
 **Category:** Interaction · **Applies to:** valuation/DCF assumptions, pricing calculators, forecasting, budget scenarios, sensitivity analysis, capacity planning · **Priority:** should
 
 ## When to use / when not
-Use when the model is deterministic, client-computable (or the server responds in < 100–300 ms), and the user's goal is to *understand sensitivity* ("what if growth is 2 points lower?"). Bret Victor's reactive documents: drag a number, see consequences immediately, "like a spreadsheet without the spreadsheet".
+Use when the model is deterministic, client-computable (or the server responds in < 100–300 ms), and the user's goal is to *understand sensitivity* ("what if growth is 2 points lower?"). Bret Victor's reactive documents: drag a number, see consequences immediately; "It's like a spreadsheet without the spreadsheet." 
 
 Don't use live recompute when:
 - a recompute costs seconds (Monte Carlo, server-side model). Use an explicit **Run** button with progress, and keep the previous result visible (see `prog-stale-while-revalidate.md`);
@@ -15,33 +15,33 @@ Don't use live recompute when:
 ## Rules (do)
 - **Latency tiers:**
   - recompute ≤ 16 ms: update every `input` event (each frame);
-  - 16–100 ms: throttle to one recompute per animation frame, and yield long loops with `scheduler.yield()` every 50 ms;
-  - 100 ms–1 s: show the input instantly, mark outputs "Calculating…" (dim to 0.6), compute on `change` (release) or after a 150–250 ms pause in input;
+  - 16–100 ms: throttle to one recompute per animation frame, and yield long loops every 50 ms with `scheduler.yield()` (Chrome 129+, Firefox 142+; not in Safari, so fall back to `setTimeout(0)`; web.dev "Optimize long tasks");
+  - 100 ms–1 s: show the input instantly, mark outputs "Calculating…" (dim to 0.6), compute on `change` (release) or after a 150–250 ms pause in input (house values);
   - > 1 s: Run button, progress, cancel.
 - **Never block the thumb.** The slider and its value label must stay at 60 fps; heavy work goes to a Web Worker (or WASM) with latest-wins messaging.
 - **Pair every slider with a number input** bound to the same value, with min/max/step and units. Show the current value next to the thumb or label, with `aria-valuetext` ("8.5 percent").
 - **Sensible steps:** percent assumptions step 0.1 or 0.25 pp; currency at a round step; keyboard arrows = 1 step, PageUp/PageDown = 10 steps; Home/End = min/max.
 - **Base vs scenario:** show the base value as a tick mark on the slider track and the base output as a ghost (dashed line or outlined bar) behind the live output. Show the delta: "Equity value $41.2 (base $38.9, +5.9%)".
 - **Changed-assumption markers:** each modified input gets a dot or "edited" badge and an individual reset. A global "Reset to base" resets all.
-- **Output motion:** while dragging, values update instantly (no tween; the drag is the animation). After release, a ≤ 200 ms settle is fine. Chart outputs redraw directly without easing during drag.
+- **Output motion:** while dragging, values update instantly (no tween; the drag is the animation). After release, a `--motion-dur-short` 150 ms settle is fine. Chart outputs redraw directly without easing during drag.
 - **Guard against nonsense:** clamp to valid domains (WACC > terminal growth), and show an inline reason when a combination is invalid rather than producing NaN or infinite values.
 - **Scenario persistence:** encode assumptions in the URL (`?g=0.035&wacc=0.09`) so a scenario can be shared. "Save scenario" names it.
 - **Sensitivity at a glance:** alongside sliders, a small static sensitivity table (for example WACC × g grid) gives the overview without dragging. Highlight the current cell.
 
 ## Anti-patterns (don't)
 - A slider with no numeric display or input, which leaves users guessing the value.
-- A recompute on every `input` event that takes 200 ms on the main thread: the thumb stutters, INP turns poor, and users overshoot.
+- A recompute on every `input` event that takes 200 ms on the main thread: the thumb stutters, INP leaves the "good" band (≤ 200 ms), and users overshoot.
 - Spring-eased output numbers that lag behind the drag, so users can't see the causal link.
 - Resetting the scenario on navigation, or no way back to base.
 - Outputs that update with no indication they changed (no delta and no base reference).
 - Sliders with ranges so wide that one pixel jumps 5% (step granularity coarser than the decision granularity).
 
 ## Good references
-- [Bret Victor, Explorable Explanations](https://worrydream.com/ExplorableExplanations/): reactive documents where readers drag in-text numbers (a park-fee proposition) and consequences update immediately. "A reactive document requires the author to disclose the models behind their argument." The right stance for valuation tools: assumptions are visible and tweakable.
-- [Shneiderman, dynamic queries](https://www.cs.umd.edu/~ben/papers/Shneiderman1996eyes.pdf): sliders coupled to display updates in < 100 ms; "rapid, incremental, and reversible actions" encourage exploration and lowered error rates in the cited study.
-- modern-web-guidance [slider](skills/modern-web-guidance/guides/forms/slider.md): native `<input type="range">` with min/max/step, visible formatted value plus `aria-valuetext`, track fill via a `--control-value` custom property, thumb-anchored tooltip via anchor positioning.
-- modern-web-guidance [break-up-long-tasks](skills/modern-web-guidance/guides/performance/break-up-long-tasks.md): 50 ms deadline loop with `scheduler.yield()` (fallback `setTimeout`) to keep input responsive during heavy compute.
-- [web.dev INP](https://web.dev/articles/inp): ≤ 200 ms p75 is good; each slider key press counts as an interaction, so recompute cost shows up directly in INP.
+- [Bret Victor, Explorable Explanations](https://worrydream.com/ExplorableExplanations/): reactive documents where readers drag in-text numbers (California's Proposition 21, an $18 vehicle licence fee for state parks) and consequences update immediately. "A reactive document requires the author to disclose the models behind their argument." The right stance for valuation tools: assumptions are visible and tweakable.
+- [Shneiderman, dynamic queries](https://www.cs.umd.edu/~ben/papers/Shneiderman1996eyes.pdf): sliders "coupled to rapid display update (less than 100 milliseconds)"; "rapid, incremental, and reversible actions" with "the encouragement of exploration" and no error messages.
+- [MDN, `<input type="range">`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/range): native range with min/max/step, `list` for tick marks, keyboard stepping built in. Pair with `aria-valuetext` for units.
+- [web.dev, Optimize long tasks](https://web.dev/articles/optimize-long-tasks): break work into chunks under 50 ms and yield with `scheduler.yield()` (fallback `setTimeout`) to keep input responsive during heavy compute.
+- [web.dev INP](https://web.dev/articles/inp): ≤ 200 ms good, > 500 ms poor, at p75. Clicks, taps and key presses count, so each arrow-key step on a slider is an interaction and recompute cost shows up directly in INP.
 
 ## Bad references
 - Spreadsheet-style models embedded as static PDFs/screenshots in valuation reports. Assumptions are hidden, sensitivity is invisible, and the reader can't test the claim. This is exactly what Victor's essay argues against.
@@ -54,8 +54,8 @@ Don't use live recompute when:
 - Thumb ≥ 24 px target; track focus ring ≥ 3:1.
 
 ## Motion / interaction (if relevant)
-- Drag: direct, unanimated output updates. Release: optional 150–200 ms settle for chart axes if the domain changed.
-- Reset to base: a 250 ms transition of the slider thumb and the outputs, so the user sees what reverted. Instant under reduced motion.
+- Drag: direct, unanimated output updates. Release: optional `--motion-dur-short` 150 ms settle for chart axes if the domain changed.
+- Reset to base: a `--motion-dur-medium` 240 ms transition of the slider thumb and the outputs with `--motion-ease-standard`, so the user sees what reverted. Instant under reduced motion.
 
 ## Tokens and values
 | Token | Value |
@@ -64,10 +64,11 @@ Don't use live recompute when:
 | debounce when slow | 150–250 ms idle or on `change` |
 | provisional output opacity | 0.6 + "Calculating…" |
 | step (percent assumptions) | 0.1–0.25 pp |
-| base marker | 2 px tick, `--color-text-muted` |
+| base marker | 2 px tick, `--text-muted` |
 | ghost base series | dashed 1.5 px, 40% opacity |
 | delta format | signed, 1 decimal %, tabular nums |
-| reset transition | 250 ms standard easing |
+| settle after release | `--motion-dur-short` 150 ms |
+| reset transition | `--motion-dur-medium` 240 ms, `--motion-ease-standard` |
 | worker message policy | latest-wins (drop stale results by sequence id) |
 
 ## Implementation sketch
@@ -131,7 +132,6 @@ declare function render(v: number): void;
 - https://web.dev/articles/rail
 - https://www.nngroup.com/articles/response-times-3-important-limits/
 - https://www.nngroup.com/articles/applying-filters/
-- modern-web-guidance: skills/modern-web-guidance/guides/forms/slider.md
-- modern-web-guidance: skills/modern-web-guidance/guides/performance/break-up-long-tasks.md
-- modern-web-guidance: skills/modern-web-guidance/guides/performance/schedule-tasks-by-priority.md
-- modern-web-guidance: skills/modern-web-guidance/guides/performance/efficient-background-processing.md
+- https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/range
+- https://web.dev/articles/optimize-long-tasks
+- https://developer.mozilla.org/en-US/docs/Web/API/Scheduler/yield
