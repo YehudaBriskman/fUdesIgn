@@ -27,9 +27,15 @@ CLUSTERS = {
     'rtl': 'Right-to-left: logical layout, mirroring, bidi text, numbers, icons, typography, forms, tables and charts, CSS tooling',
     'i18n': 'Internationalisation: dates and calendars, strings, plurals and gender, text expansion, locale negotiation, testing',
     'iref': 'References: review rubric, anti-pattern catalogue, Hebrew-site teardown and Israeli accessibility',
+    'a11y': 'Build: WCAG 2.2 AA by task, structure, names, keyboard and focus, pointer, help and authentication, colour, motion, reflow, forced colours',
+    'aaria': 'ARIA: the first rule, APG patterns, misuse, live regions',
+    'atest': 'Testing: screen readers, manual test plan, automated checks',
+    'alaw': 'Law and statements: EAA, ADA Title II, Section 508, EN 301 549, Israel IS 5568',
+    'aref': 'Review: audit rubric and report, anti-patterns',
 }
 # optional routing note printed under the count line, keyed by skill folder name
 NOTES = {
+    'accessibility': "Cross-cutting layer. Per-domain rules stay in their plugins (dashboard-ui contrast, charts and keyboard; forms-ui validation; ai-ui live output; mobile-ui targets; motion-ui reduced motion; i18n-rtl Israeli accessibility teardown); these files map WCAG 2.2 AA across all of them and link there instead of repeating them.",
     'i18n-rtl': "General number and money formatting lives in dashboard-ui's `data-number-formatting.md`; `rtl-numbers-digits-currency.md` covers only what changes in RTL and links there.",
     'motion-ui': "Motion for data (number tweening, chart transitions, linked exploration, loading states) lives in dashboard-ui's `motion-*` and `prog-*` patterns; these files cover general product-UI motion and link there instead of repeating it.",
 }
