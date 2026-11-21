@@ -69,6 +69,20 @@ components:
 - **Evidence for the profile:** <2–4 facts: audience, density need, regulation, locale, devices>
 - **Token set version:** <semver, e.g. 1.0.0>
 
+### Design brief
+
+Written before any token. Every page override and deviation below should trace back to it.
+
+- **Why would someone open this?** <The trigger and the first question they arrive with.>
+- **How do they actually use it?** <Frequency, device, glance or deep work, alone or shared.>
+- **What would they want to know next?** <The follow-up question; what must link to what.>
+- **What are we leaving out?** <Features, data and decoration we won't build, and the trade-off we accept.>
+- **Who carries the complexity?** <Where the system absorbs work the user would otherwise do (Tesler's law), and what that costs to build.>
+
+| Borrowed pattern | Why it exists in its source | Does the reason hold here? | Decision |
+|---|---|---|---|
+| <e.g. email at the top of the account menu> | <disambiguates several signed-in accounts> | <no: one account per user> | <drop; lead with status and workspace> |
+
 ## Colors
 
 <Where the accent is used (actions, focus, selection, logo) and where it is not. Status and money conventions (green-up or red-up, colour-blind option). Neutral temperature.>
