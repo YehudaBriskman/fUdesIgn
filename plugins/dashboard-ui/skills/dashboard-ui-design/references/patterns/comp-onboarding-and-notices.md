@@ -1,6 +1,6 @@
 # Onboarding, first-run notices and disclaimers
 
-> First-run help and legal notices sit in the flow, never on top of data. Show a disclaimer once, in one canonical place, linked from wherever it matters. Teach through empty states and on-demand hints instead of tours. Remember every dismissal.
+> First-run help and legal notices sit in the flow, never on top of data. Show a disclaimer once, in one canonical place, linked from wherever it matters. Build, don't explain: teach through empty states, a first real object made with the real UI and on-demand hints, never a deck of slides. Remember every dismissal.
 
 **Category:** Components and interaction · **Applies to:** first-visit notices, terms and "not financial advice" disclaimers, required acknowledgements, cookie and consent banners, coach marks, product tours, "what's new" messages · **Priority:** should
 
@@ -12,11 +12,12 @@ Decision table, first match wins:
 | The user must accept terms before *any* use (regulated product, data-processing consent) | One-time **modal dialog** with the terms summary, a link to the full text, and an explicit accept button. See `comp-overlay-choice.md` |
 | A notice that applies to every page ("Estimates, not investment advice") | **In-flow notice at the top of the main region**, dismissible, plus a permanent footer link to the full text |
 | A notice that applies to one number or one view ("Delayed 15 min", "Estimate based on 3 analysts") | **Inline, next to that number**, never dismissible |
+| A new workspace or account with nothing in it yet (the user's first value is creating something) | **Build, don't explain:** 1–3 setup questions, then guided creation of the first real object (see Rules) |
 | A region with no data yet on first use | **Empty state** that teaches the next action. See `data-loading-empty-error-states.md` |
 | A feature that is genuinely novel (custom gesture, scenario weights) | **One contextual hint** shown when the user first reaches that feature, one at a time |
 | A change in the product | **"What's new" entry** in a menu or changelog, pulled by the user, not pushed on load |
 
-- **Don't** use a multi-step tour to explain conventional controls (tables, filters, tabs). NN/g: tutorials interrupt, don't reliably improve task performance and are quickly forgotten.
+- **Don't** use a multi-step tour or a deck of slides to explain conventional controls (tables, filters, tabs). NN/g: tutorials interrupt, don't reliably improve task performance and are quickly forgotten. In NN/g's 2020 study of deck-of-cards tutorials in four iPhone apps (70 participants), task success was 91% for those who read the tutorial and 94% for those who skipped it, a difference that was not significant; the tutorial readers rated the tasks as harder (SEQ 4.92 vs 5.49 on a 7-point scale, p = 0.047).
 - **Don't** open a modal on page load for anything that isn't a hard requirement (see `comp-overlay-choice.md`).
 
 ## Rules (do)
@@ -32,12 +33,20 @@ Decision table, first match wins:
 - **Hints: one at a time, at the moment of need.** NN/g's coach-mark study found hint chains make users dismiss faster and the app seem harder. One hint, ≤ 1 short sentence, pointing at the control it explains, shown when the user first reaches it.
 - **Tours, if any, are short and user-started.** Chameleon's benchmark data (vendor data, 15M interactions) shows completion falling sharply past 4–5 steps, self-serve tours completing 123% more often than automatic ones, and progress indicators raising completion by 12%. So: ≤ 4 steps, started from a "Take the tour" link or a checklist, with "Step 2 of 4" visible.
 - **Hints must look different from controls.** NN/g saw users try to tap decorative overlay icons that looked interactive. Use a distinct callout style and a visible close button.
+- **Build, don't explain.** When the product's first value is something the user creates (a project, a portfolio, a first dashboard), onboarding is that creation, not a description of it:
+  - Ask 1–3 questions whose answers change what gets set up: what it's for, who else will use it, which data or features they need. Every question must visibly change the result; drop any that don't.
+  - Then guide the creation of the first real object in the real UI, with the answers pre-filled ("Name your first project"; the chosen template's columns already in place).
+  - Say that everything can be changed later, and make it true: the answers are ordinary settings, not a one-way door.
+  - Tailor the workspace from the answers (default views, sample filters, which empty states show first) instead of showing every feature to everyone.
+  - Allow skipping straight to an empty workspace; the questions are a shortcut, not a gate.
 - **Empty states are the main onboarding surface.** Each first-use empty state says what will appear and offers the one action that fills it (see `found-microcopy-for-data.md`).
 
 ## Anti-patterns (don't)
 - A fixed bottom "first visit" bar that sits over the last row of data or the chart axis until dismissed.
 - The same disclaimer in a banner, the footer and the page body.
 - A 7-step product tour on first load that dims the dashboard.
+- A welcome deck of slides ("telling, not showing") that describes features before the user has made anything.
+- Setup questions whose answers change nothing the user can see.
 - Coach marks chained one after another ("Next", "Next", "Next").
 - A notice that comes back on every page or every visit after dismissal.
 - Hiding a material qualification ("delayed", "estimate", "excludes fees") only in a footer or a tooltip.
@@ -45,6 +54,7 @@ Decision table, first match wins:
 - An acknowledgement that is pre-ticked or is accepted by scrolling.
 
 ## Good references
+- [NN/g: Mobile tutorials: wasted effort or efficiency boost?](https://www.nngroup.com/articles/mobile-tutorials/) — Alita Kendrick, March 2020. 70 participants, 4 apps, between-subjects: task success 91% with the tutorial vs 94% skipping it (p = 0.443, not significant), times not significantly different, tasks rated harder after the tutorial (p = 0.047). Advises against tutorials for simple apps and towards contextual help.
 - [GOV.UK Design System: Cookie banner](https://design-system.service.gov.uk/components/cookie-banner/) — at the top of the page, before the skip link, not sticky, a confirmation with "Hide cookie message", choice stored for 1 year, focus moved to the confirmation.
 - [W3C: Understanding SC 2.4.11 Focus Not Obscured (Minimum)](https://www.w3.org/WAI/WCAG22/Understanding/focus-not-obscured-minimum.html) — sticky headers, footers and banners fail when they fully hide a focused element; scroll padding or a dismissible design fixes it.
 - [NN/g: Onboarding tutorials vs contextual help](https://www.nngroup.com/articles/onboarding-tutorials/) — push revelations (shown out of context) fail; pull revelations (shown when the user needs them) work; make help easy to dismiss and to recall.
@@ -53,6 +63,7 @@ Decision table, first match wins:
 - [Chameleon: Product tour benchmarks](https://www.chameleon.io/blog/product-tour-benchmarks-highlights) — average completion 61%, self-serve tours +123%, checklist-launched tours +21%, progress indicators +12% (vendor data; treat as directional).
 
 ## Bad references
+- [NN/g: Mobile tutorials](https://www.nngroup.com/articles/mobile-tutorials/) — the deck-of-cards tutorials in the four tested apps: read or skipped, users succeeded about equally, and readers found the tasks harder.
 - [NN/g: Mobile instructional overlays](https://www.nngroup.com/articles/mobile-instructional-overlay/) — the Makr iPad app's wordy multi-step tips forced users to memorise steps before they could act.
 - [FINRA Regulatory Notice 13-23](https://www.finra.org/rules-guidance/notices/13-23) — fee claims made prominent while other fees sat only in a footnote; the regulator treats that as potentially misleading.
 - Dogfood review of a valuation product (2026-11-21): a fixed first-visit bar covered about 61px on desktop and about a quarter of a 390px viewport, while the same disclaimer also appeared in every footer and on the methodology page.
@@ -75,6 +86,7 @@ Decision table, first match wins:
 | Hint length | ≤ 1 sentence, about 80 characters | Coach marks |
 | Hints at once | 1 | Coach marks |
 | Tour length | ≤ 4 steps, with "Step n of N" | Optional tours |
+| Setup questions | 1–3, each changing the result; skippable | Build-don't-explain onboarding |
 | Dismiss persistence | until notice version changes; consent 1 year | Storage |
 | Collapse duration | ≤ 200 ms | Dismissal |
 
@@ -146,12 +158,14 @@ export function initNotices(root: ParentNode = document): void {
 - [ ] Dismissals persist across pages and visits, and the content can be found again.
 - [ ] Hints appear one at a time, in context, and look different from controls.
 - [ ] Any tour is ≤ 4 steps, user-started and shows progress.
+- [ ] First run builds the first real object (after at most 3 questions that change the setup) instead of showing a slide deck; the user is told it can all be changed later.
 - [ ] At 390px and at 400% zoom, nothing covers the data on first visit.
 
 ## Sources
 - https://design-system.service.gov.uk/components/cookie-banner/
 - https://www.w3.org/WAI/WCAG22/Understanding/focus-not-obscured-minimum.html
 - https://www.nngroup.com/articles/onboarding-tutorials/
+- https://www.nngroup.com/articles/mobile-tutorials/ (Kendrick, 2020: 91% vs 94% task success, p = 0.443; SEQ 4.92 vs 5.49, p = 0.047)
 - https://www.nngroup.com/articles/mobile-instructional-overlay/
 - https://www.nngroup.com/articles/empty-state-interface-design/
 - https://carbondesignsystem.com/patterns/empty-states-pattern/

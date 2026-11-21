@@ -14,6 +14,7 @@
 | A time of day | `<input type="time">` or a text field accepting "2pm", "14:00"; a select of slots for bookings |
 
 - NN/g: typing is faster than any calendar for dates more than a few months away; calendars help when the weekday or proximity matters.
+- **Who carries the complexity?** Tesler's law (the law of conservation of complexity, named after Larry Tesler, who co-developed cut, copy and paste at Xerox PARC and later worked at Apple): some complexity can't be removed, only moved between the system and the user. Every row above moves it into the system: typed fields that parse what people know, calendars that show weekdays, presets for common ranges. Three drop-downs move it onto the user: simple to build, slow to use.
 
 ## Rules (do)
 - **Three-field memorable dates** (GOV.UK):
@@ -24,6 +25,7 @@
   - **Never auto-tab** to the next field after two digits: it breaks correction and confuses screen-reader and keyboard users (GOV.UK).
   - Errors name the specific part: "Date of birth must include a year", and highlight only the fields in error.
 - **Single text field with a format** (when space or convention demands): hint "DD/MM/YYYY" above, accept `/`, `-`, `.` and spaces, leading zeros optional, two-digit years only if unambiguous (NN/g date-input guidelines).
+- **Relative dates** ("this Friday", "tomorrow", "in 2 weeks"): with a calendar plus a typed field, the user picks the day by its weekday or types the words; three drop-downs make them work out the date first. If the typed field accepts relative words, echo the resolved date ("Friday 27 November 2026") next to it before submit.
 - **Calendar pickers**:
   - Keep a typed field always available (Carbon: there should always be a simple way to enter the date in a text field).
   - Open on the current or selected month; mark today; disable impossible dates but keep them visible; show weekday names in the locale's first day of week.
@@ -35,7 +37,7 @@
 
 ## Anti-patterns (don't)
 - A calendar as the only way to enter a birth date.
-- Three `<select>`s for day, month and year (Luke Wroblewski's "last resort" example).
+- Three `<select>`s for day, month and year (Luke Wroblewski's "last resort" example; NN/g: split drop-downs "require a lot of unnecessary steps"). Note the difference from GOV.UK's three *text* fields: those let people type a date they remember; drop-downs make them scroll for it.
 - Auto-advancing date segments; masks that fight the user's separators.
 - `placeholder="DD/MM/YYYY"` as the only format cue.
 - US-format dates (03/04/2026) shown to an international audience with no month name.
@@ -116,6 +118,7 @@ export function readMemorableDate(p: DateParts, label: string): DateResult {
 - [ ] Format shown as hint text above the field; multiple separators accepted.
 - [ ] No auto-advance between date segments.
 - [ ] Calendar pickers always have typed entry and follow the APG keyboard model.
+- [ ] No day/month/year drop-down triples; the system carries the date complexity (Tesler's law), and any relative words typed are echoed as the resolved date.
 - [ ] Errors name the missing or wrong part and highlight only that part.
 - [ ] Times state their time zone when it can differ.
 
@@ -128,3 +131,5 @@ export function readMemorableDate(p: DateParts, label: string): DateResult {
 - https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/date
 - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Temporal/PlainDate
 - https://www.lukew.com/ff/entry.asp?1950
+- https://lawsofux.com/teslers-law/ (Tesler's law, the law of conservation of complexity)
+- https://en.wikipedia.org/wiki/Larry_Tesler (Xerox PARC 1973–80, copy and paste with Tim Mott on Gypsy; Apple 1980–97)
