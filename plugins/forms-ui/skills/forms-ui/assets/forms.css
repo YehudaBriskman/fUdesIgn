@@ -1,0 +1,110 @@
+/*
+ * Form starter styles. Load after dashboard-ui's tokens.css (or any file that defines the same
+ * role names: --surface, --text, --text-muted, --border-strong, --accent, --on-accent,
+ * --focus-ring, --danger-fg, --info-bg, --space-*, --radius-*, --type-*, --motion-*).
+ * The fallbacks after each var() keep this file usable on its own in light mode.
+ * Every value traces to a pattern in ../references/patterns (named beside each group).
+ */
+
+:root {
+  /* Layout (ffound-layout-single-column-grouping.md) */
+  --form-max: 42rem;
+  --label-gap: var(--space-1, 4px);
+  --field-gap: var(--space-5, 24px);
+  --group-gap: 40px;
+
+  /* Fields (ffound-form-accessibility.md). Field text never under 16px: iOS zooms below that. */
+  --field-font-size: max(1rem, 1em);
+  --field-h: 44px;
+  --field-pad-inline: var(--space-3, 12px);
+  --field-border: var(--border-strong, oklch(0.60 0.012 250));   /* ≥ 3:1, never --border */
+  --field-radius: var(--radius-sm, 6px);
+  --label-font: 500 1rem/1.4 var(--font-sans, system-ui, sans-serif);
+  --check-size: 22px;                                              /* finput-choice-controls.md */
+
+  /* Errors (fvalid-timing-and-inline-errors.md, fvalid-error-summary-and-focus.md) */
+  --error-bar-w: 4px;
+  --field-border-error-w: 2px;
+  --summary-border-w: 5px;
+}
+@media (pointer: coarse) {
+  :root { --field-h: 48px; }
+}
+
+/* ── Layout ─────────────────────────────────────────────────────────────── */
+.form { max-inline-size: var(--form-max); display: grid; gap: var(--field-gap); }
+.field { display: grid; gap: var(--label-gap); justify-items: start; }
+.field > :is(input:not([class*="w-"]), select, textarea), .field > .affix-field:not([class*="w-"]) { inline-size: 100%; }
+.group { border: 0; padding: 0; margin: 0; display: grid; gap: var(--field-gap); }
+.group > legend { font: var(--type-heading, 600 1rem/1.4 system-ui); padding: 0; margin-block-end: var(--space-3, 12px); }
+.form > .group + * , .form > * + .group { margin-block-start: calc(var(--group-gap) - var(--field-gap)); }
+
+/* Width classes match the expected answer (GOV.UK fixed widths) */
+.w-2 { inline-size: calc(2ch + 2 * var(--field-pad-inline) + 2px); }
+.w-4 { inline-size: calc(4ch + 2 * var(--field-pad-inline) + 2px); }
+.w-5 { inline-size: calc(5ch + 2 * var(--field-pad-inline) + 2px); }
+.w-10 { inline-size: min(100%, calc(10ch + 2 * var(--field-pad-inline) + 2px)); }
+.w-20 { inline-size: min(100%, calc(20ch + 2 * var(--field-pad-inline) + 2px)); }
+
+/* ── Labels and hints (ffound-labels-hints-placeholders.md) ─────────────── */
+.field label, .field-label { font: var(--label-font); color: var(--text, oklch(0.22 0.02 250)); }
+.hint { margin: 0; font: var(--type-body, 400 0.875rem/1.45 system-ui); color: var(--text-muted, oklch(0.50 0.016 250)); }
+.optional { color: var(--text-muted, oklch(0.50 0.016 250)); font-weight: 400; }
+::placeholder { color: var(--text-muted, oklch(0.50 0.016 250)); opacity: 1; }
+
+/* ── Controls ───────────────────────────────────────────────────────────── */
+input, select, textarea, button { font: inherit; font-size: var(--field-font-size); }
+:where(input:not([type="checkbox"], [type="radio"], [type="range"], [type="file"]), select, textarea) {
+  min-block-size: var(--field-h);
+  padding-inline: var(--field-pad-inline);
+  border: 1px solid var(--field-border);
+  border-radius: var(--field-radius);
+  background: var(--surface, oklch(1 0 0));
+  color: var(--text, oklch(0.22 0.02 250));
+}
+textarea { padding-block: var(--space-2, 8px); resize: vertical; }
+:where(input, select, textarea, button):focus-visible { outline: 2px solid var(--focus-ring, var(--accent, oklch(0.50 0.17 265))); outline-offset: 2px; }
+
+/* Affixes: currency and units outside the editable text (finput-money-number-phone.md) */
+.affix-field { display: flex; align-items: center; min-block-size: var(--field-h); border: 1px solid var(--field-border); border-radius: var(--field-radius); background: var(--surface, oklch(1 0 0)); }
+.affix-field:focus-within { outline: 2px solid var(--focus-ring, var(--accent, oklch(0.50 0.17 265))); outline-offset: 2px; }
+.affix-field > input { border: 0; outline: 0; min-inline-size: 0; flex: 1; background: transparent; }
+.affix { padding-inline: var(--field-pad-inline); color: var(--text-muted, oklch(0.50 0.016 250)); }
+
+/* Checkboxes, radios, switches (finput-choice-controls.md) */
+.field-check { display: flex; align-items: center; gap: var(--space-3, 12px); min-block-size: max(var(--target-min, 24px), 32px); }
+.field-check > input { inline-size: var(--check-size); block-size: var(--check-size); margin: 0; flex: none; accent-color: var(--accent, oklch(0.50 0.17 265)); }
+.field-check > label { flex: 1; padding-block: var(--space-2, 8px); cursor: pointer; }
+@media (pointer: coarse) { .field-check { min-block-size: 44px; } }
+.reveal { margin-inline-start: calc(var(--check-size) / 2 - 2px); padding-inline-start: var(--space-4, 16px); border-inline-start: 4px solid var(--field-border); }
+
+/* ── Errors (fvalid-*) ──────────────────────────────────────────────────── */
+.field.has-error { border-inline-start: var(--error-bar-w) solid var(--danger-fg, oklch(0.53 0.19 27)); padding-inline-start: var(--space-4, 16px); }
+.error-msg { margin: 0; font-weight: 600; color: var(--danger-fg, oklch(0.53 0.19 27)); }
+:where(input, select, textarea):user-invalid { border: var(--field-border-error-w) solid var(--danger-fg, oklch(0.53 0.19 27)); }
+:where(input, select, textarea)[aria-invalid="true"] { border: var(--field-border-error-w) solid var(--danger-fg, oklch(0.53 0.19 27)); }
+.error-summary { border: var(--summary-border-w) solid var(--danger-fg, oklch(0.53 0.19 27)); padding: var(--space-5, 24px); margin-block-end: var(--space-6, 32px); scroll-margin-block-start: var(--space-8, 64px); }
+.error-summary a { color: var(--danger-fg, oklch(0.53 0.19 27)); font-weight: 600; }
+
+/* ── Buttons and busy state (fflow-submit-buttons-and-double-submit.md) ── */
+.btn-primary, .btn-secondary { min-block-size: var(--field-h); padding-inline: var(--space-5, 24px); border-radius: var(--field-radius); font-weight: 600; display: inline-flex; align-items: center; gap: var(--space-2, 8px); cursor: pointer; }
+.btn-primary { border: 0; background: var(--accent, oklch(0.50 0.17 265)); color: var(--on-accent, oklch(1 0 0)); }
+.btn-secondary { border: 1px solid var(--field-border); background: var(--surface, oklch(1 0 0)); color: var(--text, oklch(0.22 0.02 250)); }
+.btn-primary[aria-disabled="true"] { opacity: 0.8; cursor: progress; }
+.spinner { display: none; inline-size: 1em; block-size: 1em; border: 2px solid currentColor; border-inline-end-color: transparent; border-radius: 50%; }
+[aria-disabled="true"] > .spinner { display: inline-block; }
+@media (prefers-reduced-motion: no-preference) {
+  [aria-disabled="true"] > .spinner { animation: form-spin 0.9s linear infinite; }
+}
+@keyframes form-spin { to { rotate: 1turn; } }
+
+/* File upload drop zone (finput-file-upload.md) */
+.dropzone { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3, 12px); padding: var(--space-5, 24px); border: 2px dashed var(--field-border); border-radius: var(--radius-md, 8px); }
+.dropzone.is-over { border-style: solid; border-color: var(--accent, oklch(0.50 0.17 265)); background: var(--info-bg, oklch(0.96 0.02 250)); }
+
+/* ── Accessibility ──────────────────────────────────────────────────────── */
+.visually-hidden { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; margin: -1px; padding: 0; border: 0; }
+@media (forced-colors: active) {
+  :where(input, select, textarea), .affix-field { border-color: FieldText; }
+  .field.has-error, .error-summary { border-color: Mark; }
+}
