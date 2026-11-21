@@ -23,6 +23,14 @@
       "version": "0.1.0",
       "category": "design",
       "license": "PolyForm-Internal-Use-1.0.0"
+    },
+    {
+      "name": "motion-ui",
+      "source": "./plugins/motion-ui",
+      "description": "Product-UI motion and gesture: 19 researched patterns (purpose and frequency, durations and easing, springs mapped across CSS, Motion, React Spring, SwiftUI and Material 3, drag, momentum, sheets, enter/exit, View Transitions, scroll-driven animation, performance, reduced motion) plus a frame-based review rubric and motion tokens.",
+      "version": "0.1.0",
+      "category": "design",
+      "license": "PolyForm-Internal-Use-1.0.0"
     }
   ]
 }
