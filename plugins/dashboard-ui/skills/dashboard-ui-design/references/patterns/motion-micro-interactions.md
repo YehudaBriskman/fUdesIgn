@@ -64,7 +64,7 @@ Be restrained:
 | `--state-pressed-opacity` | 0.12 |
 | `--state-dragged-opacity` | 0.16 |
 | state colour/tint | `--motion-dur-micro` 100 ms, `linear` |
-| `--press-scale` | 0.97 (0.98 for large surfaces) |
+| `--motion-press-scale` | 0.97 (0.98 for large surfaces; motion-ui token) |
 | press | `--motion-dur-micro` 100 ms, `--motion-ease-enter` |
 | switch knob | `--motion-dur-short` 150 ms, `--motion-ease-standard` |
 | focus ring | `--focus-ring` colour, 2 px solid, offset 2 px, ≥ 3:1 |
