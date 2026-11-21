@@ -1,6 +1,6 @@
 # Pattern index
 
-84 patterns. **Priority:** must = always apply · should = apply unless there is a reason not to · nice = optional.
+85 patterns. **Priority:** must = always apply · should = apply unless there is a reason not to · nice = optional.
 
 ## Foundations (`found-`)
 
@@ -86,6 +86,7 @@
 | [Button hierarchy, sizing and loading state](patterns/comp-button-hierarchy.md) | must | One primary button per view region, every other action steps down in emphasis, every target is at least 24×24 CSS px, and a busy button keeps its size, its focus and its label. |
 | [Search and the command palette (⌘K)](patterns/comp-command-palette-search.md) | should | Give power users one keyboard-summoned palette that finds *every* command, entity and page with fuzzy matching and teaches shortcuts. Keep a visible search field and visible buttons for everyone else, because the palette is an accelerator, not the only path. |
 | [Date-range picker with presets and comparison periods](patterns/comp-date-range-picker.md) | must | Lead with presets (they make the common case one click), always show the resolved absolute dates and timezone, allow typed entry, and make the comparison period explicit, length-matched and visible on every widget it affects. |
+| [Entity cross-links and hover previews](patterns/comp-entity-links-and-hover-previews.md) | should | Every entity named on a page (project, person, account, ticker, filing) links to its own detail view, so users move detail → detail without going back to the sidebar. A hover or focus preview answers the quick question in place, after a 300–500 ms pause, shows only what matters from the current context, and is never the only way to reach that information. |
 | [Filter bars and filter chips](patterns/comp-filter-bar-chips.md) | must | Keep one filter bar per dashboard scope. Show every applied filter as a visible, individually removable chip with a "Clear all". Write the filter state to the URL so the filtered view can be shared. |
 | [Forms and inline editing inside dashboards](patterns/comp-inline-edit-and-forms.md) | must | Edit where the value lives (inline) for single, frequently changed fields. Use a side panel or a page for multi-field changes. Every edit has an obvious affordance, an explicit save/cancel path, a visible saved state and errors next to the field. |
 | [Keyboard shortcuts and focus management](patterns/comp-keyboard-shortcuts-focus.md) | must | Every action works from the keyboard with a visible focus ring. Composite widgets are one Tab stop with arrow keys inside. Shortcuts are discoverable (`?` sheet, tooltips, palette), never collide with browser or assistive-tech keys, and single-character shortcuts can be turned off. |
