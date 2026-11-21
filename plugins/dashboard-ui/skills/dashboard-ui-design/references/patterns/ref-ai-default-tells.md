@@ -1,23 +1,26 @@
 # Tells of a generated dashboard
 
-> A generated dashboard is recognisable by defaults nobody chose: the same card, radius, shadow, purple accent, eyebrow label and fade-up on every element. Every visual choice must trace to the data, the domain or a token, and anything that would appear unchanged on any other dashboard needs a reason or goes.
+> A generated dashboard is recognisable by defaults nobody chose, in three layers: the look (the same card, radius, purple accent and fade-up everywhere), the content (menus and cards copied from other products instead of chosen for this user's question) and the structure (one page per prompt, complexity left to the user). Every choice must trace to the data, the domain, the design brief or a token; anything that would appear unchanged on any other dashboard needs a reason or goes.
 
 **Category:** Reference gallery / anti-patterns · **Applies to:** any dashboard, admin home, KPI row or card grid built with an AI coding tool, a component kit or a template · **Priority:** should
 
 ## When to use / when not
 - **Use** as a pass after the first build (and again at review), alongside `ref-dashboard-anti-patterns.md`. That file catches *data* failures (no context, gauges, rainbow palettes). This one catches *sameness*: the fingerprints of unchosen defaults.
 - **Use** when a user says the result "looks AI-generated", "looks like a template" or "looks like every other SaaS".
+- **Use all three layers.** Equalise colour and type between two screens and the generated one is still recognisable: by what its menus contain, by where it puts the work, and by how its pages connect. A visual-only pass misses most of it.
 - **Don't** treat a tell as a bug in itself. Each is legitimate when the brief, the domain or the design system asks for it. The rule is "chosen, not defaulted".
 - **Don't** fix sameness with novelty. Dashboards win on convention and learnability (see `found-dashboard-types.md`). The goal is fit, not surprise. A marketing-page instinct to "take aesthetic risks" is wrong for a daily-use operational tool.
 
 ## Rules (do)
-- **Know why it happens.** Models sample the high-probability centre of their training data. Anthropic names this *distributional convergence*: safe, universal choices dominate scraped web code, so an unguided model reaches for Inter, purple gradients and minimal motion. NN/g's 2025 study of AI prototyping tools found the same: without explicit visual specs, output shares "a similar, generic look" with sans-serif type, minimal styling and bright accents, and tools add elements nobody asked for.
+- **Know why it happens.** A model copies what a component looks like, not why it exists. Models sample the high-probability centre of their training data. Anthropic names this *distributional convergence*: safe, universal choices dominate scraped web code, so an unguided model reaches for Inter, purple gradients and minimal motion. NN/g's 2025 study of AI prototyping tools found the same: without explicit visual specs, output shares "a similar, generic look" with sans-serif type, minimal styling and bright accents, and tools add elements nobody asked for.
 - **Run the plan-compare-revise pass before building:**
-  1. Write a 10-line plan: the view's first question and focal point (see `found-scanning-kpi-pyramid.md`), the domain profile (see `found-domain-profiles.md`), the role tokens you'll use, an ASCII wireframe and the one place you'll spend visual emphasis.
+  1. Write a 10-line plan: the design brief (why someone opens this view, how they use it, what they want to know next, what you will leave out; see the design-system plugin's step 2), the view's first question and focal point (see `found-scanning-kpi-pyramid.md`), the domain profile (see `found-domain-profiles.md`), the role tokens you'll use, an ASCII wireframe and the one place you'll spend visual emphasis.
   2. Compare it against what you would produce for "a dashboard" with no brief. Mark every line that is identical.
   3. For each identical line, either give a reason from the brief, domain or design system, or change it. Write down what changed.
   4. Build, screenshot in both themes, and run the table below on the screenshot.
-- **Check each tell.** For each row, the "legit when" column is the only defence:
+- **Check each tell, layer by layer.** For each row, the "legit when" column is the only defence.
+
+**Layer 1: visual**
 
 | Tell | Why it appears | Legit when | Fix |
 |---|---|---|---|
@@ -39,11 +42,32 @@
 | **Placeholder metrics** ("Total Revenue $45,231.89 +20.1% from last month", "Lorem ipsum") | Copied from kit demos | Never shipped | Real metric names, real periods, worst-case data. See `found-worst-case-data.md`, `found-microcopy-for-data.md` |
 | **Unrequested extras** (a progress ring, an "AI insights" card, a welcome banner) | Broad prompts invite filler | The user asked for it | Delete anything that answers no question on the plan. See `ref-dashboard-anti-patterns.md` AP1, AP2 |
 
+**Layer 2: content and purpose.** The parts were copied; the reason for them wasn't.
+
+| Tell | Why it appears | Legit when | Fix |
+|---|---|---|---|
+| **Copied menu contents**: an account popover that leads with the user's email, plus Help and Settings already one click away in the shell | Reproducing a well-known product's menu | Several signed-in accounts, where the email tells them apart (multi-account mail clients) | Fill it with what the user asks *here*: in a task tracker, presence or away status, notifications, workspace switch. Drop items duplicated elsewhere. See `comp-overlay-choice.md` |
+| **An affordance whose reason no longer applies**: a down chevron on a menu that opens upward from the sidebar foot | The component was copied with its icon | Never; the arrow is a promise about where content appears | Point the chevron where the content opens. See `comp-overlay-choice.md` |
+| **Pattern cargo-culting**: a card grid, a stat strip or a hero chart because "dashboards have them" | The parts survive; the reason they existed in the source doesn't | The reason holds here, and you can write it down | For each borrowed pattern, write its source's reason and check it applies (design brief) |
+| **Previews that dump the whole record**, or no previews at all | Rendering the entity model, not the user's question | The record has 3–5 fields | Show the 3–5 fields that matter from the current context. See `comp-entity-links-and-hover-previews.md` |
+| **Explaining instead of building**: a welcome deck of slides that describes features | "Onboarding" read as "tutorial" | Never on first load | Ask 1–3 questions, then create the first real object with the real UI. See `comp-onboarding-and-notices.md` |
+
+**Layer 3: structure and flow.** Where the work lands and how pages connect.
+
+| Tell | Why it appears | Legit when | Fix |
+|---|---|---|---|
+| **Every prompt became a page**: pages reachable only from the sidebar, never from each other; a two-entity question takes four clicks | Each feature was generated in its own prompt | A genuinely flat tool with no related records | Link every named entity to its detail route, both ways. See `comp-entity-links-and-hover-previews.md` |
+| **Complexity pushed onto the user**: three dropdowns for a date, raw IDs to copy between screens, a form that asks for what the system already knows | Simplest to build | The value truly can't be inferred, parsed or defaulted | Tesler's law: some complexity can't be removed, only moved, so the system carries it. See `comp-date-range-picker.md` |
+| **Hover-only information**: details reachable only by mouse hover | Desktop-first generation | Never as the only path | Same content on focus and through a tap or peek control. See `comp-entity-links-and-hover-previews.md` |
+| **Modal on first load** (tour, "what's new", feature deck) before the user has seen any value | Template first-run flows | A hard requirement (terms acceptance) | In-flow notices and empty states that teach the next action. See `comp-onboarding-and-notices.md` |
+
 - **Spend boldness once.** Pick one place to carry the identity (the focal KPI, the brand accent on the one primary action, a distinctive chart treatment). Everything else stays quiet.
 - **Ground identity in the domain.** A trading view reads like a terminal because of density and alignment, not a mono font on every label. A clinical view reads calm because of whitespace and restraint, not pastel gradients.
 - **Keep the quality floor silent.** Responsive reflow, focus rings, reduced motion, both themes and states are non-negotiable and invisible when done. They don't need a "polished" look.
 
 ## Anti-patterns (don't)
+- Treating "looks AI-generated" as a purely visual problem: changing the font and accent while the copied menus, the one-page-per-prompt structure and the three-dropdown date stay.
+- Building before the design brief exists. An opinion-less brief produces the average dashboard, however good the tokens.
 - "Fixing" a generic look by swapping in a different trendy default (another fashionable display font, another accent). Anthropic's own write-up notes models converge on *new* defaults once old ones are banned.
 - Treating a **KPI row with context** as the "hero metric template" tell. A labelled value with a delta against a named period and a unit is a real KPI (see `data-kpi-stat-card.md`). The tell is a big number *without* context, or one repeated as decoration.
 - Removing all cards, radius and shadows to look "not AI". Flat everything loses grouping; convention exists for a reason.
@@ -51,6 +75,8 @@
 - Adding a style because the screenshot "looked empty". Empty space around a focal number is the point.
 
 ## Good references
+- [Laws of UX, Tesler's Law](https://lawsofux.com/teslers-law/) — the law of conservation of complexity from Larry Tesler (Xerox PARC, later Apple): some complexity can't be reduced, only moved. The layer 3 test for where a design puts the work.
+- [MediaWiki, Page Previews](https://www.mediawiki.org/wiki/Page_Previews) — the opposite of "every prompt became a page": linked entities with a quick preview, so readers move article to article without a menu.
 - [Anthropic, Improving frontend design through Skills](https://claude.com/blog/improving-frontend-design-through-skills) — explains distributional convergence and why unguided output lands on Inter, purple gradients and minimal motion. Recommends naming the defaults to avoid and warns about converging on new ones.
 - [Anthropic Cookbook, Prompting for frontend aesthetics](https://platform.claude.com/cookbook/coding-prompting-for-frontend-aesthetics) — the idea source for the plan-then-revise pass: steer specific design dimensions and call out unwanted defaults.
 - [NN/g, Good from Afar, But Far from Good: AI Prototyping in Real Design Contexts](https://www.nngroup.com/articles/ai-prototyping/) — generic look with sans-serif and minimal styling without visual specs; elements added that the prompt never asked for.
@@ -58,6 +84,7 @@
 - [Stripe Dashboard teardown (925studios)](https://www.925studios.co/blog/stripe-dashboard-design-breakdown) — restraint: few metrics, monochrome trends, colour reserved for status. Distinctive without decoration.
 
 ## Bad references
+- [NN/g, Mobile Tutorials: Wasted Effort or Efficiency Boost?](https://www.nngroup.com/articles/mobile-tutorials/) — the deck-of-cards tutorial, a layer 2 tell: in a 70-person study it did not improve task success and made tasks feel harder.
 - [prg.sh, Why your AI keeps building the same purple gradient website](https://prg.sh/ramblings/Why-Your-AI-Keeps-Building-the-Same-Purple-Gradient-Website) — documents the cause: Tailwind UI's `bg-indigo-500` demo buttons were copied widely and became the statistical default.
 - [shadcn/ui dashboard-01 section cards](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/blocks/dashboard-01/components/section-cards.tsx) — a fine skeleton whose demo copy, uniform cards and footer prose ship unchanged in many generated dashboards.
 - [shadcn/ui `Card`](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/card.tsx) — `rounded-xl border shadow-sm` on every instance. Good component, bad when it wraps every region on the page.
@@ -125,6 +152,9 @@ export function findTells(root: ParentNode = document): Tell[] {
 - [ ] No emoji icons, no mono-as-costume, caps labels at most one short level.
 - [ ] No entrance animation on data widgets; no sparkline without a matching window.
 - [ ] No placeholder copy, fake precision or unrequested extras remain.
+- [ ] A design brief (why, how, what next, what is left out) was written first, and each borrowed pattern names a reason that holds here.
+- [ ] Layer 2: menus and popovers hold what the user asks in this context; chevrons point where content opens; previews show 3–5 context fields.
+- [ ] Layer 3: named entities link to each other; no three-dropdown dates or other work the system could carry; no hover-only information; no first-load modal.
 
 ## Sources
 - https://claude.com/blog/improving-frontend-design-through-skills
@@ -133,6 +163,9 @@ export function findTells(root: ParentNode = document): Tell[] {
 - https://www.nngroup.com/articles/ai-design-tools-update-2/
 - https://prg.sh/ramblings/Why-Your-AI-Keeps-Building-the-Same-Purple-Gradient-Website
 - https://practicaltypography.com/all-caps.html
+- https://lawsofux.com/teslers-law/ (Tesler's law, the law of conservation of complexity)
+- https://www.nngroup.com/articles/mobile-tutorials/ (Kendrick, 2020)
+- https://www.mediawiki.org/wiki/Page_Previews
 - https://www.925studios.co/blog/stripe-dashboard-design-breakdown
 - https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/card.tsx
 - https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/blocks/dashboard-01/components/section-cards.tsx
