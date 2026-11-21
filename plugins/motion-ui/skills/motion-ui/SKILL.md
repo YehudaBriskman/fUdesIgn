@@ -105,15 +105,15 @@ Break one of these only with a written reason.
 
 **Spring presets** (`mspring-parameters-and-mapping.md`)
 
-| Token | Duration / bounce | Motion | React Spring k / c | Use |
-|---|---|---|---|---|
-| `spring-fast` | 0.24 s / 0 | `visualDuration: 0.2` | 685 / 52 | toggles, small controls |
-| `spring-default` | 0.3 s / 0 | `visualDuration: 0.25` | 439 / 42 | menus, sheet settle, layout |
-| `spring-slow` | 0.45 s / 0 | `visualDuration: 0.375` | 195 / 28 | full-screen surfaces |
-| `spring-snappy` | 0.3 s / 0.15 | `visualDuration: 0.25, bounce: 0.15` | 439 / 36 | release after a flick, snaps |
-| `spring-playful` | 0.4 s / 0.3 | `visualDuration: 0.33, bounce: 0.3` | 247 / 22 | rare delight only |
+| Token | Duration / bounce | Use |
+|---|---|---|
+| `spring-fast` | 0.24 s / 0 | toggles, small controls |
+| `spring-default` | 0.3 s / 0 | menus, sheet settle, layout |
+| `spring-slow` | 0.45 s / 0 | full-screen surfaces |
+| `spring-snappy` | 0.3 s / 0.15 | release after a flick, snaps |
+| `spring-playful` | 0.4 s / 0.3 | rare delight only |
 
-The conversion is ω = 2π / duration, ζ = 1 − bounce, stiffness = ω², damping = 2ζω (mass 1). Motion's `visualDuration` is duration / 1.2. For comparison, M3 Standard spatial springs are 1400 / 700 / 300 stiffness at a 0.9 damping ratio.
+Library parameters (Motion, React Spring, SwiftUI, Material 3) come from one formula in `mspring-parameters-and-mapping.md`.
 
 **Gesture thresholds** (`mgesture-*`)
 
