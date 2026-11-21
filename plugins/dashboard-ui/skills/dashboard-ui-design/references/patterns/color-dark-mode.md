@@ -20,8 +20,8 @@
 - **Re-check contrast on every surface level**, not only the base. Atlassian: "Check the contrast ratio for UI on overlay surfaces in dark mode to ensure it meets accessibility requirements."
 - **Use APCA as a sanity check for dark pairs.** WCAG 2's formula "overstates contrast for dark colors", so 4.5:1 near black "can be functionally unreadable" (APCA in a Nutshell). Aim for APCA Lc ≥ 75 for body text and ≥ 60 for secondary text. The default dark `--text-muted` is 7.6:1 but only Lc 55 on `--surface`. It needs about oklch(0.77 0.014 250) to reach Lc 60.
 - **Shadows still exist but do less work.** Fluent's low-elevation ramp raises the first shadow layer from 14% in light to 28% in dark (the second stays 14%). Atlassian keeps shadow tokens paired with dark surfaces.
-- **Images and logos:** provide dark variants with `<picture><source media="(prefers-color-scheme: dark)">`, or with `light-dark()` image values where supported (modern-web-guidance `dark-mode.md`; support status unverified). Never invert photos.
-- **Iframes and embeds:** don't assume the embed follows your theme toggle. Send a `?theme=dark` parameter or use `postMessage` (modern-web-guidance notes Safari doesn't pass `color-scheme` into iframes; unverified).
+- **Images and logos:** provide dark variants with `<picture><source media="(prefers-color-scheme: dark)">`, or with `light-dark()` image values (Chrome 150, Firefox 150, Safari 27 per MDN browser-compat-data `css.types.color.light-dark.image_value`; keep the `<picture>` fallback for older browsers). Never invert photos.
+- **Iframes and embeds:** don't assume the embed follows your theme toggle. A class toggle on the parent page never reaches the embedded document, so send a `?theme=dark` parameter or use `postMessage`.
 
 ## Anti-patterns (don't)
 - `filter: invert(1) hue-rotate(180deg)` on the whole app. It inverts charts, brand colours, photos and status meaning.
@@ -123,4 +123,5 @@ mq.addEventListener("change", onSchemeChange);
 - https://www.datawrapper.de/blog/dark-mode-for-embedded-visualizations
 - https://arxiv.org/html/2512.00516v2
 - https://git.apcacontrast.com/documentation/APCA_in_a_Nutshell
+- https://github.com/mdn/browser-compat-data/blob/main/css/types/color.json (`light-dark()` image values)
 - modern-web-guidance: `guides/visual-design/dark-mode.md`, `guides/ui-atoms/component-specific-light-dark-theme.md`, `guides/ui-components/dark-mode-toggle.md`, `guides/visual-design/color.md`

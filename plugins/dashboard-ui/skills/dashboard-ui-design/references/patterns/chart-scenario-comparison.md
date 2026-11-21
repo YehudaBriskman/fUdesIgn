@@ -49,7 +49,7 @@
 ## Good references
 - [Morningstar equity research definitions (PDF)](https://advhypo.morningstar.com/Enterprise/VTC/UpdatedEquityResearchDefinitions.pdf) — analysts set at least a bull and bear case around the base, chosen so there's a 25% probability of doing better than bull and 25% of doing worse than bear; the spread drives the uncertainty rating.
 - [Microsoft, Switch between sets of values using scenarios](https://support.microsoft.com/en-US/excel/switch-between-various-sets-of-values-by-using-scenarios) — Excel's Scenario Manager stores named sets of up to 32 changing cells and builds a side-by-side summary; naming the cells first makes the report readable.
-- [Damodaran, probabilistic approaches (scenario analysis)](https://pages.stern.nyu.edu/~adamodar/pdfiles/valrisk/ch6.pdf) (PDF not text-extractable here; cited via search summary) — best / most likely / worst case, values per scenario plus an expected value when probabilities can be estimated, and the caveat that incomplete scenario sets can't be probability-weighted.
+- [Damodaran, probabilistic approaches (scenario analysis)](https://pages.stern.nyu.edu/~adamodar/pdfiles/valrisk/ch6.pdf) — best / most likely / worst case, values per scenario plus an expected value when probabilities can be estimated, and the caveat that incomplete scenario sets can't be probability-weighted.
 - [isee systems, A better chained slider](https://blog.iseesystems.com/stella-ithink/a-better-chained-slider/) — totals shown red/green with text, no silent reapportioning, and an explicit "Distribute" action for weights that must sum to 100%.
 
 ## Bad references
@@ -154,9 +154,8 @@ export function readScenario(url: URL): ScenarioId {
 ## Sources
 - https://advhypo.morningstar.com/Enterprise/VTC/UpdatedEquityResearchDefinitions.pdf
 - https://support.microsoft.com/en-US/excel/switch-between-various-sets-of-values-by-using-scenarios
-- https://support.microsoft.com/en-au/excel/switch-between-various-sets-of-values-by-using-scenarios (static summary report, 32 changing cells; cited via search summary)
-- https://pages.stern.nyu.edu/~adamodar/pdfiles/valrisk/ch6.pdf (cited via search summary)
-- https://pages.stern.nyu.edu/~adamodar/pdfiles/DSV2/Ch3.pdf (cited via search summary)
+- https://support.microsoft.com/en-au/excel/switch-between-various-sets-of-values-by-using-scenarios (up to 32 changing cells per scenario; summary reports don't recalculate)
+- https://pages.stern.nyu.edu/~adamodar/pdfiles/valrisk/ch6.pdf (Table 6.2: growth scenarios weighted 0.25 / 0.50 / 0.25; best/worst analysis "not very informative"; double counting of risk)
+- https://pages.stern.nyu.edu/~adamodar/pdfiles/DSV2/Ch3.pdf (later edition of the same chapter)
 - https://blog.iseesystems.com/stella-ithink/a-better-chained-slider/
-- https://forio.com/epicenter/support/t/can-sliders-be-chained/1222 (normalise in the model instead of the UI; cited via search summary)
 - https://www.w3.org/WAI/ARIA/apg/patterns/radio/

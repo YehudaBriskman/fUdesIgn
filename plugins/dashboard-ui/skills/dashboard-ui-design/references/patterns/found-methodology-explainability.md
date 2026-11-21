@@ -28,7 +28,7 @@
   - Title, a one-paragraph summary ("What this measures and what it doesn't"), then a table of contents.
   - One section per step, each with: what it does, the formula, the default values and why, and the known limits.
   - Body text at a 60–75ch measure (see `found-typography-for-data.md`); formulas as block MathML or code-styled lines, with variables defined directly below.
-  - A **"Last changed" date and a changelog** at the top. When the method changes, list the date, what changed, and how much typical outputs moved. Morningstar dates its methodology documents and notes when a revision changed many ratings (about 25% of uncertainty ratings in 2022).
+  - A **"Last changed" date and a changelog** at the top. When the method changes, list the date, what changed, and how much typical outputs moved. Morningstar dates its methodology documents and announced its updated uncertainty-rating method in a dated article that restates every margin-of-safety threshold (6 October 2022).
   - A worked example with real numbers that a reader can recompute.
   - Sticky TOC on wide screens (≥ 1024px), inline TOC on narrow ones.
 - **Calibration, if you forecast.** Publish how past outputs did: bins of predicted probability vs observed frequency. A model that says "70%" should be right about 70% of the time.
@@ -172,13 +172,13 @@ export function editedLeaves(node: ProvNode): ProvNode[] {
 ## Sources
 - https://pair.withgoogle.com/chapter/explainability-trust/
 - https://advhypo.morningstar.com/Enterprise/VTC/UpdatedEquityResearchDefinitions.pdf
-- https://morningstar.co.uk/uk/news/227180/what-is-the-morningstar-uncertainty-rating.aspx (2022 revision, about 25% of ratings changing; cited via search summary)
+- https://morningstar.co.uk/uk/news/227180/what-is-the-morningstar-uncertainty-rating.aspx (6 October 2022, updated methodology and thresholds; read via web.archive.org)
 - https://github.com/SimplyWallSt/Company-Analysis-Model
 - https://ourworldindata.org/redesigning-our-interactive-data-visualizations
-- https://ourworldindata.org/how-to-use-our-world-in-data (citation via "Learn more about this data"; cited via search summary)
+- https://ourworldindata.org/how-to-use-our-world-in-data (how to cite charts and data)
 - https://design-system.service.gov.uk/patterns/check-answers/
 - https://projects.fivethirtyeight.com/checking-our-work/nfl-games (now redirects to abcnews.go.com)
 - https://help.seekingalpha.com/premium/quant-ratings-and-factor-grades-faq
 - https://pages.stern.nyu.edu/~adamodar/New_Home_Page/spreadsh.htm
 - https://developer.mozilla.org/en-US/docs/Web/MathML/Reference/Element/math
-- https://developer.dynatrace.com/design/guided-interaction/components-pattern/ (critical info never hidden behind progressive disclosure; cited via search summary)
+- https://developer.dynatrace.com/design/guided-interaction/components-pattern/ (tooltips and expandable text are not for critical information or content users need to decide)

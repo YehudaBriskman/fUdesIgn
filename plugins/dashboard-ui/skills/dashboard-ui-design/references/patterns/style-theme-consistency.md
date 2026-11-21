@@ -52,7 +52,7 @@
 - [Josh W. Comeau: The quest for the perfect dark mode](https://www.joshwcomeau.com/react/dark-mode/) — the flash explained, a blocking head script (stored choice, then OS preference, then default), CSS variables set before paint, and rendering the toggle only once the mode is known.
 - [web.dev: prefers-color-scheme (Thomas Steiner)](https://web.dev/prefers-color-scheme) — the `<dark-mode-toggle>` element that follows the OS but allows an override, and the `Sec-CH-Prefers-Color-Scheme` hint for server-rendered pages.
 - [MDN: MediaQueryList change event](https://developer.mozilla.org/en-US/docs/Web/API/MediaQueryList/change_event) — live OS scheme changes, Baseline since 2020.
-- [GitHub appearance settings](https://github.com/settings/appearance) (product, sign-in required) — "Sync with system" vs a single theme, with separate day and night theme picks.
+- [GitHub Docs: Managing your theme settings](https://docs.github.com/en/get-started/accessibility/managing-your-theme-settings) — a single theme, or follow the system settings with separate day and night theme picks.
 
 ## Bad references
 - [Chrome: Auto Dark Theme](https://developer.chrome.com/blog/auto-dark-theme) — the browser's algorithmic darkening of light-only pages produces exactly the mixed, half-adjusted look this pattern forbids. Chrome itself recommends a curated dark theme, and the per-element `only light` opt-out leaves islands of light.
@@ -172,12 +172,11 @@ export function ThemePicker({ onPersist }: { onPersist?: (c: ThemeChoice) => voi
 - https://web.dev/articles/color-scheme
 - https://developer.mozilla.org/en-US/docs/Web/CSS/color-scheme
 - https://www.joshwcomeau.com/react/dark-mode/
-- https://web.dev/prefers-color-scheme (search summary only)
-- https://developer.mozilla.org/en-US/docs/Web/API/MediaQueryList/change_event (search summary only)
-- https://developer.chrome.com/blog/auto-dark-theme (search summary only)
+- https://web.dev/prefers-color-scheme
+- https://developer.mozilla.org/en-US/docs/Web/API/MediaQueryList/change_event (Baseline widely available since September 2020)
+- https://developer.chrome.com/blog/auto-dark-theme ("we strongly recommend implementing your own curated dark theme"; opt-out via `only light`)
 - https://www.nngroup.com/articles/dark-mode/
-- https://github.com/settings/appearance (product, not fetched; requires sign-in)
-- https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-personal-account-on-github/customizing-your-github-profile/managing-your-theme-settings (fetch failed, 404)
+- https://docs.github.com/en/get-started/accessibility/managing-your-theme-settings
 - https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html
 - Internal dogfood review of a valuation app, 2026-11-21 (rubric G4, finding "two visual systems in one product")
 - Repo: patterns/color-dark-mode.md, patterns/color-system-architecture.md, patterns/chart-canvas-accessibility.md

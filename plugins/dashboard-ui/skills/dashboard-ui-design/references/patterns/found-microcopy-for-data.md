@@ -172,7 +172,7 @@ export function errorText(what: string, fix: 'retry' | 'checkInput' | 'requestAc
 - https://www.nngroup.com/articles/error-message-guidelines/
 - https://www.nngroup.com/articles/empty-state-interface-design/
 - https://carbondesignsystem.com/patterns/empty-states-pattern/
-- https://service-manual.ons.gov.uk/content/numbers/percentages (cited via search summary)
+- https://service-manual.ons.gov.uk/content/numbers/percentages ("A value of 10% falling by 1 percentage point becomes 9% ... A fall of 1% would result in a value of 9.9%")
 - https://styleguide.mailchimp.com/grammar-and-mechanics/ (abbreviations on first use, % sign, cents only when non-zero)
 - https://styleguide.mailchimp.com/numbers/ (fetch failed, 404)
 - https://learn.microsoft.com/en-us/style-guide/a-z-word-list-term-collections/l/less-fewer (fetch failed, 404; fewer/less rule is standard English usage)

@@ -58,7 +58,7 @@
 
 ## Bad references
 - [shadcn/ui dashboard-01 section cards](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/blocks/dashboard-01/components/section-cards.tsx) — a good skeleton (tabular-nums, container query bumps the value to `text-3xl` at 250px or wider). But the sample copy pairs "Total Revenue $1,250.00" with "Visitors for the last 6 months", and its deltas have no period on the badge. Teams ship the placeholder semantics.
-- [Tableau, "Bullet graphs beat gauge charts"](https://www.tableau.com/de-de/blog/bullet-graphs-beat-gauge-charts) and [Stacey Barr, "Why dashboard dials and gauges are useless for KPIs"](https://www.staceybarr.com/?p=2378) — gauges hide the comparison and use arbitrary red zones that imply judgements.
+- [Tableau, "Why bullet graphs pack more punch than gauge charts"](https://www.tableau.com/blog/bullet-graphs-beat-gauge-charts) and [Stacey Barr, "Why dashboard dials and gauges are useless for KPIs"](https://www.staceybarr.com/?p=2378) — gauges hide the comparison and use arbitrary red zones that imply judgements.
 - [Tufte on executive dashboards](https://www.edwardtufte.com/notebook/executive-dashboards/) — Tufte (2003 forum reply) calls the typical display "a low resolution, decorative display method that pretends to show statistical data."
 
 ## Accessibility
@@ -157,6 +157,6 @@
 - https://learn.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-kpi
 - https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/blocks/dashboard-01/components/section-cards.tsx
 - https://www.staceybarr.com/?p=2378
-- https://www.tableau.com/de-de/blog/bullet-graphs-beat-gauge-charts (fetch blocked, 403; cited via search summary)
+- https://www.tableau.com/blog/bullet-graphs-beat-gauge-charts (read via web.archive.org, May 2026 snapshot: gauges "lack context" and "waste space"; not included by default in Tableau)
 - Repo: modern-web-guidance/skills/modern-web-guidance/guides/ui-components/card.md
 - Repo: modern-web-guidance/skills/modern-web-guidance/guides/visual-design/typography.md

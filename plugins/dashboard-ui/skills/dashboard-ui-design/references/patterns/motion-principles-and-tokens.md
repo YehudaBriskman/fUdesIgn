@@ -98,7 +98,8 @@ Rows marked † are in `assets/tokens.css`; the others are values this file adds
   --motion-ease-standard: cubic-bezier(0.2, 0, 0.38, 0.9);
   --motion-ease-enter: cubic-bezier(0, 0, 0.38, 0.9);
   --motion-ease-exit: cubic-bezier(0.2, 0, 1, 0.9);
-  /* Critically damped spring approximation via linear() (Baseline widely available; newly available Dec 2023) */
+  /* Critically damped spring x(t) = 1 − (1 + ωt)·e^(−ωt), ωT = 6.6, sampled for linear() (same value as tokens.css).
+     linear() is Baseline widely available (newly available Dec 2023). */
   --motion-ease-spring: linear(0, 0.044 5%, 0.142 10%, 0.261 15%, 0.380 20%, 0.589 30%, 0.740 40%, 0.841 50%, 0.905 60%, 0.968 80%, 1);
 }
 
@@ -121,7 +122,7 @@ Rows marked † are in `assets/tokens.css`; the others are values this file adds
   @starting-style { .panel { translate: none; } }
 }
 ```
-Support and fallback: `@starting-style` and `transition-behavior: allow-discrete` (the `display … allow-discrete` line) are Baseline 2024, newly available since August 2024 (Chrome 117, Firefox 129, Safari 17.4/17.5). Older browsers ignore both, so the panel simply appears and disappears without the entry or exit animation, which is an acceptable fallback because the final state is the default state. Individual `translate`/`scale`/`rotate` properties are Baseline widely available.
+Support and fallback: `@starting-style` and `transition-behavior: allow-discrete` (the `display … allow-discrete` line) are Baseline 2024, newly available since August 2024 (Chrome 117, Firefox 129, Safari 17.4/17.5). Firefox supports both but does not transition `display` with `allow-discrete` (MDN browser-compat-data marks Firefox 129 as a partial implementation, [bug 1882408](https://bugzil.la/1882408)), so in Firefox the entry animates and the exit snaps. Older browsers ignore both, so the panel simply appears and disappears without the entry or exit animation, which is an acceptable fallback because the final state is the default state. Individual `translate`/`scale`/`rotate` properties are Baseline widely available.
 
 ## Checklist
 - [ ] Every animation has a stated purpose: continuity, feedback, orientation or attention.
@@ -145,3 +146,4 @@ Support and fallback: `@starting-style` and `transition-behavior: allow-discrete
 - https://www.w3.org/WAI/WCAG22/Understanding/pause-stop-hide.html
 - https://developer.mozilla.org/en-US/docs/Web/CSS/@starting-style
 - https://developer.mozilla.org/en-US/docs/Web/CSS/transition-behavior
+- https://github.com/mdn/browser-compat-data/blob/main/css/properties/transition-behavior.json (Firefox 129 partial: no `display` transition)

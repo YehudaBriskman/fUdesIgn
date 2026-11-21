@@ -62,7 +62,7 @@
 - [Robinhood: What is a candlestick](https://robinhood.com/us/en/learn/articles/3YzdYQ8bI4XqfnYUNj3dac/what-is-a-candlestick) — plain-language anatomy and line-vs-candle guidance.
 - [Robinhood Legend widgets](https://robinhood.com/us/en/support/articles/widgets-in-robinhood-legend) — documents the line colour rule (first vs last close in frame) and a draggable baseline for area charts; good pattern for "price vs my reference".
 - [Datawrapper: waterfall charts guide](https://www.datawrapper.de/blog/waterfall-charts-guide) — ordering, totals, three colours, colour-blind-safe pairs, connectors.
-- [SAP Fiori: waterfall chart usage](https://www.sap.com/design-system/fiori-design-web/v1-136/ui-elements/waterfall-chart/usage) — enterprise defaults (positive blue, negative orange, totals grey) and orientation by time vs category. Unverified: the page blocks automated fetching, so check it before relying on these colours.
+- [SAP Fiori: waterfall chart usage](https://www.sap.com/design-system/fiori-design-web/v1-136/ui-elements/waterfall-chart/usage) — enterprise defaults (positive blue, negative orange, totals grey, all from the sequential palette) and orientation: vertical bars for change over time, horizontal when the categories are not temporal (read via web.archive.org, May 2026 snapshot).
 - [Wall Street Prep football field](https://www.wallstreetprep.com/knowledge/football-field-valuation-real-example-excel-template/) — the standard method list (DCF, LBO, comps, precedents, 52-week range) with a worked example. [CFI's template page](https://corporatefinanceinstitute.com/resources/valuation/football-field-chart/) gives only a one-line definition.
 
 ## Bad references

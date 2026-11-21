@@ -50,7 +50,7 @@
 - [Seeking Alpha Quant Ratings FAQ](https://help.seekingalpha.com/premium/quant-ratings-and-factor-grades-faq) — a 1.0–5.0 score mapped to Strong Sell … Strong Buy, five sector-relative factor grades (A+ to F), updated daily before market open. Grades are stated as sector-relative.
 
 ## Bad references
-- [Simply Wall St Snowflake help article](https://support.simplywall.st/hc/en-us/articles/360001740916-How-does-the-Snowflake-work) (fetch blocked, 403; cited via search summary) — the snowflake's overall colour comes from the count of passed checks across unlike axes, so a large green shape can hide a failing health axis. The help text itself warns that a low score on one criterion shouldn't exclude a stock, which is exactly the nuance the colour flattens.
+- [Simply Wall St Snowflake help article](https://support.simplywall.st/hc/en-us/articles/360001740916-How-does-the-Snowflake-work) (read via web.archive.org, September 2025 snapshot) — the snowflake's overall colour comes from the count of passed checks across unlike axes, so a large green shape can hide a failing health axis. The help text itself warns that a low score on one criterion shouldn't exclude a stock, which is exactly the nuance the colour flattens.
 - [Seeking Alpha Quant Ratings FAQ](https://help.seekingalpha.com/premium/quant-ratings-and-factor-grades-faq) — the overall rating is "not a simple average" of the grades and the weights are not published, so the verdict can't be traced from the visible parts.
 - Generic "Buy / Hold / Sell" pills in green, grey and red found in many brokerage UIs: they borrow status colours and money colours at the same time, and give no threshold or confidence.
 
@@ -157,9 +157,10 @@ export function verdict(price: number, value: number | null, u: Uncertainty, age
 
 ## Sources
 - https://advhypo.morningstar.com/Enterprise/VTC/UpdatedEquityResearchDefinitions.pdf (redirect from advisor.morningstar.com; uncertainty bands and 25% bull/bear probabilities)
-- https://www.morningstar.com/stocks/how-determine-whether-stock-is-cheap-expensive-or-fairly-valued (fetch blocked, 403; cited via search summary)
+- https://www.morningstar.com/stocks/how-determine-whether-stock-is-cheap-expensive-or-fairly-valued (price compared with fair value)
+- https://www.morningstar.co.uk/uk/news/227180/what-is-the-morningstar-uncertainty-rating.aspx (read via web.archive.org; 5-star discount and 1-star premium per uncertainty level, 20/25 to 75/300)
 - https://github.com/SimplyWallSt/Company-Analysis-Model (MODEL.markdown: 5 axes × 6 checks, value checks)
-- https://support.simplywall.st/hc/en-us/articles/360001740916-How-does-the-Snowflake-work (fetch blocked, 403; cited via search summary)
+- https://support.simplywall.st/hc/en-us/articles/360001740916-How-does-the-Snowflake-work (read via web.archive.org; more passed checks = greener; "a low score in particular assessment criteria should not necessarily exclude a stock")
 - https://pair.withgoogle.com/chapter/explainability-trust/
 - https://help.seekingalpha.com/premium/quant-ratings-and-factor-grades-faq
 - https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html

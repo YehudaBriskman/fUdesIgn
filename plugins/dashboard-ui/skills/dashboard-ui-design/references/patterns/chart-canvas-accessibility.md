@@ -192,15 +192,15 @@ export function fitCanvas(canvas: HTMLCanvasElement): CanvasRenderingContext2D |
 ## Sources
 - https://www.chartjs.org/docs/latest/general/accessibility.html
 - https://www.highcharts.com/docs/accessibility/accessibility-module
-- https://www.highcharts.com/docs/sonification/getting-started (search summary only)
-- https://www.highcharts.com/docs/sonification/navigation (search summary only)
+- https://www.highcharts.com/docs/sonification/getting-started (requires `sonification.js`; opt-in module)
+- https://www.highcharts.com/docs/sonification/navigation (pause and explore with `playAdjacent`)
 - https://echarts.apache.org/handbook/en/best-practices/aria
-- https://www.github.com/apache/superset/issues/28173 (search summary only)
-- https://www.github.com/apache/superset/pull/28171 (search summary only)
+- https://www.github.com/apache/superset/issues/28173
+- https://www.github.com/apache/superset/pull/28171 (enables ECharts aria-label; merged 22 April 2024)
 - https://www.w3.org/WAI/tutorials/images/complex/
 - https://www.w3.org/TR/graphics-aria-1.0/
 - https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawFocusIfNeeded
-- https://developer.mozilla.org/en-US/docs/Web/API/MediaQueryList/change_event (search summary only)
+- https://developer.mozilla.org/en-US/docs/Web/API/MediaQueryList/change_event (Baseline widely available since September 2020)
 - https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Hit_regions_and_accessibility (fetch failed, 404; page removed)
 - https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html
 - Internal dogfood review of a valuation app, 2026-11-21 (rubric G4)

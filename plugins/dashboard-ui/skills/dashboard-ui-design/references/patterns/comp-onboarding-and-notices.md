@@ -156,9 +156,9 @@ export function initNotices(root: ParentNode = document): void {
 - https://www.nngroup.com/articles/empty-state-interface-design/
 - https://carbondesignsystem.com/patterns/empty-states-pattern/
 - https://www.chameleon.io/blog/product-tour-benchmarks-highlights
-- https://www.chameleon.io/benchmark-report-24 (cited via search summary: tours over 4 steps fall below the 33.5% average)
+- https://www.chameleon.io/benchmark-report-24 (2024 report: tours with more than four steps fall below the 33.5% average; five-step tours 21.6%)
 - https://www.sec.gov/pdf/handbook.pdf (A Plain English Handbook, reprint of Rule 421(b) and its note)
-- https://www.finra.org/rules-guidance/notices/13-23 (cited via search summary)
-- https://finra.org/rules-guidance/notices/19-31 (cited via search summary)
+- https://www.finra.org/rules-guidance/notices/13-23 (fee claims with other fees only in a footnote do not comply with Rule 2210(d)(1)(C))
+- https://finra.org/rules-guidance/notices/19-31 (Q4: disclosures integrated into the body of the message)
 - https://www.nngroup.com/articles/cookie-permission-banners/ (fetch failed, 404)
 - Dogfood report, valuation product review, 2026-11-21 (A.3 #4)
