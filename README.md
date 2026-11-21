@@ -67,6 +67,13 @@ plugins/
       references/INDEX.md                all 19 patterns, each with its one-line rule
       references/patterns/*.md           rtl-, i18n-, iref- (see below)
       assets/rtl.css                     direction variables, Hebrew/Arabic type resets, bidi islands, logical utilities on the dashboard-ui roles
+  accessibility/
+    .claude-plugin/plugin.json
+    skills/accessibility/
+      SKILL.md                           10-step workflow, 18 non-negotiables, decision tables, token defaults
+      references/INDEX.md                all 20 patterns, each with its one-line rule
+      references/patterns/*.md           a11y-, aaria-, atest-, alaw-, aref- (see below)
+      assets/a11y.css                    skip link, .sr-only, focus ring, 2.4.11 scroll padding, targets, forced colours on the dashboard-ui roles
 templates/PATTERN_TEMPLATE.md            the format every pattern file follows
 docs/research-brief.md                   how the research was run
 ```
@@ -163,6 +170,18 @@ Internationalisation and right-to-left UI, with Hebrew and Arabic as first-class
 | `i18n-` | Internationalisation: dates, Hebrew and Hijri calendars and week start, string externalisation, ICU plurals (Hebrew dual forms) and gender, text expansion, locale negotiation and language switchers without flags, pseudo-localisation with a Playwright RTL recipe | 6 |
 | `iref-` | References: a 35-check review rubric, a 14-item anti-pattern catalogue, a Hebrew-site teardown with Israeli accessibility (IS 5568) | 3 |
 
+### accessibility: 20 patterns in 5 clusters
+
+The cross-cutting WCAG 2.2 AA layer for every UI type. Domain rules stay in their plugins (dashboard-ui contrast, charts and keyboard; forms-ui validation; ai-ui live output; mobile-ui targets; motion-ui reduced motion; i18n-rtl's Israeli site teardown), and accessibility links to them. Legal dates and scope were read from primary sources (EUR-Lex, ADA.gov and the Federal Register, the US Access Board, ETSI, and the Israeli regulation text) in November 2026.
+
+| Prefix | Cluster | Files |
+|---|---|---|
+| `a11y-` | Build: the WCAG 2.2 AA map by builder task, landmarks and headings, names and roles, keyboard and focus not obscured (2.4.11), targets (2.5.8) and dragging (2.5.7), consistent help, redundant entry and accessible authentication, colour, motion, reflow and text spacing, forced colours | 10 |
+| `aaria-` | ARIA: the first rule and APG patterns, a misuse catalogue, live regions and announcements | 3 |
+| `atest-` | Testing: VoiceOver, NVDA and TalkBack cheat-sheets, a seven-pass manual test plan, axe-core with Playwright and its cited coverage limit | 3 |
+| `alaw-` | Law and statements: EAA, ADA Title II, Section 508, EN 301 549, Israel's regulation 35 and IS 5568; accessibility statements | 2 |
+| `aref-` | Review: a 32-check audit rubric with a report template, an 18-item anti-pattern catalogue | 2 |
+
 Each pattern file has these sections: the rule, when to use and when not, rules with numbers, anti-patterns, good references, bad references, accessibility, motion, a tokens table, an implementation sketch, a checklist and sources.
 
 ## Research
@@ -186,9 +205,10 @@ Some claims rest on search summaries because the source page wouldn't load, and 
 /plugin install design-system@fudesign
 /plugin install ai-ui@fudesign
 /plugin install i18n-rtl@fudesign
+/plugin install accessibility@fudesign
 ```
 
-Each skill then triggers on its own design, build and review tasks (dashboards, landing and marketing pages, mobile web and PWAs, product-UI motion and gestures, forms, setting up and keeping a design system, AI features such as chat, copilots and agents, or internationalised and right-to-left UI in Hebrew and Arabic). You can also copy a skill folder, such as `plugins/marketing-ui/skills/marketing-ui/`, into `~/.claude/skills/`.
+Each skill then triggers on its own design, build and review tasks (dashboards, landing and marketing pages, mobile web and PWAs, product-UI motion and gestures, forms, setting up and keeping a design system, AI features such as chat, copilots and agents, internationalised and right-to-left UI in Hebrew and Arabic, or WCAG 2.2 AA accessibility builds, tests and audits). You can also copy a skill folder, such as `plugins/marketing-ui/skills/marketing-ui/`, into `~/.claude/skills/`.
 
 ## Adding a pattern or plugin
 

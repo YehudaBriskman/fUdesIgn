@@ -71,6 +71,14 @@
       "version": "0.1.0",
       "category": "design",
       "license": "PolyForm-Internal-Use-1.0.0"
+    },
+    {
+      "name": "accessibility",
+      "source": "./plugins/accessibility",
+      "description": "Build and audit any UI to WCAG 2.2 AA: 20 researched patterns (a success-criteria map by builder task, landmarks and headings, names and roles, keyboard and focus not obscured, 24px targets and drag alternatives, consistent help, redundant entry and accessible authentication, contrast, motion, reflow and text spacing, forced colours, ARIA and APG patterns, live regions, VoiceOver/NVDA/TalkBack cheat-sheets, a manual test plan, axe-core with Playwright and its coverage limit, accessibility statements, EAA, ADA Title II, Section 508, EN 301 549 and Israel IS 5568) plus an anti-pattern catalogue, an audit rubric with report template and accessibility utilities.",
+      "version": "0.1.0",
+      "category": "design",
+      "license": "PolyForm-Internal-Use-1.0.0"
     }
   ]
 }
