@@ -32,6 +32,12 @@ jobs:
           for f in ../plugins/*/skills/*/assets/*.css; do
             node -e "require('lightningcss').transform({filename:'$f',code:require('fs').readFileSync('$f'),errorRecovery:false})" || { echo "invalid CSS in $f"; exit 1; }
           done
+      - name: Skill script tests (node --test)
+        working-directory: .
+        run: |
+          shopt -s nullglob
+          tests=(plugins/*/skills/*/scripts/*.test.mjs)
+          if [ ${#tests[@]} -gt 0 ]; then NODE_PATH="$PWD/tools/node_modules" node --test "${tests[@]}"; fi
       - name: Plugin manifests are valid JSON
         working-directory: .
         run: for f in .claude-plugin/marketplace.json plugins/*/.claude-plugin/plugin.json; do node -e "JSON.parse(require('fs').readFileSync('$f','utf8'))" || exit 1; done
