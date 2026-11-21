@@ -65,7 +65,7 @@
 - Default library behaviour that connects nulls (for example Recharts `connectNulls`, Tremor `connectNulls`): defaults are `false` in Tremor, which is correct; watch for teams flipping it to make a chart "look complete".
 
 ## Accessibility
-- Lines need 3:1 contrast against the background (WCAG 1.4.11, modern-web-guidance visual-design/color.md); grey context lines are decorative-ish but the highlighted series must pass.
+- Lines need 3:1 contrast against the background (WCAG 1.4.11); grey context lines are decorative-ish but the highlighted series must pass.
 - Do not rely on colour alone to separate lines: add direct labels, dash patterns or end markers with different shapes (Highcharts low-vision features).
 - Provide the summary sentence and a table view (see chart-accessibility.md).
 
@@ -147,5 +147,5 @@
 - https://www.livescience.com/45083-misleading-gun-death-chart.html
 - https://www.tremor.so/docs/visualizations/spark-charts
 - https://chartability.fizz.studio/ and https://github.com/Chartability/POUR-CAF
-- modern-web-guidance: skills/modern-web-guidance/guides/visual-design/color.md
-- modern-web-guidance: skills/modern-web-guidance/guides/ui-behaviors/motion.md
+- https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html
+- https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/prefers-reduced-motion

@@ -63,10 +63,10 @@
 - Band shading must remain distinguishable: graded bands differ in lightness by ≥ ~15 L* steps, and the outermost band still reaches 3:1 against the surface, or is outlined.
 - Text alternative must say the range, not just the centre: "Central estimate $142; 80% range $118 to $171; 95% range $101 to $199."
 - Table view lists percentiles as columns (p5, p25, p50, p75, p95).
-- In forced-colors mode bands lose fills; draw band edges as 1 px lines so the range survives (modern-web-guidance visual-design/color.md: don't rely on backgrounds to convey state).
+- In forced-colors mode bands lose fills; draw band edges as 1 px lines so the range survives (MDN `forced-colors`: background colours are replaced by system colours).
 
 ## Motion / interaction (if relevant)
-- HOPs (cycling outcomes) only on explicit play, ≥ 400 ms per frame, with pause control (WCAG 2.2.2; modern-web-guidance ui-behaviors/motion.md).
+- HOPs (cycling outcomes) only on explicit play, ≥ 400 ms per frame, with pause control (WCAG 2.2.2).
 - A slider for confidence level (50 to 95%) is a good exploratory control; update bands without easing.
 - Hover on a forecast date shows all percentiles in the tooltip, not only the median.
 
@@ -140,5 +140,5 @@ export function percentiles(samples: ReadonlyArray<number>, ps: ReadonlyArray<nu
 - https://github.com/Financial-Times/chart-doctor/tree/main/visual-vocabulary
 - https://www.datawrapper.de/blog/line-charts
 - https://www.perceptualedge.com/articles/misc/Bullet_Graph_Design_Spec.pdf
-- modern-web-guidance: skills/modern-web-guidance/guides/visual-design/color.md
-- modern-web-guidance: skills/modern-web-guidance/guides/ui-behaviors/motion.md
+- https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/forced-colors
+- https://www.w3.org/WAI/WCAG22/Understanding/pause-stop-hide.html

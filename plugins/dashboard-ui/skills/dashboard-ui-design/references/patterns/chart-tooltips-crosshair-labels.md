@@ -29,8 +29,8 @@
 - Content order: x value (date) as header, then series rows sorted by value or in legend order, each with swatch, name, value with unit, optionally change vs previous. Grafana tooltip modes: single (series under cursor), all (every series, hovered in bold, sortable), hidden. Default to "all" for ≤8 series, "single" beyond.
 - Hide zero/empty rows when there are many series (Grafana "Hide zeros").
 - Format numbers fully in the tooltip (more precision than the axis): axis "1.2M", tooltip "1,214,503".
-- Position: offset 8 to 12 px from the pointer, flip to stay in the viewport, never cover the hovered point. For HTML tooltips, CSS anchor positioning with `position-try-fallbacks: flip-block, flip-inline` (modern-web-guidance ui-atoms/position-aware-tooltips.md).
-- WCAG 1.4.13: dismissible with Escape without moving the pointer, hoverable (pointer can move onto it), persistent until dismissed or focus/hover leaves (modern-web-guidance ui-behaviors/interest-triggered-tooltips.md).
+- Position: offset 8 to 12 px from the pointer, flip to stay in the viewport, never cover the hovered point. For HTML tooltips, CSS anchor positioning with `position-try-fallbacks: flip-block, flip-inline` (MDN anchor positioning).
+- WCAG 1.4.13: dismissible with Escape without moving the pointer, hoverable (pointer can move onto it), persistent until dismissed or focus/hover leaves.
 - Max width ~280 px; no scrolling inside tooltips; no interactive content inside hover tooltips. If you need links ("open filing"), make it a click-opened popover (toggletip pattern).
 - Hover proximity: snap to the nearest point within ~20 to 30 px (Grafana exposes "hover proximity" in px); outside it, hide.
 
@@ -65,8 +65,8 @@
 ## Accessibility
 - Tooltip content must be reachable without a pointer: each focusable data point's accessible name equals the tooltip text ("12 Mar 2025, Revenue $1,214,503, up 3.1%").
 - Do not put the tooltip in an `aria-live` region on hover; it floods screen readers. Announce only on keyboard moves. Screen readers do not reliably re-read a changed `aria-label` on an element that already has focus, so in the single-focus-target pattern below, also write the same text into a visually hidden `aria-live="polite"` region, updated only from the key handler. The alternative is one focusable element per data point (roving tabindex), which Highcharts and Recharts' `accessibilityLayer` take.
-- Legend buttons: `aria-pressed`, visible focus ring with 3:1 contrast (modern-web-guidance accessibility/accessibility.md), hit area ≥24 × 24 px (WCAG 2.5.8).
-- Focus must not be obscured by the tooltip (WCAG 2.4.11; modern-web-guidance position-aware-tooltips.md).
+- Legend buttons: `aria-pressed`, visible focus ring with 3:1 contrast (WCAG 1.4.11), hit area ≥24 × 24 px (WCAG 2.5.8).
+- Focus must not be obscured by the tooltip (WCAG 2.4.11).
 - Respect `prefers-reduced-motion`: tooltips appear instantly, no slide.
 
 ## Motion / interaction (if relevant)
@@ -174,6 +174,6 @@ The visible tooltip (HTML, positioned next to `p.x`) repeats `label`; it is `ari
 - https://fossheim.io/writing/posts/accessible-dataviz-design/
 - https://www.w3.org/WAI/ARIA/apg/patterns/grid/
 - https://robinhood.com/us/en/support/articles/using-advanced-charts
-- modern-web-guidance: skills/modern-web-guidance/guides/ui-atoms/position-aware-tooltips.md
-- modern-web-guidance: skills/modern-web-guidance/guides/ui-behaviors/interest-triggered-tooltips.md
-- modern-web-guidance: skills/modern-web-guidance/guides/accessibility/accessibility.md
+- https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Anchor_positioning
+- https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/position-try-fallbacks
+- https://www.w3.org/WAI/WCAG22/Understanding/content-on-hover-or-focus.html

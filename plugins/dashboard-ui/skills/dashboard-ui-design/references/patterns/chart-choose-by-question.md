@@ -127,4 +127,4 @@ export function chooseChart({ question, pointCount, seriesCount, totalMatters = 
 - https://jonpage.github.io/r-course/trifecta.html
 - https://www.perceptualedge.com/blog/?p=54
 - https://www.storytellingwithdata.com/blog/2012/09/bar-charts-must-have-zero-baseline
-- modern-web-guidance: skills/modern-web-guidance/guides/accessibility/accessibility.md (Complex images and charts)
+- https://www.w3.org/WAI/tutorials/images/complex/

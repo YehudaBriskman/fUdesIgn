@@ -19,7 +19,7 @@
 - Optional context, in this order of value: (1) a dot on the last point; (2) a light grey band for the normal or target range (Tufte's glucose example); (3) min/max dots in a muted second colour with their numbers nearby. Do not add all three to every card.
 - Colour: neutral ink for the line. If you colour by direction (green up / red down), the rule must be explicit and consistent, and direction must also appear as text or an arrow with sign ("+4.1%"). Robinhood Legend colours the line green when the last close in the window is above the first close; state this rule if you copy it, because it differs from "change since yesterday".
 - Remember that "up" is not always good (costs, churn, latency). Colour by meaning (good/bad), not by direction, or stay neutral. See color-semantic-status.md.
-- Locale: in mainland China, Japan and Taiwan red means rising price (Benzinga, Bloomberg). A finance UI with Asian markets must make up/down colours a setting.
+- Locale: in mainland China, Japan and Taiwan red means rising price (Benzinga). A finance UI with Asian markets must make up/down colours a setting.
 - Line 1 to 1.5 px; last-point dot 3 to 4 px diameter.
 - Handle nulls as gaps, as in full charts (see chart-time-series-line-area.md). Tremor `connectNulls` defaults to `false`; keep it.
 - Variants: spark bar (≤ 30 bars, discrete periods such as daily orders), win/loss bars (sign only), spark area only for a single series with fill ≤ 20% opacity.
@@ -44,7 +44,7 @@
 
 ## Accessibility
 - The sparkline is supplementary: give the SVG `aria-hidden="true"` when the adjacent text already says the value and trend, or `role="img"` with a short label ("Up 4.1% over 30 days, low 1.02k on 3 Mar, high 1.31k today").
-- Never let colour be the only indicator of direction (WCAG 1.4.1, modern-web-guidance visual-design/color.md): add sign and arrow.
+- Never let colour be the only indicator of direction (WCAG 1.4.1): add sign and arrow.
 - Line contrast 3:1 against the card background when it carries meaning.
 - In tables, include the trend summary as text in the cell or a visually hidden span so screen readers get it per row.
 
@@ -129,7 +129,5 @@ export function Sparkline({ values, width = 96, height = 24, minSpanRatio = 0.01
 - https://robinhood.com/us/en/support/articles/using-charts
 - https://chrisgoldammer.notion.site/Stock-price-charts-4-22-2021-179a9339afd544eebee8fbd88d8d7dd1
 - https://www.benzinga.com/general/education/21/10/23258001/did-you-know-you-dont-want-to-be-in-the-green-if-youre-trading-in-china-japan-or-taiwan
-- https://www.bloombergquint.com/markets/2018/05/30/the-oddest-things-about-china-s-7-4-trillion-stock-market
 - https://fossheim.io/writing/posts/accessible-dataviz-design/
-- modern-web-guidance: skills/modern-web-guidance/guides/visual-design/color.md
-- modern-web-guidance: skills/modern-web-guidance/guides/accessibility/accessibility.md (Inline SVGs)
+- https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html

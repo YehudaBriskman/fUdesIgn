@@ -109,7 +109,7 @@ Bullet graph replacing a gauge, using CSS grid and a native `<meter>` for semant
 .bullet .value { font-variant-numeric: tabular-nums; }
 @media (forced-colors: active) { .bullet .measure, .bullet .target { background: CanvasText; } .bullet .range { border: 1px solid GrayText; } }
 ```
-DOM order paints widest range first, so narrower (darker, worse) ranges sit on top; the measure and target paint last. Note: `<progress>` is for task completion, `<meter>` is for a scalar within a known range, which is what a KPI against target is (modern-web-guidance ui-components/progress-ring.md uses `<progress>` for tasks).
+DOM order paints widest range first, so narrower (darker, worse) ranges sit on top; the measure and target paint last. Note: `<progress>` is for task completion, `<meter>` is for a scalar within a known range, which is what a KPI against target is (MDN `<meter>` vs `<progress>`).
 
 ## Checklist
 - [ ] Pie/donut has ≤5 slices, one whole, sums to 100%, and one highlighted slice.
@@ -132,5 +132,5 @@ DOM order paints widest range first, so narrower (darker, worse) ranges sit on t
 - https://en.wikipedia.org/wiki/Misleading_graph
 - https://carbondesignsystem.com/data-visualization/chart-types/
 - https://echarts.apache.org/handbook/en/best-practices/aria/
-- modern-web-guidance: skills/modern-web-guidance/guides/visual-design/color.md
-- modern-web-guidance: skills/modern-web-guidance/guides/ui-components/progress.md, progress-ring.md (meter/progress semantics)
+- https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html
+- https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/meter

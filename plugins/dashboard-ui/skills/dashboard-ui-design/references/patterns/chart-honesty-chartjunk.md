@@ -50,7 +50,7 @@
 - [Datawrapper: why our column and bar charts start at zero](https://www.datawrapper.de/academy/why-our-column-and-bar-charts-start-at-zero) — product-level enforcement, citing Pandey et al. CHI 2015.
 - [Wikipedia: Misleading graph](https://en.wikipedia.org/wiki/Misleading_graph) — taxonomy (truncated, 3D, improper scaling, omitted data, dual axis, log) and lie-factor definition.
 - [Wikipedia: Chartjunk](https://en.wikipedia.org/wiki/Chartjunk) — Tufte's definition plus critiques (Few, Kosara, Holmes, Bateman et al.), useful to avoid over-minimalism.
-- [Pandey et al., "How Deceptive are Deceptive Visualizations?" CHI 2015](https://researchr.org/publication/PandeyRSNB15) — crowdsourced evidence that truncated axes, area-as-quantity and aspect-ratio distortion change what readers believe.
+- [Pandey et al., "How Deceptive are Deceptive Visualizations?" CHI 2015](https://doi.org/10.1145/2702123.2702608) — crowdsourced evidence that truncated axes, area-as-quantity and aspect-ratio distortion change what readers believe.
 - [Kaiser Fung, Junk Charts Trifecta Checkup](https://jonpage.github.io/r-course/trifecta.html) — check Question, Data, Visual separately.
 
 ## Bad references
@@ -62,7 +62,7 @@ See chart-bad-gallery.md for the full annotated gallery. Short list:
 
 ## Accessibility
 - Honest charts are also more accessible: fewer decorative layers mean fewer things to describe, and the text alternative can state the true effect size.
-- 3D, gradients and shadows break in forced-colours mode and print (modern-web-guidance visual-design/color.md), so avoiding them is also a robustness rule.
+- 3D, gradients and shadows break in forced-colours mode and print (MDN `forced-colors`), so avoiding them is also a robustness rule.
 
 ## Motion / interaction (if relevant)
 - Animated axis rescaling can itself mislead: if the y-axis re-crops on every filter, the same 2% change looks huge in one view and flat in the next. Keep the domain stable across filter changes, or show the axis change explicitly.
@@ -127,7 +127,7 @@ Run `lintChart` in development (console warning) and in Storybook/visual tests (
 - https://www.datawrapper.de/blog/line-charts
 - https://en.wikipedia.org/wiki/Misleading_graph
 - https://en.wikipedia.org/wiki/Chartjunk
-- https://researchr.org/publication/PandeyRSNB15
+- https://doi.org/10.1145/2702123.2702608
 - https://www.storytellingwithdata.com/blog/2012/09/bar-charts-must-have-zero-baseline
 - https://www.mediamatters.org/fox-business/dishonest-fox-chart-bush-tax-cut-edition
 - https://www.livescience.com/45083-misleading-gun-death-chart.html
@@ -135,4 +135,4 @@ Run `lintChart` in development (console warning) and in Storybook/visual tests (
 - https://www.perceptualedge.com/blog/?p=54
 - https://jonpage.github.io/r-course/trifecta.html
 - https://observablehq.com/blog/never-okay-crop-y-axis-except-when-it-is (search result; fetch rate-limited)
-- modern-web-guidance: skills/modern-web-guidance/guides/visual-design/color.md
+- https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/forced-colors

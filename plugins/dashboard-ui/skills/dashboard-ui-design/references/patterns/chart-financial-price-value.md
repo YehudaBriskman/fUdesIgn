@@ -164,5 +164,5 @@ export function toWaterfall(steps: ReadonlyArray<WaterfallStep>): WaterfallBar[]
 - https://www.datawrapper.de/blog/dualaxis/
 - https://chrisgoldammer.notion.site/Stock-price-charts-4-22-2021-179a9339afd544eebee8fbd88d8d7dd1
 - https://www.benzinga.com/general/education/21/10/23258001/did-you-know-you-dont-want-to-be-in-the-green-if-youre-trading-in-china-japan-or-taiwan
-- modern-web-guidance: skills/modern-web-guidance/guides/visual-design/color.md
+- https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html
 - See also ref-fintech-money-dashboards.md (product references) and chart-distributions-uncertainty.md (value ranges)

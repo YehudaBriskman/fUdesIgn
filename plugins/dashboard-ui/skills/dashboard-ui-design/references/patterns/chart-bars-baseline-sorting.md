@@ -53,17 +53,17 @@
 
 ## Bad references
 - [Fox Business "If Bush tax cuts expire"](https://www.mediamatters.org/fox-business/dishonest-fox-chart-bush-tax-cut-edition) — y-axis from 34; 4.6 percentage points look like a sixfold increase.
-- [Carleton: never bar graph temperatures](https://carleton.ca/roslyndakin/2022/never-bar-graph-temperatures) — bars from an arbitrary zero encode nothing.
+- [Carleton: never bar graph temperatures (archived)](https://web.archive.org/web/20250820183424/https://carleton.ca/roslyndakin/2022/never-bar-graph-temperatures/) — bars from an arbitrary zero encode nothing.
 
 ## Accessibility
-- Bars must meet 3:1 against the background and against adjacent bars where adjacency carries meaning (WCAG 1.4.11; modern-web-guidance visual-design/color.md).
+- Bars must meet 3:1 against the background and against adjacent bars where adjacency carries meaning (WCAG 1.4.11).
 - Value labels at 4.5:1; inside-bar labels must be checked against the bar fill, in both themes.
 - Use patterns/decals for grouped or stacked segments when colour is the only separator (ECharts `aria.decal.show`, Highcharts pattern fills).
 - Each bar is a natural keyboard stop; announce "Category, value, rank n of N".
 
 ## Motion / interaction (if relevant)
 - Grow-from-baseline on first render: ≤400 ms, ease-out, staggered ≤30 ms per bar, only under `prefers-reduced-motion: no-preference`.
-- Re-sorting on filter: animate positions (FLIP / View Transitions) in 200 to 300 ms so the eye can follow a bar to its new rank; see modern-web-guidance ui-behaviors/dynamic-sort.md.
+- Re-sorting on filter: animate positions (FLIP / View Transitions) in 200 to 300 ms so the eye can follow a bar to its new rank.
 - Hover dims other bars to ~30% opacity (Carbon legend behaviour) rather than adding a heavy outline.
 
 ## Tokens and values
@@ -120,12 +120,12 @@ A pure HTML/CSS horizontal bar list: accessible as a list, no chart library, zer
 - https://www.storytellingwithdata.com/blog/2012/09/bar-charts-must-have-zero-baseline
 - https://www.storytellingwithdata.com/blog/2011/07/death-to-pie-charts
 - https://www.mediamatters.org/fox-business/dishonest-fox-chart-bush-tax-cut-edition
-- https://carleton.ca/roslyndakin/2022/never-bar-graph-temperatures
+- https://web.archive.org/web/20250820183424/https://carleton.ca/roslyndakin/2022/never-bar-graph-temperatures/
 - https://www.nngroup.com/articles/choosing-chart-types/
 - https://carbondesignsystem.com/data-visualization/axes-and-labels/
 - https://carbondesignsystem.com/data-visualization/legends/
 - https://www.perceptualedge.com/articles/misc/Bullet_Graph_Design_Spec.pdf
 - https://echarts.apache.org/handbook/en/best-practices/aria/
 - https://www.highcharts.com/docs/accessibility/accessibility-module-feature-overview
-- modern-web-guidance: skills/modern-web-guidance/guides/visual-design/color.md
-- modern-web-guidance: skills/modern-web-guidance/guides/ui-behaviors/dynamic-sort.md
+- https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html
+- https://developer.chrome.com/docs/web-platform/view-transitions/same-document
