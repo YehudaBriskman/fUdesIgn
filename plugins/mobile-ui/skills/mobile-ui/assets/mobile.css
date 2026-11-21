@@ -1,0 +1,172 @@
+/*
+ * Mobile starter tokens: touch sizing, safe areas, viewport, bars, sheets, type and themes.
+ * Every value traces to a pattern file in ../references/patterns (named beside each group).
+ * Colour ROLE names and values are the same as dashboard-ui's tokens.css
+ * (plugins/dashboard-ui/skills/dashboard-ui-design/assets/tokens.css), so the two files can be
+ * used together: load tokens.css first and this file second, or this file alone on a mobile app.
+ * Components use the role tokens (--surface, --text, --accent, …), never raw values.
+ * Requires <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+ * for the env(safe-area-inset-*) values to be non-zero (mofound-safe-areas.md).
+ */
+
+:root {
+  color-scheme: light dark;
+
+  /* ── Spacing: 4px base, same scale as dashboard-ui ───────────────────────── */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --page-margin: var(--space-4);    /* 16 at compact width; M3 compact margin is 16dp */
+
+  /* ── Touch targets (mofound-touch-targets.md) ────────────────────────────── */
+  --target-min: 24px;               /* WCAG 2.5.8 AA floor, fine pointers */
+  --target-touch-ios: 44px;         /* Apple HIG: 44×44 pt */
+  --target-touch-m3: 48px;          /* Material 3: 48×48 dp */
+  --target-gap: 8px;                /* space between adjacent touch targets */
+
+  /* ── Safe areas (mofound-safe-areas.md): 0 unless viewport-fit=cover ─────── */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+
+  /* ── Bars (monav-bottom-nav-tabs-drawers.md) ─────────────────────────────── */
+  --top-bar-h: 56px;                /* iOS nav bar 44pt; M3 small top app bar 64dp; 56 is a web middle */
+  --bottom-bar-h: 64px;             /* content height, safe-area padding is added on top */
+  --bottom-bar-max-items: 5;        /* HIG and M3 both cap the bar at 5 destinations */
+
+  /* ── Viewport (mofound-viewport-units-keyboard.md) ───────────────────────── */
+  --vh-fill: 100dvh;                /* app shells that track the browser UI */
+  --vh-stable: 100svh;              /* sheets and heroes that must not jump while the URL bar moves */
+
+  /* ── Sheets (monav-sheets-detents.md) ────────────────────────────────────── */
+  --sheet-radius: 28px;             /* M3 bottom sheet top corners; iOS sheets are similar */
+  --sheet-handle-w: 32px;
+  --sheet-handle-h: 4px;
+  --sheet-max-w: 640px;             /* M3: centre the sheet above this width */
+  --sheet-detent-medium: 50svh;
+  --sheet-detent-large: calc(100svh - var(--safe-top) - var(--space-3));
+
+  /* ── Type (mofound-type-text-scale.md): rem only, so OS text scale applies ── */
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --type-large-title: 700 2.125rem/1.2 var(--font-sans);  /* iOS 34pt */
+  --type-title: 600 1.375rem/1.27 var(--font-sans);       /* iOS title2 22pt */
+  --type-headline: 600 1.0625rem/1.3 var(--font-sans);    /* iOS 17pt semibold */
+  --type-body: 400 1rem/1.5 var(--font-sans);             /* 16px: also stops iOS focus zoom on inputs */
+  --type-callout: 400 0.9375rem/1.4 var(--font-sans);     /* 15 */
+  --type-caption: 400 0.8125rem/1.35 var(--font-sans);    /* 13: smallest for real content */
+  --type-input: max(1rem, 16px);                          /* inputs never below 16px */
+
+  /* ── Motion (moinput-haptics-vibration.md, monav-sheets-detents.md) ──────── */
+  --motion-dur-micro: 100ms;
+  --motion-dur-medium: 240ms;
+  --motion-dur-sheet: 300ms;
+  --motion-ease-standard: cubic-bezier(0.2, 0, 0.38, 0.9);
+  --motion-ease-emphasized: cubic-bezier(0.2, 0, 0, 1);
+
+  /* ── Radius ──────────────────────────────────────────────────────────────── */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+
+  /* ── Colour roles, light (same values as dashboard-ui tokens.css) ────────── */
+  --canvas: oklch(0.985 0.003 250);
+  --surface: oklch(1 0 0);
+  --surface-2: oklch(0.97 0.004 250);
+  --surface-3: oklch(0.93 0.006 250);
+  --border: oklch(0.88 0.008 250);
+  --border-strong: oklch(0.60 0.012 250);
+  --text: oklch(0.22 0.02 250);
+  --text-muted: oklch(0.50 0.016 250);
+  --accent: oklch(0.50 0.17 265);
+  --on-accent: oklch(1 0 0);
+  --focus-ring: var(--accent);
+  --scrim: oklch(0 0 0 / 0.4);
+  --danger-fg: oklch(0.53 0.19 27);
+  --success-fg: oklch(0.50 0.13 150);
+  --warning-fg: oklch(0.52 0.11 65);
+  --info-fg: oklch(0.51 0.14 250);
+  --swipe-destructive: var(--danger-fg);   /* swipe-action backgrounds (monav-gestures-swipe-refresh-back.md) */
+  --swipe-neutral: var(--info-fg);
+}
+
+/* Touch: the target floor follows the input, not the screen width */
+@media (pointer: coarse) {
+  :root { --target-min: 44px; }
+}
+
+/* ── Dark: same role values as dashboard-ui (mofound-dark-mode-system-colors.md) ── */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --canvas: oklch(0.18 0.006 250);
+    --surface: oklch(0.215 0.008 250);
+    --surface-2: oklch(0.25 0.009 250);
+    --surface-3: oklch(0.29 0.010 250);
+    --border: oklch(0.35 0.012 250);
+    --border-strong: oklch(0.56 0.014 250);
+    --text: oklch(0.95 0.006 250);
+    --text-muted: oklch(0.77 0.014 250);
+    --accent: oklch(0.72 0.13 265);
+    --on-accent: oklch(0.18 0.006 250);
+    --scrim: oklch(0 0 0 / 0.6);
+    --danger-fg: oklch(0.72 0.16 25);
+    --success-fg: oklch(0.76 0.15 150);
+    --warning-fg: oklch(0.82 0.14 80);
+    --info-fg: oklch(0.74 0.12 250);
+  }
+}
+:root[data-theme="dark"] {
+  --canvas: oklch(0.18 0.006 250);
+  --surface: oklch(0.215 0.008 250);
+  --surface-2: oklch(0.25 0.009 250);
+  --surface-3: oklch(0.29 0.010 250);
+  --border: oklch(0.35 0.012 250);
+  --border-strong: oklch(0.56 0.014 250);
+  --text: oklch(0.95 0.006 250);
+  --text-muted: oklch(0.77 0.014 250);
+  --accent: oklch(0.72 0.13 265);
+  --on-accent: oklch(0.18 0.006 250);
+  --scrim: oklch(0 0 0 / 0.6);
+  --danger-fg: oklch(0.72 0.16 25);
+  --success-fg: oklch(0.76 0.15 150);
+  --warning-fg: oklch(0.82 0.14 80);
+  --info-fg: oklch(0.74 0.12 250);
+}
+:root[data-theme="light"] { color-scheme: light; }
+:root[data-theme="dark"] { color-scheme: dark; }
+
+/* ── Accessibility preferences ───────────────────────────────────────────── */
+@media (prefers-contrast: more) {
+  :root { --border: var(--border-strong); --text-muted: var(--text); }
+}
+@media (forced-colors: active) {
+  :focus-visible { outline-color: Highlight; }
+}
+
+/* ── Base: page and shell defaults every pattern assumes ─────────────────── */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  /* fixed bars never hide the focused element (WCAG 2.4.11) */
+  scroll-padding-block: calc(var(--top-bar-h) + var(--safe-top)) calc(var(--bottom-bar-h) + var(--safe-bottom));
+}
+body {
+  margin: 0;
+  background: var(--canvas);
+  color: var(--text);
+  font: var(--type-body);
+  overflow-wrap: break-word;
+}
+:where(input, select, textarea) { font-size: var(--type-input); }
+:where(button, a, input, select, textarea, summary, [role="button"]) { touch-action: manipulation; }
+:where(button, [role="button"], nav a, select, input:not([type="checkbox"], [type="radio"])) {
+  min-block-size: var(--target-min);
+  min-inline-size: var(--target-min);
+}
+:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
