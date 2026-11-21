@@ -1,7 +1,7 @@
 # Pattern index
 
 Every pattern file in `patterns/`, grouped by cluster. **Priority** says how binding it is: must = always apply, should = apply unless there's a reason not to, nice = optional.
-74 patterns in total.
+79 patterns in total.
 
 
 ## Foundations: hierarchy, layout, density, type
@@ -18,6 +18,7 @@ Every pattern file in `patterns/`, grouped by cluster. **Priority** says how bin
 | [Scanning patterns and the inverted KPI pyramid](patterns/found-scanning-kpi-pyramid.md) | must | Design for scanning: put the answer top-leading, trends in the middle and detail at the bottom, and give each band a front-loaded heading so the eye can "layer-cake" down the page. |
 | [Typography for data](patterns/found-typography-for-data.md) | must | Set every number in tabular lining figures, right-align numeric columns with their headers, use a short type scale, and cap prose at about 65 characters per line. |
 | [Visual hierarchy: one place to look first](patterns/found-visual-hierarchy.md) | must | Every dashboard view has exactly one primary focal point. It answers the user's first question, and size, contrast, position and space are spent on it before anything else. |
+| [Methodology, "why this number" and provenance](patterns/found-methodology-explainability.md) | must | Every computed number can answer "why this number?" in one step: a short in-place explanation with its formula and inputs, each input traceable to its source, and a dated methodology page for the full story. Explain at three depths and never hide what the decision depends on. |
 
 ## Colour
 
@@ -54,6 +55,7 @@ Every pattern file in `patterns/`, grouped by cluster. **Priority** says how bin
 | [Data table layout and typography](patterns/data-table-layout-and-typography.md) | must | Left-align text, right-align numbers *and their headers*, use tabular figures with consistent decimals, separate rows with thin horizontal rules (not grids, not heavy zebra), and pick one row density from a fixed scale. |
 | [Timestamps and data freshness](patterns/data-timestamps-freshness.md) | must | Show recent event times as relative ("5 min ago") and older ones as absolute dates. Always expose the exact time with timezone on hover or focus and in `<time datetime>`. Every dashboard states how fresh its data is ("Updated 4 min ago") next to the numbers it qualifies. |
 | [Units, definitions, footnotes and source attribution](patterns/data-units-footnotes-sources.md) | should | Every number states its unit, its period and its definition, and every derived or third-party number says where it came from. Keep this text small, grey and close to the number, but never absent. |
+| [Verdicts, ratings and score glyphs](patterns/data-verdict-rating-badges.md) | must | A verdict ("Undervalued", "4 stars", "Strong buy") is a judgement, not a measurement. Show it as text plus a position on a visible scale with its thresholds, say how confident it is, let it be withheld, and link it in one step to the numbers and rules that produced it. |
 
 ## Charts and data visualisation
 
@@ -71,6 +73,8 @@ Every pattern file in `patterns/`, grouped by cluster. **Priority** says how bin
 | [Line and area time series](patterns/chart-time-series-line-area.md) | must | Lines show change by slope and position, so they may crop the y-axis; areas show amount by filled height, so they must start at zero; gaps in data stay visible gaps, and events get annotations, not legend entries. |
 | [Tooltips, crosshairs, legends vs direct labels](patterns/chart-tooltips-crosshair-labels.md) | must | Put the essential numbers on the chart (direct labels, end labels, annotations); use the tooltip only for detail on demand, triggered by hover, focus and touch alike; snap a crosshair to the nearest x and share it across charts that share an axis; use a legend only when direct labels cannot fit. |
 | [Canvas and WebGL charts that stay accessible and on-theme](patterns/chart-canvas-accessibility.md) | must | A canvas chart is a bitmap: it has no accessibility tree, no CSS and no theme. Give it a name, a DOM twin (summary plus table), a keyboard path, and colours read from the container's resolved tokens, and repaint it whenever the theme changes. |
+| [Scenario comparison: bear, base, bull and weights](patterns/chart-scenario-comparison.md) | should | Show scenarios as a small, fixed set (usually 3) on one shared axis, each with its defining assumptions and its probability. Compare them side by side against the base, make the switcher a stateful segmented control in the URL, and show any weighted value as a derived number whose weights sum visibly to 100%. |
+| [Tornado charts, sensitivity grids and probability headlines](patterns/chart-tornado-sensitivity.md) | should | Show which inputs move the answer most with a sorted tornado around a labelled base case. Show two-input interactions as a coloured table, not a surface. State every probability as a count of outcomes with its sample size ("410 of 5,000 draws, 8%"). |
 
 ## Components and interaction
 
@@ -87,6 +91,7 @@ Every pattern file in `patterns/`, grouped by cluster. **Priority** says how bin
 | [Choosing an overlay: dialog, popover, drawer, toast, tooltip](patterns/comp-overlay-choice.md) | must | Pick the least intrusive overlay that does the job. Block the page (modal `<dialog>`) only for a decision the user must make *now*. Everything else is a non-modal popover, drawer or inline message built on the platform's top layer. |
 | [Sliders paired with numeric inputs](patterns/comp-slider-with-number-input.md) | should | A slider is for approximate, exploratory values in a narrow range. In a data product, always pair it with a typed numeric input bound to the same value, and never let the slider be the only way to enter a precise number. |
 | [Tabs vs segmented controls vs pills (and URL-addressable tabs)](patterns/comp-tabs-segmented-pills.md) | must | Tabs switch *panels of different content*, segmented controls switch *one view's mode or scope*, pills (chips) *filter or select values*. Whichever you use, the selected state belongs in the URL whenever a colleague opening the link should see the same thing. |
+| [Assumption editor panel](patterns/comp-assumption-editor-panel.md) | must | A model-input panel sits beside the outputs it changes, never on top of them. Every field shows its default and where the default came from, marks when the user has changed it, can be reset on its own, and the panel summarises "your inputs vs default" as a diff with the effect on the result. |
 
 ## Motion and interactive exploration
 
