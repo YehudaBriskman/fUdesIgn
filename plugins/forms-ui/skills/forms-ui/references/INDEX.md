@@ -1,7 +1,7 @@
 # Pattern index
 
 Every pattern file in `patterns/`, grouped by cluster. **Priority** says how binding it is: must = always apply, should = apply unless there's a reason not to, nice = optional.
-17 patterns in total.
+19 patterns in total.
 
 
 ## Foundations: layout, labels, required/optional, accessibility, microcopy
@@ -40,3 +40,10 @@ Every pattern file in `patterns/`, grouped by cluster. **Priority** says how bin
 | [Sign-in, sign-up and passkeys](patterns/fflow-authentication-and-passkeys.md) | must | Make authentication work with password managers and passkeys: real `<form>`s, `autocomplete="username webauthn"` / `current-password` / `new-password`, paste allowed, a show-password toggle, one-field OTPs, and passkeys offered through conditional UI (autofill) before any password. |
 | [Multi-step forms, wizards and saving progress](patterns/fflow-multi-step-and-save-progress.md) | should | Split a long form into steps only when each step is a coherent group of questions; show where people are and how much is left, let them go back without losing answers, end with a "Check your answers" page, and save progress automatically so a timeout or closed tab never costs them their work. |
 | [Submit buttons, submission states and double submit](patterns/fflow-submit-buttons-and-double-submit.md) | must | Keep the submit button enabled until a valid submit starts; then mark it busy on itself (same size, spinner + "Saving…", `aria-disabled`), ignore repeat clicks, send an idempotency key so the server can't do the work twice, and end in a clear success or an inline error that keeps every answer. |
+
+## References: anti-pattern catalogue, review rubric
+
+| Pattern | Priority | Rule |
+|---|---|---|
+| [Form anti-pattern catalogue](patterns/fref-form-anti-patterns.md) | must | Check every form against these 16 recurring failures before review; each one has a detectable symptom, the harm it causes and the pattern file that fixes it. |
+| [Form review rubric](patterns/fref-form-review-rubric.md) | must | Score a form on 31 testable checks, 0–2 each, across seven areas; ship at 80% or more with no must-check at 0, and report every failed check with evidence and the fixing pattern. |
