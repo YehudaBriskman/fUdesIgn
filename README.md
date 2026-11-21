@@ -23,6 +23,13 @@ plugins/
       references/INDEX.md                all 19 patterns, each with its one-line rule
       references/patterns/*.md           one file per pattern (see below)
       assets/marketing.css               marketing layer (fluid type, sections, CTA, inverse band) on the dashboard-ui roles
+  mobile-ui/
+    .claude-plugin/plugin.json
+    skills/mobile-ui/
+      SKILL.md                           workflow, 20 non-negotiables, decision tables, token defaults
+      references/INDEX.md                all 19 patterns, each with its one-line rule
+      references/patterns/*.md           one file per pattern
+      assets/mobile.css                  touch, safe-area, bar, sheet and rem type tokens on the dashboard-ui roles
   motion-ui/
     .claude-plugin/plugin.json
     skills/motion-ui/
@@ -65,6 +72,18 @@ docs/research-brief.md                   how the research was run
 | `mkperf-` | Performance and SEO: LCP and hero media, web fonts, headings and metadata (OG images) | 3 |
 | `mkref-` | References: an anti-pattern gallery with named good and bad sites, a 35-check review rubric | 2 |
 
+### mobile-ui: 19 patterns in 5 clusters
+
+Mobile web, responsive apps and PWAs, with Apple HIG and Material 3 conventions. Grid reflow and container queries stay in dashboard-ui's `found-responsive-reflow.md`, which mobile-ui links to.
+
+| Prefix | Cluster | Files |
+|---|---|---|
+| `mofound-` | Foundations: thumb zones and reach, touch targets (44 pt, 48 dp, 24 px), safe areas, viewport units and the keyboard, Dynamic Type and text scale, dark mode and system colours, orientation and foldables, lists and cards, tables | 9 |
+| `monav-` | Navigation: bottom bar vs tabs vs drawer, sheets and detents, gestures (swipe actions, pull to refresh, edge back) | 3 |
+| `moinput-` | Input: keyboards, `inputmode` and autofill, haptics and the Vibration API's limits | 2 |
+| `moplat-` | Platform: PWA install, offline and app shell, low-end performance budgets, native feel across HIG and Material 3 | 3 |
+| `moref-` | Review: a 30-check rubric with a 390×844 / 360×800 capture recipe, an anti-pattern catalog | 2 |
+
 ### motion-ui: 19 patterns in 6 clusters
 
 General product-UI motion and gesture. Motion for data views (number tweening, chart transitions, live recompute) stays in dashboard-ui's `motion-*` and `prog-*` patterns, which motion-ui links to.
@@ -105,11 +124,12 @@ Some claims rest on search summaries because the source page wouldn't load, and 
 /plugin marketplace add YehudaBriskman/fUdesIgn
 /plugin install dashboard-ui@fudesign
 /plugin install marketing-ui@fudesign
+/plugin install mobile-ui@fudesign
 /plugin install motion-ui@fudesign
 /plugin install forms-ui@fudesign
 ```
 
-Each skill then triggers on its own design, build and review tasks (dashboards, landing and marketing pages, product-UI motion and gestures, or forms). You can also copy a skill folder, such as `plugins/marketing-ui/skills/marketing-ui/`, into `~/.claude/skills/`.
+Each skill then triggers on its own design, build and review tasks (dashboards, landing and marketing pages, mobile web and PWAs, product-UI motion and gestures, or forms). You can also copy a skill folder, such as `plugins/marketing-ui/skills/marketing-ui/`, into `~/.claude/skills/`.
 
 ## Adding a pattern or plugin
 
