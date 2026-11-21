@@ -12,6 +12,7 @@
 ## Rules (do)
 - **Front matter follows the DESIGN.md format.** Google's `design.md` (Apache-2.0, version `alpha`) defines YAML front matter with `version`, `name`, `description`, `colors`, `typography`, `rounded`, `spacing`, `motion` and `components`, plus `{path.to.token}` references. Mode-dependent colours go in `colors.light` and `colors.dark` groups; keep a top-level `primary` so the linter doesn't warn. `theme.mjs --format design-md` writes this block from the generated theme.
 - **Prose sections in the spec's order:** Overview, Colors, Typography, Layout, Elevation & Depth, Shapes, Motion, Voice & Content Strategy, Components, Do's and Don'ts. Then this plugin's additions, which consumers preserve as unknown sections: **Generator inputs**, **Stack mapping**, **Page overrides**, **Deviations**, **Decision log**.
+- **Overview opens with a Design brief** (a `###` subsection, so the spec's section order is untouched): why people open the product, how they use it, what they want to know next, what is left out, who carries the complexity, and a table of borrowed patterns with the reason each exists in its source and whether it holds here. Write it before any token; page overrides and deviations trace back to it.
 - **Generator inputs are recorded exactly**: `hue, tint, accent, contrast, density, radius, lockAccent`, the `theme.mjs` command line, and the report summary (pairs verified, adjustments). Anyone can regenerate the same tokens.
 - **The profile and its evidence.** Name the profile from `dsfound-domain-profiles.md` (or "derived") and the 2–4 facts that chose it (audience, density need, regulation, locale).
 - **Page overrides are scoped and justified.** One entry per page or view: what differs (density, accent use, type base), the scope (route or component), and the reason. Overrides change roles or steps, never role names.
@@ -72,6 +73,7 @@ export function overridesFor(designMd: string, route: string): Override[] {
 - [ ] DESIGN.md exists at the root, starts with valid front matter, and lints clean.
 - [ ] Front-matter tokens match the generated CSS (regenerate, then diff).
 - [ ] The generator inputs and command are recorded.
+- [ ] Overview starts with a Design brief (four questions, who carries the complexity, borrowed patterns checked against their reason), written before the tokens.
 - [ ] Every page override and deviation has a reason.
 - [ ] The decision log has an entry for the current token version.
 - [ ] Later sessions read DESIGN.md before editing UI.

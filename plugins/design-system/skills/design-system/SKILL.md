@@ -24,10 +24,18 @@ Follow these steps in order. In a later session, start at step 0 and then go str
    - Drift baseline: count raw colour literals and arbitrary utility values outside token files (sketch in `dsref-governance-drift.md`).
    - Write down what exists. If there is a system, the next steps map onto it instead of replacing it.
 
-2. **Choose or derive a profile.**
+2. **Write the design brief, then choose or derive a profile.**
+   - **Form an opinion before any token.** Without one, generated UI lands on the average of its training data. Answer four questions in a few lines each, from what you know of the users (ask only what you can't infer):
+     1. *Why would someone open this?* The trigger and the one question they arrive with.
+     2. *How do they actually use it?* Frequency, device, glance or deep work, alone or with others.
+     3. *What would they want to know next?* The follow-up question after the first answer; it decides what links to what.
+     4. *What are you willing to leave out?* Name features, data and decoration you won't build, and the trade-off you accept for it.
+   - **Check every borrowed pattern against its reason.** For each pattern taken from another product or a kit (an account popover, a three-field date, an onboarding deck, a card grid), write the reason it exists in its source and whether that reason holds here. If it doesn't, the parts survive but the reason doesn't: drop or redesign the pattern. A single-account app has no reason to lead its account menu with the email address that disambiguates accounts in a multi-account mail client.
+   - **Decide who carries the complexity.** Tesler's law (the law of conservation of complexity): some complexity can't be removed, only moved, so move it into the system rather than onto the user. Note where that costs build effort (forms-ui `finput-dates-and-times.md` has a worked example).
+   - Record the answers in DESIGN.md under Overview → Design brief. The profile, the emphasis and every later deviation should trace back to them.
    - From the users and task, not the industry label, pick finance, analytics, dev tools, consumer, marketing or health. If none fits, derive one by combining axes. Add the condition modifiers that apply (real-time, large dataset, regulated money, red-up market, older audience). See `dsfound-domain-profiles.md`.
    - The profile gives `contrast`, `density`, `radius`, type base and motion budget. The brand gives `hue`, `tint` and `accent`. Ask the user only for what you cannot infer (usually the brand colour).
-   - Never start from a visual style ("glassmorphism", "neon") before the profile.
+   - Never start from a visual style ("glassmorphism", "neon") before the brief and the profile.
 
 3. **Generate the tokens.**
    - Write the inputs to `design/theme.json` and run:
@@ -70,7 +78,8 @@ Break one only with a written reason in DESIGN.md Deviations.
 7. The brand accent is for actions, focus, selection and the logo. Chrome stays neutral.
 8. Scales stay short: 5–7 type steps, 8 spacing steps on a 4px base, and 5 radii from one base. Density swaps steps, not type size.
 9. DESIGN.md exists and is read first in every session. Every page override and every deviation has a reason.
-10. Token names are versioned with semver: removal or rename is major, addition or visible change is minor. Deprecate with an alias before removing.
+10. A design brief (why people open it, how they use it, what they want next, what is left out) is written before any token, and every borrowed pattern names the reason it exists and why that reason holds here.
+11. Token names are versioned with semver: removal or rename is major, addition or visible change is minor. Deprecate with an alias before removing.
 
 ## Generator reference
 
@@ -98,7 +107,7 @@ Exit codes: 0 means ok, 1 means the theme cannot meet the checks (the failing pa
 
 ## How to apply this skill
 
-- **New project:** run the full workflow, steps 0–6.
+- **New project:** run the full workflow, steps 0–6, starting the design brief in step 2 before any token.
 - **Existing system:** run steps 0–1. Then map the roles onto the existing tokens and record the gaps and the drift baseline in DESIGN.md. Generate only what is missing, unless the user asks to replace the system.
 - **"Make a theme from this colour":** steps 2–3, then 4–5 if the user wants it in the project.
 - **Review:** run `dsref-anti-patterns.md` and report each failure with evidence (file, line, value) and the fix, blocking items first.
