@@ -36,7 +36,7 @@
   - After execution, close and give feedback where the result appears, not in a toast-only message.
 - **Performance.**
   - Show local results (commands, recent items) synchronously, in under 50 ms.
-  - Remote entity search is debounced 100–150 ms, keeps the previous results visible while loading, and shows a subtle inline spinner after 300 ms.
+  - Remote entity search is debounced 100–150 ms, keeps the previous results visible while loading, and shows a subtle inline spinner only after 200 ms (the show-delay in SKILL.md and `prog-loading-states.md`).
   - Cancel stale requests (`AbortController`).
 - **No-result state.** Say "No results for 'xyz'" and offer "Search all reports for 'xyz'" or "Create 'xyz'" where creation makes sense.
 
@@ -70,7 +70,7 @@
 - Rows are ≥32px tall (≥44px on coarse pointers), and the highlighted row has a non-colour indicator (background plus a left bar or outline).
 
 ## Motion / interaction (if relevant)
-- The palette opens in 100–120 ms (opacity plus `scale` from 0.98) with no slide; it must feel instant. It closes in ≤100 ms.
+- The palette opens in `--motion-dur-micro` (100 ms: opacity plus `scale` from 0.98) with no slide; it must feel instant. It closes in 100 ms or less. It's summoned dozens of times a day, so keep it this short (SKILL.md non-negotiable 22).
 - The highlight moves without animation. Scroll the highlighted option into view with `block: 'nearest'`.
 - Under reduced motion, use opacity only.
 
@@ -84,9 +84,9 @@
 | Results max height | 60vh |
 | Items per group before "Show all" | 5 |
 | Recent items | 5 |
-| Debounce remote search | 100–150ms; spinner after 300ms |
+| Debounce remote search | 100–150ms; spinner after 200ms |
 | Local result latency | <50ms |
-| Colour roles | `surface-overlay`, `option-highlight-bg`, `fg-muted` for context, `kbd-bg`/`kbd-border` |
+| Colour roles (tokens.css) | panel `--surface` + `--shadow-lg`, highlighted option `--surface-2`, context `--text-muted`, `<kbd>` `--surface-2` with `--border` |
 
 ## Implementation sketch
 ```html

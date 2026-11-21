@@ -84,22 +84,22 @@
 ## Tokens and values
 | Token | Default |
 |---|---|
-| Focus ring | 2px solid `--color-focus`, `outline-offset: 2px` (inset −2px in clipped containers) |
+| Focus ring | 2px solid `--focus-ring`, `outline-offset: 2px` (inset −2px in clipped containers) |
 | Focus colour | ≥3:1 vs adjacent colours in light and dark; `Highlight` in forced colors |
 | Sequence timeout | 1000ms |
 | `scroll-padding-block-start` | = sticky top bar + filter bar height (e.g. 96px) |
-| `<kbd>` | 12px mono, 1px `neutral-border`, radius 4px, padding 0 4px, `surface-sunken` bg |
+| `<kbd>` | 12px mono, 1px `--border`, radius 4px, padding 0 4px, `--surface-2` bg |
 | Shortcut sheet | modal dialog, 640px wide, grouped sections, searchable |
 | Reserved (never bind) | ⌘/Ctrl + L T W R N Q P F D [ ] 1–9, Ctrl+Tab, F5–F12, Alt+F4 |
 
 ## Implementation sketch
 ```css
 :where(a, button, input, select, textarea, [tabindex], summary):focus-visible {
-  outline: 2px solid var(--color-focus); outline-offset: 2px;
+  outline: 2px solid var(--focus-ring); outline-offset: 2px;
 }
 html { scroll-padding-block-start: var(--sticky-chrome-h, 96px); } /* 2.4.11 */
 .row-actions { opacity: 0; } .row:is(:hover, :focus-within) .row-actions { opacity: 1; }
-kbd { font: 12px/1.4 var(--font-mono); padding: 0 4px; border: 1px solid var(--neutral-border); border-radius: 4px; background: var(--surface-sunken); }
+kbd { font: 12px/1.4 var(--font-mono); padding: 0 4px; border: 1px solid var(--border); border-radius: 4px; background: var(--surface-2); }
 ```
 ```ts
 type Shortcut = { keys: readonly string[]; label: string; run: () => void; characterKey: boolean };

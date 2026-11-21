@@ -77,7 +77,7 @@
 - At 400% zoom (320px wide), the shell reflows to the drawer pattern with no horizontal scroll (WCAG 1.4.10).
 
 ## Motion / interaction (if relevant)
-- Sidebar collapse and expand: 200 ms width/translate, ease-out. Main content reflows once at the end, or uses `transition` on the grid's `grid-template-columns`. None under reduced motion.
+- Sidebar collapse and expand: `--motion-dur-medium` (240 ms) with `--motion-ease-standard`. Main content reflows once at the end, or uses `transition` on the grid's `grid-template-columns`. None under reduced motion.
 - The mobile drawer is driven by the finger (scroll-snap), with the backdrop opacity tied to the scroll position.
 - Route transitions: a cross-fade of ≤150 ms via View Transitions is optional. Never animate the sidebar on route change.
 
@@ -89,8 +89,8 @@
 | Top bar height | 48px (dense) / 56px |
 | Sidebar item height | 32–36px; icon 16–20px; label 14px |
 | Nested indent | 12px per level, max 2 levels |
-| Active item | `nav-active-bg` + 2px `accent` inline-start bar + 600 weight |
-| Breadcrumb font | 13–14px, `fg-muted` links, `fg` current |
+| Active item | `--surface-3` + 2px `--accent` inline-start bar + 600 weight |
+| Breadcrumb font | 13–14px, `--text-muted` links, `--text` current |
 | Content max width | none for dashboards (fluid), 1200–1440px for reading pages; gutter 24px (16px mobile) |
 | Breakpoints | rail <1280px (optional), drawer <1024px |
 
@@ -120,15 +120,17 @@
 ```css
 .shell { display: grid; grid-template: "side top" 48px "side main" 1fr / var(--sidebar-w, 256px) 1fr; block-size: 100dvh; }
 .shell:has(#sidebar.is-collapsed) { --sidebar-w: 60px; }
-.sidebar { grid-area: side; overflow-y: auto; border-inline-end: 1px solid var(--neutral-border); }
+.sidebar { grid-area: side; overflow-y: auto; border-inline-end: 1px solid var(--border); }
 .topbar { grid-area: top; display: flex; align-items: center; gap: 8px; padding-inline: 16px; }
 main { grid-area: main; overflow-y: auto; padding: 24px; container-type: inline-size; }
-.sidebar a[aria-current="page"] { background: var(--nav-active-bg); font-weight: 600; box-shadow: inset 2px 0 0 var(--accent); }
+.sidebar a[aria-current="page"] { background: var(--surface-3); font-weight: 600; box-shadow: inset 2px 0 0 var(--accent); }
 @media (forced-colors: active) { .sidebar a[aria-current="page"] { border-inline-start: 2px solid CanvasText; } }
 .breadcrumb ol { display: flex; gap: 6px; list-style: none; padding: 0; margin: 0 0 4px; white-space: nowrap; overflow: hidden; }
-.breadcrumb li + li::before { content: "/" / ""; margin-inline-end: 6px; color: var(--fg-muted); }
+.breadcrumb li + li::before { content: "/" / ""; margin-inline-end: 6px; color: var(--text-muted); }
 @media (max-width: 1023px) { .shell { grid-template: "top" 48px "main" 1fr / 1fr; } .sidebar { display: none; } /* drawer dialog instead */ }
-@media (prefers-reduced-motion: no-preference) { .shell { transition: grid-template-columns .2s ease-out; } }
+@media (prefers-reduced-motion: no-preference) {
+  .shell { transition: grid-template-columns var(--motion-dur-medium, 240ms) var(--motion-ease-standard, ease-out); }
+}
 ```
 ```ts
 export function onRouteChange(title: string): void {

@@ -74,7 +74,7 @@ Rules of thumb:
 - Chips need a ≥24×24 target and a selected state exposed via `aria-pressed` or `checked`.
 
 ## Motion / interaction (if relevant)
-- Slide the tab underline between tabs using anchor positioning (`anchor-name` on the active tab, `position-anchor` on the indicator) with a transition on `inset`, 150–200 ms ease-out, and none under reduced motion. Don't use `position-area`, which can't be transitioned. `position-anchor` is Baseline only since September 2026 (Safari 27), so gate the sliding indicator in `@supports (position-anchor: --a)` and keep the static `::after` underline as the fallback.
+- Slide the tab underline between tabs using anchor positioning (`anchor-name` on the active tab, `position-anchor` on the indicator) with a transition on `inset` of `--motion-dur-short` (150 ms) and `--motion-ease-standard`, and none under reduced motion. Don't use `position-area`, which can't be transitioned. `position-anchor` is Baseline only since September 2026 (Safari 27), so gate the sliding indicator in `@supports (position-anchor: --a)` and keep the static `::after` underline as the fallback.
 - Cross-fade the panel in ≤150 ms, or not at all. Never slide whole data panels horizontally.
 
 ## Tokens and values
@@ -82,12 +82,12 @@ Rules of thumb:
 |---|---|
 | Tab height | 40px (dense: 32px) |
 | Tab inline padding | 12–16px, gap 4–8px |
-| Selected underline | 2–3px `border-block-end`, colour role `accent` |
-| Unselected tab text | `fg-muted`, ≥4.5:1 |
-| Segmented control height | 28 / 32px, radius 6px, 1px `neutral-border`, selected = `surface-raised` + `fg` |
+| Selected underline | 2–3px `border-block-end`, colour role `--accent` |
+| Unselected tab text | `--text-muted`, ≥4.5:1 |
+| Segmented control height | 28 / 32px, radius 6px, 1px `--border`, selected = `--surface` + `--text` |
 | Segments | 2–5 |
 | Tabs visible before overflow | ≤7 |
-| Indicator transition | 150–200ms ease-out |
+| Indicator transition | 150ms (`--motion-dur-short`), `--motion-ease-standard` |
 | URL write | `pushState` for tab/mode change; `replaceState` + 300ms debounce for continuous input |
 
 ## Implementation sketch
@@ -116,15 +116,15 @@ Rules of thumb:
 ```
 ```css
 [focusgroup] > button { position: relative; }
-[focusgroup] > button[aria-selected="true"] { color: var(--fg); }
+[focusgroup] > button[aria-selected="true"] { color: var(--text); }
 [focusgroup] > button[aria-selected="true"]::after {
   content: ""; position: absolute; inset: auto 0 0; border-block-end: 3px solid var(--accent);
 }
-.segmented { display: inline-flex; border: 1px solid var(--neutral-border); border-radius: 6px; padding: 2px; }
+.segmented { display: inline-flex; border: 1px solid var(--border); border-radius: 6px; padding: 2px; }
 .segmented label { min-block-size: 28px; padding-inline: 10px; display: grid; place-items: center; border-radius: 4px; }
 .segmented input { position: absolute; opacity: 0; }
-.segmented label:has(:checked) { background: var(--surface-raised); font-weight: 600; outline: 1px solid var(--neutral-border); }
-.segmented label:has(:focus-visible) { outline: 2px solid var(--color-focus); outline-offset: 1px; }
+.segmented label:has(:checked) { background: var(--surface); font-weight: 600; outline: 1px solid var(--border); }
+.segmented label:has(:focus-visible) { outline: 2px solid var(--focus-ring); outline-offset: 1px; }
 ```
 ```ts
 type TabId = 'overview' | 'financials' | 'filings';

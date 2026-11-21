@@ -83,9 +83,9 @@
 - Icons in alerts have text alternatives ("Error:"), or the title word carries the status.
 
 ## Motion / interaction (if relevant)
-- Inline alerts appear without motion, or with a ≤150 ms fade. Never slide content down abruptly under the pointer. Reserve space if an alert is likely to appear (e.g. a stale-data slot in the card header).
-- Toasts enter with 200 ms translate + opacity from the edge and exit in 150 ms. Under reduced motion, use opacity only.
-- Auto-dismiss, if used: ≥6 s plus ~1 s per 120 words, paused on hover and focus.
+- Inline alerts appear without motion, or with a fade of `--motion-dur-short` (150 ms) or less. Never slide content down abruptly under the pointer. Reserve space if an alert is likely to appear (e.g. a stale-data slot in the card header).
+- Toasts enter with translate + opacity from the edge over `--motion-dur-medium` (240 ms, `--motion-ease-enter`) and exit over `--motion-dur-short` (150 ms, `--motion-ease-exit`). Under reduced motion, use opacity only; never a global `0.01ms` reset.
+- Auto-dismiss, if used: at least 6 s (Carbon's optional timeout is 5 s; the extra second is a house margin for reading), paused on hover and focus. Pausing doesn't help screen reader users in browse mode (Scott O'Hara), which is why persistent is the default.
 
 ## Tokens and values
 | Token | Default |
@@ -96,7 +96,7 @@
 | Banner height | ≥40px; full width above shell |
 | Toast width / offset | 360–420px / 16–24px from edges; gap 8px; max 3 visible |
 | Toast auto-dismiss | off by default; if on ≥6s, pause on hover/focus |
-| Colour roles | `info-bg/fg/border`, `success-*`, `warning-*`, `danger-*`; text ≥4.5:1 on its bg; border ≥3:1 |
+| Colour roles (tokens.css) | `--info-bg`/`--info-fg`, `--success-*`, `--warning-*`, `--danger-*`; border = the `-fg` token; text ≥4.5:1 on its bg; border ≥3:1 |
 | Live regions | `polite` default; `assertive` only for critical |
 
 ## Implementation sketch
@@ -117,12 +117,17 @@
 ```
 ```css
 .alert { display: grid; grid-template-columns: 20px 1fr auto; gap: 4px 12px; padding: 12px 16px; border-radius: 8px;
-  border: 1px solid var(--warning-border); border-inline-start-width: 4px; background: var(--warning-bg); color: var(--warning-fg); }
+  border: 1px solid var(--warning-fg); border-inline-start-width: 4px; background: var(--warning-bg); color: var(--warning-fg); }
 .alert__icon { grid-row: span 2; }
 .toast-region { position: fixed; inset: auto 16px 16px auto; display: grid; gap: 8px; inline-size: min(400px, calc(100vw - 32px)); }
 .toast[popover] { position: static; margin: 0; inset: auto; }
 @media (prefers-reduced-motion: no-preference) {
-  .toast[popover] { transition: opacity .2s, translate .2s, display .2s, overlay .2s; transition-behavior: allow-discrete; }
+  .toast[popover] {
+    transition: opacity var(--motion-dur-medium, 240ms) var(--motion-ease-enter, ease-out),
+      translate var(--motion-dur-medium, 240ms) var(--motion-ease-enter, ease-out),
+      display var(--motion-dur-medium, 240ms), overlay var(--motion-dur-medium, 240ms);
+    transition-behavior: allow-discrete;
+  }
   @starting-style { .toast[popover]:popover-open { opacity: 0; translate: 0 8px; } }
 }
 ```

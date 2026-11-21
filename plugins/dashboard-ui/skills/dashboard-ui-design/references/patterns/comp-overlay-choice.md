@@ -45,7 +45,7 @@ NN/g's limits for modals: use them for critical warnings, missing critical info,
   - If the panel shows a record, put its id in the URL (`?inspect=txn_123`) so the view is shareable. The *open/closed* state of a pure modal does not go in the URL.
 - **Tooltips**
   - Plain text, never task-critical (NN/g: "keep it brief"; NN/g sets no length, so cap it at ~80 characters as a house rule).
-  - Show on hover *and* keyboard focus, after a ~300–500 ms hover delay and immediately on focus. Hide after ~100 ms of leaving.
+  - Show on hover *and* keyboard focus: the first tooltip in a group after a 200 ms hover delay (house value; Vercel gives no number), its neighbours instantly once one is open (Vercel: "Delay the first tooltip in a group; subsequent peers have no delay"), and immediately on focus. Hide 100 ms after leaving. Same values as `motion-micro-interactions.md`.
   - Must be hoverable, dismissible with Esc and persistent while hovered (WCAG 1.4.13).
   - In a horizontal toolbar, position them on the axis the toolbar doesn't stack along (`block-end`). Otherwise the hint covers the next button and swallows its click.
 - **Nesting:** never put a modal on a modal. A popover inside a dialog is fine because it's in the top layer.
@@ -95,9 +95,11 @@ NN/g's limits for modals: use them for critical warnings, missing critical info,
 
 ## Motion / interaction (if relevant)
 - Animate entry and exit with `@starting-style` and `transition: opacity, translate, display, overlay`, plus `transition-behavior: allow-discrete` as a *separate* declaration.
-- Durations: dialog 150–200 ms in, 100–150 ms out. Popover/menu 100–150 ms. Drawer 200–250 ms with ease-out (`cubic-bezier(.2,.8,.2,1)`).
-- Backdrop fade is 150 ms, at `rgb(0 0 0 / .4)` (light) or `/.6` (dark).
-- Reduced motion: opacity only, ≤100 ms. See `motion-principles-and-tokens.md`.
+- Durations use the token scale from `motion-principles-and-tokens.md` and `assets/tokens.css`:
+  - dialog and drawer in: `--motion-dur-medium` (240 ms) with `--motion-ease-enter`; out: `--motion-dur-short` (150 ms) with `--motion-ease-exit`;
+  - popover and menu: `--motion-dur-short` (150 ms) in, `--motion-dur-micro` (100 ms) out;
+  - backdrop fade: 150 ms, at `rgb(0 0 0 / .4)` (light) or `/.6` (dark).
+- Reduced motion: opacity only, `--motion-dur-micro` (100 ms) or less. Scope animations inside `@media (prefers-reduced-motion: no-preference)` as the sketch does; never use a global `0.01ms` reset.
 
 ## Tokens and values
 | Token | Default |
@@ -107,8 +109,8 @@ NN/g's limits for modals: use them for critical warnings, missing critical info,
 | Dialog padding / radius | 24px / 12px |
 | Drawer width | 360–480px; full-width below 640px |
 | Popover offset from anchor | 4–8px |
-| Popover radius / shadow | 8px / `elevation-3` |
-| Tooltip max width / font | 280px / 12–13px; delay 300–500ms hover, 0ms focus |
+| Popover radius / shadow | 8px (`--radius-md`) / `--shadow-md`; dialog `--shadow-lg` |
+| Tooltip max width / font | 280px / 12–13px; delay 200ms hover for the first in a group, 0ms for peers and on focus; hide after 100ms |
 | Backdrop | `rgb(0 0 0 / .4)`; optional `backdrop-filter: blur(2px)` |
 | Z-order | top layer. No z-index scale needed for overlays |
 
@@ -131,8 +133,16 @@ NN/g's limits for modals: use them for critical warnings, missing critical info,
 dialog:modal { overscroll-behavior: contain; inline-size: min(560px, calc(100vw - 32px)); padding: 24px; border-radius: 12px; }
 dialog::backdrop { overflow: hidden; overscroll-behavior: contain; background: rgb(0 0 0 / .4); }
 @media (prefers-reduced-motion: no-preference) {
-  dialog, dialog::backdrop, [popover] {
-    transition: opacity .15s ease-out, translate .15s ease-out, display .15s, overlay .15s;
+  [popover] {
+    transition: opacity var(--motion-dur-short, 150ms) var(--motion-ease-enter, ease-out),
+      translate var(--motion-dur-short, 150ms) var(--motion-ease-enter, ease-out),
+      display var(--motion-dur-short, 150ms), overlay var(--motion-dur-short, 150ms);
+    transition-behavior: allow-discrete;
+  }
+  dialog, dialog::backdrop {
+    transition: opacity var(--motion-dur-medium, 240ms) var(--motion-ease-enter, ease-out),
+      translate var(--motion-dur-medium, 240ms) var(--motion-ease-enter, ease-out),
+      display var(--motion-dur-medium, 240ms), overlay var(--motion-dur-medium, 240ms);
     transition-behavior: allow-discrete;
   }
   dialog:not([open]), [popover]:not(:popover-open) { opacity: 0; translate: 0 4px; }

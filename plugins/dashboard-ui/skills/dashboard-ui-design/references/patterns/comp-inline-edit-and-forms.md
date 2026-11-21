@@ -17,7 +17,7 @@
 - Don't use inline edit for fields whose change has big consequences (currency, fiscal year start). Route those through a confirm dialog.
 
 ## Rules (do)
-- **Affordance.** In read view, editable values show a hover background (`surface-hover`), a pencil icon on hover or focus, and `cursor: text`. On touch, which has no hover, show the pencil persistently or make the whole row a clear button.
+- **Affordance.** In read view, editable values show a hover background (`--surface-2`), a pencil icon on hover or focus, and `cursor: text`. On touch, which has no hover, show the pencil persistently or make the whole row a clear button.
 - **Same geometry.** The read and edit views use *identical* font size, weight and line box, so entering edit mode moves nothing. Atlassian requires this.
 - **Enter edit mode** with click, Enter or F2 on a focused cell. Select the existing text on entry for short values.
 - **Commit and cancel.**
@@ -27,7 +27,7 @@
   - Use IME-safe Enter handling: don't commit while `event.isComposing` is true.
 - **Saving states.**
   - Optimistic update first.
-  - Show a subtle "Saving…" inline only if the save takes over 300 ms.
+  - Show a subtle "Saving…" inline only if the save takes over 200 ms (the show-delay in SKILL.md), and keep it at least 400 ms once shown.
   - Show "Saved" for ~2 s, then fade. On failure, revert visibly and show an inline error with Retry, never just a toast.
 - **Dirty state for batch editing.**
   - Mark changed cells with a left bar or dot, not only a colour.
@@ -81,19 +81,19 @@
 - Respect 200% zoom; inline editors may wrap but must not clip.
 
 ## Motion / interaction (if relevant)
-- The read↔edit swap is instant (no animation). The "Saved" check fades out over 200 ms after 2 s.
-- A changed value elsewhere (recomputed outputs) may flash its background for 600–800 ms or tween its number (see `motion-number-tweening.md`). Disable both under reduced motion.
+- The read↔edit swap is instant (no animation). The "Saved" check fades out over `--motion-dur-short` (150 ms) after 2 s.
+- A changed value elsewhere (recomputed outputs) may get a background highlight that fades over `--motion-dur-long` (400 ms), or tween its number over 300–600 ms (see `motion-number-tweening.md`). Under reduced motion, drop the tween and keep a static highlight or colour change.
 
 ## Tokens and values
 | Token | Default |
 |---|---|
 | Inline field height | equal to read-view line box (e.g. 32px in tables) |
-| Edit affordance | `surface-hover` bg + 16px pencil at end, on hover/focus |
+| Edit affordance | `--surface-2` bg + 16px pencil at end, on hover/focus |
 | Commit buttons | 24×24 ✓/✕, 4px gap, placed at field end |
-| Saving indicator delay | 300ms |
-| "Saved" confirmation | 2s then 200ms fade |
-| Dirty marker | 2px `accent` inline-start bar on the cell |
-| Error text | 12–13px, `danger-fg`, icon + text, below field |
+| Saving indicator delay / min visible | 200ms / 400ms |
+| "Saved" confirmation | 2s then 150ms fade (`--motion-dur-short`) |
+| Dirty marker | 2px `--accent` inline-start bar on the cell |
+| Error text | 12–13px, `--danger-fg`, icon + text, below field |
 | Label gap / group gap | 4–6px / 16–24px |
 | Numeric | `inputmode="decimal"`, `text-align: end`, `tabular-nums` |
 
@@ -116,11 +116,11 @@
 ```css
 .ie-read { font: inherit; line-height: inherit; padding: 2px 6px; border-radius: 4px; background: transparent; border: 0; cursor: text; }
 .ie-read .pencil { opacity: 0; }
-@media (hover: hover) { .ie-read:hover { background: var(--surface-hover); } .ie-read:hover .pencil { opacity: 1; } }
+@media (hover: hover) { .ie-read:hover { background: var(--surface-2); } .ie-read:hover .pencil { opacity: 1; } }
 .ie-read:focus-visible .pencil { opacity: 1; }
 @media (hover: none) { .ie-read .pencil { opacity: .6; } }
 .ie-edit input { font: inherit; padding: 2px 6px; inline-size: 8ch; text-align: end; font-variant-numeric: tabular-nums; }
-.ie-edit input:user-invalid { outline: 2px solid var(--danger-border); }
+.ie-edit input:user-invalid { outline: 2px solid var(--danger-fg); }
 ```
 ```ts
 export function parseNumeric(raw: string): number | null {

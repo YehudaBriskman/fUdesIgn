@@ -87,7 +87,7 @@
 - When applied, announce politely: "Showing Aug 23 – Nov 20, 2026, compared with May 25 – Aug 22."
 
 ## Motion / interaction (if relevant)
-- The popover opens in 120–150 ms with opacity and translate. Month paging is instant or a 150 ms slide (none under reduced motion).
+- The popover opens in `--motion-dur-short` (150 ms) with opacity and translate. Month paging is instant or a 150 ms slide (none under reduced motion).
 - After apply, charts transition their data at ≤300 ms (see `motion-number-tweening.md`). Don't animate both the axis rescale and the data for long.
 
 ## Tokens and values
@@ -95,7 +95,7 @@
 |---|---|
 | Popover width | ~640px (presets 180px + 2 months × ~224px); single month below 640px viewport |
 | Day cell | 32×32px desktop, 40×40 touch (≥24×24 minimum) |
-| Range band | `accent-subtle-bg`; ends `accent-bg` + `accent-fg` |
+| Range band | `color-mix(in oklab, var(--accent) 15%, var(--surface))`; ends `--accent` with `--surface` text |
 | Today marker | 1px ring or dot, not colour-fill only |
 | Presets | 6–10 visible; recent customs ≤3 |
 | Comparison line | same hue at 50% opacity or dashed 4/3; legend names both ranges |

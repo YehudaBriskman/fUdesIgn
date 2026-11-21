@@ -61,8 +61,8 @@
 - Respect forced colors: draw the track with borders or system colours, not only gradients.
 
 ## Motion / interaction (if relevant)
-- Thumb dragging follows the pointer 1:1 with no easing. Output numbers may tween ≤200 ms when the value is committed. Don't tween during the drag, or they lag behind the hand (see `motion-number-tweening.md`).
-- The thumb may scale to 1.1 on `:active`, 80 ms. None under reduced motion.
+- Thumb dragging follows the pointer 1:1 with no easing. Output numbers may tween over 300–600 ms when the value is committed, per `motion-number-tweening.md`. Don't tween during the drag, or they lag behind the hand.
+- The thumb may scale to 1.1 on `:active` over `--motion-dur-micro` (100 ms). None under reduced motion.
 
 ## Tokens and values
 | Token | Default |
@@ -74,7 +74,7 @@
 | Positions on track | ≤100 (`(max-min)/step`) |
 | Input width | 7–9ch, `inputmode="decimal"`, `text-align: end`, `tabular-nums` |
 | Gap slider ↔ input | 12px |
-| Colours (roles) | `track` (≥3:1 vs bg), `track-fill` = `accent`, `thumb` = `accent`, reference tick = `fg-muted` |
+| Colours (tokens.css) | track `--border-strong` (≥3:1 vs bg), fill and thumb `--accent`, reference tick `--text-muted` |
 | Live recompute budget | <100ms per update, else throttle 100–150ms |
 
 ## Implementation sketch
@@ -95,7 +95,7 @@
 ```
 ```css
 input[type="range"] {
-  --track: var(--neutral-border-strong); --fill: var(--accent);
+  --track: var(--border-strong); --fill: var(--accent);
   --min: 4; --max: 15; --v: 8.25;
   --p: calc((var(--v) - var(--min)) / (var(--max) - var(--min)) * 100%);
   appearance: none; inline-size: clamp(160px, 30vw, 320px); block-size: 2.5rem; background: transparent; margin: 0;
@@ -111,7 +111,7 @@ input[type="range"]::-webkit-slider-thumb {
 input[type="range"]::-moz-range-track { block-size: 6px; border-radius: 999px; background: var(--track); }
 input[type="range"]::-moz-range-progress { block-size: 6px; border-radius: 999px; background: var(--fill); }
 input[type="range"]::-moz-range-thumb { inline-size: 18px; block-size: 18px; border: 0; border-radius: 50%; background: var(--fill); }
-input[type="range"]:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 4px; }
+input[type="range"]:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 4px; }
 ```
 ```ts
 export function bindSliderInput(range: HTMLInputElement, num: HTMLInputElement, onValue: (v: number) => void,

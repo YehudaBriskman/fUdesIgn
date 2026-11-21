@@ -65,7 +65,7 @@
 - A selected state uses a check or icon as well as colour.
 
 ## Motion / interaction (if relevant)
-- A chip enters with a 120 ms fade and scale from 0.96 and exits with a 100 ms fade. Neighbours reflow without animation, or use a View Transition with a short duration. No motion under reduced motion.
+- A chip enters with a `--motion-dur-short` (150 ms) fade and scale from 0.96 and exits with a `--motion-dur-micro` (100 ms) fade. Neighbours reflow without animation, or use a View Transition with a short duration. No motion under reduced motion.
 - While a query runs after a filter change, keep the old data visible but dimmed (opacity .6) with a thin progress bar on the affected widget, instead of blanking it to a skeleton.
 
 ## Tokens and values
@@ -74,13 +74,13 @@
 | Filter bar height | 40–48px; sticky under the page header |
 | Chip height / radius | 28px / 6px (or 14px pill) |
 | Chip padding / gap | 8px inline / 6px between chips |
-| Chip text | 13px; field name `fg-muted`, value `fg` |
+| Chip text | 13px; field name `--text-muted`, value `--text` |
 | Remove × hit area | 24×24 |
 | Visible values per chip | 2, then "+N" |
 | Always-visible global filters | 3–5 |
 | Instant-apply threshold | query < 1s; otherwise batch with Apply |
 | URL debounce for text/range | 300ms |
-| Colour roles | `chip-bg` = `surface-sunken`, `chip-border` = `neutral-border`, active = `accent-subtle-bg` |
+| Colour roles (tokens.css) | chip bg `--surface-2`, chip border `--border`, active `color-mix(in oklab, var(--accent) 15%, var(--surface))` |
 
 ## Implementation sketch
 ```html
@@ -100,14 +100,14 @@
 </search>
 ```
 ```css
-.filter-bar { position: sticky; top: var(--header-h); display: flex; align-items: center; gap: 8px;
-  min-block-size: 44px; padding-inline: 16px; background: var(--surface); border-block-end: 1px solid var(--neutral-border); }
+.filter-bar { position: sticky; top: var(--header-h, 0px); display: flex; align-items: center; gap: 8px;
+  min-block-size: 44px; padding-inline: 16px; background: var(--surface); border-block-end: 1px solid var(--border); }
 .chips { display: flex; gap: 6px; overflow: clip; list-style: none; margin: 0; padding: 0; min-inline-size: 0; }
-.chip { display: inline-flex; align-items: center; block-size: 28px; border: 1px solid var(--neutral-border);
-  border-radius: 6px; background: var(--chip-bg); font-size: 13px; white-space: nowrap; }
-.chip__field { color: var(--fg-muted); }
+.chip { display: inline-flex; align-items: center; block-size: 28px; border: 1px solid var(--border);
+  border-radius: 6px; background: var(--surface-2); font-size: 13px; white-space: nowrap; }
+.chip__field { color: var(--text-muted); }
 .chip__remove { min-inline-size: 24px; min-block-size: 24px; }
-.filter-count { margin-inline-start: auto; color: var(--fg-muted); font-variant-numeric: tabular-nums; }
+.filter-count { margin-inline-start: auto; color: var(--text-muted); font-variant-numeric: tabular-nums; }
 ```
 ```ts
 type Filter = { field: string; op: 'is' | 'is_not' | 'gt' | 'lt' | 'between'; values: readonly string[] };
