@@ -25,6 +25,14 @@
       "license": "PolyForm-Internal-Use-1.0.0"
     },
     {
+      "name": "mobile-ui",
+      "source": "./plugins/mobile-ui",
+      "description": "Mobile web, responsive apps and PWAs: 19 researched patterns (thumb reach, 44pt/48dp/24px targets, safe areas, dvh/svh and the keyboard, bottom nav, sheets and detents, gestures, mobile forms, lists and tables, Dynamic Type, dark mode, haptics, PWA install and offline, low-end performance, foldables) with Apple HIG and Material 3 conventions, plus a review rubric and mobile tokens.",
+      "version": "0.1.0",
+      "category": "design",
+      "license": "PolyForm-Internal-Use-1.0.0"
+    },
+    {
       "name": "motion-ui",
       "source": "./plugins/motion-ui",
       "description": "Product-UI motion and gesture: 19 researched patterns (purpose and frequency, durations and easing, springs mapped across CSS, Motion, React Spring, SwiftUI and Material 3, drag, momentum, sheets, enter/exit, View Transitions, scroll-driven animation, performance, reduced motion) plus a frame-based review rubric and motion tokens.",
