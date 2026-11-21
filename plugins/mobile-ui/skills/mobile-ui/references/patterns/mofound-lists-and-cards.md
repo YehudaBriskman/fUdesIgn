@@ -11,7 +11,7 @@
 - For the desktop decision (table vs list vs cards), see dashboard-ui `data-cards-vs-tables-vs-lists.md`; this file covers the compact-width version.
 
 ## Rules (do)
-- **Row anatomy:** leading (avatar 40 px or icon 24 px) · title (one line, `--type-headline` or body) · supporting line (one line, muted) · trailing (value, time, chevron or switch). Matches iOS list cells and M3 list items.
+- **Row anatomy:** leading (avatar 40 px or icon 24 px) · title (one line, `--mo-type-headline` or body) · supporting line (one line, muted) · trailing (value, time, chevron or switch). Matches iOS list cells and M3 list items.
 - **Row heights:** at least 44 px (iOS minimum); M3 list items are 56 dp (one line), 72 dp (two lines) and 88 dp (three lines). Let rows grow with text size.
 - **One primary target per row.** The whole row opens the item. A second action (switch, checkbox, overflow) sits at the trailing edge with its own 44–48 px target and 8 px from the row's edge; do not nest more.
 - **Insets and separators:** 16 px page margin; separators inset to the text start (not under the avatar), 1 px `--border`. Or use grouped sections ("inset grouped" on iOS) with 8–12 px radius containers for settings.
@@ -75,8 +75,8 @@
 }
 .row:active { background: var(--surface-3); }
 .row + .row, li + li > .row { border-block-start: 1px solid var(--border); }
-.row-title { font: var(--type-headline); }
-.row-meta { font: var(--type-callout); color: var(--text-muted); }
+.row-title { font: var(--mo-type-headline); }
+.row-meta { font: var(--mo-type-callout); color: var(--text-muted); }
 .row-trail { font-variant-numeric: tabular-nums; text-align: end; }
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: var(--space-3); padding-inline: var(--page-margin); }
 ```

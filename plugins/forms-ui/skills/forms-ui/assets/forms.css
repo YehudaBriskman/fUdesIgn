@@ -1,25 +1,61 @@
 /*
- * Form starter styles. Load after dashboard-ui's tokens.css (or any file that defines the same
- * role names: --surface, --text, --text-muted, --border-strong, --accent, --on-accent,
- * --focus-ring, --danger-fg, --info-bg, --space-*, --radius-*, --type-*, --motion-*).
- * The fallbacks after each var() keep this file usable on its own in light mode.
+ * Form starter styles. Self-sufficient: the dashboard-ui role tokens it reads (--surface, --text,
+ * --accent, --danger-fg, --space-*, --radius-*, --type-*, …) are declared below as zero-specificity
+ * defaults, so it works alone in light and dark, and dashboard-ui's tokens.css or the project's own
+ * tokens override them whatever the load order.
  * Every value traces to a pattern in ../references/patterns (named beside each group).
  */
+
+/* ── Shared roles: dashboard-ui tokens.css values, zero specificity ─────────────
+   :where(:root) lets this file work on its own in light and dark, while any :root
+   definition (dashboard-ui tokens.css or the project's design system mapped onto these
+   role names) wins whatever the load order. tools/check.mjs keeps the values in sync. */
+:where(:root) {
+  color-scheme: light dark;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-8: 64px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --font-sans: Inter, "SF Pro Text", Roboto, system-ui, sans-serif;
+  --type-heading: 600 1rem/1.4 var(--font-sans);
+  --type-body: 400 0.875rem/1.45 var(--font-sans);
+  --target-min: 24px;
+  --surface: light-dark(oklch(1 0 0), oklch(0.215 0.008 250));
+  --border-strong: light-dark(oklch(0.60 0.012 250), oklch(0.56 0.014 250));
+  --text: light-dark(oklch(0.22 0.02 250), oklch(0.95 0.006 250));
+  --text-muted: light-dark(oklch(0.50 0.016 250), oklch(0.785 0.014 250));
+  --accent: light-dark(oklch(0.50 0.17 265), oklch(0.785 0.10 265));
+  --on-accent: light-dark(oklch(1 0 0), oklch(0.18 0.006 250));
+  --focus-ring: var(--accent);
+  --danger-fg: light-dark(oklch(0.53 0.19 27), oklch(0.72 0.16 25));
+  --info-fg: light-dark(oklch(0.51 0.14 250), oklch(0.74 0.12 250));
+  --info-bg: light-dark(color-mix(in oklab, var(--info-fg) 10%, var(--surface)), color-mix(in oklab, var(--info-fg) 18%, var(--surface)));
+}
+:root[data-theme="light"] { color-scheme: light; }
+:root[data-theme="dark"] { color-scheme: dark; }
+@media (pointer: coarse) {
+  :where(:root) { --target-min: 44px; }
+}
 
 :root {
   /* Layout (ffound-layout-single-column-grouping.md) */
   --form-max: 42rem;
-  --label-gap: var(--space-1, 4px);
-  --field-gap: var(--space-5, 24px);
+  --label-gap: var(--space-1);
+  --field-gap: var(--space-5);
   --group-gap: 40px;
 
   /* Fields (ffound-form-accessibility.md). Field text never under 16px: iOS zooms below that. */
   --field-font-size: max(1rem, 1em);
   --field-h: 44px;
-  --field-pad-inline: var(--space-3, 12px);
-  --field-border: var(--border-strong, oklch(0.60 0.012 250));   /* ≥ 3:1, never --border */
-  --field-radius: var(--radius-sm, 6px);
-  --label-font: 500 1rem/1.4 var(--font-sans, system-ui, sans-serif);
+  --field-pad-inline: var(--space-3);
+  --field-border: var(--border-strong);   /* ≥ 3:1, never --border */
+  --field-radius: var(--radius-sm);
+  --label-font: 500 1rem/1.4 var(--font-sans);
   --check-size: 22px;                                              /* finput-choice-controls.md */
 
   /* Errors (fvalid-timing-and-inline-errors.md, fvalid-error-summary-and-focus.md) */
@@ -36,7 +72,7 @@
 .field { display: grid; gap: var(--label-gap); justify-items: start; }
 .field > :is(input:not([class*="w-"]), select, textarea), .field > .affix-field:not([class*="w-"]) { inline-size: 100%; }
 .group { border: 0; padding: 0; margin: 0; display: grid; gap: var(--field-gap); }
-.group > legend { font: var(--type-heading, 600 1rem/1.4 system-ui); padding: 0; margin-block-end: var(--space-3, 12px); }
+.group > legend { font: var(--type-heading); padding: 0; margin-block-end: var(--space-3); }
 .form > .group + * , .form > * + .group { margin-block-start: calc(var(--group-gap) - var(--field-gap)); }
 
 /* Width classes match the expected answer (GOV.UK fixed widths) */
@@ -47,10 +83,10 @@
 .w-20 { inline-size: min(100%, calc(20ch + 2 * var(--field-pad-inline) + 2px)); }
 
 /* ── Labels and hints (ffound-labels-hints-placeholders.md) ─────────────── */
-.field label, .field-label { font: var(--label-font); color: var(--text, oklch(0.22 0.02 250)); }
-.hint { margin: 0; font: var(--type-body, 400 0.875rem/1.45 system-ui); color: var(--text-muted, oklch(0.50 0.016 250)); }
-.optional { color: var(--text-muted, oklch(0.50 0.016 250)); font-weight: 400; }
-::placeholder { color: var(--text-muted, oklch(0.50 0.016 250)); opacity: 1; }
+.field label, .field-label { font: var(--label-font); color: var(--text); }
+.hint { margin: 0; font: var(--type-body); color: var(--text-muted); }
+.optional { color: var(--text-muted); font-weight: 400; }
+::placeholder { color: var(--text-muted); opacity: 1; }
 
 /* ── Controls ───────────────────────────────────────────────────────────── */
 input, select, textarea, button { font: inherit; font-size: var(--field-font-size); }
@@ -59,37 +95,37 @@ input, select, textarea, button { font: inherit; font-size: var(--field-font-siz
   padding-inline: var(--field-pad-inline);
   border: 1px solid var(--field-border);
   border-radius: var(--field-radius);
-  background: var(--surface, oklch(1 0 0));
-  color: var(--text, oklch(0.22 0.02 250));
+  background: var(--surface);
+  color: var(--text);
 }
-textarea { padding-block: var(--space-2, 8px); resize: vertical; }
-:where(input, select, textarea, button):focus-visible { outline: 2px solid var(--focus-ring, var(--accent, oklch(0.50 0.17 265))); outline-offset: 2px; }
+textarea { padding-block: var(--space-2); resize: vertical; }
+:where(input, select, textarea, button):focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
 
 /* Affixes: currency and units outside the editable text (finput-money-number-phone.md) */
-.affix-field { display: flex; align-items: center; min-block-size: var(--field-h); border: 1px solid var(--field-border); border-radius: var(--field-radius); background: var(--surface, oklch(1 0 0)); }
-.affix-field:focus-within { outline: 2px solid var(--focus-ring, var(--accent, oklch(0.50 0.17 265))); outline-offset: 2px; }
+.affix-field { display: flex; align-items: center; min-block-size: var(--field-h); border: 1px solid var(--field-border); border-radius: var(--field-radius); background: var(--surface); }
+.affix-field:focus-within { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
 .affix-field > input { border: 0; outline: 0; min-inline-size: 0; flex: 1; background: transparent; }
-.affix { padding-inline: var(--field-pad-inline); color: var(--text-muted, oklch(0.50 0.016 250)); }
+.affix { padding-inline: var(--field-pad-inline); color: var(--text-muted); }
 
 /* Checkboxes, radios, switches (finput-choice-controls.md) */
-.field-check { display: flex; align-items: center; gap: var(--space-3, 12px); min-block-size: max(var(--target-min, 24px), 32px); }
-.field-check > input { inline-size: var(--check-size); block-size: var(--check-size); margin: 0; flex: none; accent-color: var(--accent, oklch(0.50 0.17 265)); }
-.field-check > label { flex: 1; padding-block: var(--space-2, 8px); cursor: pointer; }
+.field-check { display: flex; align-items: center; gap: var(--space-3); min-block-size: max(var(--target-min), 32px); }
+.field-check > input { inline-size: var(--check-size); block-size: var(--check-size); margin: 0; flex: none; accent-color: var(--accent); }
+.field-check > label { flex: 1; padding-block: var(--space-2); cursor: pointer; }
 @media (pointer: coarse) { .field-check { min-block-size: 44px; } }
-.reveal { margin-inline-start: calc(var(--check-size) / 2 - 2px); padding-inline-start: var(--space-4, 16px); border-inline-start: 4px solid var(--field-border); }
+.reveal { margin-inline-start: calc(var(--check-size) / 2 - 2px); padding-inline-start: var(--space-4); border-inline-start: 4px solid var(--field-border); }
 
 /* ── Errors (fvalid-*) ──────────────────────────────────────────────────── */
-.field.has-error { border-inline-start: var(--error-bar-w) solid var(--danger-fg, oklch(0.53 0.19 27)); padding-inline-start: var(--space-4, 16px); }
-.error-msg { margin: 0; font-weight: 600; color: var(--danger-fg, oklch(0.53 0.19 27)); }
-:where(input, select, textarea):user-invalid { border: var(--field-border-error-w) solid var(--danger-fg, oklch(0.53 0.19 27)); }
-:where(input, select, textarea)[aria-invalid="true"] { border: var(--field-border-error-w) solid var(--danger-fg, oklch(0.53 0.19 27)); }
-.error-summary { border: var(--summary-border-w) solid var(--danger-fg, oklch(0.53 0.19 27)); padding: var(--space-5, 24px); margin-block-end: var(--space-6, 32px); scroll-margin-block-start: var(--space-8, 64px); }
-.error-summary a { color: var(--danger-fg, oklch(0.53 0.19 27)); font-weight: 600; }
+.field.has-error { border-inline-start: var(--error-bar-w) solid var(--danger-fg); padding-inline-start: var(--space-4); }
+.error-msg { margin: 0; font-weight: 600; color: var(--danger-fg); }
+:where(input, select, textarea):user-invalid { border: var(--field-border-error-w) solid var(--danger-fg); }
+:where(input, select, textarea)[aria-invalid="true"] { border: var(--field-border-error-w) solid var(--danger-fg); }
+.error-summary { border: var(--summary-border-w) solid var(--danger-fg); padding: var(--space-5); margin-block-end: var(--space-6); scroll-margin-block-start: var(--space-8); }
+.error-summary a { color: var(--danger-fg); font-weight: 600; }
 
 /* ── Buttons and busy state (fflow-submit-buttons-and-double-submit.md) ── */
-.btn-primary, .btn-secondary { min-block-size: var(--field-h); padding-inline: var(--space-5, 24px); border-radius: var(--field-radius); font-weight: 600; display: inline-flex; align-items: center; gap: var(--space-2, 8px); cursor: pointer; }
-.btn-primary { border: 0; background: var(--accent, oklch(0.50 0.17 265)); color: var(--on-accent, oklch(1 0 0)); }
-.btn-secondary { border: 1px solid var(--field-border); background: var(--surface, oklch(1 0 0)); color: var(--text, oklch(0.22 0.02 250)); }
+.btn-primary, .btn-secondary { min-block-size: var(--field-h); padding-inline: var(--space-5); border-radius: var(--field-radius); font-weight: 600; display: inline-flex; align-items: center; gap: var(--space-2); cursor: pointer; }
+.btn-primary { border: 0; background: var(--accent); color: var(--on-accent); }
+.btn-secondary { border: 1px solid var(--field-border); background: var(--surface); color: var(--text); }
 .btn-primary[aria-disabled="true"] { opacity: 0.8; cursor: progress; }
 .spinner { display: none; inline-size: 1em; block-size: 1em; border: 2px solid currentColor; border-inline-end-color: transparent; border-radius: 50%; }
 [aria-disabled="true"] > .spinner { display: inline-block; }
@@ -99,8 +135,8 @@ textarea { padding-block: var(--space-2, 8px); resize: vertical; }
 @keyframes form-spin { to { rotate: 1turn; } }
 
 /* File upload drop zone (finput-file-upload.md) */
-.dropzone { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3, 12px); padding: var(--space-5, 24px); border: 2px dashed var(--field-border); border-radius: var(--radius-md, 8px); }
-.dropzone.is-over { border-style: solid; border-color: var(--accent, oklch(0.50 0.17 265)); background: var(--info-bg, oklch(0.96 0.02 250)); }
+.dropzone { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); padding: var(--space-5); border: 2px dashed var(--field-border); border-radius: var(--radius-md); }
+.dropzone.is-over { border-style: solid; border-color: var(--accent); background: var(--info-bg); }
 
 /* ── Accessibility ──────────────────────────────────────────────────────── */
 .visually-hidden { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; margin: -1px; padding: 0; border: 0; }

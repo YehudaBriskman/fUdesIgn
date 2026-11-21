@@ -65,7 +65,7 @@
 | Token | Value | Use |
 |---|---|---|
 | `--target-touch-ios` / `--target-touch-m3` | 44px / 48px | platform target sizes |
-| `--font-sans` | system-ui stack | SF on Apple, Roboto on Android |
+| `--mo-font-sans` | system-ui stack | SF on Apple, Roboto on Android |
 | `--sheet-radius` | 28px | M3 sheet; close to iOS |
 | alert buttons | stacked when labels are long; destructive labelled, never default | dialogs |
 | icon set | own set or Material Symbols (Apache-2.0) | never SF Symbols |

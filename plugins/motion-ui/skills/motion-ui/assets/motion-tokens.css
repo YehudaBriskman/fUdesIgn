@@ -1,9 +1,11 @@
 /* motion-ui: starter motion tokens.
-   Names and values for durations, curves and stagger match dashboard-ui's assets/tokens.css,
-   so both plugins can share one :root. Every value traces to a pattern in references/patterns/.
+   Names and values for durations, curves and stagger match dashboard-ui's assets/tokens.css
+   (tools/check.mjs keeps them in sync). Self-sufficient: the base block has zero specificity
+   (:where(:root)), so this file works alone and dashboard-ui's tokens.css or the project's own
+   tokens win whatever the load order. Every value traces to a pattern in references/patterns/.
    Components use these tokens only: no raw ms or cubic-bezier() values. */
 
-:root {
+:where(:root) {
   /* ── Durations (mfound-durations-and-easing.md) ───────────────────────────── */
   --motion-dur-instant: 0ms;   /* keyboard-driven and 100+/day actions (mfound-purpose-and-frequency.md) */
   --motion-dur-micro: 100ms;   /* press, toggle, hover colour */
@@ -32,8 +34,8 @@
   --motion-spring-snappy-dur: 420ms;   /* duration 0.3 s, bounce 0.15 */
   --motion-spring-playful: linear(0, 0.03 2.5%, 0.105 5%, 0.207 7.5%, 0.555 15%, 0.659 17.5%, 0.75 20%, 0.828 22.5%, 0.892 25%, 0.942 27.5%, 0.98 30%, 1.008 32.5%, 1.027 35%, 1.038 37.5%, 1.044 40%, 1.045 45%, 1.005 67.5%, 1);
   --motion-spring-playful-dur: 660ms;  /* duration 0.4 s, bounce 0.3; rare delight only */
-  /* dashboard-ui's critically damped approximation, kept so both plugins resolve the same name */
-  --motion-ease-spring: linear(0, 0.25 8%, 0.6 18%, 0.86 30%, 0.97 45%, 1);
+  /* dashboard-ui's critically damped curve (bounce 0, ~300 ms), same value as its tokens.css */
+  --motion-ease-spring: linear(0, 0.044 5%, 0.142 10%, 0.261 15%, 0.380 20%, 0.589 30%, 0.740 40%, 0.841 50%, 0.905 60%, 0.968 80%, 1);
 
   /* ── Entry geometry (mtrans-enter-exit-top-layer.md) ──────────────────────── */
   --motion-scale-from: 0.96;   /* never scale(0); range 0.95–0.97 */

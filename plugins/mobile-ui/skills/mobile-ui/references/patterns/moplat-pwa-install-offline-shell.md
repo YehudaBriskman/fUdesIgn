@@ -118,7 +118,7 @@ export async function fetchWithOfflineState(url: string, banner: HTMLElement): P
   .top-bar .back { display: inline-grid; } /* no browser back button in a standalone iOS app */
   .browser-only { display: none; }
 }
-.offline-banner { padding: var(--space-2) var(--page-margin); background: var(--warning-fg); color: var(--canvas); font: var(--type-callout); }
+.offline-banner { padding: var(--space-2) var(--page-margin); background: var(--warning-fg); color: var(--canvas); font: var(--mo-type-callout); }
 ```
 ```html
 <link rel="manifest" href="/manifest.webmanifest">

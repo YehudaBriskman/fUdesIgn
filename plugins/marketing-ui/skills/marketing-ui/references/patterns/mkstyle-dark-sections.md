@@ -12,11 +12,11 @@
 
 ## Rules (do)
 - **Re-declare roles, not component colours.** `[data-tone="inverse"]` in marketing.css sets `--canvas`, `--surface`, `--surface-2`, `--border`, `--border-strong`, `--text`, `--text-muted`, `--accent` and `--on-accent` to the dashboard-ui dark values. Every component inside then works without a dark variant.
-- **Re-check contrast inside the band.** With the shipped values: text on canvas 16.3:1, muted text 9.1:1 (7.7:1 on `--surface-2`), accent on canvas 7.5:1, `--on-accent` on accent 7.5:1, `--border-strong` 4.0:1. Brand overrides need the same check: ≥ 4.5:1 text, ≥ 3:1 controls and large text.
+- **Re-check contrast inside the band.** With the shipped values: text on canvas 16.3:1, muted text 9.6:1 (8.1:1 on `--surface-2`, APCA Lc 60 or more), accent on canvas 9.5:1, `--on-accent` on accent 9.5:1, `--border-strong` 4.0:1. Brand overrides need the same check: ≥ 4.5:1 text, ≥ 3:1 controls and large text.
 - **Set `color-scheme: dark` on the band.** Native form controls, scrollbars and autofill then render dark; without it a white `<input>` glares inside the band (MDN).
 - **No pure `#000` with pure `#fff`.** 21:1 is more than needed and makes thin strokes bleed for many readers. Use a tinted near-black (L ≈ 0.18, as the tokens do, or Linear's `#08090a`) and off-white text (L ≈ 0.95). Material's dark theme starts at `#121212` for the same reason.
 - **Depth by lighter surfaces, not shadows.** Shadows barely show on dark. Raise cards with `--surface` (L 0.215) and `--surface-2` (L 0.25) plus a 1px `--border`, as Material's elevation overlays do.
-- **Desaturate the accent for dark.** Use a lighter, less chromatic step (`oklch(0.72 0.13 265)` vs `0.50 0.17` on light). Saturated colours vibrate on dark grounds (Material guidance).
+- **Desaturate the accent for dark.** Use a lighter, less chromatic step (`oklch(0.785 0.10 265)` vs `0.50 0.17` on light). Saturated colours vibrate on dark grounds (Material guidance).
 - **Images: ship dark screenshots for dark bands.** A light-theme screenshot in a dark band is the brightest thing on screen. Export the product in its dark theme; when you only have light UI, frame it on a `--surface-2` panel with a 1px border, never edge-to-edge. Transparent PNG logos need a light-on-dark version.
 - **Keep reading copy short in the band:** headline, one lead (≤ 52ch), the CTA. NN/g's review found light mode gave better reading performance for people with normal vision, and the gap grows as text gets smaller; keep dark-band text ≥ 18px where it exceeds 2 lines.
 - **Weight and size compensation.** Light text on dark looks bolder; drop body weight one step (500 → 400) and avoid weights below 300 in the band.
@@ -53,8 +53,8 @@
 |---|---|---|
 | `--canvas` | `oklch(0.18 0.006 250)` | band ground |
 | `--surface` / `--surface-2` | `oklch(0.215 …)` / `oklch(0.25 …)` | raised cards, panels |
-| `--text` / `--text-muted` | `oklch(0.95 …)` / `oklch(0.77 …)` | 16.3:1 / 9.1:1 on canvas |
-| `--accent` / `--on-accent` | `oklch(0.72 0.13 265)` / `oklch(0.18 …)` | CTA, 7.5:1 |
+| `--text` / `--text-muted` | `oklch(0.95 …)` / `oklch(0.785 …)` | 16.3:1 / 9.6:1 on canvas |
+| `--accent` / `--on-accent` | `oklch(0.785 0.10 265)` / `oklch(0.18 …)` | CTA, 9.5:1 |
 | `--border` / `--border-strong` | `oklch(0.35 …)` / `oklch(0.56 …)` | hairlines / controls 4.0:1 |
 | `color-scheme` | `dark` | UA controls |
 | Bands per page | ≤ 2 inverse | spotlight + final CTA |

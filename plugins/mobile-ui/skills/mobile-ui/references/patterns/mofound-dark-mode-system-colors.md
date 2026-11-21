@@ -53,7 +53,7 @@
 | `--surface` | oklch(1 0 0) | oklch(0.215 0.008 250) | bars, cards, sheets |
 | `--surface-3` | oklch(0.93 0.006 250) | oklch(0.29 0.010 250) | menus, pressed rows |
 | `--text` | oklch(0.22 0.02 250) | oklch(0.95 0.006 250) | body text |
-| `--accent` | oklch(0.50 0.17 265) | oklch(0.72 0.13 265) | primary actions, `accent-color` |
+| `--accent` | oklch(0.50 0.17 265) | oklch(0.785 0.10 265) | primary actions, `accent-color` |
 
 ## Implementation sketch
 ```css

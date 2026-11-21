@@ -9,7 +9,7 @@ A research-backed playbook for web forms: 19 pattern files, each with rules, ant
 
 - **Pattern index:** `references/INDEX.md` lists every pattern with its one-line rule.
 - **Pattern files:** `references/patterns/<prefix>-<name>.md`. Prefixes: `ffound` (foundations), `finput` (inputs), `fvalid` (validation), `fflow` (submission and flows), `fref` (anti-patterns and review rubric).
-- **Starter styles:** `assets/forms.css`. It uses the role tokens of the dashboard-ui plugin's `assets/tokens.css` (`--surface`, `--text`, `--text-muted`, `--border-strong`, `--accent`, `--focus-ring`, `--danger-fg`, `--space-*`, `--radius-*`), with light-mode fallbacks so it also works alone.
+- **Starter styles:** `assets/forms.css`. It works on its own in light and dark: the dashboard-ui role tokens it reads are declared at zero specificity, so dashboard-ui's `tokens.css` or the project's own tokens on the same role names override them in any load order.
 - **Shared with dashboard-ui** (not repeated here): inline editing and panel forms (`comp-inline-edit-and-forms.md`), sliders with number inputs (`comp-slider-with-number-input.md`), date-range pickers (`comp-date-range-picker.md`), number display (`data-number-formatting.md`), overlays (`comp-overlay-choice.md`), optimistic save and undo (`prog-optimistic-ui-and-undo.md`).
 
 ## Workflow

@@ -53,23 +53,23 @@
 ## Tokens and values
 | Token | Value | Use |
 |---|---|---|
-| `--type-large-title` | 700 2.125rem/1.2 | screen title at the top of a scroll view |
-| `--type-title` | 600 1.375rem/1.27 | section titles |
-| `--type-headline` | 600 1.0625rem/1.3 | row titles, emphasised labels |
-| `--type-body` | 400 1rem/1.5 | body text |
-| `--type-callout` | 400 0.9375rem/1.4 | secondary text in rows |
-| `--type-caption` | 400 0.8125rem/1.35 | metadata, timestamps |
-| `--type-input` | max(1rem, 16px) | inputs (prevents iOS focus zoom) |
+| `--mo-type-large-title` | 700 2.125rem/1.2 | screen title at the top of a scroll view |
+| `--mo-type-title` | 600 1.375rem/1.27 | section titles |
+| `--mo-type-headline` | 600 1.0625rem/1.3 | row titles, emphasised labels |
+| `--mo-type-body` | 400 1rem/1.5 | body text |
+| `--mo-type-callout` | 400 0.9375rem/1.4 | secondary text in rows |
+| `--mo-type-caption` | 400 0.8125rem/1.35 | metadata, timestamps |
+| `--mo-type-input` | max(1rem, 16px) | inputs (prevents iOS focus zoom) |
 
 ## Implementation sketch
 ```css
-body { font: var(--type-body); }
+body { font: var(--mo-type-body); }
 @supports (font: -apple-system-body) {
   /* iOS: follow Dynamic Type; rem sizes elsewhere scale from this root */
   html { font: -apple-system-body; }
-  body { font: inherit; font-family: var(--font-sans); }
+  body { font: inherit; font-family: var(--mo-font-sans); }
 }
-h1 { font: var(--type-large-title); font-size: clamp(1.75rem, 1.4rem + 2vw, 2.5rem); text-wrap: balance; }
+h1 { font: var(--mo-type-large-title); font-size: clamp(1.75rem, 1.4rem + 2vw, 2.5rem); text-wrap: balance; }
 .row { container: row / inline-size; }
 .row-inner { display: flex; gap: var(--space-3); align-items: center; min-block-size: 44px; }
 @container row (inline-size < 20em) {

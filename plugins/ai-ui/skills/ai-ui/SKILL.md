@@ -9,7 +9,7 @@ A research-backed playbook for the interface around a model: 20 pattern files, e
 
 - **Pattern index:** `references/INDEX.md` lists every pattern with its one-line rule.
 - **Pattern files:** `references/patterns/<prefix>-<name>.md`. Prefixes: `aifound` (identity, uncertainty, latency, privacy, accessibility of output), `aichat` (thread, streaming, waiting, markdown, citations, versions, input, suggestions, errors, feedback), `aiinline` (ghost text and diffs), `aiagent` (approvals, audit, WebMCP), `airef` (anti-patterns and review rubric).
-- **Starter styles:** `assets/ai-ui.css`. It sits on the role tokens of the dashboard-ui plugin's `assets/tokens.css` (`--surface`, `--text`, `--text-muted`, `--accent`, `--warning-*`, `--danger-*`, `--space-*`, `--radius-*`, `--type-*`), with light-mode fallbacks so it also works alone.
+- **Starter styles:** `assets/ai-ui.css`. It works on its own in light and dark: the dashboard-ui role tokens it reads are declared at zero specificity, so dashboard-ui's `tokens.css` or the project's own tokens on the same role names override them in any load order.
 - **Shared with other plugins** (not repeated here): loading states and perceived performance (`prog-loading-states.md`, `prog-perceived-performance-thresholds.md`), optimistic UI and undo (`prog-optimistic-ui-and-undo.md`), overlays and toasts (`comp-overlay-choice.md`, `comp-notifications-alerts.md`), keyboard and focus (`comp-keyboard-shortcuts-focus.md`), all in dashboard-ui.
 - **Sources:** Microsoft HAX (18 guidelines), Google PAIR People + AI Guidebook, Apple HIG Machine learning and Generative AI, NN/g AI research, WAI-ARIA and WCAG 2.2, web.dev and Chrome docs, and GoogleChrome/modern-web-guidance (Apache-2.0, cited by URL). Shape of AI informed the pattern map (ideas only). Product names appear as references; the rules are vendor-neutral.
 
@@ -146,7 +146,7 @@ Full set in `assets/ai-ui.css`.
 ## How to apply this skill
 
 - **When building:**
-  - Start from `assets/ai-ui.css` on top of dashboard-ui's `tokens.css` (or map its roles onto the project's tokens), then follow the workflow.
+  - Start from `assets/ai-ui.css` (map its roles onto the project's tokens if it has them), then follow the workflow.
   - Prefer platform features: `field-sizing: content` with a fallback, `enterkeyhint`, `<dialog>`, the popover API for citation previews, `AbortController` for Stop, WebMCP declarative forms where useful. Each sketch shows the detection and fallback.
   - Treat all model output as untrusted input: sanitise, never `innerHTML` per chunk, no remote images.
   - Never use the TypeScript `any` type; validate model and server payloads with Zod or a typed schema.

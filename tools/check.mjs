@@ -107,6 +107,32 @@ if (sketches) {
   rmSync(work, { recursive: true, force: true })
 }
 
+// Plugin stylesheets are self-sufficient: they declare the dashboard-ui role tokens they read in a
+// zero-specificity `:where(:root)` block (light-dark() for themed roles). Those values, and any inverse
+// band, must equal dashboard-ui's tokens.css so the plugins never drift apart.
+const TOKENS = join(ROOT, 'plugins/dashboard-ui/skills/dashboard-ui-design/assets/tokens.css')
+const assetDir = join(SKILL, 'assets')
+if (!files.length && existsSync(TOKENS) && existsSync(assetDir) && resolve(assetDir, 'tokens.css') !== TOKENS) {
+  const norm = (v) => v.replace(/\s+/g, ' ').trim()
+  const decls = (body) => Object.fromEntries([...body.replace(/\/\*[\s\S]*?\*\//g, '').matchAll(/(--[a-z0-9-]+)\s*:\s*([^;]+);/g)].map((m) => [m[1], norm(m[2])]))
+  const tokens = readFileSync(TOKENS, 'utf8')
+  const light = decls(tokens.match(/\n:root \{([\s\S]*?)\n\}/)[1])
+  const dark = decls(tokens.match(/\n:root\[data-theme="dark"\] \{([\s\S]*?)\n\}/)[1])
+  for (const css of readdirSync(assetDir).filter((n) => n.endsWith('.css'))) {
+    const text = readFileSync(join(assetDir, css), 'utf8')
+    for (const m of text.matchAll(/(?:^|\n):where\(:root\) \{([\s\S]*?)\n\}/g))
+      for (const [name, value] of Object.entries(decls(m[1]))) {
+        if (!(name in light)) continue
+        const d = dark[name] ?? light[name]
+        const want = d === light[name] ? light[name] : `light-dark(${light[name]}, ${d})`
+        if (value !== want) fail(`assets/${css}`, `${name} is "${value}", dashboard-ui tokens.css gives "${want}"`)
+      }
+    for (const m of text.matchAll(/\n\[data-tone="inverse"\] \{([\s\S]*?)\n\}/g))
+      for (const [name, value] of Object.entries(decls(m[1])))
+        if (name in dark && value !== dark[name]) fail(`assets/${css}`, `inverse ${name} is "${value}", dashboard-ui dark gives "${dark[name]}"`)
+  }
+}
+
 // INDEX.md must list every pattern
 const index = readFileSync(join(SKILL, 'references/INDEX.md'), 'utf8')
 if (!files.length) for (const f of all) if (!index.includes(`patterns/${f}`)) fail('INDEX.md', `does not list ${f}`)

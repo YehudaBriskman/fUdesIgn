@@ -64,7 +64,7 @@
 ## Tokens and values
 | Token | Value | Use |
 |---|---|---|
-| `--type-input` | max(1rem, 16px) | input text |
+| `--mo-type-input` | max(1rem, 16px) | input text |
 | input height | 44–48px | text fields, selects |
 | field gap | 16–24px | between fields |
 | label gap | 4–8px | label to field |
@@ -75,7 +75,7 @@
 ```css
 .field { display: grid; gap: var(--space-1); margin-block-end: var(--space-5); }
 .field input, .field select {
-  font-size: var(--type-input);
+  font-size: var(--mo-type-input);
   min-block-size: 48px;
   padding-inline: var(--space-3);
   border: 1px solid var(--border-strong);

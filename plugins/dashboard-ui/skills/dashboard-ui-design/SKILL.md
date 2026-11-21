@@ -9,7 +9,7 @@ A research-backed playbook for dashboards: 84 pattern files, each with rules, an
 
 - **Pattern index:** `references/INDEX.md` lists every pattern with its one-line rule.
 - **Pattern files:** `references/patterns/<prefix>-<name>.md`. The prefixes are `found` (foundations), `color` and `style` (visual style), `data` (data display), `chart`, `comp` (components), `motion`, `prog` (progressive loading), and `ref` (product teardowns, anti-patterns, review rubric).
-- **Starter tokens:** `assets/tokens.css`, with light and dark themes. Every value in it comes from the pattern files.
+- **Starter tokens:** `assets/tokens.css`, with light and dark themes. Every value in it comes from the pattern files. It is the canonical source of the shared role tokens: the other plugins' stylesheets carry the roles they read as zero-specificity defaults with these values (checked by `tools/check.mjs`), so each works alone and this file overrides them in any load order.
 
 ## Workflow
 
