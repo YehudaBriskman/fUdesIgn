@@ -74,6 +74,10 @@ plugins/
       references/INDEX.md                all 20 patterns, each with its one-line rule
       references/patterns/*.md           a11y-, aaria-, atest-, alaw-, aref- (see below)
       assets/a11y.css                    skip link, .sr-only, focus ring, 2.4.11 scroll padding, targets, forced colours on the dashboard-ui roles
+  design-review/
+    .claude-plugin/plugin.json
+    skills/design-review/SKILL.md        capture → lint → rendered gate → fresh-eye review → rubric → handover
+    scripts/                             capture.mjs, gate.mjs (12 detectors), lint-ui.mjs (10 rules)
 templates/PATTERN_TEMPLATE.md            the format every pattern file follows
 docs/research-brief.md                   how the research was run
 ```
@@ -184,6 +188,12 @@ The cross-cutting WCAG 2.2 AA layer for every UI type. Domain rules stay in thei
 
 Each pattern file has these sections: the rule, when to use and when not, rules with numbers, anti-patterns, good references, bad references, accessibility, motion, a tokens table, an implementation sketch, a checklist and sources.
 
+### design-review: evidence before opinion
+
+| Part | What it does |
+|---|---|
+| `design-review` | Captures light and dark screenshots at 1440 and 390, runs a static UI lint and a Playwright gate that passes only at zero (contrast, mixed themes, overflow, collisions, target size, focus, truncation, alt text, tabular figures, reduced motion, canvas ink), briefs a fresh-eye reviewer with the screenshots only, and writes a handover record of what was not checked. Detector reference: `plugins/design-review/skills/design-review/references/detectors.md` |
+
 ## Research
 
 The patterns come from 7 parallel research passes. Together they read about 300 web sources and about 100 guides from [GoogleChrome/modern-web-guidance](https://github.com/GoogleChrome/modern-web-guidance).
@@ -206,6 +216,7 @@ Some claims rest on search summaries because the source page wouldn't load, and 
 /plugin install ai-ui@fudesign
 /plugin install i18n-rtl@fudesign
 /plugin install accessibility@fudesign
+/plugin install design-review@fudesign
 ```
 
 Each skill then triggers on its own design, build and review tasks (dashboards, landing and marketing pages, mobile web and PWAs, product-UI motion and gestures, forms, setting up and keeping a design system, AI features such as chat, copilots and agents, internationalised and right-to-left UI in Hebrew and Arabic, or WCAG 2.2 AA accessibility builds, tests and audits). You can also copy a skill folder, such as `plugins/marketing-ui/skills/marketing-ui/`, into `~/.claude/skills/`.

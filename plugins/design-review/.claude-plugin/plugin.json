@@ -1,0 +1,17 @@
+{
+  "name": "design-review",
+  "description": "Review a rendered UI or dashboard with evidence: Playwright capture, a deterministic rendered gate, a static UI lint, a fresh-eye reviewer brief and a handover record.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Yehuda Briskman"
+  },
+  "keywords": [
+    "design-review",
+    "ui",
+    "dashboard",
+    "accessibility",
+    "playwright",
+    "lint"
+  ],
+  "license": "PolyForm-Internal-Use-1.0.0"
+}

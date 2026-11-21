@@ -79,6 +79,14 @@
       "version": "0.1.0",
       "category": "design",
       "license": "PolyForm-Internal-Use-1.0.0"
+    },
+    {
+      "name": "design-review",
+      "source": "./plugins/design-review",
+      "description": "Evidence-based UI review: Playwright capture, a deterministic rendered gate (12 detectors), a static UI lint (10 rules), a fresh-eye reviewer brief and a handover record.",
+      "version": "0.1.0",
+      "category": "design",
+      "license": "PolyForm-Internal-Use-1.0.0"
     }
   ]
 }

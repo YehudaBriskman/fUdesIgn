@@ -1,0 +1,21 @@
+/* Lint fixture: every rule here is broken on purpose. */
+.card {
+  background: #ffffff;
+  transition: all 200ms ease;
+}
+.card:focus {
+  outline: none;
+}
+.glass {
+  backdrop-filter: blur(12px);
+}
+@keyframes pop {
+  from { transform: scale(0); }
+  to { transform: scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

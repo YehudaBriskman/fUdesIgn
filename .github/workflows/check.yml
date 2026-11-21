@@ -24,9 +24,9 @@ jobs:
       - run: npm ci
       # every plugin skill with a references/patterns folder is checked
       - name: Structure, links and the any-type ban
-        run: for d in ../plugins/*/skills/*/; do node check.mjs --dir "${d#../}" || exit 1; done
+        run: for d in ../plugins/*/skills/*/; do [ -d "${d}references/patterns" ] || continue; node check.mjs --dir "${d#../}" || exit 1; done
       - name: Code sketches compile (CSS via lightningcss, TS/TSX strict)
-        run: for d in ../plugins/*/skills/*/; do NODE_PATH=./node_modules node check.mjs --sketches --dir "${d#../}" || exit 1; done
+        run: for d in ../plugins/*/skills/*/; do [ -d "${d}references/patterns" ] || continue; NODE_PATH=./node_modules node check.mjs --sketches --dir "${d#../}" || exit 1; done
       - name: Token stylesheets parse (lightningcss)
         run: |
           for f in ../plugins/*/skills/*/assets/*.css; do
