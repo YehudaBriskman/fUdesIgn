@@ -12,16 +12,16 @@
 
 ## Rules (do)
 - **The overview shows the whole collection at once,** with no required interaction. Few defines a dashboard as information "consolidated and arranged on a single screen so the information can be monitored at a glance." Target: P1 and P2 content is visible at 1280×720 without scrolling.
-- **Use one overview per question,** not one per data source. Grafana: build every dashboard around "a story or question ... general to specific". If it has no goal, ask whether you need it.
+- **Use one overview per question,** not one per data source. Grafana: "A dashboard should tell a story or answer a question", with a "logical progression of data, such as large to small or general to specific". If it has no goal, ask whether you need it.
 - **Filters are global, visible and stateful:**
   - One filter bar at the top of the region it affects.
   - Active filters are always shown as removable chips.
   - Filter state lives in the URL, so views are shareable and the back button works.
-  - Grafana says: "link to the master dashboard and use URL parameters" instead of copying dashboards.
-- **Linked views.** A filter or zoom applied in one chart updates every related chart (Carbon: "mirror filters and zoom across linked charts").
+  - Grafana recommends "maintaining a link to the master dashboard and customizing the view with URL parameters" instead of copying dashboards.
+- **Linked views.** A filter or zoom applied in one chart updates every related chart (Carbon: "Mirror chart modifications like filter and zoom").
 - **Keep the context on screen during details on demand.** Use a side panel or drawer for a single record, and a full page only for long workflows. Stripe Apps defaults to a side-by-side `ContextView` and reserves the blocking `FocusView` for start-to-finish tasks or a wider canvas.
 - **Every summary number is a door.** A KPI, bar or legend item that summarizes rows should link to the filtered rows behind it. Expose this with a visible affordance (chevron, underline on hover, "View all"), not only a hidden click target.
-- **Order sections macro to micro** (Datadog: "from macro to micro, and from upstream to downstream"), so scrolling *is* zooming in.
+- **Order sections macro to micro** (Datadog: "Go from macro to micro levels within the system" and "from upstream to downstream"), so scrolling *is* zooming in.
 - **Support Shneiderman's other tasks once the core three work:**
   - *Relate*: compare to the previous period or a peer.
   - *History*: undo a filter, back.
@@ -44,7 +44,7 @@
 
 ## Bad references
 - [Few, Common Pitfalls, Pitfall #1, Fig. 2](https://www.perceptualedge.com/articles/Whitepapers/Common_Pitfalls.pdf): a sales dashboard split into radio-button-selected slices. The viewer "can never compare the performance of products or regions".
-- [Grafana maturity model, "low" stage](https://grafana.com/docs/grafana/latest/visualizations/dashboards/build-dashboards/best-practices/): everyone edits, copies proliferate, JSON is not under version control, and "people spend time searching for the right dashboard". This is how filter-by-duplication ends.
+- [Grafana maturity model, "low" stage](https://grafana.com/docs/grafana/latest/visualizations/dashboards/build-dashboards/best-practices/): everyone edits, copies proliferate, JSON is not under version control, and there is "lots of browsing for dashboards, searching for the right dashboard". This is how filter-by-duplication ends.
 
 ## Accessibility
 - The filter bar is a `<form role="search">` or `<search>` element with labelled controls. Announce result changes with a polite live region, for example "Showing 214 of 3,902 transactions".
@@ -53,8 +53,8 @@
 - Drill-down targets inside charts must have a keyboard-reachable equivalent, such as a linked table or list (see the chart accessibility cluster).
 
 ## Motion / interaction (if relevant)
-- Opening a detail panel: slide in 200–250ms with ease-out. Closing: 150–200ms with ease-in. Under `prefers-reduced-motion`, cross-fade or switch instantly.
-- Applying a filter should update in place under 100ms for client-side data. That is "simultaneous" (Ström, UI density). Above about 1s, show a skeleton in the affected widgets only, not a full-page spinner.
+- Opening a detail panel: slide in over 240ms (`--motion-dur-medium`, `--motion-ease-enter`). Closing: 150ms (`--motion-dur-short`, `--motion-ease-exit`). Under `prefers-reduced-motion`, cross-fade or switch instantly.
+- Applying a filter should update in place under 100ms for client-side data, which Ström estimates feels instant. Above about 1s, show a skeleton in the affected widgets only, not a full-page spinner.
 - Preserve scroll position and selection when returning from a detail view.
 
 ## Tokens and values
@@ -62,8 +62,8 @@
 |---|---|---|
 | Overview fold target | P1 + P2 visible at 1280×720 | Few's single-screen ideal, relaxed for scrollable web |
 | Filter bar height | 48–56px, single row | modern-web-guidance: sticky bars < 12% of viewport |
-| Detail drawer width | `min(480px, 40vw)`; full width < 600px | Keeps the overview visible on desktop |
-| Drawer open/close | 220ms ease-out / 180ms ease-in | |
+| Detail drawer width | `clamp(360px, 40vw, 480px)`; full width < 600px | Keeps the overview visible on desktop |
+| Drawer open/close | 240ms enter / 150ms exit | `--motion-dur-medium` / `--motion-dur-short` |
 | URL state | `?from=&to=&segment=&sel=` | Every filter and selection is serialisable |
 | Max drill depth | 2 levels from overview | NN/g: > 2 disclosure levels has low usability |
 

@@ -11,20 +11,21 @@
 - **Not** "mobile-first stretched to desktop" either. NN/g found that dispersed mobile layouts on desktop increase scrolling and cognitive load.
 
 ## Rules (do)
-- **Breakpoints by window class** (Android/Material WindowSizeClass): **compact < 600, medium 600–839, expanded 840–1199, large 1200–1599, extra-large ≥ 1600** (dp ≈ CSS px). These map to page columns:
-  - 4 columns (compact)
-  - 8 columns (medium)
-  - 12 columns (expanded and up)
-  - optionally a side-by-side "high density" second column of groups ≥ 1600 (Datadog)
+- **Shell breakpoints by window class** (Android/Material WindowSizeClass): **compact < 600, medium 600–839, expanded 840–1199, large 1200–1599, extra-large ≥ 1600** (dp ≈ CSS px). Page columns follow `tokens.css`, not the window classes:
+  - 4 columns below 600px
+  - 8 columns at 600–1055px
+  - 12 columns at 1056px or wider (Carbon's lg breakpoint)
+  - gutter 16px, 24px at 1312px or wider
+  - optionally a side-by-side "high density" second column of groups at 1600px or wider (Datadog)
 - **Shell changes at the window level** (media queries):
   - nav: bottom bar or drawer at compact, rail at medium, full sidebar at expanded+
   - detail panel: full-screen sheet at compact, overlay drawer at medium, docked pane at large+
 - **Widgets change at the container level** (`@container`). A KPI tile switches from stacked to inline at about 18rem. A chart drops its legend for direct labels below about 28rem and hides the secondary axis below about 20rem. A table switches to a stacked "card per row" view below about 600px container width (modern-web-guidance `ui-atoms/responsive-table.md`).
 - **Reflow order = priority order.** On compact, the order is band 1 → band 2's single most important chart → links to the rest. Make DOM order the priority order so single-column flow is correct with no CSS reordering.
-- **KPI rows:** use `repeat(auto-fit, minmax(10rem, 1fr))`, giving 2-up on phones, 3–4 on tablets and 4–6 on desktop. On compact, show at most 4 KPIs and collapse the rest behind "More metrics".
+- **KPI rows:** 1 tile per row below 768px, 2 at 768px or wider, 4–6 at 1280px or wider (`data-kpi-stat-card.md`). Inside a region of unknown width, use `repeat(auto-fit, minmax(14rem, 1fr))`. On compact, show at most 4 KPIs and collapse the rest behind "More metrics".
 - **Tables on small screens:**
   - Use horizontal scroll in a focusable region with a sticky first column and sticky header, when users compare across attributes.
-  - Use stacked cards when users look at one record at a time (NN/g mobile tables; modern-web-guidance).
+  - Use stacked cards when users look at one record at a time (modern-web-guidance `ui-atoms/responsive-table.md`). NN/g calls horizontal scroll "somewhat acceptable for large tables on mobile screens" if the first column and headers are locked.
   - Never squash columns below legibility.
 - **Charts:**
   - Keep the aspect ratio with `aspect-ratio` to avoid CLS.
@@ -48,13 +49,13 @@
 - [Android: Use window size classes](https://developer.android.com/develop/ui/compose/layouts/adaptive/use-window-size-classes): five width classes with device coverage stats (compact covers 99.96% of phones in portrait). Explicitly *not* for "isTablet" logic, because the window class changes with split-screen and resizing.
 - [MDN: Container queries](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_containment/Container_queries): `container-type: inline-size`, named containers, and `cqi`/`cqb` units. Units fall back to small-viewport units when there's no container.
 - [web.dev: Baseline in action, container queries](https://web.dev/articles/baseline-in-action-container-queries): grid cells need a wrapper to act as containers, and an element can't query itself. Mix with media queries: container for components, media for the shell.
-- [GitHub Primer: Layout](https://primer.style/product/getting-started/foundations/layout/): viewport ranges narrow (< 768, 1 column), regular (≥ 768, up to 2), wide (≥ 1400, up to 3). List-detail splits into separate pages on narrow, and auxiliary panes become bottom sheets.
+- [GitHub Primer: Layout](https://primer.style/product/getting-started/foundations/layout/): viewport ranges narrow (< 768, 1 column), regular (≥ 768, up to 2), wide (≥ 1400, up to 3); full pages cap at 1280px. List-detail splits into separate pages on narrow, and auxiliary panes become bottom sheets.
 - [IBM Carbon: 2x Grid](https://carbondesignsystem.com/elements/2x-grid/overview/): 4/8/16 columns at 320/672/1056+, with fluid and fixed grids meeting at breakpoints.
 - [Datadog integration dashboards](https://docs.datadoghq.com/developers/integrations/create-an-integration-dashboard): designed for high-density mode at large widths (symmetrical halves), tested at 1280 and 2560px.
 
 ## Bad references
 - [NN/g: Negative Impact of Mobile-First Web Design on Desktop](https://www.nngroup.com/articles/content-dispersion/): oversized blocks and accordions on desktop lead to longer pages, more interaction cost, an illusion of completeness and lower trust.
-- [NN/g: Mobile tables](https://www.nngroup.com/articles/mobile-tables/): asking users to rotate the phone is "a last resort" that annoys them and leaves few rows visible. Avoid it as the responsive strategy.
+- [NN/g: Mobile tables](https://www.nngroup.com/articles/mobile-tables/): "Rotating the Phone Is a Last Resort". It gains width, costs rows, and dictating how users hold the phone annoys them. Avoid it as the responsive strategy.
 
 ## Accessibility
 - WCAG 1.4.10 Reflow: no two-dimensional scrolling at 320 CSS px except for content that needs it (tables, charts). Those scroll inside a `role="region"` with `tabindex="0"` and an accessible name.
@@ -70,11 +71,11 @@
 ## Tokens and values
 | Window class | Width | Columns | Margin | Gutter | Nav | Detail pane |
 |---|---|---|---|---|---|---|
-| compact | < 600 | 4 | 16 | 12–16 | bottom bar / drawer | full-screen sheet |
+| compact | < 600 | 4 | 16 | 16 | bottom bar / drawer | full-screen sheet |
 | medium | 600–839 | 8 | 24 | 16 | rail | overlay drawer |
-| expanded | 840–1199 | 12 | 24 | 16 | rail or sidebar | overlay drawer |
-| large | 1200–1599 | 12 | 32 | 24 | sidebar | docked, 360–480px |
-| extra-large | ≥ 1600 | 12 (+ 2 group columns) | 32 | 24 | sidebar | docked |
+| expanded | 840–1199 | 8 (12 from 1056) | 24 | 16 | rail or sidebar | overlay drawer |
+| large | 1200–1599 | 12 | 32 | 16 (24 from 1312) | sidebar | docked, 360–480px |
+| extra-large | ≥ 1600 | 12 (+ 2 group columns) | 32 | 24 | sidebar | docked, 360–480px |
 
 | Widget container breakpoint | Change |
 |---|---|

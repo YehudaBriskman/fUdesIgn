@@ -25,7 +25,7 @@ Apply the defaults for the chosen type:
 
 - **Operational:**
   - Lead with exceptions. Normal states are quiet (neutral color, small), abnormal states are loud (see `color-semantic-status.md`).
-  - Refresh only as often as the data changes. Grafana: "If data changes hourly, a 30-second refresh only adds load."
+  - Refresh only as often as the data changes. Grafana: "if your data changes every hour, then you don't need to set the dashboard refresh rate to 30 seconds". Faster refresh only adds load.
   - Show "last updated" with a timestamp that is relative and absolute on hover.
 - **Analytical:**
   - Make filters and comparison first-class (see `found-overview-filter-details.md`).
@@ -42,18 +42,18 @@ Apply the defaults for the chosen type:
 - **Real-time strategic metrics.** Ticking annual revenue invites over-reaction to noise.
 - **Monthly operational metrics.** An incident view aggregated per day hides the 10-minute outage.
 - **Exploration on the home page.** A query builder where a status summary should be.
-- **"Everything" dashboards.** 30+ panels mixing live health, quarterly targets and an ad-hoc cohort chart. Sisense suggests 5–9 visualizations per dashboard; Grafana calls the copy-and-tweak result "sprawl".
-- **Gauges for strategic KPIs.** They use a lot of space and say little (Few Pitfall #2, Fig. 3; NN/g recommends bullet charts over radial gauges).
+- **"Everything" dashboards.** 30+ panels mixing live health, quarterly targets and an ad-hoc cohort chart. Sisense: "no more than 5-9 visualizations" per dashboard. Grafana warns against "dashboard sprawl, meaning the uncontrolled growth of dashboards".
+- **Gauges for strategic KPIs.** "A great deal of space is used by these gauges to tell us far too little" (Few Pitfall #2, Fig. 3). NN/g calls gauges "harder to interpret than linear graphs" and shows bullet charts as the better replacement.
 
 ## Good references
-- [NN/g: Dashboards, making charts easier to understand](https://www.nngroup.com/articles/dashboards-preattentive/): operational dashboards "impart critical information quickly to users as they are engaged in time-sensitive tasks". Analytical ones "help users identify the need for further thought, investigation, research, or analysis".
-- [Grafana: USE / RED / Four Golden Signals](https://grafana.com/docs/grafana/latest/visualizations/dashboards/build-dashboards/best-practices/): an opinionated operational overview of a fixed 3–4 metrics per service. Alert on symptoms (RED), not causes (USE).
+- [NN/g: Dashboards, making charts easier to understand](https://www.nngroup.com/articles/dashboards-preattentive/): operational dashboards "impart critical information quickly to users as they are engaged in time-sensitive tasks". Analytical ones "provide the user with at-a-glance information used for analysis and decision making", without the same time pressure.
+- [Grafana: USE / RED / Four Golden Signals](https://grafana.com/docs/grafana/latest/visualizations/dashboards/build-dashboards/best-practices/): an opinionated operational overview of a fixed 3–4 metrics per service. Grafana: "alert on symptoms rather than causes, so alerting should be done on RED dashboards".
 - [IBM Carbon: Dashboards](https://carbondesignsystem.com/data-visualization/dashboards/): presentation vs exploration dashboards, with different interaction expectations.
-- [UXmatters review of Few's *Information Dashboard Design*](https://www.uxmatters.com/mt/archives/2007/04/book-review-information-dashboard-design.php): summarises Few's classification dimensions (role, data type, domain, update frequency, interactivity).
+- [UXmatters review of Few's *Information Dashboard Design*](https://www.uxmatters.com/mt/archives/2007/04/book-review-information-dashboard-design.php): summarises Few's classification dimensions (role, data type, data scope, update frequency, static or interactive, display mechanism, portal function) and notes that role "has the greatest impact on its visual design".
 
 ## Bad references
-- [Few, Common Pitfalls, Fig. 14](https://www.perceptualedge.com/articles/Whitepapers/Common_Pitfalls.pdf): an "order throughput" operational screen styled as an electronic control panel. Decoration consumes the space that exception-first status should own.
-- [Few, Common Pitfalls, Pitfall #3](https://www.perceptualedge.com/articles/Whitepapers/Common_Pitfalls.pdf): times shown to the second and values to 4–10 decimals on a monitoring dashboard. Analytical precision is applied to an at-a-glance view.
+- [Few, Common Pitfalls, Fig. 14](https://www.perceptualedge.com/articles/Whitepapers/Common_Pitfalls.pdf): a screen styled as an electronic control panel, with LED-style meters and a period selector that looks like a manual switch (Pitfall #11). Decoration consumes the space that exception-first status should own.
+- [Few, Common Pitfalls, Pitfall #3](https://www.perceptualedge.com/articles/Whitepapers/Common_Pitfalls.pdf): times shown to the second and values to four to ten decimal digits on a monitoring dashboard (Fig. 4). Analytical precision is applied to an at-a-glance view.
 
 ## Accessibility
 - Operational auto-refresh must not move focus or re-announce the whole page. Announce only state changes, using `aria-live="polite"`, or `assertive` for critical alerts only.
@@ -62,7 +62,7 @@ Apply the defaults for the chosen type:
 
 ## Motion / interaction (if relevant)
 - Operational: value changes may flash a subtle background for ≤ 1s. Never animate chart re-draws on every tick; update in place.
-- Analytical: chart transitions on filter change of 200–300ms help users track what moved. Disable them under reduced motion.
+- Analytical: chart transitions on filter change of 240ms (`--motion-dur-medium`) help users track what moved. Disable them under reduced motion.
 - Strategic: no motion needed.
 
 ## Tokens and values
