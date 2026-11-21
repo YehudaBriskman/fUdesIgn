@@ -13,7 +13,7 @@
 ## Rules (do)
 - **3–4 tiers.** Typical shape: Free or trial, a team tier, a business tier, Enterprise. Current examples: Linear shows Free, Basic, Business and Enterprise; Tailscale shows Personal, Standard, Premium and Enterprise; Vercel shows Hobby, Pro and Enterprise. Past 4 cards, a desktop row no longer fits a 72rem container at a readable width (about 260px per card minimum).
 - **Recommend at most one plan.** Give it a text badge ("Most popular" or "Recommended for teams"), a 2px `--accent` border and the only filled primary CTA. The other cards get secondary CTAs (see `mkfound-cta-and-conversion.md`). Tailscale labels Standard "Most popular". Only use "Most popular" if it is true.
-- **Grade the decoy evidence.** Ariely's Economist example (*Predictably Irrational*, 2008: 100 MIT students; adding a print-only option at the same price as print+web moved print+web from 32% to 84%) is a single classroom study, retold widely. Frederick, Lee and Baskin (JMR 2014, "The Limits of Attraction") found the attraction effect weak or absent with more realistic stimuli. A 2024 Kobe University field experiment found a decoy plan did lift sales on one subscription platform. Conclusion: anchoring with a visible higher tier is plausible. A deliberately useless decoy tier is a manipulation with unreliable payoff. Don't build one.
+- **Grade the decoy evidence.** Ariely's Economist example (*Predictably Irrational*, 2008: 100 of his students; adding a print-only option at the same price as print+web moved print+web from 32% to 84%) is a single classroom study, retold widely. Frederick, Lee and Baskin (JMR 2014, "The Limits of Attraction") found the attraction effect weak or absent with more realistic stimuli. A 2024 Kobe University field experiment found a decoy plan did lift sales on one subscription platform. Conclusion: anchoring with a visible higher tier is plausible. A deliberately useless decoy tier is a manipulation with unreliable payoff. Don't build one.
 - **Price per what unit.** Every price carries its unit and period in the same line: "$16 per user / month". Linear and Tailscale price per user per month; Basecamp charges a flat price per account with no per-user fees, and says so. Vercel prices usage per unit (per 1M requests, per GB) with included amounts stated.
 - **Monthly/annual toggle, shown honestly.**
   - Default to the period most buyers choose, and say which one the cards show ("Billed yearly").
@@ -21,7 +21,7 @@
   - When annual is selected, show the per-month equivalent **and** the amount charged per year ("$16/month, $192 billed yearly").
   - Use a radio group or segmented control, not a bare checkbox switch with no labels.
 - **Currency and tax.** Show the currency symbol and code when the audience is international ("US$16" or "$16 USD"), say whether tax is included ("Prices exclude VAT"; Vercel states "USD, excluding taxes"), and localise only if checkout charges the same currency.
-- **Free trial vs freemium.** Say exactly which one it is and what happens at the end. Basecamp states a 30-day trial with no card and no automatic charge. If a card is required, say so on the CTA ("Start 14-day trial, card required").
+- **Free trial vs freemium.** Say exactly which one it is and what happens at the end. Basecamp's pricing page offers a 30-day free trial and says you pick a package when it ends, with zero obligation. If a card is required, say so on the CTA ("Start 14-day trial, card required").
 - **Feature comparison as a real `<table>`.** Plans are column headers (`<th scope="col">`), features are row headers (`<th scope="row">`), groups use a heading row or `<tbody>` per group. Use text values ("10", "Unlimited", "Included", "—" with visually hidden "Not included"), not icon-only checkmarks.
 - **Sticky plan header on long comparisons.** If the table is taller than about 1.5 screens, pin the plan names (and prices) to the top. Baymard's comparison-tool testing found that users scroll back up to recall which column is which, and sticky column headings fixed it. Offset the sticky header below any sticky site header.
 - **Enterprise:** "Contact sales" plus 3–5 concrete reasons (SSO/SAML, audit logs, SLA, invoicing). Linear, Vercel and Tailscale all do this.
@@ -40,12 +40,12 @@
 - [Linear pricing](https://linear.app/pricing) — 4 tiers, per-user unit, "Billed yearly" stated beside the price, a full comparison table and "Contact sales" for Enterprise only. It shows only annual prices, so there is no saving to misstate.
 - [Tailscale pricing](https://tailscale.com/pricing) — one "Most popular" plan, a free Personal tier with stated limits (6 users), and a comparison grouped into named categories.
 - [Vercel pricing](https://vercel.com/pricing) — states "USD, excluding taxes", lists included usage and per-unit overage rates (from $2 per 1M requests beyond 10M).
-- [Basecamp pricing](https://basecamp.com/pricing) — flat per-account prices with no per-user fees, a 30-day no-card trial, and plain cancellation terms.
+- [Basecamp pricing](https://basecamp.com/pricing) — flat per-account prices with no per-user fees, a 30-day trial that ends with you choosing a package, and plain cancellation terms (self-serve, no contract).
 - [NN/g: State the price](https://www.nngroup.com/articles/show-price/) — the research case for showing prices and sample scenarios.
 
 ## Bad references
 - [NN/g: Show prices for common scenarios](https://www.nngroup.com/articles/show-prices-for-common-scenarios/) — documents sites that hide variable prices behind forms, and the cost in lost prospects.
-- Feature inconsistency between card and table: at the time of review, Basecamp's Freelancer card listed tools (templates, time tracking) that its own comparison table marked as not included. Generate cards and table from one data source.
+- Feature inconsistency between card and table: a plan card that lists a feature the comparison table marks as not included, or the reverse. Generate cards and table from one data source.
 - Generic "Contact us for a quote" B2B sites (no named company): NN/g's participants abandoned them for competitors that showed prices.
 
 ## Accessibility
@@ -117,7 +117,7 @@
 - https://baymard.com/blog/user-friendly-comparison-tools (sticky column headings; guideline detail is paywalled, taken from the free article summary)
 - https://marketing.wharton.upenn.edu/wp-content/uploads/2016/10/The-Limits-of-Attraction.pdf (Frederick, Lee, Baskin 2014)
 - https://www.rieb.kobe-u.ac.jp/academic/ra/dp/English/DP2024-33.pdf (decoy field experiment, 2024 working paper)
-- https://phys.org/news/2019-02-decoy-effect.pdf (retelling of the Ariely Economist example)
+- https://phys.org/news/2019-02-decoy-effect.html (secondary retelling of the Ariely Economist example: 100 students, 68% → 16% chose web-only; the book itself was not checked)
 - https://linear.app/pricing (checked Nov 2026)
 - https://vercel.com/pricing (checked Nov 2026)
 - https://basecamp.com/pricing (checked Nov 2026)

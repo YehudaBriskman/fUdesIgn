@@ -118,7 +118,7 @@
 - [ ] Feature rows keep media on one side, unless each row is a large, distinct story (3–4 rows max).
 
 ## Sources
-- https://www.nngroup.com/articles/zigzag-page-layout/ (could not load directly; findings from search summary: aligned layouts scan better; 4-page study)
+- https://www.nngroup.com/articles/zigzag-page-layout/ (Flaherty, 2017: in an eyetracking study, zigzag layouts made users stumble while scanning; aligned layouts scanned efficiently)
 - https://www.nngroup.com/articles/gazeplots-zigzag/
 - https://www.w3.org/WAI/WCAG22/Understanding/meaningful-sequence.html
 - https://www.w3.org/WAI/WCAG22/Understanding/focus-order.html

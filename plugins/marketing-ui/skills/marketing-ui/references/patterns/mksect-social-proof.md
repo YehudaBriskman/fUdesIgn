@@ -113,7 +113,7 @@
 
 ## Sources
 - https://www.nngroup.com/articles/social-proof-ux/ (Cardello 2014: low counts backfire; test implementations)
-- https://www.nngroup.com/articles/auto-forwarding/ (could not load the page; findings taken from search summaries of the article)
+- https://www.nngroup.com/articles/auto-forwarding/ (Nielsen, 2013: auto-forwarding carousels and accordions annoy users and reduce visibility)
 - https://credibility.stanford.edu/guidelines/index.html
 - https://spiegel.medill.northwestern.edu/How-Online-Reviews-Influence-Sales (270% with 5 reviews; e-commerce data; 4.0–4.7 star peak)
 - https://www.federalregister.gov/documents/2024/08/22/2024-18519/trade-regulation-rule-on-the-use-of-consumer-reviews-and-testimonials (16 CFR 465, effective 21 Oct 2024)

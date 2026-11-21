@@ -21,7 +21,7 @@
 - **Write questions in the customer's words** ("Can I import from Jira?"), not the company's ("Migration capabilities"). Start the answer with yes, no or the number, then explain in 1–3 sentences. Link out for more.
 - **Accordion or open list?** NN/g recommends accordions when users need only a few independent answers. They suit a FAQ, which is mostly scanned for one question. Show the answers openly instead when there are 5 or fewer short answers, or when most visitors need most of them, because collapsed content is easily overlooked.
 - **Use `<details>`/`<summary>`.** It is native, keyboard and screen reader accessible, and needs no JS. Allow several items open at once; NN/g advises against auto-collapsing. Don't use the `name` attribute (exclusive accordion) here. Make the whole question row clickable, and use a caret or plus icon, which NN/g found work best.
-- **Find-in-page:** Chromium (since 97) and recent Firefox auto-expand a closed `<details>` when Ctrl/Cmd+F matches text inside. Safari and older browsers may not, which is one more reason to keep critical facts outside the accordion.
+- **Find-in-page:** Chrome/Edge 97+ and Firefox 148+ auto-expand a closed `<details>` when Ctrl/Cmd+F matches text inside (Firefox 139–147 and Safari 26.2 expand it but don't scroll to the match correctly; older browsers don't expand it), which is one more reason to keep critical facts outside the accordion.
 - **Structured data: don't expect a rich result.** Google limited FAQ rich results to well-known government and health sites on 8 August 2023. It then announced they would stop showing in Search from 7 May 2026, and removed the documentation on 15 June 2026. `FAQPage` markup is still valid schema.org and harmless. Add it only if it costs nothing. Never add it for a SERP feature, and never mark up questions that are not visible on the page.
 - **End with a route to a human:** "Still unsure? Talk to us" with a contact link or chat, then the final CTA band.
 
@@ -37,7 +37,7 @@
 ## Good references
 - [NN/g — Accordions on desktop](https://www.nngroup.com/articles/accordions-on-desktop/) — when accordions help (few independent answers, as in FAQs), when they hurt (users need most of the content), clickable headings, caret or plus icons, and expand-all for printing.
 - [NN/g — FAQs deliver value](https://www.nngroup.com/articles/faqs-deliver-value/) — a FAQ shows the organisation is listening, if the questions are real and the answers direct.
-- [Basecamp pricing](https://basecamp.com/pricing) — the 30-day trial, no card needed, and self-serve cancellation with no contract are stated in the pricing copy itself. The "I have pricing questions" FAQ then handles the second-order questions (upgrades, discounts, users, storage).
+- [Basecamp pricing](https://basecamp.com/pricing) — the 30-day trial, "pick a package when your trial ends", and self-serve cancellation with no contract are stated in the pricing copy itself. The "I have pricing questions" FAQ then handles the second-order questions (upgrades, discounts, users, storage).
 - [Plausible](https://plausible.io) — the trial terms, data location ("made and hosted in the EU") and the DPA, security and compliance pages are linked from the page and footer, so a security reviewer finds them without opening an accordion.
 
 ## Bad references
@@ -133,9 +133,9 @@ window.addEventListener('afterprint', () => {
 - https://www.nngroup.com/articles/accordions-on-desktop/
 - https://www.nngroup.com/articles/faqs-deliver-value/
 - https://developers.google.com/search/blog/2023/08/howto-faq-changes (8 August 2023 limit)
-- https://developers.google.com/search/docs/appearance/structured-data/faqpage (changelog: deprecation notice 8 May 2026, not shown from 7 May 2026, docs removed 15 June 2026)
+- https://developers.google.com/search/updates (Search Central changelog: 8 May 2026 "Deprecating the FAQ rich result feature", no longer shown from 7 May 2026; 15 June 2026 "Removing documentation for the FAQ rich result feature")
 - https://plainlanguage.gov/guidelines/web/avoid-faqs/
-- https://www.ftc.gov/reports/bringing-dark-patterns-light (via law-firm summaries)
+- https://www.ftc.gov/reports/bringing-dark-patterns-light (FTC staff report, September 2022)
 - https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details
-- https://developer.chrome.com/docs/css-ui/hidden-until-found and https://bugzilla.mozilla.org/show_bug.cgi?id=1724299 (find-in-page auto-expands `<details>`; Chrome 97, Firefox later; from search summary)
+- https://github.com/mdn/browser-compat-data/blob/main/html/elements/details.json (`search_match_opens`: Chrome 97, Firefox 148, partial in Firefox 139–147 and Safari 26.2) and https://bugzilla.mozilla.org/show_bug.cgi?id=1724299 (fixed in Firefox 139)
 - https://basecamp.com/pricing · https://plausible.io

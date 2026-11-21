@@ -118,6 +118,6 @@
 - https://erikrunyon.com/2013/01/carousel-interaction-stats/
 - https://www.nngroup.com/articles/illusion-of-completeness/
 - https://web.dev/articles/lcp (2.5 s at p75)
-- https://web.dev/learn/images/performance-issues (never lazy-load the LCP image; ~10% of pages do, from search summary)
+- https://almanac.httparchive.org/en/2024/performance (lazy-loading should not be used on LCP elements; 16% of mobile pages with an image LCP lazy-load it, 9.5% with `loading="lazy"`)
 - https://www.w3.org/WAI/WCAG22/Understanding/pause-stop-hide.html
 - https://plausible.io · https://www.raycast.com · https://stripe.com · https://linear.app · https://basecamp.com (hero copy checked November 2026)
