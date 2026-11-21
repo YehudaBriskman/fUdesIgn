@@ -38,6 +38,9 @@ jobs:
           shopt -s nullglob
           tests=(plugins/*/skills/*/scripts/*.test.mjs)
           if [ ${#tests[@]} -gt 0 ]; then NODE_PATH="$PWD/tools/node_modules" node --test "${tests[@]}"; fi
+      - name: Pattern indexes are current (gen-index.py --check)
+        working-directory: .
+        run: python3 tools/gen-index.py --check
       - name: Plugin manifests are valid JSON
         working-directory: .
         run: for f in .claude-plugin/marketplace.json plugins/*/.claude-plugin/plugin.json; do node -e "JSON.parse(require('fs').readFileSync('$f','utf8'))" || exit 1; done
