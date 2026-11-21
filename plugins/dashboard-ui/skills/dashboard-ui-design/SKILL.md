@@ -5,7 +5,7 @@ description: Design, build or review data-heavy dashboard UIs (analytics, financ
 
 # Dashboard UI design
 
-A research-backed playbook for dashboards: 71 pattern files, each with rules, anti-patterns, good and bad references, accessibility, tokens, an implementation sketch and a checklist. This file gives the workflow, the non-negotiable rules and the quick decision tables. Open the pattern files for depth.
+A research-backed playbook for dashboards: 84 pattern files, each with rules, anti-patterns, good and bad references, accessibility, tokens, an implementation sketch and a checklist. This file gives the workflow, the non-negotiable rules and the quick decision tables. Open the pattern files for depth.
 
 - **Pattern index:** `references/INDEX.md` lists every pattern with its one-line rule.
 - **Pattern files:** `references/patterns/<prefix>-<name>.md`. The prefixes are `found` (foundations), `color` and `style` (visual style), `data` (data display), `chart`, `comp` (components), `motion`, `prog` (progressive loading), and `ref` (product teardowns, anti-patterns, review rubric).
@@ -15,7 +15,8 @@ A research-backed playbook for dashboards: 71 pattern files, each with rules, an
 
 Follow these steps in order. Each one names the files to open.
 
-1. **Classify the view.**
+1. **Classify the view and the domain.**
+   - Pick the product profile (finance, analytics, ops, consumer…) for density, theme, motion budget and palette (`found-domain-profiles.md`), and skim the matching teardown: `ref-fintech-money-dashboards.md`, `ref-investing-valuation-tools.md`, `ref-devops-dashboards.md` or `ref-product-analytics-dashboards.md`.
    - Decide whether it is operational (live, glanceable), analytical (explore, compare) or strategic (periodic, summary). This sets the refresh rate, density, interactivity and time scale. Never mix them on one screen. See `found-dashboard-types.md`.
    - Write down the user's first question. The answer to it becomes the single focal point (`found-visual-hierarchy.md`).
 2. **Structure.**
@@ -23,30 +24,34 @@ Follow these steps in order. Each one names the files to open.
    - Use the inverted KPI pyramid: the answer top-leading, trends in the middle, detail at the bottom (`found-scanning-kpi-pyramid.md`).
    - Use a 12-column grid and a 4px spacing scale (`found-layout-grid-spacing.md`). Reflow by priority, with container queries per widget (`found-responsive-reflow.md`).
    - Disclose progressively, at most 2 levels deep (`found-progressive-disclosure.md`).
+   - Design against worst-case data from the start: long names, huge or negative numbers, empties, 1,000 rows (`found-worst-case-data.md`).
 3. **Pick containers and data display.**
    - Choose the container: table for many comparable records, list for find-and-open, cards for a few heterogeneous summaries (`data-cards-vs-tables-vs-lists.md`).
-   - For KPI cards, numbers, deltas, tables, timestamps and units, see the `data-*` files.
+   - For KPI cards, numbers, deltas, tables, timestamps and units, see the `data-*` files. Verdicts, ratings and scores: `data-verdict-rating-badges.md`.
+   - Model inputs and "why this number": `comp-assumption-editor-panel.md` and `found-methodology-explainability.md`. Labels, errors and empty-state words: `found-microcopy-for-data.md`.
 4. **Pick charts by the question, never by looks** (`chart-choose-by-question.md`). Then apply the matching `chart-*` file, plus `chart-honesty-chartjunk.md` and `chart-accessibility.md` every time.
+   - Finance: `chart-financial-price-value.md` (price vs value, waterfall, football field), `chart-scenario-comparison.md` (bear/base/bull, weights), `chart-tornado-sensitivity.md` (tornado, sensitivity grid, distributions).
+   - Canvas or WebGL charts: `chart-canvas-accessibility.md`.
 5. **Colour and style.**
    - Build in neutrals first, then add colour only where it means something (`color-minimal-usage.md`).
    - Use three token layers: ramps → roles → components (`color-system-architecture.md`).
    - Keep status colours and money colours separate (`color-semantic-status.md`).
-   - Contrast: `color-contrast-rules.md`. Dark mode: `color-dark-mode.md`.
+   - Contrast: `color-contrast-rules.md`. Dark mode: `color-dark-mode.md`. One theme per page, never mixed light and dark regions (`style-theme-consistency.md`).
    - For a soft, rounded look, see `style-radius-scale.md`, `style-shadows-and-borders.md` and `style-surfaces-and-layering.md`.
 6. **Components and interaction.**
    - Buttons, tabs, overlays, filters, date ranges, ⌘K, inline edit, sliders, app shell, alerts and keyboard: see the `comp-*` files.
-   - For which overlay to use, start at `comp-overlay-choice.md`.
+   - For which overlay to use, start at `comp-overlay-choice.md`. First-run notices and disclaimers must not cover content (`comp-onboarding-and-notices.md`).
 7. **Motion and progressive UI.**
    - Motion tokens: `motion-principles-and-tokens.md`. Reduced motion: `motion-reduced-motion.md`.
    - Loading: `prog-loading-states.md` and `prog-stale-while-revalidate.md`.
    - Interactive exploration: `motion-linked-exploration.md` and `motion-what-if-live-recompute.md`.
    - Performance budgets: `prog-perceived-performance-thresholds.md`.
+   - Drag, sheets and flicks: `motion-drag-and-spring-physics.md`; for general product motion use the `motion-ui` plugin.
 8. **Review before calling it done.**
-   - Run `ref-dashboard-anti-patterns.md` (10 failures).
-   - Score `ref-design-review-rubric.md` (35 checks, 0–2 each). Ship at 80% or more with no must-check at 0.
-   - Report the score and the failed checks with evidence.
-
-For domain inspiration, read the matching teardown: `ref-fintech-money-dashboards.md`, `ref-investing-valuation-tools.md`, `ref-devops-dashboards.md` or `ref-product-analytics-dashboards.md`.
+   - If the `design-review` plugin is installed, run its static lint and rendered gate first; both must pass at zero.
+   - Run `ref-dashboard-anti-patterns.md` (10 failures, each mapped to rubric IDs) and check for the generated-dashboard tells in `ref-ai-default-tells.md`.
+   - Score `ref-design-review-rubric.md`: 39 checks in 8 sections, 0–2 each, scored per page type. Ship at 80% or more with no must-check at 0 on any page type.
+   - Report the score per page type and each failed check with its ID, evidence and fix.
 
 ## Non-negotiables
 
@@ -103,7 +108,7 @@ Break one of these only with a written reason.
 **Trust**
 
 28. State data freshness ("Updated 4 min ago", with the exact time and timezone on hover) and the source and definition next to the numbers they qualify.
-29. No decoration on money actions (confetti on trades led to a regulatory consent order). Keep judgement glyphs and verdicts traceable to the raw numbers in one step.
+29. No celebratory decoration on money actions: a 2024 Massachusetts consent order requires Robinhood to permanently cease confetti and other celebratory imagery tied to trading frequency. Keep judgement glyphs and verdicts traceable to the raw numbers in one step.
 
 ## Decision tables
 
@@ -120,10 +125,10 @@ Break one of these only with a written reason.
 | Need | Use |
 |---|---|
 | Blocking decision now | Modal `<dialog>` |
-| Contextual detail or small form, page still usable | Popover (popover API plus anchor positioning) |
+| Contextual detail or small form, page still usable | Popover (popover API, Baseline; anchor positioning with an `@supports` fallback to fixed placement) |
 | Large secondary task beside the context | Drawer or sheet |
 | Low-stakes, recoverable confirmation | Toast, persistent if it holds an action |
-| Name or hint of an icon or term | Tooltip, never essential content |
+| Name or hint of an icon or term | Tooltip, never essential content (`popover="hint"` and `interestfor` are not Baseline: feature-detect) |
 
 **Loading** (`prog-loading-states.md`)
 
@@ -158,11 +163,11 @@ Full set in `assets/tokens.css`.
 |---|---|
 | Spacing (4px base) | 4, 8, 12, 16, 24, 32, 48, 64 |
 | Radius | xs 4 · sm 6 · md 8 · lg 12 (cards) · xl 16 (dialogs) · full. Nested radius: inner = max(2px, outer − padding − border) |
-| Type | hero 2rem/600 · kpi 1.5rem/600 · title 1.25rem · heading 1rem/600 · body 0.875rem · meta 0.75rem · prose 65ch or less · `tabular-nums` |
-| Motion | 100 micro · 150 short · 240 medium · 400 long · 600–900 staged data. Standard ease `cubic-bezier(0.2,0,0.38,0.9)`, emphasized `cubic-bezier(0.2,0,0,1)`. Stagger 20–40 ms, 300 ms max total |
+| Type | hero 2rem/600 · kpi 1.875rem/600 · tracking −0.02em on hero and KPI · title 1.25rem · heading 1rem/600 · body 0.875rem · meta 0.75rem · prose 65ch or less · `tabular-nums` |
+| Motion | 0 instant · 100 micro · 150 short · 240 medium · 400 long · 600–900 staged data. Standard ease `cubic-bezier(0.2,0,0.38,0.9)`, emphasized `cubic-bezier(0.2,0,0,1)`. Stagger 20–40 ms, 300 ms max total |
 | Elevation | 4 levels: flat, raised, popover, dialog. Layered, hue-tinted shadows; borders for in-flow surfaces |
-| Surfaces | canvas, surface, surface-2, surface-3 (plus sunken). Dark mode uses dark grey (not black), lighter means higher, desaturated accents |
-| KPI card | padding 16–24 · radius 8–12 · value 30–36px/600 · sparkline 120×28 · 4 per row at 1280px or wider, 2 at 768px or wider, 1 below |
+| Surfaces | canvas, surface, surface-2, surface-3, sunken; plus on-accent, scrim, hover, zebra, chart grid/axis/ink roles. Density: `[data-density="compact"]`. Dark mode uses dark grey (not black), lighter means higher, desaturated accents |
+| KPI card | padding 16–24 · radius 12 · value 1.875rem/600 · sparkline 120×28 · 4–6 per row at 1280px or wider, 2 at 768px or wider, 1 below |
 | Grid | 4 columns under 600px · 8 at 600–1055px · 12 at 1056px or wider · gutter 16 (24 at 1312px or wider) |
 
 ## How to apply this skill

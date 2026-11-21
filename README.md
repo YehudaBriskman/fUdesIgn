@@ -13,14 +13,14 @@ plugins/
     .claude-plugin/plugin.json
     skills/dashboard-ui-design/
       SKILL.md                           workflow, 29 non-negotiables, decision tables, token defaults
-      references/INDEX.md                all 71 patterns, each with its one-line rule
+      references/INDEX.md                all 84 patterns, each with its one-line rule
       references/patterns/*.md           one file per pattern (see below)
       assets/tokens.css                  starter light and dark tokens, every value traced to a pattern
 templates/PATTERN_TEMPLATE.md            the format every pattern file follows
 docs/research-brief.md                   how the research was run
 ```
 
-### dashboard-ui: 71 patterns in 9 clusters
+### dashboard-ui: 84 patterns in 9 clusters
 
 | Prefix | Cluster | Files |
 |---|---|---|
@@ -32,7 +32,7 @@ docs/research-brief.md                   how the research was run
 | `comp-` | Components: buttons, tabs/segmented/pills, overlays (dialog, popover, drawer, toast, tooltip), filters, date ranges, ⌘K, inline edit, sliders, app shell, alerts, keyboard and focus | 11 |
 | `motion-` | Motion and interaction: principles and tokens, number tweening, chart transitions, View Transitions, micro-interactions, reduced motion, linked exploration, live what-if recompute | 8 |
 | `prog-` | Progressive UI: loading states, stale-while-revalidate, optimistic UI and undo, perceived-performance thresholds | 4 |
-| `ref-` | References: fintech, dev/ops, product-analytics and investing teardowns, an anti-pattern catalog, research findings, a 35-check review rubric | 7 |
+| `ref-` | References: fintech, dev/ops, product-analytics and investing teardowns, an anti-pattern catalog, research findings, a 39-check review rubric | 7 |
 
 Each pattern file has these sections: the rule, when to use and when not, rules with numbers, anti-patterns, good references, bad references, accessibility, motion, a tokens table, an implementation sketch, a checklist and sources.
 

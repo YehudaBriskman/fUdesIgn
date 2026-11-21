@@ -51,15 +51,20 @@
   --measure: 65ch;
 
   /* ── Motion (motion-principles-and-tokens.md) ─────────────────────────────── */
+  --motion-dur-instant: 0ms;   /* keyboard-driven changes, reduced motion */
   --motion-dur-micro: 100ms;   /* hover, press, toggle */
   --motion-dur-short: 150ms;   /* tooltip, dropdown, row expand */
   --motion-dur-medium: 240ms;  /* dialog, drawer, toast */
   --motion-dur-long: 400ms;    /* large panel, chart re-layout stage */
+  --motion-dur-data: 750ms;    /* staged chart transitions only, 600–900ms total */
   --motion-stagger: 30ms;      /* per item, 300ms max total */
   --motion-ease-standard: cubic-bezier(0.2, 0, 0.38, 0.9);
   --motion-ease-enter: cubic-bezier(0, 0, 0.38, 0.9);
   --motion-ease-exit: cubic-bezier(0.2, 0, 1, 0.9);
   --motion-ease-emphasized: cubic-bezier(0.2, 0, 0, 1);
+  /* critically damped spring x(t) = 1 − (1 + ωt)·e^(−ωt), ωT = 6.6 (bounce 0), sampled for CSS linear();
+     use with ~300ms duration for drag release and sheet snap (motion-drag-and-spring-physics.md) */
+  --motion-ease-spring: linear(0, 0.044 5%, 0.142 10%, 0.261 15%, 0.380 20%, 0.589 30%, 0.740 40%, 0.841 50%, 0.905 60%, 0.968 80%, 1);
   --interest-delay: 500ms;     /* hover intent before a tooltip opens */
 
   /* ── Density (found-density-modes.md): comfortable default, compact via [data-density] ── */
