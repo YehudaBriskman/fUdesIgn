@@ -55,6 +55,14 @@
       "version": "0.1.0",
       "category": "design",
       "license": "PolyForm-Internal-Use-1.0.0"
+    },
+    {
+      "name": "ai-ui",
+      "source": "./plugins/ai-ui",
+      "description": "UI for AI features: 20 researched patterns (AI identity and expectations, uncertainty without crying wolf, latency budgets, privacy and consent, accessible generated content, chat layout, streaming and stop, thinking and agent steps, markdown and code, citations, edit/regenerate/branching, IME-safe prompt input, suggestions, errors/refusals/rate limits, feedback, ghost text and diffs, agent approval and audit, WebMCP) plus an anti-pattern catalogue, a review rubric and AI-UI tokens.",
+      "version": "0.1.0",
+      "category": "design",
+      "license": "PolyForm-Internal-Use-1.0.0"
     }
   ]
 }
