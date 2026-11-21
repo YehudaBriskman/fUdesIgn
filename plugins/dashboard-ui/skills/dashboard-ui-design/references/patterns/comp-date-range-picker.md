@@ -81,7 +81,7 @@
 ## Accessibility
 - Make the trigger a button with `aria-haspopup="dialog"` and `aria-expanded`. Its accessible name includes the resolved dates.
 - Give the popover a name and use `role="dialog"` semantics: `<dialog popover>` or `<div popover role="dialog">`. Present presets as a list of buttons or a radio group.
-- Support: `popover` is Baseline. Anchoring the popover to its trigger needs CSS anchor positioning (Baseline newly available since January 2026), so gate it in `@supports` as in `comp-overlay-choice.md`. `Temporal` is not Baseline (Chrome/Edge 144, Firefox 139, no Safari); load a polyfill or use a date library there.
+- Support: `popover` is Baseline widely available since October 2026. Anchoring the popover to its trigger needs CSS anchor positioning (Baseline newly available since January 2026), so gate it in `@supports` as in `comp-overlay-choice.md`. `Temporal` is not Baseline (Chrome/Edge 144, Firefox 139, no Safari); load a polyfill or use a date library there.
 - The calendar is a `role="grid"` with one tab stop and arrow navigation. Each day has a full accessible name ("Tuesday, November 18, 2026"), plus `aria-selected` for the range ends and `aria-disabled` for impossible dates.
 - Typed inputs have visible labels, `inputmode="numeric"` or a type, and error text linked via `aria-describedby`.
 - When applied, announce politely: "Showing Aug 23 – Nov 20, 2026, compared with May 25 – Aug 22."
@@ -94,7 +94,7 @@
 | Token | Default |
 |---|---|
 | Popover width | ~640px (presets 180px + 2 months × ~224px); single month below 640px viewport |
-| Day cell | 32×32px desktop, 40×40 touch (≥24×24 minimum) |
+| Day cell | 32×32px desktop, 44×44 touch (≥24×24 minimum) |
 | Range band | `color-mix(in oklab, var(--accent) 15%, var(--surface))`; ends `--accent` with `--surface` text |
 | Today marker | 1px ring or dot, not colour-fill only |
 | Presets | 6–10 visible; recent customs ≤3 |

@@ -60,7 +60,7 @@ Break one of these only with a written reason.
 11. Never start from `scale(0)`. Enter from opacity 0 plus scale 0.95–0.97 or 8–24 px of travel, with `transform-origin` at the trigger.
 12. Use `@starting-style` for entry, and `display`/`overlay` with `allow-discrete` for exit. The visible final state is the default, so unsupported browsers still work.
 13. Route transitions are progressive enhancement. Prepare data first, then transition. Use the default cross-fade or a 16–24 px directional shift by transition type, name 1–3 shared elements, and move focus afterwards.
-14. Toasts never hold the only copy of information. If one has an action or shows an error, it doesn't auto-dismiss. Timers pause on hover, focus and hidden tabs.
+14. Toasts never hold the only copy of information. Errors never auto-dismiss; an Undo toast stays at least 8 s and its action also exists outside the toast. Timers pause on hover, focus and hidden tabs (dashboard-ui `comp-notifications-alerts.md`).
 
 **Performance and safety**
 

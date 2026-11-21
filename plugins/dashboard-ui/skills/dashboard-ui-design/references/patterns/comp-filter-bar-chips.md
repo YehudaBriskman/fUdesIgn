@@ -57,7 +57,7 @@
 - Typical BI tools with filters hidden in a collapsed right-hand "Filters pane". A report looks complete while 2 filters are silently applied, and screenshots get shared without the filter context.
 
 ## Accessibility
-- Wrap the bar in `<search>` (Baseline widely available: Chrome 118, Firefox 118, Safari 17) with an accessible name such as "Dashboard filters". Use `role="search"` on a `<div>` only if you must support older browsers.
+- Wrap the bar in `<search>` (Baseline widely available since April 2026; newly available October 2023: Chrome 118, Firefox 118, Safari 17) with an accessible name such as "Dashboard filters". Use `role="search"` on a `<div>` only if you must support older browsers.
 - The chip row is a list (`<ul aria-label="Applied filters">`). Each chip has a text label and an × button with an explicit name.
 - When a chip is removed, move focus to the next chip's ×, or to "+ Filter" if none remain. Never drop focus to `<body>`.
 - Announce result changes politely, with debouncing: "128 companies match". Don't announce every keystroke.

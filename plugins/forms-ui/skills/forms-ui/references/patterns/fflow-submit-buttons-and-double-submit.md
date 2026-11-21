@@ -17,7 +17,7 @@
   - Keep its width (set a `min-inline-size` from its idle width) so the layout doesn't jump.
   - Label changes to the progressive verb ("Saving…", "Paying £24.00…") with a spinner before it; or keep the label and add the spinner.
   - `aria-disabled="true"` (stays focusable, announced as dimmed), plus a guard in the submit handler. Use the real `disabled` attribute only if you also move focus and announce.
-  - Show the busy state immediately (< 100 ms); if the request finishes in < ~300 ms, the flash is fine on a button (unlike page-level loaders).
+  - Set the busy state immediately (< 100 ms: `aria-disabled`, repeat clicks ignored, progressive label); it is the double-submit guard. The spinner glyph itself follows dashboard-ui's loader timing: it appears after 200 ms and, once shown, stays at least 400 ms (`prog-loading-states.md`).
 - **Ignore repeat submits** with a flag on the form, not just CSS. GOV.UK's `data-prevent-double-click` ignores a second click within 1 s; an in-flight flag covers slow requests too.
 - **Idempotency on the server**: generate a key per form render (hidden input or header `Idempotency-Key`), and make the server return the original result for a repeated key (Stripe's API model). This covers double-clicks, retries, back-button resubmits and flaky networks.
 - **Post/Redirect/Get** for full-page forms: after a successful POST, redirect to a confirmation URL so refresh doesn't resubmit.
@@ -55,7 +55,7 @@
 - Targets ≥ 24 px (44 px on touch); primary button height = field height (44–48 px).
 
 ## Motion / interaction (if relevant)
-- Spinner rotates at ~1 turn per 800–1000 ms; under reduced motion, replace it with a static "…" or a pulsing opacity.
+- Spinner rotates at about 1 turn per second (dashboard-ui's 1–1.5 s loop); under reduced motion, slow it to 1 turn per 6 s or replace it with a pulsing opacity or the "…" label, never a frozen glyph (dashboard-ui `motion-reduced-motion.md`).
 - No success confetti on money actions (dashboard-ui non-negotiable 29).
 
 ## Tokens and values
@@ -81,7 +81,8 @@
 .btn-primary .spinner { display: none; inline-size: 1em; block-size: 1em; border: 2px solid currentColor; border-inline-end-color: transparent; border-radius: 50%; }
 .btn-primary[aria-disabled="true"] { opacity: 0.8; cursor: progress; }
 .btn-primary[aria-disabled="true"] .spinner { display: inline-block; }
-@media (prefers-reduced-motion: no-preference) { .btn-primary[aria-disabled="true"] .spinner { animation: spin 0.9s linear infinite; } }
+@media (prefers-reduced-motion: no-preference) { .btn-primary[aria-disabled="true"] .spinner { animation: spin 1s linear infinite; } }
+@media (prefers-reduced-motion: reduce) { .btn-primary[aria-disabled="true"] .spinner { animation: spin 6s linear infinite; } }
 @keyframes spin { to { rotate: 1turn; } }
 ```
 ```ts

@@ -88,12 +88,12 @@
 ## Motion / interaction (if relevant)
 - Skeleton pulse: opacity 1 → 0.5 → 1 over 1.6s ease-in-out, infinite, off under `prefers-reduced-motion`.
 - Content swap-in: 150ms opacity fade, with no slide (positions are already reserved).
-- Indicator delay: 300ms (avoids flash). Minimum display once shown: 500ms (avoids flicker).
+- Indicator delay: 200ms (avoids flash). Minimum display once shown: 400ms (avoids flicker). Same values as `prog-loading-states.md`.
 
 ## Tokens and values
 | Token | Default |
 |---|---|
-| Indicator delay | 300ms |
+| Indicator delay / minimum visible | 200ms / 400ms |
 | Min indicator display | 500ms |
 | Skeleton fill | `--surface-3` (about 1.3:1 to surface) |
 | Skeleton radius | `--radius-xs` (4px) text bars, card radius for blocks |
@@ -145,7 +145,7 @@ type LoadState<T> =
 
 ## Checklist
 - [ ] All five states are designed for every data component (loading, empty, zero-results, error, partial).
-- [ ] The indicator is delayed by 300ms, and skeletons match the final layout (zero CLS).
+- [ ] The indicator is delayed by 200ms and stays at least 400ms, and skeletons match the final layout (zero CLS).
 - [ ] A refetch keeps data visible. No skeleton flash on filter change.
 - [ ] An empty table is replaced by a message with one action. Zero-results offers "Clear filters".
 - [ ] Errors are scoped to the failing region, in plain language, with Retry.

@@ -9,11 +9,11 @@
 
 | Feature | Status | Fallback |
 |---|---|---|
-| `document.startViewTransition()` (same-document) | Baseline 2025, newly available since October 2025 (Chrome/Edge 111, Firefox 144, Safari 18) | feature-detect and apply the DOM change with no animation |
-| `view-transition-class` | Baseline 2025, newly available (Chrome 125, Firefox 144, Safari 18.2) | per-name selectors |
+| `document.startViewTransition()` (same-document) | Baseline newly available since October 2025 (Chrome 111, Firefox 144, Safari 18) | feature-detect and apply the DOM change with no animation |
+| `view-transition-class` | Baseline newly available since October 2025 (Chrome 125, Firefox 144, Safari 18.2) | per-name selectors |
 | `view-transition-name: match-element` | Chrome 137, Firefox 144, Safari 18.4 | generate unique names (`row-<id>`) in JS |
-| `types` and `:active-view-transition-type()` | Baseline 2026, newly available since January 2026 (Chrome 125, Firefox 147, Safari 18.2) | a class on `<html>` set before the transition |
-| Cross-document `@view-transition { navigation: auto; }` | not Baseline: Chrome 126, Safari 18.2; Firefox only in preview | plain navigation; the rule is ignored |
+| `types` and `:active-view-transition-type()` | Baseline newly available since January 2026 (Chrome 125, Firefox 147, Safari 18.2) | a class on `<html>` set before the transition |
+| Cross-document `@view-transition { navigation: auto; }` | not Baseline (Chrome 126, Safari 18.2; not in Firefox stable) | plain navigation; the rule is ignored |
 | Element-scoped `element.startViewTransition()` | not Baseline, experimental: Chrome/Edge 147 only | `document.startViewTransition()`, or an instant swap |
 
 Related: tab vs segmented control choice in `comp-tabs-segmented-pills.md`; drill-down IA in `found-overview-filter-details.md`.
@@ -120,7 +120,7 @@ export async function switchTab(panel: HTMLElement, load: () => Promise<Document
   panel.querySelector<HTMLElement>('h2')?.focus();      // 3. focus routing
 }
 ```
-`element.startViewTransition` ships only in Chrome/Edge 147+ (not Baseline). Feature-detect it, and fall back to `document.startViewTransition` (Baseline 2025) or an instant swap. `match-element` and `view-transition-class` are ignored by older browsers, so rows simply don't animate.
+`element.startViewTransition` ships only in Chrome/Edge 147+ (not Baseline). Feature-detect it, and fall back to `document.startViewTransition` (Baseline newly available since October 2025) or an instant swap. `match-element` and `view-transition-class` are ignored by older browsers, so rows simply don't animate.
 
 ## Checklist
 - [ ] No network or `await` on remote data inside the update callback.

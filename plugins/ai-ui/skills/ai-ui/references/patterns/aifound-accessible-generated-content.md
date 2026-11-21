@@ -22,7 +22,7 @@
 - **Decorative glyphs in CSS get empty alt text**: `content: "✦" / "";`. Meaningful text (state, labels such as "AI-generated") lives in the DOM, never only in `content` (WCAG F87). Don't give an image icon `/ ""`; images are already presentational. Precede the `/` syntax with a single-value fallback for older browsers (all from the modern-web-guidance guide).
 - **Emoji and symbols**: strip or limit decorative emoji in answers (each one is read aloud by name); never use emoji as the only status cue.
 - **Contrast and size** follow the base tokens: generated text uses `--text` (not a lighter "AI" grey) and the same type scale as authored content; muted grey is for meta only.
-- **Math and formulas**: render as MathML (Baseline in all engines since 2023) or provide a text equivalent, not images of equations.
+- **Math and formulas**: render as MathML (Baseline newly available since January 2023) or provide a text equivalent, not images of equations.
 
 ## Anti-patterns (don't)
 - Rendering the streamed text inside an `aria-live` region with no batching, so a screen reader reads fragments for a minute.

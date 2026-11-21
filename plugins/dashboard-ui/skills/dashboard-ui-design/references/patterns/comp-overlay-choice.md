@@ -53,14 +53,14 @@ NN/g's limits for modals: use them for critical warnings, missing critical info,
 
   | Feature | Status | Fallback |
   |---|---|---|
-  | `<dialog>` + `showModal()` | Baseline widely available | none needed |
-  | `popover` (`auto`, `manual`) | Baseline; core API widely available since October 2026 (Chrome 114, Firefox 125, Safari 17) | none needed |
+  | `<dialog>` + `showModal()` | Baseline widely available (newly available March 2022) | none needed |
+  | `popover` (`auto`, `manual`) | Baseline widely available since October 2026 (newly available April 2024: Chrome 114, Firefox 125, Safari 17) | none needed |
   | `command` / `commandfor` | Baseline newly available since December 2025 (Chrome 135, Firefox 144, Safari 26.2) | a click handler that calls `showModal()` / `togglePopover()`, or `popovertarget` for popovers |
   | `closedby` | Not Baseline: Chrome/Edge 134, Firefox 141, Safari 27.3 | without it a modal behaves as `closerequest`. For `any`, close on a click whose target is the `<dialog>` itself (the backdrop). For `none`, cancel the `cancel` event |
   | `popover="hint"` | Not Baseline: Chrome/Edge 151, Firefox 153, Safari 27.3 | an unknown `popover` value falls back to `manual` (HTML spec), so the hint still shows but you must hide it yourself on `pointerleave`, `focusout` and Esc |
   | `interestfor` | Chromium only (Chrome/Edge 142), experimental | open on `pointerenter`/`focusin` after the delay, close on `pointerleave`/`focusout`/Esc |
   | Anchor positioning (`anchor-name`, `position-area`, `position-try-fallbacks`) | Baseline newly available since January 2026 (Chrome 125–129, Firefox 147, Safari 26); `position-anchor` only since September 2026 (Safari 27) | gate it in `@supports`; otherwise keep the UA-centred popover or load `@oddbird/css-anchor-positioning` |
-  | `@starting-style`, `transition-behavior: allow-discrete` | Baseline newly available since August 2024; Firefox does not transition `display` ([bug 1882408](https://bugzil.la/1882408)), so exits snap there | the overlay appears without animation |
+  | `@starting-style`, `transition-behavior: allow-discrete` | Baseline newly available since August 2024 (Chrome 117, Firefox 129, Safari 17.5); Firefox does not transition `display` ([bug 1882408](https://bugzil.la/1882408)), so exits snap there | the overlay appears without animation |
   | `overlay` in a transition list | Chromium only | ignored elsewhere; the exit animation may be cut short, which is harmless |
 
 ## Anti-patterns (don't)
@@ -99,7 +99,7 @@ NN/g's limits for modals: use them for critical warnings, missing critical info,
   - dialog and drawer in: `--motion-dur-medium` (240 ms) with `--motion-ease-enter`; out: `--motion-dur-short` (150 ms) with `--motion-ease-exit`;
   - popover and menu: `--motion-dur-short` (150 ms) in, `--motion-dur-micro` (100 ms) out;
   - backdrop fade: 150 ms, at `rgb(0 0 0 / .4)` (light) or `/.6` (dark).
-- Reduced motion: opacity only, `--motion-dur-micro` (100 ms) or less. Scope animations inside `@media (prefers-reduced-motion: no-preference)` as the sketch does; never use a global `0.01ms` reset.
+- Reduced motion: opacity only, `--motion-dur-short` (150 ms) or less. Scope animations inside `@media (prefers-reduced-motion: no-preference)` as the sketch does; never use a global `0.01ms` reset.
 
 ## Tokens and values
 | Token | Default |

@@ -130,7 +130,10 @@ textarea { padding-block: var(--space-2); resize: vertical; }
 .spinner { display: none; inline-size: 1em; block-size: 1em; border: 2px solid currentColor; border-inline-end-color: transparent; border-radius: 50%; }
 [aria-disabled="true"] > .spinner { display: inline-block; }
 @media (prefers-reduced-motion: no-preference) {
-  [aria-disabled="true"] > .spinner { animation: form-spin 0.9s linear infinite; }
+  [aria-disabled="true"] > .spinner { animation: form-spin 1s linear infinite; }
+}
+@media (prefers-reduced-motion: reduce) {
+  [aria-disabled="true"] > .spinner { animation: form-spin 6s linear infinite; }  /* slowed, never frozen */
 }
 @keyframes form-spin { to { rotate: 1turn; } }
 

@@ -14,7 +14,7 @@
 | Service-wide issue unrelated to the current task (outage, maintenance, billing) | **Site banner** above the shell, max 1 | until resolved or dismissed for the session |
 | Urgent, blocking decision (session expiring, unsaved changes) | **Modal dialog** (see `comp-overlay-choice.md`) | until answered |
 | Background job finished while the user is elsewhere (export ready, model recomputed) | **Notification centre** entry + badge; optionally a persistent toast with a link that also lives in the centre | until read |
-| Low-importance confirmation with undo ("Scenario archived · Undo") | **Toast**, but Undo must also be reachable elsewhere (e.g. an Archived view) | ≥6s, pause on hover/focus; prefer persistent |
+| Low-importance confirmation with undo ("Scenario archived · Undo") | **Toast**, but Undo must also be reachable elsewhere (e.g. an Archived view) | 8 s (10 s bulk), paused on hover, focus and hidden tab; prefer persistent |
 
 - NN/g: choose by information type, urgency and whether action is needed; never use transient toasts for errors.
 - Primer goes further: "Toasts pose significant accessibility concerns and are not recommended." Use banners for errors and dialogs for interruptions.
@@ -84,7 +84,7 @@
 
 ## Motion / interaction (if relevant)
 - Inline alerts appear without motion, or with a fade of `--motion-dur-short` (150 ms) or less. Never slide content down abruptly under the pointer. Reserve space if an alert is likely to appear (e.g. a stale-data slot in the card header).
-- Toasts enter with translate + opacity from the edge over `--motion-dur-medium` (240 ms, `--motion-ease-enter`) and exit over `--motion-dur-short` (150 ms, `--motion-ease-exit`). Under reduced motion, use opacity only; never a global `0.01ms` reset.
+- Toasts enter with translate + opacity from the edge over `--motion-dur-medium` (240 ms, `--motion-ease-enter`) and exit at 0.75× the enter (about 180 ms, `--motion-ease-exit`; motion-ui's `mfound-durations-and-easing.md`). Under reduced motion, use opacity only; never a global `0.01ms` reset.
 - Auto-dismiss, if used: at least 6 s (Carbon's optional timeout is 5 s; the extra second is a house margin for reading), paused on hover and focus. Pausing doesn't help screen reader users in browse mode (Scott O'Hara), which is why persistent is the default.
 
 ## Tokens and values
@@ -95,7 +95,7 @@
 | Title / body | 14px 600 / 14px 400, max 2 lines each (toast/inline) |
 | Banner height | ≥40px; full width above shell |
 | Toast width / offset | 360–420px / 16–24px from edges; gap 8px; max 3 visible |
-| Toast auto-dismiss | off by default; if on ≥6s, pause on hover/focus |
+| Toast auto-dismiss | off by default; if on: ≥ 6 s plain, 8 s (10 s bulk) with Undo, never for errors; paused on hover, focus and hidden tab |
 | Colour roles (tokens.css) | `--info-bg`/`--info-fg`, `--success-*`, `--warning-*`, `--danger-*`; border = the `-fg` token; text ≥4.5:1 on its bg; border ≥3:1 |
 | Live regions | `polite` default; `assertive` only for critical |
 

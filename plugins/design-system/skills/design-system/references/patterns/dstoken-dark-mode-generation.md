@@ -11,7 +11,7 @@
 ## Rules (do)
 - **Surfaces: dark grey, not black, lighter = higher.** The default generator uses canvas L 0.18, surface 0.215, surface-2 0.25, surface-3 0.29 and sunken 0.165 (OKLCH). Material's dark theme guidance used `#121212` (OKLCH L ≈ 0.18) as the base and expressed elevation as lighter overlays; the same idea applies here.
 - **Foregrounds: lighter and calmer.** Accent and status colours move up in lightness (light theme L ≈ 0.50 → dark L ≈ 0.72–0.80) and lose some chroma (the generator uses 0.76× for the accent; gamut mapping trims more at high L). Saturated colours at full chroma vibrate on dark grey.
-- **Check APCA, not only WCAG 2.** WCAG 2 ratios are symmetric and overstate contrast for light text on dark. Computed for this pattern: dark-theme accent `oklch(0.72 0.13 265)` on surface-3 `oklch(0.29 0.01 250)` is 5.62:1 (passes WCAG) but only APCA Lc −48.7 (fails Lc 60 for readable text). The dashboard-ui dark `--text-muted` (L 0.77) is 8.46:1 on surface but Lc −60.6, and Lc −57.8 on surface-3. `theme.mjs` therefore requires both, and at the default inputs moves dark `text-muted` to L 0.785 and the dark accent to L 0.785.
+- **Check APCA, not only WCAG 2.** WCAG 2 ratios are symmetric and overstate contrast for light text on dark. Computed for this pattern: the earlier dark-theme accent `oklch(0.72 0.13 265)` on surface-3 `oklch(0.29 0.01 250)` is 5.62:1 (passes WCAG) but only APCA Lc −48.7 (fails Lc 60 for readable text). The earlier dashboard-ui dark `--text-muted` (L 0.77) was 8.46:1 on surface but Lc −60.6, and Lc −57.8 on surface-3. `theme.mjs` therefore requires both, and at the default inputs moves dark `text-muted` to L 0.785 and the dark accent to L 0.785, the values dashboard-ui's `tokens.css` now ships.
 - **Not an inversion.** Inverting the light text colour (L 0.22 → 0.78) gives Lc −62 on the dark surface: barely legal and visibly dimmer than intended. Dark body text sits at L ≈ 0.95 (Lc ≈ −96).
 - **Borders get relatively stronger.** Dark `border-strong` is L 0.56 against surface 0.215 (≥ 3:1 on every surface). Shadows barely show on dark surfaces, so elevation comes from the surface step, with a border where needed.
 - **Status backgrounds mix more.** The generator mixes 18% of the status foreground into the surface in dark (10% in light) so the tint is visible at all.
@@ -52,7 +52,7 @@
 | `--surface-3` | oklch(0.93 0.006 250) | oklch(0.29 0.01 250) | higher = lighter |
 | `--text` | oklch(0.22 0.02 250) | oklch(0.95 0.006 250) | Lc ≈ −96 |
 | `--text-muted` | oklch(0.5 0.016 250) | oklch(0.785 0.014 250) | moved from 0.77 to reach Lc 60 on surface-3 |
-| `--accent` | oklch(0.5 0.17 265) | oklch(0.785 0.109 265) | moved from 0.72 for Lc 60; chroma gamut-mapped |
+| `--accent` | oklch(0.5 0.17 265) | oklch(0.785 0.109 265) | moved from 0.72 for Lc 60; chroma gamut-mapped (tokens.css rounds it to 0.10) |
 | `--danger-bg` mix | 10% | 18% | tint must stay visible |
 
 ## Implementation sketch

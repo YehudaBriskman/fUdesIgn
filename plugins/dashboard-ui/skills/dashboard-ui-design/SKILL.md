@@ -79,7 +79,7 @@ Break one of these only with a written reason.
 
 **Charts**
 
-13. Choose by the comparison (change, rank, part-to-whole, distribution, deviation, correlation, flow, magnitude). Bars and areas start at zero; lines may crop. No 3D, no dual axes for general readers, and no pies with more than about 5 slices. Replace gauges with bullet graphs.
+13. Choose by the comparison (change, rank, part-to-whole, distribution, deviation, correlation, flow, magnitude). Bars and areas start at zero; lines may crop. No 3D, no dual axes for general readers, and no pies with more than 5 slices. Replace gauges with bullet graphs.
 14. Label directly at line ends and on marks. Use a legend only when labels can't fit. Tooltips are detail on demand, and hover, focus and touch all trigger them.
 15. Every chart has a takeaway title, a one-line text summary and a table view, and uses non-colour encodings.
 16. Show uncertainty as labelled ranges ("80% of simulated outcomes"), never a single confident line.
@@ -125,7 +125,7 @@ Break one of these only with a written reason.
 | Need | Use |
 |---|---|
 | Blocking decision now | Modal `<dialog>` |
-| Contextual detail or small form, page still usable | Popover (popover API, Baseline; anchor positioning with an `@supports` fallback to fixed placement) |
+| Contextual detail or small form, page still usable | Popover (popover API, Baseline widely available since October 2026; anchor positioning with an `@supports` fallback to fixed placement) |
 | Large secondary task beside the context | Drawer or sheet |
 | Low-stakes, recoverable confirmation | Toast, persistent if it holds an action |
 | Name or hint of an icon or term | Tooltip, never essential content (`popover="hint"` and `interestfor` are not Baseline: feature-detect) |
@@ -134,7 +134,7 @@ Break one of these only with a written reason.
 
 | Expected wait | Treatment |
 |---|---|
-| Under 1 s | Nothing; delay any indicator about 200 ms, keep it visible at least 300–500 ms once shown |
+| Under 1 s | Nothing; delay any indicator 200 ms, keep it visible at least 400 ms once shown |
 | 1–10 s, first load | Layout-accurate skeleton |
 | One panel refreshing | Keep the data, show "Updating…" (`prog-stale-while-revalidate.md`) |
 | Over 10 s | Determinate progress with cancel, can continue in the background |

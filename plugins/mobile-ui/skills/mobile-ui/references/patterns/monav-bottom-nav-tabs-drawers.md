@@ -57,7 +57,7 @@
 
 ## Motion / interaction (if relevant)
 - Tab switches are instant or a 100–150 ms cross-fade; no sliding between unrelated destinations.
-- Drawer slides in from the leading edge in about 250 ms with a scrim fade; under reduced motion, fade only.
+- Drawer slides in from the leading edge over `--motion-dur-sheet` with `--motion-ease-drawer` and a scrim fade (motion-ui's 240–400 ms drawer range); under reduced motion, fade only.
 
 ## Tokens and values
 | Token | Value | Use |

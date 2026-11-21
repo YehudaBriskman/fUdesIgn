@@ -15,10 +15,10 @@
 - **Elevation = lighter surface.** Material 3 dark surface containers by tone: lowest 4, low 10, container 12, high 17, highest 22, bright 24 (`material-color-utilities` color_spec_2021). Atlassian: in dark mode "the higher the elevation, the lighter the surface looks", still paired with shadows. Material 2 used white overlays (e.g. 2% for a card, 12% for a bottom app bar). Material 3 replaced the overlays with explicit tone-based tokens. Do the same: define tokens, don't stack translucent white.
 - **Keep elevation steps visible: OKLCH ΔL ≈ 0.035–0.04 between adjacent surfaces** (1.07–1.14:1 in the default tokens) and add a 1 px border where they meet. Tone alone is too weak at that ratio.
 - **Text is off-white with emphasis levels.** Material: high emphasis 87%, medium 60%, disabled 38% white. Avoid pure `#fff` body text on near-black because it "vibrates". Prefer solid tokens over alpha so contrast is predictable on every surface.
-- **Desaturate and lighten accents.** Material: "More saturated colors tend to visually 'vibrate' against darker backgrounds" (dark-theme codelab). Material 2's baseline dark theme used the 200 tone of the primary, which it says meets 4.5:1 at all elevation surfaces. In OKLCH: raise L to 0.70–0.80 and lower C by about 20–30% (the default accent goes from 0.50 0.17 to 0.72 0.13).
+- **Desaturate and lighten accents.** Material: "More saturated colors tend to visually 'vibrate' against darker backgrounds" (dark-theme codelab). Material 2's baseline dark theme used the 200 tone of the primary, which it says meets 4.5:1 at all elevation surfaces. In OKLCH: raise L to 0.70–0.80 and lower C by about 20–30% (the default accent goes from 0.50 0.17 to 0.785 0.10).
 - **Flip sequential chart scales.** Carbon: "In dark themes, the lightest color denotes the largest values." Carbon's diverging palettes "do not differentiate between light and dark themes". Keep each mark's contrast against its background constant across modes. Datawrapper's converter aims for "the color contrast of each element against the background is always the same".
 - **Re-check contrast on every surface level**, not only the base. Atlassian: "Check the contrast ratio for UI on overlay surfaces in dark mode to ensure it meets accessibility requirements."
-- **Use APCA as a sanity check for dark pairs.** WCAG 2's formula "overstates contrast for dark colors", so 4.5:1 near black "can be functionally unreadable" (APCA in a Nutshell). Aim for APCA Lc ≥ 75 for body text and ≥ 60 for secondary text. The default dark `--text-muted` is 7.6:1 but only Lc 55 on `--surface`. It needs about oklch(0.77 0.014 250) to reach Lc 60.
+- **Use APCA as a sanity check for dark pairs.** WCAG 2's formula "overstates contrast for dark colors", so 4.5:1 near black "can be functionally unreadable" (APCA in a Nutshell). Aim for APCA Lc ≥ 75 for body text and ≥ 60 for secondary text. The default dark `--text-muted` (oklch(0.785 0.014 250)) and `--accent` reach Lc 60 even on `--surface-3`; the earlier 0.74 muted value was 7.6:1 but only Lc 55.
 - **Shadows still exist but do less work.** Fluent's low-elevation ramp raises the first shadow layer from 14% in light to 28% in dark (the second stays 14%). Atlassian keeps shadow tokens paired with dark surfaces.
 - **Images and logos:** provide dark variants with `<picture><source media="(prefers-color-scheme: dark)">`, or with `light-dark()` image values (Chrome 150, Firefox 150, Safari 27 per MDN browser-compat-data `css.types.color.light-dark.image_value`; keep the `<picture>` fallback for older browsers). Never invert photos.
 - **Iframes and embeds:** don't assume the embed follows your theme toggle. A class toggle on the parent page never reaches the embedded document, so send a `?theme=dark` parameter or use `postMessage`.
@@ -50,7 +50,7 @@
 - Focus rings must be re-tuned. A dark-blue light-mode ring disappears on a dark surface.
 
 ## Motion / interaction (if relevant)
-- On theme switch, don't animate every colour. If you animate at all, use a View Transition cross-fade of ≤ 200 ms, and none under `prefers-reduced-motion`.
+- On theme switch, don't animate every colour. If you animate at all, use a View Transition cross-fade of ≤ 150 ms (as in `style-theme-consistency.md`), and none under `prefers-reduced-motion`.
 - Scrollbar colours via `scrollbar-color` + `light-dark()`. Don't transition `scrollbar-color` (WebKit flicker bug).
 
 ## Tokens and values
@@ -63,8 +63,8 @@
 | `--border` | oklch(0.35 0.012 250) #363b41 | | 1.55:1 vs surface, decorative |
 | `--border-strong` | oklch(0.56 0.014 250) #6e757d | | 3.75:1 on surface, 3.02:1 on surface-3; inputs/axes |
 | `--text` | oklch(0.95 0.006 250) #ebeff2 | ≈ 87% white | 15.1:1 on surface, 12.2:1 on surface-3 |
-| `--text-muted` | oklch(0.74 0.014 250) #a4acb4 | ≈ 60% white | 7.6:1 on surface, 6.1:1 on surface-3 (APCA Lc 55) |
-| `--accent` | oklch(0.72 0.13 265) #7ca2f6 | "200 tone" | 7.0:1 on surface |
+| `--text-muted` | oklch(0.785 0.014 250) #b2bac2 | ≈ 65% white | 8.9:1 on surface, 7.2:1 on surface-3 (APCA Lc 60) |
+| `--accent` | oklch(0.785 0.10 265) #9ab8fa | "200 tone" | 8.8:1 on surface, APCA Lc 60 on surface-3 |
 | Shadow colour | `--shadow-color: oklch(0 0 0)`, same alphas as light | Fluent dark: 28% first layer | lighter surface + border carry elevation |
 | Accent chroma | −20 to −30% vs light | | avoids vibration |
 

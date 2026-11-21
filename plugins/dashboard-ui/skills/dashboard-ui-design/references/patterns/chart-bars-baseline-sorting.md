@@ -65,7 +65,7 @@
 
 ## Motion / interaction (if relevant)
 - Grow-from-baseline on first render: ≤400 ms (`--motion-dur-long`) with `--motion-ease-enter`, staggered 20 to 40 ms per bar and 300 ms of stagger in total at most (SKILL.md motion tokens), only under `prefers-reduced-motion: no-preference`.
-- Re-sorting on filter: animate positions in 240 ms (`--motion-dur-medium`, `--motion-ease-standard`) so the eye can follow a bar to its new rank. Same-document View Transitions (`document.startViewTransition`) are Baseline newly available since October 2025 (MDN); feature-detect and fall back to FLIP with the Web Animations API, or to an instant re-sort.
+- Re-sorting on filter: animate positions in 240 ms (`--motion-dur-medium`, `--motion-ease-standard`) so the eye can follow a bar to its new rank. Same-document View Transitions (`document.startViewTransition`) are Baseline newly available since October 2025 (Chrome 111, Firefox 144, Safari 18); feature-detect and fall back to FLIP with the Web Animations API, or to an instant re-sort.
 - Hover dims other bars to ~30% opacity (Carbon legend behaviour) rather than adding a heavy outline.
 
 ## Tokens and values

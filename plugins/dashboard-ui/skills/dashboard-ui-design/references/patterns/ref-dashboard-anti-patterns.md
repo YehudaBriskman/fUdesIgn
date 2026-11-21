@@ -107,7 +107,7 @@ Two more, beyond the ten requested, that showed up in the sources:
 | Panels per page | ≤ 12 (rubric A3) |
 | Categorical hues per chart | 6 preferred, 8 hard cap |
 | Bullet graph bands | 2–5, ideally 3 (40/25/10% black) |
-| Loader show-delay / minimum | about 200 ms (150–300 ms) / 300–500 ms |
+| Loader show-delay / minimum | 200 ms / 400 ms (Vercel's ranges: 150–300 / 300–500 ms) |
 | Spinner max before progress | 10 s |
 | Currency decimals | one count per column or KPI row; ISO 4217 minor units in tables |
 | KPI precision | compact, ≤ 3 significant digits ($3.85M) |

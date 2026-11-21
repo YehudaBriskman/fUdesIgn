@@ -59,12 +59,12 @@
 | `--surface-2` | 0.97 0.004 250 → #f3f5f8 | 0.25 0.009 250 → #1e2226 | raised / hover row |
 | `--surface-3` | 0.93 0.006 250 → #e5e8ec | 0.29 0.010 250 → #282c30 | popovers, menus (dark), pressed |
 | `--border` (decorative) | 0.88 0.008 250 → #d4d8dd (1.43:1) | 0.35 0.012 250 → #363b41 (1.55:1) | separators only |
-| `--border-strong` (controls) | 0.62 0.012 250 → #81878d (3.6:1; **2.95:1 on surface-3**) | 0.56 0.014 250 → #6e757d (3.75:1; 3.02:1 on surface-3) | inputs, chart axes |
-| `--text-muted` | 0.50 0.016 250 → #5d646c (6.0:1) | 0.74 0.014 250 → #a4acb4 (7.6:1) | labels, captions |
+| `--border-strong` (controls) | 0.60 0.012 250 → #7b8187 (3.9:1; 3.2:1 on surface-3) | 0.56 0.014 250 → #6e757d (3.75:1; 3.02:1 on surface-3) | inputs, chart axes |
+| `--text-muted` | 0.50 0.016 250 → #5d646c (6.0:1) | 0.785 0.014 250 → #b2bac2 (8.9:1; APCA Lc 60 on surface-3) | labels, captions |
 | `--text` | 0.22 0.02 250 → #141b24 (17.3:1) | 0.95 0.006 250 → #ebeff2 (15.1:1) | body, numbers |
-| `--accent` (brand) | 0.50 0.17 265 → #325ac2 (6.2:1) | 0.72 0.13 265 → #7ca2f6 (7.0:1) | primary action, focus |
-| `--on-accent` (not in tokens.css) | white (6.2:1 on accent) | 0.18 0.006 250 → #101214 (7.5:1 on accent) | text on filled accent |
-Contrast figures are WCAG 2 ratios against `--surface` unless noted, computed for this file. tokens.css is canonical. Light `--border-strong` needs about oklch(0.60 0.012 250) #7b8187 to reach 3:1 on `--surface-3` (3.2:1; 3.9:1 on surface).
+| `--accent` (brand) | 0.50 0.17 265 → #325ac2 (6.2:1) | 0.785 0.10 265 → #9ab8fa (8.8:1; APCA Lc 60 on surface-3) | primary action, focus |
+| `--on-accent` | white (6.2:1 on accent) | 0.18 0.006 250 → #101214 (9.5:1 on accent) | text on filled accent |
+Contrast figures are WCAG 2 ratios against `--surface` unless noted, computed for this file. tokens.css is canonical, and these rows match it.
 
 ## Implementation sketch
 ```css
@@ -73,14 +73,14 @@ Contrast figures are WCAG 2 ratios against `--surface` unless noted, computed fo
   /* Tier 1: base ramp (never used by components) */
   --gray-l-0: oklch(1 0 0);           --gray-d-0: oklch(0.215 0.008 250);
   --gray-l-12: oklch(0.22 0.02 250);  --gray-d-12: oklch(0.95 0.006 250);
-  --blue-l-9: oklch(0.50 0.17 265);   --blue-d-9: oklch(0.72 0.13 265);
+  --blue-l-9: oklch(0.50 0.17 265);   --blue-d-9: oklch(0.785 0.10 265);
 
   /* Tier 2: role tokens (theme lives here) */
   --surface: light-dark(var(--gray-l-0), var(--gray-d-0));
   --text: light-dark(var(--gray-l-12), var(--gray-d-12));
-  --text-muted: light-dark(oklch(0.50 0.016 250), oklch(0.74 0.014 250));
+  --text-muted: light-dark(oklch(0.50 0.016 250), oklch(0.785 0.014 250));
   --border: light-dark(oklch(0.88 0.008 250), oklch(0.35 0.012 250));
-  --border-strong: light-dark(oklch(0.62 0.012 250), oklch(0.56 0.014 250));
+  --border-strong: light-dark(oklch(0.60 0.012 250), oklch(0.56 0.014 250));
   --accent: light-dark(var(--blue-l-9), var(--blue-d-9));
   --on-accent: light-dark(white, oklch(0.18 0.006 250));
   /* Derived state via color-mix in oklab, never oklch for neutrals */
