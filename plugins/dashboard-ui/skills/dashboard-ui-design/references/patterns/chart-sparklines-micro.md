@@ -49,7 +49,7 @@
 - In tables, include the trend summary as text in the cell or a visually hidden span so screen readers get it per row.
 
 ## Motion / interaction (if relevant)
-- No draw-in animation in tables (twenty lines animating at once is noise). On live updates, shift the line without easing or with ≤150 ms linear.
+- No draw-in animation in tables (twenty lines animating at once is noise). On live updates, shift the line without easing or with ≤150 ms (`--motion-dur-short`) linear easing; linear is an intentional exception to the standard ease because the motion tracks data, not an entrance.
 - Hover/scrub on a sparkline is optional; if present, show value and date in a tooltip and keep the number next to it updating (Robinhood "scrubbing" pattern). Touch: long press to scrub.
 
 ## Tokens and values

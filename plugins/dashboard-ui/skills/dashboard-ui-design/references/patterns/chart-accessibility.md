@@ -35,7 +35,7 @@
 - Interactive affordances explained in text (Chartability "No interaction cues or instructions"): a one-line hint near the chart or in `aria-describedby`.
 - Every pointer interaction (hover, brush, click-to-filter) has a keyboard and touch equivalent (Chartability "Interaction modality only has one input type").
 - Library switches: Recharts/shadcn `accessibilityLayer`, Highcharts accessibility module, ECharts `aria.show` (+ `AriaComponent` import in v5). Turn them on; they are off or warn by default.
-- Canvas charts: canvas content is not in the accessibility tree. Provide the DOM table/summary, or use HTML-in-canvas (`<canvas content="drawable">`) where supported (WICG HTML-in-Canvas explainer).
+- Canvas charts: canvas content is not in the accessibility tree. Provide the DOM table/summary, or, experimentally, HTML-in-canvas (`<canvas content="drawable">` + `drawElementImage()`). That is a WICG explainer, not a standard and not Baseline, so the DOM table and summary stay mandatory.
 
 **5. Motion, zoom, user styles**
 - No flashing; respect `prefers-reduced-motion` (WCAG 2.3.1; MDN). Chart must be understandable without animation (Fossheim).

@@ -79,7 +79,7 @@
 
 ## Motion / interaction (if relevant)
 - Shared crosshair between price and volume panels; tooltip shows OHLC + volume + value range on that date.
-- Range selector chips (1M, 6M, 1Y, 5Y, Max) with the selected one as `aria-pressed="true"`; changing range re-scales without animation or with ≤200 ms.
+- Range selector chips (1M, 6M, 1Y, 5Y, Max) with the selected one as `aria-pressed="true"`; changing range re-scales without animation or in ≤240 ms (`--motion-dur-medium`).
 - Football field: hovering a bar reveals assumptions; clicking opens the method's detail. Keep the current-price line visible during hover.
 
 ## Tokens and values

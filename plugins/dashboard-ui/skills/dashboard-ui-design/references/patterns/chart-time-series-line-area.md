@@ -70,7 +70,7 @@
 - Provide the summary sentence and a table view (see chart-accessibility.md).
 
 ## Motion / interaction (if relevant)
-- Draw-in animation (line path growing) at most 400 to 600 ms, once, only under `prefers-reduced-motion: no-preference`. On data refresh, do not re-animate from zero; transition values in ≤250 ms or swap instantly.
+- Draw-in animation (line path growing) 400 ms (`--motion-dur-long`), up to 600 ms only for a staged data reveal (the low end of SKILL.md's 600–900 ms staged-data range), once, only under `prefers-reduced-motion: no-preference`. On data refresh, do not re-animate from zero; transition values in ≤240 ms (`--motion-dur-medium`) or swap instantly.
 - Zoom/brush: show the selected range in text ("1 Mar to 14 Apr 2025") and a reset button.
 - Hover crosshair snaps to the nearest x (see chart-tooltips-crosshair-labels.md).
 

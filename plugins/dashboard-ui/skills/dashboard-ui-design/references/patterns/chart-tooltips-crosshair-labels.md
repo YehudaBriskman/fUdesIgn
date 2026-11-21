@@ -29,7 +29,7 @@
 - Content order: x value (date) as header, then series rows sorted by value or in legend order, each with swatch, name, value with unit, optionally change vs previous. Grafana tooltip modes: single (series under cursor), all (every series, hovered in bold, sortable), hidden. Default to "all" for ≤8 series, "single" beyond.
 - Hide zero/empty rows when there are many series (Grafana "Hide zeros").
 - Format numbers fully in the tooltip (more precision than the axis): axis "1.2M", tooltip "1,214,503".
-- Position: offset 8 to 12 px from the pointer, flip to stay in the viewport, never cover the hovered point. For HTML tooltips, CSS anchor positioning with `position-try-fallbacks: flip-block, flip-inline` (MDN anchor positioning).
+- Position: offset 8 to 12 px from the pointer, flip to stay in the viewport, never cover the hovered point. For HTML tooltips, CSS anchor positioning with `position-try-fallbacks: flip-block, flip-inline` (MDN anchor positioning). `position-try-fallbacks` is Baseline newly available since January 2026, so older browsers still need a fallback: wrap it in `@supports (position-anchor: --a)` and position with JS (pointer coordinates clamped to the viewport) otherwise.
 - WCAG 1.4.13: dismissible with Escape without moving the pointer, hoverable (pointer can move onto it), persistent until dismissed or focus/hover leaves.
 - Max width ~280 px; no scrolling inside tooltips; no interactive content inside hover tooltips. If you need links ("open filing"), make it a click-opened popover (toggletip pattern).
 - Hover proximity: snap to the nearest point within ~20 to 30 px (Grafana exposes "hover proximity" in px); outside it, hide.
@@ -70,8 +70,8 @@
 - Respect `prefers-reduced-motion`: tooltips appear instantly, no slide.
 
 ## Motion / interaction (if relevant)
-- Tooltip move: follow pointer with no easing (or ≤80 ms) to avoid lag; opacity fade-in ≤100 ms.
-- Legend isolate: series fade 150 ms; axis rescale ≤200 ms or none.
+- Tooltip move: follow pointer with no easing (or ≤100 ms, `--motion-dur-micro`) to avoid lag; opacity fade-in ≤100 ms (`--motion-dur-micro`).
+- Legend isolate: series fade 150 ms (`--motion-dur-short`); axis rescale ≤240 ms (`--motion-dur-medium`) or none.
 - Touch: tap shows tooltip and crosshair; drag scrubs; tap outside dismisses. Long press for scrubbing if the chart sits in a scroll view (Robinhood pattern), so vertical scroll still works.
 
 ## Tokens and values
@@ -103,10 +103,11 @@ interface CrosshairChartProps {
   height: number;
   formatValue: (n: number) => string;
   onIndexChange?: (index: number | null) => void; // for shared crosshair across charts
+  onAnnounce?: (text: string) => void;            // writes into a visually hidden aria-live="polite" region
   sharedIndex?: number | null;
 }
 
-export function CrosshairLayer({ points, width, height, formatValue, onIndexChange, sharedIndex }: CrosshairChartProps) {
+export function CrosshairLayer({ points, width, height, formatValue, onIndexChange, onAnnounce, sharedIndex }: CrosshairChartProps) {
   const [local, setLocal] = useState<number | null>(null);
   const idx = sharedIndex ?? local;
   const tipId = useId();
@@ -127,7 +128,13 @@ export function CrosshairLayer({ points, width, height, formatValue, onIndexChan
     const step = Math.max(1, Math.round(points.length / 10));
     const next: Record<string, number> = { ArrowLeft: cur - 1, ArrowRight: cur + 1, Home: 0, End: last, PageUp: cur - step, PageDown: cur + step };
     if (e.key === "Escape") { set(null); return; }
-    if (e.key in next) { e.preventDefault(); set(Math.min(last, Math.max(0, next[e.key]))); }
+    if (e.key in next) {
+      e.preventDefault();
+      const i = Math.min(last, Math.max(0, next[e.key]));
+      set(i);
+      const q = points[i]; // announce only from keyboard moves, never on hover
+      onAnnounce?.(`${q.date}: ${q.values.map((v) => `${v.series} ${formatValue(v.value)}`).join(", ")}`);
+    }
   };
 
   const p = idx === null ? null : points[idx];
@@ -149,7 +156,7 @@ export function CrosshairLayer({ points, width, height, formatValue, onIndexChan
 .hit:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
 .chart-tooltip { position: fixed; max-inline-size: 280px; padding: 8px 10px; border-radius: 6px;
   font: 12px/1.4 var(--font-ui); font-variant-numeric: tabular-nums; pointer-events: auto; }
-@media (prefers-reduced-motion: no-preference) { .chart-tooltip { transition: opacity .1s; } }
+@media (prefers-reduced-motion: no-preference) { .chart-tooltip { transition: opacity var(--motion-dur-micro, 100ms); } }
 ```
 The visible tooltip (HTML, positioned next to `p.x`) repeats `label`; it is `aria-hidden` because the focused element's name already carries the same text.
 

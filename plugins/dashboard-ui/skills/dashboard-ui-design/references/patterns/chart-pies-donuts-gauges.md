@@ -65,7 +65,7 @@
 - The number in the donut hole must be real text, not part of a canvas bitmap.
 
 ## Motion / interaction (if relevant)
-- Sweep-in animation on donuts ≤500 ms once; no spinning on refresh. Needle "wobble" on gauges is decoration; remove it.
+- Sweep-in animation on donuts ≤400 ms (`--motion-dur-long`) once; no spinning on refresh. Needle "wobble" on gauges is decoration; remove it.
 - Hover a slice: raise it with a 2 px outline, never "explode" it out of the circle.
 
 ## Tokens and values
