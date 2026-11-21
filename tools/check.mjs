@@ -80,6 +80,12 @@ if (sketches) {
       }
     }
   }
+  // the skill's starter stylesheets (tokens.css, forms.css, …) must parse too
+  const assets = join(SKILL, 'assets')
+  if (existsSync(assets)) for (const css of readdirSync(assets).filter((n) => n.endsWith('.css'))) {
+    try { transform({ filename: css, code: readFileSync(join(assets, css)), errorRecovery: false }) }
+    catch (e) { fail(`assets/${css}`, e.message) }
+  }
   if (tsFiles.length) {
     const program = ts.createProgram(tsFiles.map(([n]) => n), {
       strict: true, noEmit: true, jsx: ts.JsxEmit.ReactJSX, target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.ESNext,
