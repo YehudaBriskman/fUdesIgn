@@ -31,6 +31,14 @@
       "version": "0.1.0",
       "category": "design",
       "license": "PolyForm-Internal-Use-1.0.0"
+    },
+    {
+      "name": "forms-ui",
+      "source": "./plugins/forms-ui",
+      "description": "Web form design: 19 researched patterns (layout, labels, input types and autofill, choice controls, money/date/phone/file inputs, validation and errors, submission, multi-step flows, passkeys) plus an anti-pattern catalogue, a review rubric and starter form styles.",
+      "version": "0.1.0",
+      "category": "design",
+      "license": "PolyForm-Internal-Use-1.0.0"
     }
   ]
 }

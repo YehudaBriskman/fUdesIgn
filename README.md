@@ -30,6 +30,13 @@ plugins/
       references/INDEX.md                all 19 patterns, each with its one-line rule
       references/patterns/*.md           one file per pattern
       assets/motion-tokens.css           durations, curves, spring linear() tokens, reduced-motion overrides
+  forms-ui/
+    .claude-plugin/plugin.json
+    skills/forms-ui/
+      SKILL.md                           workflow, 20 non-negotiables, decision tables
+      references/INDEX.md                all 19 patterns, each with its one-line rule
+      references/patterns/*.md           ffound-, finput-, fvalid-, fflow-, fref- (see below)
+      assets/forms.css                   starter form styles on the dashboard-ui role tokens
 templates/PATTERN_TEMPLATE.md            the format every pattern file follows
 docs/research-brief.md                   how the research was run
 ```
@@ -71,6 +78,16 @@ General product-UI motion and gesture. Motion for data views (number tweening, c
 | `mperf-` | Performance: compositor-only properties, `will-change`, FLIP, INP | 1 |
 | `mref-` | Review: an 18-check motion rubric with a frame-capture recipe, an anti-pattern gallery | 2 |
 
+### forms-ui: 19 patterns in 5 clusters
+
+| Prefix | Cluster | Files |
+|---|---|---|
+| `ffound-` | Foundations: single-column layout and fieldsets, labels/hints/placeholders, required vs optional, the WCAG 2.2 form baseline, microcopy | 5 |
+| `finput-` | Inputs: types, `autocomplete`, `inputmode` and `enterkeyhint`; checkboxes, radios and switches; selects and comboboxes; money, number and phone; dates; file upload | 6 |
+| `fvalid-` | Validation: timing and inline errors (`:user-invalid`), error summary and focus, error message wording | 3 |
+| `fflow-` | Flows: submit states and double submit, multi-step forms and saving progress, sign-in, sign-up and passkeys | 3 |
+| `fref-` | References: a 16-item anti-pattern catalogue with a DOM audit, a 31-check review rubric | 2 |
+
 Each pattern file has these sections: the rule, when to use and when not, rules with numbers, anti-patterns, good references, bad references, accessibility, motion, a tokens table, an implementation sketch, a checklist and sources.
 
 ## Research
@@ -89,9 +106,10 @@ Some claims rest on search summaries because the source page wouldn't load, and 
 /plugin install dashboard-ui@fudesign
 /plugin install marketing-ui@fudesign
 /plugin install motion-ui@fudesign
+/plugin install forms-ui@fudesign
 ```
 
-Each skill then triggers on its own design, build and review tasks (dashboards, landing and marketing pages, or product-UI motion and gestures). You can also copy a skill folder, such as `plugins/marketing-ui/skills/marketing-ui/`, into `~/.claude/skills/`.
+Each skill then triggers on its own design, build and review tasks (dashboards, landing and marketing pages, product-UI motion and gestures, or forms). You can also copy a skill folder, such as `plugins/marketing-ui/skills/marketing-ui/`, into `~/.claude/skills/`.
 
 ## Adding a pattern or plugin
 
