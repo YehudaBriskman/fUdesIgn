@@ -21,14 +21,15 @@
 - **Labels:** use verb + noun in sentence case, 1–4 words: "Export CSV", "Save assumptions". NN/g recommends 2–4 words and leading with a verb. Don't use "OK" in confirmations; name the action ("Delete scenario").
 - **Sizes for dense dashboards:** use 3 heights, 28 / 32 / 40 px. Match the button height to adjacent inputs in the same row. Carbon pairs small buttons with 32px inputs and medium buttons with 40px inputs. Never mix button sizes inside one group.
 - **Target size:** every target must be **≥24×24 CSS px** (WCAG 2.2 SC 2.5.8, AA), or have a 24px-diameter clear circle around it. Under `@media (pointer: coarse)`, raise targets to **≥44×44** (SC 2.5.5, AAA). Use `min-inline-size` and `min-block-size`, not fixed `width` and `height`, so content can grow the button but never shrink it. A 16px icon in a 28px button is fine. A 16px icon with 4px padding (24px total) is the absolute floor.
-- **Icon-only buttons:** give them an accessible name (`aria-label` or visually hidden text) and a visible tooltip naming the action. Carbon makes the tooltip mandatory. Icons are 16px in buttons and sit 8px from the label.
+- **Icon-only buttons:** give them an accessible name (`aria-label` or visually hidden text) and a visible tooltip naming the action. Carbon makes the tooltip mandatory. Icons are 16px in buttons and sit 8px from the label. The sketch's `interestfor` + `popover="hint"` tooltip is Chromium-only (Chrome/Edge 142+) for `interestfor`; elsewhere show the hint from `pointerenter`/`focusin` in script (see `comp-overlay-choice.md`). The `aria-label` keeps the button named either way.
 - **Loading state** (see the timings in Tokens):
-  - Show nothing for the first ~300 ms. Under 1 s, users stay in flow and need no feedback (NN/g response-time limits).
-  - Then swap the leading icon, or add one, for a spinner and keep the label. Optionally change the label to the progressive form ("Saving…").
+  - Show nothing for the first 200 ms (SKILL.md's loading rule; Vercel gives a ~150–300 ms show-delay). Under 1 s, users stay in flow and need no feedback (NN/g response-time limits).
+  - Once the spinner shows, keep it for at least 400 ms (Vercel: minimum visible ~300–500 ms) so a fast response doesn't flicker.
+  - Then swap the leading icon, or add one, for a spinner and keep the label (Vercel: "Show a loading indicator & keep the original label"). Put the progressive wording ("Saving…") in the live region, not on the button.
   - **Lock the button's inline size** so the swap causes no layout shift.
-  - Keep the button focusable: set `aria-disabled="true"`, not `disabled`. Primer explicitly says not to add `disabled` or remove the button, because that drops focus.
+  - Keep the button focusable: set `aria-disabled="true"`, not `disabled`. Primer: "don't remove them from the DOM or add `disabled` to avoid disrupting focus and keyboard navigation."
   - Guard the handler against re-entry to prevent double submits.
-  - Announce the progress and the result through a polite live region that exists on page load.
+  - Announce the progress and the result through a polite live region that exists on page load (Primer: "The live region must be present on page load").
   - Past ~10 s, replace the spinner with determinate progress and a Cancel action.
 - **Prefer "inactive" to `disabled`.** A greyed button with no explanation is a dead end. Keep it clickable and, on click, explain why it cannot run: Primer's "inactive" pattern, Atlassian's "avoid disabling buttons". If you must disable it, put the reason in visible text next to it, not in a tooltip on the disabled button. Disabled elements can't receive hover or focus on many devices.
 
@@ -43,7 +44,7 @@
 - Tooltips on `disabled` buttons, which can't be reached by keyboard or touch.
 
 ## Good references
-- [IBM Carbon — Button usage](https://carbondesignsystem.com/components/button/usage/) — explicit emphasis ladder (primary, secondary, tertiary, ghost, danger), recommended and banned combinations, "one primary per screen", a mandatory tooltip on icon-only buttons, and "use a link, not a button, to navigate".
+- [IBM Carbon — Button usage](https://carbondesignsystem.com/components/button/usage/) — explicit emphasis ladder (primary, secondary, tertiary, ghost, danger), recommended and banned combinations, "Each page should have only one primary button", "a tooltip is always required" on icon-only buttons, and "Do not use buttons as navigational elements".
 - [Primer — Button guidelines](https://primer.style/product/components/button/guidelines) and [Button accessibility](https://primer.style/product/components/button/accessibility) — the "inactive" state as an alternative to disabled, a loading state that uses `aria-disabled` plus a polite live region, and a 24×24 floor with the honest note that their small variant can fall to ~21.5px wide.
 - [Atlassian — Button usage](https://atlassian.design/components/button/usage) — one primary per area, buttons vs links, "avoid disabling buttons", and alignment rules (right-align in modals, left-align in full-page forms).
 - [Linear](https://linear.app) (product) — a single high-emphasis "New issue" button. Every other chrome action is a ghost icon button with a tooltip that shows the shortcut.
@@ -61,7 +62,7 @@
 - Busy buttons use `aria-disabled="true"` plus a polite live region. Don't rely on `aria-busy` alone: it can hide the button's children from screen readers.
 
 ## Motion / interaction (if relevant)
-- Hover background change: 100–150 ms ease-out. Press: `scale: 0.98` or a darker background, 80 ms. Wrap both in `@media (prefers-reduced-motion: no-preference)` and `@media (hover: hover)`.
+- Hover background change: `--motion-dur-micro` (100 ms) with `--motion-ease-standard`. Press: `scale: 0.98` or a darker background, applied on `:active` with no transition so it paints in the next frame. Wrap the hover transition in `@media (prefers-reduced-motion: no-preference)` and `@media (hover: hover)`.
 - Spinner rotation runs at ~0.8–1 s per turn. Under reduced motion, use a pulsing opacity or static "Saving…" text. See `motion-principles-and-tokens.md`.
 
 ## Tokens and values
@@ -74,10 +75,11 @@
 | `--btn-font` | 14px / 500 (sm 13px) | sentence case |
 | `--btn-icon` | 16px | 20px only in lg |
 | `--target-min` | 24px; 44px when `pointer: coarse` | WCAG 2.5.8 / 2.5.5 |
-| `--focus-ring` | 2px solid `--color-focus`, offset 2px | ≥3:1 |
-| `--loading-delay` | 300ms | before the spinner shows |
+| Focus ring | 2px solid `--focus-ring` (tokens.css maps it to `--accent`), offset 2px | ≥3:1 |
+| `--loading-delay` | 200ms | before the spinner shows (SKILL.md, Vercel ~150–300ms) |
+| `--loading-min-visible` | 400ms | once shown (Vercel ~300–500ms) |
 | `--loading-long` | 10s | switch to progress + Cancel |
-| Roles | `primary-bg`, `primary-fg`, `neutral-border`, `ghost-hover-bg`, `danger-bg`, `danger-fg` | colours are roles, not hues |
+| Roles (tokens.css) | primary = `--accent` bg + `--surface` text; secondary = `--border-strong` outline; ghost hover = `--surface-2`; danger = `--danger-fg` / `--danger-bg` | colours are roles, not hues |
 
 ## Implementation sketch
 ```html
@@ -100,32 +102,42 @@
   min-inline-size: 24px;
   padding-inline: 12px;
   display: inline-flex; align-items: center; gap: 8px;
-  border-radius: 6px; font: 500 14px/1 var(--font-ui);
-  border: 1px solid var(--neutral-border); background: var(--surface); color: var(--fg);
+  border-radius: 6px; font: 500 14px/1 var(--font-sans);
+  border: 1px solid var(--border-strong); background: var(--surface); color: var(--text);
 }
-.btn--primary { background: var(--primary-bg); color: var(--primary-fg); border-color: transparent; }
+.btn--primary { background: var(--accent); color: var(--surface); border-color: transparent; }
 .btn--ghost { background: transparent; border-color: transparent; }
 .btn--icon { padding: 0; inline-size: var(--btn-h-md, 32px); justify-content: center; }
-.btn:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+.btn:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
 @media (pointer: coarse) { .btn { min-block-size: 44px; min-inline-size: 44px; } }
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
-  .btn { transition: background-color .12s ease-out; }
+  .btn { transition: background-color var(--motion-dur-micro, 100ms) var(--motion-ease-standard, ease-out); }
 }
 .btn[aria-disabled="true"] { cursor: progress; opacity: .8; }
 .btn[aria-disabled="true"] .btn__icon { /* spinner glyph here; under reduced motion, no rotation */ }
 ```
 ```ts
 async function runBusy(button: HTMLButtonElement, status: HTMLElement, task: () => Promise<void>): Promise<void> {
-  if (button.getAttribute('aria-disabled') === 'true') return; // re-entry guard
+  if (button.dataset.running === 'true') return; // re-entry guard, also during the show-delay
+  button.dataset.running = 'true';
   const width = button.getBoundingClientRect().width;
+  let shownAt = 0;
   const timer = window.setTimeout(() => {
     button.style.minInlineSize = `${width}px`; // no layout shift
     button.setAttribute('aria-disabled', 'true');
     status.textContent = button.dataset.busyLabel ?? 'Working…';
-  }, 300);
-  try { await task(); status.textContent = 'Saved'; }
-  catch { status.textContent = 'Save failed'; }
-  finally { window.clearTimeout(timer); button.removeAttribute('aria-disabled'); button.style.minInlineSize = ''; }
+    shownAt = performance.now();
+  }, 200); // show-delay
+  let result = 'Saved';
+  try { await task(); }
+  catch { result = 'Save failed'; }
+  finally {
+    window.clearTimeout(timer);
+    const left = shownAt ? 400 - (performance.now() - shownAt) : 0; // minimum visible time
+    if (left > 0) await new Promise<void>((r) => window.setTimeout(r, left));
+    status.textContent = result;
+    button.removeAttribute('aria-disabled'); button.style.minInlineSize = ''; delete button.dataset.running;
+  }
 }
 ```
 
@@ -134,7 +146,7 @@ async function runBusy(button: HTMLButtonElement, status: HTMLElement, task: () 
 - [ ] Every button that navigates is an `<a>`, and every mutation is a `<button>`.
 - [ ] All targets measure ≥24×24 CSS px, and ≥44×44 under `pointer: coarse`.
 - [ ] Every icon-only button has an accessible name and a visible tooltip.
-- [ ] The loading state appears after ~300 ms, keeps the width and focus, uses `aria-disabled` and blocks double submit.
+- [ ] The loading state appears after 200 ms, stays at least 400 ms once shown, keeps the label, width and focus, uses `aria-disabled` and blocks double submit.
 - [ ] No unexplained `disabled` buttons. The reason is visible or given on click.
 - [ ] The focus ring is visible, ≥3:1, and survives forced-colors mode.
 
@@ -147,8 +159,7 @@ async function runBusy(button: HTMLButtonElement, status: HTMLElement, task: () 
 - https://www.nngroup.com/articles/response-times-3-important-limits/
 - https://www.nngroup.com/articles/ui-copy/
 - https://gitlab.com/gitlab-org/gitlab-ui/-/issues/1044
-- https://bekk-christmas.vercel.app/post/2023/24/accessible-loading-button (aria-busy caveat, via search summary)
-- modern-web-guidance: `skills/modern-web-guidance/guides/ui-components/toolbar.md` (24×24 minimum, `pointer: coarse`, `aria-pressed` only for toggles, live region for action feedback)
-- modern-web-guidance: `skills/modern-web-guidance/guides/accessibility/accessibility.md` (focus indicators, `disabled` vs `aria-disabled`)
-- modern-web-guidance: `skills/modern-web-guidance/guides/ui-components/spinner.md`
-- modern-web-guidance: `skills/modern-web-guidance/guides/ui-behaviors/interest-triggered-tooltips.md`
+- https://www.bekk.christmas/post/2023/24/accessible-loading-button (`aria-busy` "hides the busy element's children from screenreaders")
+- https://www.w3.org/WAI/WCAG22/Understanding/target-size-enhanced.html (44×44, AAA)
+- https://vercel.com/design/guidelines (keep the label while loading; spinner show-delay ~150–300 ms and minimum visible ~300–500 ms; 24px hit targets, 44px on mobile)
+- https://developer.mozilla.org/en-US/docs/Web/API/Popover_API/Using_interest_invokers

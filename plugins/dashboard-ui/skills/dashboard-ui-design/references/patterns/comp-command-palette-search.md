@@ -19,6 +19,7 @@
   - Decide deliberately whether ⌘K fires inside text inputs. Recommended: yes for ⌘K, which has a modifier; no for `/`, a character key.
 - **Container.**
   - Use a modal `<dialog>` near the top: `inset-block-start: 12–20vh`, 560–720px wide, results area ≤ 60vh.
+  - A modal is right here even though `comp-overlay-choice.md` reserves modals for decisions: the user summoned it for a short focused task, it blocks nothing they didn't ask to leave, and Esc or the shortcut closes it.
   - Inside it, a combobox input (`role="combobox"`, `aria-controls` → `role="listbox"`, `aria-activedescendant`) keeps DOM focus in the input while arrows move a virtual highlight (ARIA APG).
 - **Empty state (before typing).** Show "Recent" (last 5 items or commands used) and "Suggested", the 5–8 highest-value commands for the current context. Superhuman gives commands a default score so the best features surface before typing.
 - **Matching.**
@@ -35,7 +36,7 @@
   - After execution, close and give feedback where the result appears, not in a toast-only message.
 - **Performance.**
   - Show local results (commands, recent items) synchronously, in under 50 ms.
-  - Remote entity search is debounced 100–150 ms, keeps the previous results visible while loading, and shows a subtle inline spinner after 300 ms.
+  - Remote entity search is debounced 100–150 ms, keeps the previous results visible while loading, and shows a subtle inline spinner only after 200 ms (the show-delay in SKILL.md and `prog-loading-states.md`).
   - Cancel stale requests (`AbortController`).
 - **No-result state.** Say "No results for 'xyz'" and offer "Search all reports for 'xyz'" or "Create 'xyz'" where creation makes sense.
 
@@ -49,10 +50,10 @@
 - No visible hint that ⌘K exists. Discoverability depends on a `⌘K` badge in the search field and in tooltips.
 
 ## Good references
-- [Superhuman — How to build a remarkable command palette](https://blog.superhuman.com/how-to-build-a-remarkable-command-palette/) — one palette for everything, toggle shortcut, focus restoration, fuzzy plus alias matching (command-score with a threshold), default scores, context boosting and "follow" ordering.
+- [Superhuman — How to build a remarkable command palette](https://blog.superhuman.com/how-to-build-a-remarkable-command-palette/) — one palette for everything, toggle shortcut, focus restoration, fuzzy plus alias matching (their command-score library, example cutoff 0.0015), default scores (0 hides a command until typed), context boosting, and "you shouldn't use Cmd+K for some types of actions, and Cmd+P for others".
 - [Maggie Appleton — Command bars](https://maggieappleton.com/command-bar) — explains why palettes exist (GUIs don't scale to hundreds of commands), recall vs recognition, shortcut hints, chained actions (Tana), and the downside that they hide functionality.
 - [Linear](https://linear.app) (product) — ⌘K lists contextual actions for the focused issue first, every row shows its shortcut, and nested steps ("Change status ›") stay in the same surface.
-- [Grafana](https://grafana.com/docs/grafana/latest/dashboards/use-dashboards/) — Ctrl+K command palette alongside `f` dashboard finder and `?` shortcut help.
+- [Grafana — Use dashboards](https://grafana.com/docs/grafana/latest/dashboards/use-dashboards/) — Ctrl+K "Opens the command palette", alongside `f` for the dashboard finder and `?` for shortcut help.
 - [WAI-ARIA APG — Combobox](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/) — the authoritative roles and keyboard contract for an input with a listbox popup.
 
 ## Bad references
@@ -62,13 +63,14 @@
 
 ## Accessibility
 - Use a modal `<dialog>` with `aria-label="Command palette"`. Native modality handles focus containment and Esc.
+- The sketch's `command="show-modal"` is Baseline newly available (December 2025: Chrome 135, Firefox 144, Safari 26.2); the ⌘K handler calls `showModal()` anyway. `closedby="any"` is not Baseline (Chrome/Edge 134, Firefox 141, Safari 27.3), so also close on a click whose target is the `<dialog>` itself.
 - The input is `role="combobox"` with `aria-expanded`, `aria-controls` and `aria-autocomplete="list"`. Results are `role="listbox"` with `role="option"` rows. Group headings use `role="group"` with `aria-label`.
 - Announce the result count politely after debouncing ("12 results"), not on every keystroke.
 - Shortcut hints are visible text in `<kbd>`. Also expose the trigger's shortcut with `aria-keyshortcuts="Meta+K Control+K"` on the search field.
 - Rows are ≥32px tall (≥44px on coarse pointers), and the highlighted row has a non-colour indicator (background plus a left bar or outline).
 
 ## Motion / interaction (if relevant)
-- The palette opens in 100–120 ms (opacity plus `scale` from 0.98) with no slide; it must feel instant. It closes in ≤100 ms.
+- The palette opens in `--motion-dur-micro` (100 ms: opacity plus `scale` from 0.98) with no slide; it must feel instant. It closes in 100 ms or less. It's summoned dozens of times a day, so keep it this short (SKILL.md non-negotiable 22).
 - The highlight moves without animation. Scroll the highlighted option into view with `block: 'nearest'`.
 - Under reduced motion, use opacity only.
 
@@ -82,9 +84,9 @@
 | Results max height | 60vh |
 | Items per group before "Show all" | 5 |
 | Recent items | 5 |
-| Debounce remote search | 100–150ms; spinner after 300ms |
+| Debounce remote search | 100–150ms; spinner after 200ms |
 | Local result latency | <50ms |
-| Colour roles | `surface-overlay`, `option-highlight-bg`, `fg-muted` for context, `kbd-bg`/`kbd-border` |
+| Colour roles (tokens.css) | panel `--surface` + `--shadow-lg`, highlighted option `--surface-2`, context `--text-muted`, `<kbd>` `--surface-2` with `--border` |
 
 ## Implementation sketch
 ```html
@@ -144,7 +146,6 @@ export function rank(query: string, commands: readonly Command[], score: (q: str
 - https://grafana.com/docs/grafana/latest/dashboards/use-dashboards/
 - https://github.com/orgs/community/discussions/113472
 - https://www.nngroup.com/articles/response-times-3-important-limits/
-- modern-web-guidance: `skills/modern-web-guidance/guides/ui-components/dialog.md`
-- modern-web-guidance: `skills/modern-web-guidance/guides/ui-behaviors/declarative-dialog-popover-control.md`
-- modern-web-guidance: `skills/modern-web-guidance/guides/forms/ime-safe-enter-submit.md` (don't run commands on Enter during IME composition)
-- modern-web-guidance: `skills/modern-web-guidance/guides/accessibility/accessibility.md` (live regions)
+- https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog
+- https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button (`command="show-modal"`)
+- https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/isComposing (don't run commands on Enter during IME composition)

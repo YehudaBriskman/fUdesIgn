@@ -16,7 +16,7 @@
   - Use DOM order. Never use positive `tabindex`.
   - Don't put `tabindex="0"` on natively focusable or non-interactive elements.
   - Hidden content is unfocusable: use `hidden`, `inert`, or closed popovers and dialogs.
-- **Composite widgets = one Tab stop.** Tabs, toolbars, menus, radio and segmented groups, listboxes, grids and the sidebar tree all use arrow keys inside. Use native `focusgroup` (`tablist`, `toolbar`, `menu`) where supported (Chrome/Edge 150+). Otherwise use a roving-`tabindex` fallback, loaded only when `'focusGroup' in HTMLElement.prototype` is false. Never run two roving systems at once.
+- **Composite widgets = one Tab stop.** Tabs, toolbars, menus, radio and segmented groups, listboxes, grids and the sidebar tree all use arrow keys inside. Use native `focusgroup` (`tablist`, `toolbar`, `menu`) where supported: it is experimental and Chromium-only (Chrome/Edge 150+, no Firefox or Safari, not Baseline). Everywhere else use the APG roving-`tabindex` pattern, loaded only when `'focusGroup' in HTMLElement.prototype` is false. Never run two roving systems at once.
 - **Overlays.**
   - Native modal `<dialog>` contains focus and restores it automatically.
   - Popovers restore focus for the first `auto` popover in a stack. Nested menus restore it to their trigger explicitly.
@@ -38,19 +38,19 @@
   - Single-letter app shortcuts only work when the screen reader is in focus/application mode. Never rely on them as the only path.
 - **Guard character shortcuts.**
   - Ignore character shortcuts when focus is in `input`, `textarea`, `select`, `[contenteditable]` or an open combobox, when `event.isComposing`, or when any modifier other than Shift is held.
-  - Provide a setting "Use single-key shortcuts", ON by default for expert tools. GitHub offers Settings › Accessibility › Character keys toggles.
+  - Provide a setting "Use single-key shortcuts", ON by default for expert tools. GitHub's Settings › Accessibility has a "Character keys" checkbox that turns off shortcuts without modifiers while modifier shortcuts keep working.
 - **Discoverability.**
   - `?` opens a shortcut sheet: a modal dialog grouped by area, with searchable `<kbd>` rows.
   - Tooltips on buttons append the shortcut ("Refresh data R").
   - The command palette shows a shortcut on every row.
   - Expose shortcuts with `aria-keyshortcuts` on the controls they trigger.
-- **Platform labels.** Show ⌘ ⌥ ⇧ on macOS and Ctrl, Alt, Shift elsewhere. Detect via `navigator.userAgentData?.platform`, falling back to `navigator.platform`. Match on `event.key` for characters and `event.code` only for layout-independent physical keys.
+- **Platform labels.** Show ⌘ ⌥ ⇧ on macOS and Ctrl, Alt, Shift elsewhere. Detect via `navigator.userAgentData?.platform` (Chromium only), falling back to `navigator.platform`. Match on `event.key` for characters and `event.code` only for layout-independent physical keys.
 - **Esc layering.** Esc closes only the topmost layer: open menu → popover → dialog → selection. Children that use Esc (comboboxes inside dialogs) must consume it.
 - **Feedback.** Shortcut actions give the same visible feedback as clicks. Toggles with no visible result announce through a `role="status"` region ("Sidebar collapsed").
 
 ## Anti-patterns (don't)
 - `outline: none` on `*:focus` globally, the most common accessibility regression in dashboards.
-- Single-letter shortcuts with no off switch. Speech-input users trigger them by dictating words (WCAG 2.1.4: Talon-style non-context-aware software), and keyboard users trigger them accidentally ("S" jumps to search mid-read).
+- Single-letter shortcuts with no off switch. Speech-input users trigger them by dictating words (the WCAG 2.1.4 Understanding page: they "can also be problematic for certain voice control/speech recognition users"), and keyboard users trigger them accidentally ("S" jumps to search mid-read).
 - Shortcuts that fire while typing in a cell editor or the search box.
 - Overriding ⌘F with an in-app search that can't search the whole page. If you must, use the second press to fall through to the browser.
 - Hijacking ⌘[ ⌘] ⌘L or Ctrl+Tab. GitHub community users report app shortcuts intercepting browser shortcuts even after being "disabled".
@@ -60,10 +60,10 @@
 - Hover-only actions (row ⋯ menus) with no keyboard path. Reveal them on `:focus-within` as well.
 
 ## Good references
-- [Grafana — keyboard shortcuts](https://grafana.com/docs/grafana/latest/dashboards/use-dashboards/) — `?` sheet, Ctrl+K palette, `d+`/`t+`/`p+` namespaced sequences (`d+k` kiosk, `t+c` copy time range, `pd` duplicate panel), and Esc to exit modes. A model of scoped single-key shortcuts.
+- [Grafana — keyboard shortcuts](https://grafana.com/docs/grafana/latest/dashboards/use-dashboards/) — `?` sheet, Ctrl+K palette, `d`/`t`/`p` namespaced sequences (`d k` kiosk, `t c` copy time range, `t-`/`t+` zoom, `p d` duplicate panel). A model of scoped single-key shortcuts.
 - [Linear](https://linear.app) (product) — tooltips show shortcuts, the ⌘K palette lists them, `g` sequences navigate, `j`/`k` move through lists, and Esc steps back one layer.
 - [GitHub — Managing accessibility settings](https://docs.github.com/en/account-and-profile/how-tos/account-settings/managing-accessibility-settings) — a user-level switch to disable character-key shortcuts while keeping modifier shortcuts, which satisfies WCAG 2.1.4.
-- [W3C — Understanding SC 2.1.4 Character Key Shortcuts](https://www.w3.org/WAI/WCAG22/Understanding/character-key-shortcuts.html) — the three ways to comply (turn off, remap to include a modifier, active only on focus) and why speech users are affected.
+- [W3C — Understanding SC 2.1.4 Character Key Shortcuts](https://www.w3.org/WAI/WCAG22/Understanding/character-key-shortcuts.html) — Level A; the three ways to comply (turn off, remap to include a non-printable key, active only on focus) and why speech users are affected.
 - [Superhuman — command palette](https://blog.superhuman.com/how-to-build-a-remarkable-command-palette/) — every action gets a command *and* a shortcut, and the palette teaches the shortcut.
 
 ## Bad references
@@ -84,22 +84,22 @@
 ## Tokens and values
 | Token | Default |
 |---|---|
-| Focus ring | 2px solid `--color-focus`, `outline-offset: 2px` (inset −2px in clipped containers) |
+| Focus ring | 2px solid `--focus-ring`, `outline-offset: 2px` (inset −2px in clipped containers) |
 | Focus colour | ≥3:1 vs adjacent colours in light and dark; `Highlight` in forced colors |
 | Sequence timeout | 1000ms |
 | `scroll-padding-block-start` | = sticky top bar + filter bar height (e.g. 96px) |
-| `<kbd>` | 12px mono, 1px `neutral-border`, radius 4px, padding 0 4px, `surface-sunken` bg |
+| `<kbd>` | 12px mono, 1px `--border`, radius 4px, padding 0 4px, `--surface-2` bg |
 | Shortcut sheet | modal dialog, 640px wide, grouped sections, searchable |
 | Reserved (never bind) | ⌘/Ctrl + L T W R N Q P F D [ ] 1–9, Ctrl+Tab, F5–F12, Alt+F4 |
 
 ## Implementation sketch
 ```css
 :where(a, button, input, select, textarea, [tabindex], summary):focus-visible {
-  outline: 2px solid var(--color-focus); outline-offset: 2px;
+  outline: 2px solid var(--focus-ring); outline-offset: 2px;
 }
 html { scroll-padding-block-start: var(--sticky-chrome-h, 96px); } /* 2.4.11 */
 .row-actions { opacity: 0; } .row:is(:hover, :focus-within) .row-actions { opacity: 1; }
-kbd { font: 12px/1.4 var(--font-mono); padding: 0 4px; border: 1px solid var(--neutral-border); border-radius: 4px; background: var(--surface-sunken); }
+kbd { font: 12px/1.4 var(--font-mono); padding: 0 4px; border: 1px solid var(--border); border-radius: 4px; background: var(--surface-2); }
 ```
 ```ts
 type Shortcut = { keys: readonly string[]; label: string; run: () => void; characterKey: boolean };
@@ -149,15 +149,13 @@ export function removeWithFocus(el: HTMLElement, fallback: HTMLElement): void {
 
 ## Sources
 - https://www.w3.org/WAI/WCAG22/Understanding/character-key-shortcuts.html
-- https://docs.github.com/en/account-and-profile/how-tos/account-settings/managing-accessibility-settings (via search summary)
+- https://docs.github.com/en/account-and-profile/how-tos/account-settings/managing-accessibility-settings
 - https://github.com/orgs/community/discussions/113472
 - https://grafana.com/docs/grafana/latest/dashboards/use-dashboards/
 - https://blog.superhuman.com/how-to-build-a-remarkable-command-palette/
 - https://www.gatsbyjs.com/blog/2019-07-11-user-testing-accessible-client-routing/
 - https://www.w3.org/WAI/ARIA/apg/patterns/combobox/
-- modern-web-guidance: `skills/modern-web-guidance/guides/accessibility/accessibility.md` (tab order, focus indicators, keyboard handlers, 3.2.1)
-- modern-web-guidance: `skills/modern-web-guidance/guides/ui-components/toolbar.md` (focusgroup toolbar, fallback roving tabindex)
-- modern-web-guidance: `skills/modern-web-guidance/guides/ui-components/menu.md` (menu keyboard contract, focus restoration for nested popovers)
-- modern-web-guidance: `skills/modern-web-guidance/guides/ui-components/tabs.md` (focusgroup tablist, `nomemory`)
-- modern-web-guidance: `skills/modern-web-guidance/guides/ui-behaviors/declarative-dialog-popover-control.md` (focus loss when hiding a popover from inside)
-- modern-web-guidance: `skills/modern-web-guidance/guides/forms/ime-safe-enter-submit.md`
+- https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/ (roving tabindex, one Tab stop per composite)
+- https://open-ui.org/components/scoped-focusgroup.explainer/ (`focusgroup` tokens, `nomemory`, `focusgroupstart`)
+- https://www.w3.org/WAI/WCAG22/Understanding/focus-not-obscured-minimum.html
+- https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/isComposing

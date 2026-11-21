@@ -15,21 +15,21 @@
   - Never mix both models in one bar.
 
 ## Rules (do)
-- **Applied-filter overview always visible.** Baymard found 28% of sites had no applied-filter overview, and users then lost track of why results were missing. Show each applied filter as a chip in the format `Field operator value`, e.g. `Sector is Energy, Utilities` or `Market cap > $10B`.
+- **Applied-filter overview always visible.** Baymard: "28% of sites across our UX benchmarks don't display an overview at all", and users then lose track of why results are missing. Show each applied filter as a chip in the format `Field operator value`, e.g. `Sector is Energy, Utilities` or `Market cap > $10B`.
   - Include the field name whenever values are ambiguous alone. "90cm" means nothing; "Width: 90cm" does (Baymard). In finance, "> 10" means nothing; "P/E > 10" does.
 - **Each chip is removable in one action** via an × button that has `aria-label="Remove filter: Sector is Energy"`. Clicking the chip body reopens its editor with the current values. Don't remove on body click; that's too easy to trigger by accident in dense UIs.
 - **"Clear all"** appears as soon as ≥2 filters are applied, at the end of the chip row, as a ghost button.
 - **Summarise multi-value selections.** Show up to 2 values, then "+N": `Status is Open, Blocked +2`. Primer recommends a summary like "2 selected" over a comma list.
 - **Keep the chip row on one line on desktop.** If it overflows, collapse it with "+3 more" rather than pushing content down. Baymard warns that multi-row overviews push the first results below the fold.
-- **Operators are explicit and editable**, as in Linear: is / is not / is any of / includes all / before / after / between. The field type is fixed after creation. The operator and values can change.
-- **"+ Filter" opens a searchable field list.** Typing a property name (team, status, sector) offers it as a filter. Linear also lets typing a *value* create the filter directly.
+- **Operators are explicit and editable.** Linear uses is / is not, is either of, includes any / all / none, and before / after for dates. Add between for numeric ranges. The field type is fixed after creation. The operator and values can change.
+- **"+ Filter" opens a searchable field list.** Typing a property name (team, status, sector) offers it as a filter without navigating categories (Linear).
 - **Keyboard.** Press `F` (when focus is not in a text field) to open "+ Filter". Esc closes the popover without applying in batch mode. See `comp-keyboard-shortcuts-focus.md` for the single-key shortcut rules.
 - **Result count and empty state.** Show the resulting count ("128 of 3,412 companies"). When filters return nothing, the empty state names the filters and offers "Clear filters" or "Remove <last filter>".
 - **URL.**
   - Serialise filters as readable query params, e.g. `?sector=energy,utilities&mcap_gt=10e9&from=2025-01-01&to=2025-12-31`.
   - Omit defaults.
   - Use `pushState` when a filter is committed. Use `replaceState` with a 300 ms debounce for text and range input.
-  - Shared links reproduce the view (Linear, Grafana).
+  - Shared links reproduce the view. Linear puts applied filters in the URL but deliberately leaves out view options; Grafana does the same for `from`, `to` and variables.
 - **Saved views.** Once a dashboard has ≥3 filter dimensions, let users save the combination as a named view. Show "Modified" with Save and Reset when the current filters diverge from the saved view.
 - **Cross-filtering from charts.** Clicking a bar or legend item adds a chip just like a manual filter, so it is visible and removable, never hidden state.
 - **Counts on options are optional.** Show them when cheap ("Energy (42)"). Grey out zero-count options and keep them in place rather than hiding them, so the list doesn't reflow.
@@ -46,8 +46,8 @@
 - Mixing chips with and without field names in one row (Baymard: inconsistent).
 
 ## Good references
-- [Baymard — How to design applied filters](https://baymard.com/blog/how-to-design-applied-filters) — research-backed: 28% of sites lack an overview; one-tap × removal; "Clear all"; include the filter type for spec-heavy data; truncate rows instead of pushing results down.
-- [Linear — Filters](https://linear.app/docs/filters) — explicit editable operators, nested AND/OR groups, an `F` shortcut, property search, and filters persisted in the URL.
+- [Baymard — How to design applied filters](https://baymard.com/blog/how-to-design-applied-filters) — benchmark-backed: 28% of sites lack an overview; × removal per filter; "Clear all"; include the filter type where the value alone is ambiguous ("Width: 90cm"); extra overview rows "can push the product list down the viewport".
+- [Linear — Filters](https://linear.app/docs/filters) — explicit editable operators, nested AND/OR groups in advanced filters, an `F` shortcut, property search, and applied filters persisted in the URL (view options excluded).
 - [Grafana — dashboards](https://grafana.com/docs/grafana/latest/dashboards/use-dashboards/) — dashboard-wide variables and time range live in the URL and apply to all panels, so scope is unambiguous.
 - [Datadog](https://www.datadoghq.com) / [PostHog](https://posthog.com) (products) — filter expressions render as chips such as `env:prod` and `service:api` that read like the query itself, so copying the URL or the expression reproduces the view.
 
@@ -57,7 +57,7 @@
 - Typical BI tools with filters hidden in a collapsed right-hand "Filters pane". A report looks complete while 2 filters are silently applied, and screenshots get shared without the filter context.
 
 ## Accessibility
-- Wrap the bar in `<search>` (or `role="search"`) with an accessible name such as "Dashboard filters".
+- Wrap the bar in `<search>` (Baseline widely available: Chrome 118, Firefox 118, Safari 17) with an accessible name such as "Dashboard filters". Use `role="search"` on a `<div>` only if you must support older browsers.
 - The chip row is a list (`<ul aria-label="Applied filters">`). Each chip has a text label and an × button with an explicit name.
 - When a chip is removed, move focus to the next chip's ×, or to "+ Filter" if none remain. Never drop focus to `<body>`.
 - Announce result changes politely, with debouncing: "128 companies match". Don't announce every keystroke.
@@ -65,7 +65,7 @@
 - A selected state uses a check or icon as well as colour.
 
 ## Motion / interaction (if relevant)
-- A chip enters with a 120 ms fade and scale from 0.96 and exits with a 100 ms fade. Neighbours reflow without animation, or use a View Transition with a short duration. No motion under reduced motion.
+- A chip enters with a `--motion-dur-short` (150 ms) fade and scale from 0.96 and exits with a `--motion-dur-micro` (100 ms) fade. Neighbours reflow without animation, or use a View Transition with a short duration. No motion under reduced motion.
 - While a query runs after a filter change, keep the old data visible but dimmed (opacity .6) with a thin progress bar on the affected widget, instead of blanking it to a skeleton.
 
 ## Tokens and values
@@ -74,13 +74,13 @@
 | Filter bar height | 40–48px; sticky under the page header |
 | Chip height / radius | 28px / 6px (or 14px pill) |
 | Chip padding / gap | 8px inline / 6px between chips |
-| Chip text | 13px; field name `fg-muted`, value `fg` |
+| Chip text | 13px; field name `--text-muted`, value `--text` |
 | Remove × hit area | 24×24 |
 | Visible values per chip | 2, then "+N" |
 | Always-visible global filters | 3–5 |
 | Instant-apply threshold | query < 1s; otherwise batch with Apply |
 | URL debounce for text/range | 300ms |
-| Colour roles | `chip-bg` = `surface-sunken`, `chip-border` = `neutral-border`, active = `accent-subtle-bg` |
+| Colour roles (tokens.css) | chip bg `--surface-2`, chip border `--border`, active `color-mix(in oklab, var(--accent) 15%, var(--surface))` |
 
 ## Implementation sketch
 ```html
@@ -100,14 +100,14 @@
 </search>
 ```
 ```css
-.filter-bar { position: sticky; top: var(--header-h); display: flex; align-items: center; gap: 8px;
-  min-block-size: 44px; padding-inline: 16px; background: var(--surface); border-block-end: 1px solid var(--neutral-border); }
+.filter-bar { position: sticky; top: var(--header-h, 0px); display: flex; align-items: center; gap: 8px;
+  min-block-size: 44px; padding-inline: 16px; background: var(--surface); border-block-end: 1px solid var(--border); }
 .chips { display: flex; gap: 6px; overflow: clip; list-style: none; margin: 0; padding: 0; min-inline-size: 0; }
-.chip { display: inline-flex; align-items: center; block-size: 28px; border: 1px solid var(--neutral-border);
-  border-radius: 6px; background: var(--chip-bg); font-size: 13px; white-space: nowrap; }
-.chip__field { color: var(--fg-muted); }
+.chip { display: inline-flex; align-items: center; block-size: 28px; border: 1px solid var(--border);
+  border-radius: 6px; background: var(--surface-2); font-size: 13px; white-space: nowrap; }
+.chip__field { color: var(--text-muted); }
 .chip__remove { min-inline-size: 24px; min-block-size: 24px; }
-.filter-count { margin-inline-start: auto; color: var(--fg-muted); font-variant-numeric: tabular-nums; }
+.filter-count { margin-inline-start: auto; color: var(--text-muted); font-variant-numeric: tabular-nums; }
 ```
 ```ts
 type Filter = { field: string; op: 'is' | 'is_not' | 'gt' | 'lt' | 'between'; values: readonly string[] };
@@ -138,8 +138,6 @@ export function commitFilters(filters: readonly Filter[]): void {
 - https://linear.app/docs/filters
 - https://grafana.com/docs/grafana/latest/dashboards/use-dashboards/
 - https://alfy.blog/2025/10/31/your-url-is-your-state.html
-- https://primer.style/product/components/button/guidelines (summarised multi-selection labels)
+- https://primer.style/product/components/button/guidelines ("2 selected" summary instead of a comma list)
 - https://www.nngroup.com/articles/response-times-3-important-limits/
-- modern-web-guidance: `skills/modern-web-guidance/guides/forms/forms.md` (wrap filtering controls in `<search>`)
-- modern-web-guidance: `skills/modern-web-guidance/guides/accessibility/accessibility.md` (live region urgency, focus management)
-- modern-web-guidance: `skills/modern-web-guidance/guides/ui-atoms/scrollability-affordance-hints.md` (fades for overflowing chip rows)
+- https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/search
