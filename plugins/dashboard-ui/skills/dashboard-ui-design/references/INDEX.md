@@ -1,7 +1,7 @@
 # Pattern index
 
 Every pattern file in `patterns/`, grouped by cluster. **Priority** says how binding it is: must = always apply, should = apply unless there's a reason not to, nice = optional.
-71 patterns in total.
+74 patterns in total.
 
 
 ## Foundations: hierarchy, layout, density, type
@@ -38,6 +38,7 @@ Every pattern file in `patterns/`, grouped by cluster. **Priority** says how bin
 | [Radius scale and nested (concentric) corners](patterns/style-radius-scale.md) | should | Use a small, fixed radius scale tied to component size, and make nested corners concentric: inner radius = outer radius − the gap between the edges (padding + border), clamped at a small minimum. |
 | [Soft shadows, elevation and borders vs shadows](patterns/style-shadows-and-borders.md) | should | Default to borders and whitespace for flat, in-flow surfaces. Reserve shadows for things that genuinely float (raised movable items, popovers, dialogs), use a 3–4 step layered shadow scale from one light source, and never let a shadow be the only boundary. |
 | [Surfaces, cards and layering](patterns/style-surfaces-and-layering.md) | must | Define 4–5 named surface levels (canvas, surface, raised, overlay, plus optional sunken) and place every element on exactly one of them. Use cards only to group a self-contained unit, never as default wrapping for everything. |
+| [Theme consistency: one scheme per screen, one pipeline for every surface](patterns/style-theme-consistency.md) | must | Every surface on a screen, including canvas charts, embeds and native controls, renders in the same active scheme from the same role tokens. The user chooses System, Light or Dark once, the choice persists, and the first paint is already correct. |
 
 ## Data display: KPIs, numbers, tables, states
 
@@ -69,6 +70,7 @@ Every pattern file in `patterns/`, grouped by cluster. **Priority** says how bin
 | [Sparklines and micro-charts](patterns/chart-sparklines-micro.md) | should | A sparkline is a word-sized line that gives a number its history: always pair it with the current value, keep it free of axes and frames, give it a stated time window, and never make it the only carrier of meaning. |
 | [Line and area time series](patterns/chart-time-series-line-area.md) | must | Lines show change by slope and position, so they may crop the y-axis; areas show amount by filled height, so they must start at zero; gaps in data stay visible gaps, and events get annotations, not legend entries. |
 | [Tooltips, crosshairs, legends vs direct labels](patterns/chart-tooltips-crosshair-labels.md) | must | Put the essential numbers on the chart (direct labels, end labels, annotations); use the tooltip only for detail on demand, triggered by hover, focus and touch alike; snap a crosshair to the nearest x and share it across charts that share an axis; use a legend only when direct labels cannot fit. |
+| [Canvas and WebGL charts that stay accessible and on-theme](patterns/chart-canvas-accessibility.md) | must | A canvas chart is a bitmap: it has no accessibility tree, no CSS and no theme. Give it a name, a DOM twin (summary plus table), a keyboard path, and colours read from the container's resolved tokens, and repaint it whenever the theme changes. |
 
 ## Components and interaction
 
@@ -98,6 +100,7 @@ Every pattern file in `patterns/`, grouped by cluster. **Priority** says how bin
 | [Reduced motion](patterns/motion-reduced-motion.md) | must | Design the static final state first and opt in to movement under `prefers-reduced-motion: no-preference`. Under `reduce`, remove spatial movement (translate, scale, rotate, parallax, zoom, morph) but keep colour and opacity feedback and slowed, essential activity indicators. Never use a global `0.01ms` override. |
 | [View Transitions for page, tab and panel changes](patterns/motion-view-transitions.md) | should | Use the View Transitions API to keep users oriented across route, tab and detail changes. Fetch first, then transition. Scope the transition to the component that changes, morph at most one to three named elements, finish within 250–350 ms, move focus afterwards, and skip it entirely under reduced motion. |
 | [What-if controls with live recompute](patterns/motion-what-if-live-recompute.md) | should | When users tune model assumptions (growth, discount rate, margin), recompute and repaint the outputs while they drag, within 100 ms per step. If you can't, show the instant input value plus a clearly provisional output, and commit on release. Always show the base case next to the scenario, with the delta, and offer one-click reset. |
+| [Drag, release and spring physics](patterns/motion-drag-and-spring-physics.md) | should | Anything the user can grab follows the pointer 1:1 from where it was grabbed, hands its release velocity to a critically damped spring, settles on the snap target nearest its *projected* resting point, resists softly past its bounds, and can be grabbed again mid-flight without a jump. |
 
 ## Progressive loading and performance
 
