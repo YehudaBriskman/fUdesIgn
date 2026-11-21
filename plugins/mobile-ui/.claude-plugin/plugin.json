@@ -1,0 +1,19 @@
+{
+  "name": "mobile-ui",
+  "description": "Design, build and review mobile web and responsive apps (PWA included) with researched patterns, Apple HIG and Material 3 conventions, and tokens.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Yehuda Briskman"
+  },
+  "keywords": [
+    "mobile",
+    "responsive",
+    "pwa",
+    "touch",
+    "ui",
+    "design",
+    "accessibility",
+    "design-tokens"
+  ],
+  "license": "PolyForm-Internal-Use-1.0.0"
+}
