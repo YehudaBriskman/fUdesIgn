@@ -5,7 +5,7 @@
 **Category:** Color and visual style · **Applies to:** all text, numbers, inputs, buttons, focus rings, icons, chart lines/bars/points, legends, gridlines, badges · **Priority:** must
 
 ## When to use / when not
-- Always. Contrast is a legal baseline. EN 301 549 (used for the EU Accessibility Act) and the 2024 ADA Title II rule cite WCAG 2.1 AA, and Section 508 cites WCAG 2.0 AA. 1.4.3 is the same in 2.0, 2.1 and 2.2. 1.4.11 (non-text) arrived in 2.1.
+- Always. Contrast is a legal baseline. EN 301 549 V3.2.1 (the EU route to conformity) and the 2024 ADA Title II rule cite WCAG 2.1 AA; EN 301 549 V4.1.1 (published 2 September 2026) moves to WCAG 2.2 AA; Section 508 cites WCAG 2.0 AA. ADA Title II compliance dates are 26 April 2027 (population 50,000 or more) and 26 April 2028 (smaller entities), after the 20 April 2026 interim final rule (91 FR 20902). Dates and scope: accessibility plugin `alaw-legal-landscape.md`. 1.4.3 is the same in 2.0, 2.1 and 2.2. 1.4.11 (non-text) arrived in 2.1.
 - **Exempt (WCAG):** disabled controls, pure decoration, logos, text in photos, and "essential" encodings such as heatmaps where changing colour would change meaning. A chart is also exempt from 1.4.11 if its values are in text labels or an adjacent table.
 - APCA was developed as a candidate for WCAG 3. It is **not** part of any conformance standard today, so use it only to catch dark-mode and thin-font failures that WCAG 2 math misses.
 
