@@ -1,0 +1,7 @@
+{
+  "name": "dashboard-ui",
+  "description": "Design, build and review data-heavy dashboards with researched patterns, rules and tokens.",
+  "version": "0.1.0",
+  "author": { "name": "Yehuda Briskman" },
+  "keywords": ["dashboard", "ui", "design", "data-visualization", "accessibility", "design-tokens"]
+}

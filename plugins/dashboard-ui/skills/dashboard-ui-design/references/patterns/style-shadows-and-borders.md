@@ -1,0 +1,113 @@
+# Soft shadows, elevation and borders vs shadows
+
+> Default to borders and whitespace for flat, in-flow surfaces. Reserve shadows for things that genuinely float (raised movable items, popovers, dialogs), use a 3–4 step layered shadow scale from one light source, and never let a shadow be the only boundary.
+
+**Category:** Color and visual style (soft and rounded aesthetic) · **Applies to:** cards, KPI tiles, panels, dropdowns, popovers, tooltips, dialogs, sticky headers, drag previews · **Priority:** should
+
+## When to use / when not
+- **Border (or tonal fill):** in-flow content such as dashboard cards in a grid, tables, sidebars, sticky headers. Atlassian: "Use a border or whitespace to separate areas instead of sunken or raised elevations when possible". Borders are the default for scrolled content like sticky headers.
+- **Shadow:** UI that sits *over* other UI (menus, popovers, dialogs, toasts, drag previews), or a raised movable card (Atlassian reserves "raised" for draggable Jira/Trello cards, "sparingly, one focal point per screen").
+- **Both:** overlays in dark mode, where shadows are weak and need a lighter surface plus a 1 px border.
+- **Neither:** grouping a few controls. Use spacing.
+
+## Rules (do)
+- **One light source, top-centre or top-left.** Every shadow on the page uses the same x:y offset ratio (Josh Comeau: y = 2× x, or x = 0 for a symmetric UI).
+- **3–5 elevation levels max.** Atlassian: sunken, default, raised, overlay (+ overflow). Fluent: 2, 4, 8, 16 (low) and 28, 64 (high). Map each to component types and don't invent intermediate shadows.
+- **Higher = larger offset + larger blur + lower opacity per layer** (Comeau). Fluent's low ramp: blur = n, y = n/2.
+- **Layer 2–5 shadows.** A tight "key" shadow defines the edge and a wide "ambient" shadow implies distance (Fluent's key + ambient model). Comeau's layered stack (1/2/4/8/16 px at ~7.5% each) reads far softer than a single `0 10px 30px rgba(0,0,0,.3)`.
+- **Tint shadows with the surface hue**, not pure black. Black at alpha greys out coloured backgrounds (Comeau). Use a low-chroma, dark version of the canvas hue.
+- **Pair surface + shadow tokens.** Atlassian always pairs `elevation.surface.raised` with `elevation.shadow.raised`, and never mixes levels.
+- **Dark mode: lighter surface carries elevation**, shadow opacity roughly doubles (Fluent dark key 28% vs light 14%), and add a 1 px border at `--border`.
+- **Borders for soft look: low-contrast 1 px** (`--border`, ≈ 1.3–1.6:1) on cards. That's decorative and fine. If the border is the only thing that marks an *interactive control*, it needs 3:1 (see `color-contrast-rules.md`).
+- **Hairline + subtle shadow is the modern "soft card"**: 1 px border at ~8% foreground plus a 1–2 px y-offset shadow at 4–6%. Seen in Linear, Vercel and Stripe dashboards.
+- **Forced colors and print drop `box-shadow`.** Any shadow-only boundary must also have a border (transparent border is fine) or outline (modern-web-guidance `color.md`).
+- **Shapes and arrows:** use `filter: drop-shadow()` for tooltips with a tail or non-rectangular shapes (modern-web-guidance `visual-effects.md`).
+
+## Anti-patterns (don't)
+- Shadow on every card in a 12-card grid. Everything "floats", nothing does, and it adds a lot of visual noise to a data screen.
+- Hard, dark single shadows (`0 4px 8px rgba(0,0,0,.5)`), the 2014 "material card" look.
+- Mixed light directions (one card's shadow goes left, the menu's goes down).
+- Neumorphism (inset + outset shadows of the same hue as the background). Boundaries fall far below 3:1 and disappear in forced colors.
+- Animating layered `box-shadow` on hover across many cards. It repaints expensively (Comeau discourages animating layered shadows). Animate `opacity` of a pseudo-element that holds the hover shadow, or `translate`.
+- Border *and* heavy shadow *and* tinted background on the same card: three cues for one boundary.
+
+## Good references
+- [Atlassian – Elevation](https://atlassian.design/foundations/elevation) — clearest rules for when to use border vs elevation, paired surface/shadow tokens, dark-mode behaviour, "one focal point per screen".
+- [Josh W. Comeau – Designing beautiful shadows](https://www.joshwcomeau.com/css/designing-shadows/) — consistent light source, layered shadows, colour-matched shadows, concrete small/medium/large values.
+- [Microsoft Fluent 2 – Elevation](https://fluent2.microsoft.design/elevation) — key vs ambient shadows, a 2/4/8/16/28/64 ramp with use cases, dark-mode opacities, and a luminosity formula for shadows on brand-coloured surfaces.
+- [Material 3 in Compose – Elevation](https://developer.android.com/develop/ui/compose/designsystems/material3) — tonal elevation (colour) as the primary cue, with shadow as an additional one.
+
+## Bad references
+- [Stephen Few – rule #9](https://www.perceptualedge.com/articles/visual_business_intelligence/rules_for_using_color.pdf) — "Avoid using visual effects in graphs". Shadows/bevels on bars and pies (his 3-D cylinder example) add no information and make value ends harder to read.
+- Neumorphism showcases (Dribbble "soft UI" dashboards, 2020) — beautiful in mock-ups, but boundaries are ~1.1:1 and controls are indistinguishable from labels. They fail WCAG 1.4.11 by construction.
+
+## Accessibility
+- Shadows are not a boundary for WCAG purposes when they are decorative (W3C 1.4.11 says ignore subtle drop shadows when testing). If a control's only boundary is a shadow, it must reach 3:1, which soft shadows never do, so add a border.
+- `@media (forced-colors: active)`: shadows are removed, so ensure overlays have `border: 1px solid CanvasText` or an outline.
+- `prefers-contrast: more`: strengthen borders to `--border-strong` rather than darkening shadows.
+
+## Motion / interaction (if relevant)
+- Hover on clickable cards: lift by `translate: 0 -1px` + swap to the next shadow level, 150 ms `ease-out`. Not for non-clickable cards.
+- Drag: the item moves to overlay elevation while dragged and returns on drop (Atlassian).
+- Menus/popovers: fade + 4–8 px translate in 120–200 ms. Disable translate under `prefers-reduced-motion`.
+
+## Tokens and values
+| Token | Light value | Dark value | Use |
+|---|---|---|---|
+| `--shadow-color` | oklch(0.35 0.03 250) | oklch(0 0 0) | hue-tinted shadow base |
+| `--shadow-xs` (key) | `0 1px 2px color-mix(in oklab, var(--shadow-color) 8%, transparent)` | 30% | buttons, inputs at rest |
+| `--shadow-sm` (raised) | `0 1px 1px …6%, 0 2px 4px …6%` | 30% / 20% | hover card, draggable card |
+| `--shadow-md` (popover) | `0 1px 2px …8%, 0 4px 8px …8%, 0 12px 24px …8%` | 40% / 30% / 30% | menus, tooltips, popovers |
+| `--shadow-lg` (dialog) | `0 2px 4px …8%, 0 8px 16px …8%, 0 24px 48px …12%` | 50% / 40% / 40% | dialogs, sheets |
+| `--border` (decorative) | ≈ 1.4:1 vs surface | ≈ 1.5:1 | cards, dividers |
+| Hover lift | translate 0 −1px, 150 ms ease-out | | clickable cards only |
+| Max elevation levels used | 4 | | flat, raised, popover, dialog |
+
+## Implementation sketch
+```css
+:root {
+  --shadow-color: light-dark(oklch(0.35 0.03 250), oklch(0 0 0));
+}
+/* light-dark() works only for colours, not percentages, so switch alphas with a media query */
+:root { --sh-1: color-mix(in oklab, var(--shadow-color) 6%, transparent);
+        --sh-2: color-mix(in oklab, var(--shadow-color) 10%, transparent); }
+@media (prefers-color-scheme: dark) {
+  :root { --sh-1: color-mix(in oklab, var(--shadow-color) 30%, transparent);
+          --sh-2: color-mix(in oklab, var(--shadow-color) 45%, transparent); }
+}
+:root {
+  --shadow-sm: 0 1px 1px var(--sh-1), 0 2px 4px var(--sh-1);
+  --shadow-md: 0 1px 2px var(--sh-1), 0 4px 8px var(--sh-1), 0 12px 24px var(--sh-2);
+}
+
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+.card[data-clickable] { position: relative; transition: translate 150ms ease-out; }
+.card[data-clickable]::after {               /* shadow on a pseudo-element: animate opacity only */
+  content: ""; position: absolute; inset: 0; border-radius: inherit;
+  box-shadow: var(--shadow-sm); opacity: 0; transition: opacity 150ms ease-out; pointer-events: none;
+}
+.card[data-clickable]:hover { translate: 0 -1px; }
+.card[data-clickable]:hover::after { opacity: 1; }
+
+[popover].menu { background: var(--surface-3); border: 1px solid var(--border); box-shadow: var(--shadow-md); }
+@media (forced-colors: active) { [popover].menu { border-color: CanvasText; } }
+@media (prefers-reduced-motion: reduce) { .card[data-clickable]:hover { translate: none; } }
+```
+
+## Checklist
+- [ ] In-flow cards use a border/whitespace, not a shadow.
+- [ ] ≤ 4 elevation levels, each a paired surface + shadow token.
+- [ ] All shadows share one light direction and are tinted, not pure black (light theme).
+- [ ] Every shadowed element also has a border (visible or transparent) for forced colours.
+- [ ] Dark mode shows elevation by lighter surface plus border, not shadow alone.
+- [ ] No layered `box-shadow` is animated directly. Hover uses opacity/translate.
+
+## Sources
+- https://atlassian.design/foundations/elevation
+- https://www.joshwcomeau.com/css/designing-shadows/
+- https://fluent2.microsoft.design/elevation
+- https://developer.android.com/develop/ui/compose/designsystems/material3
+- https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html
+- https://www.perceptualedge.com/articles/visual_business_intelligence/rules_for_using_color.pdf
+- https://linear.app/now/how-we-redesigned-the-linear-ui
+- modern-web-guidance: `guides/visual-design/visual-effects.md` (layered shadows, drop-shadow), `guides/visual-design/color.md` (forced colors removes box-shadow), `guides/ui-behaviors/animate-element-entry-exit.md`

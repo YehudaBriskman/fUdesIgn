@@ -1,0 +1,121 @@
+# Pattern index
+
+Every pattern file in `patterns/`, grouped by cluster. **Priority** says how binding it is: must = always apply, should = apply unless there's a reason not to, nice = optional.
+71 patterns in total.
+
+
+## Foundations: hierarchy, layout, density, type
+
+| Pattern | Priority | Rule |
+|---|---|---|
+| [Pick the dashboard type before the layout](patterns/found-dashboard-types.md) | must | Decide whether a view is operational, analytical or strategic. That choice sets the refresh rate, density, interactivity and time scale, and mixing them on one screen serves none of them. |
+| [Data-ink minimalism done right (not "empty and vague")](patterns/found-data-ink-minimalism.md) | must | Remove ink that carries no information, but never remove the context that makes a number meaningful: labels, units, comparisons, targets and time frame. |
+| [Density: comfortable vs compact](patterns/found-density-modes.md) | should | Treat density as value per unit of space and time, not as how full the screen looks. Ship two density modes driven by the same tokens: comfortable by default, compact for expert and analytical views. |
+| [Layout grid and spacing scale](patterns/found-layout-grid-spacing.md) | must | Lay dashboards on a 12-column grid with a single 4px-based spacing scale. Group with space, not lines, and keep internal gaps smaller than the gaps between groups. |
+| [Overview first, filter, details on demand](patterns/found-overview-filter-details.md) | must | Structure every dashboard as three linked layers: an overview of the whole, controls to narrow it, and details that open on request without losing the overview. |
+| [Progressive disclosure in dashboards](patterns/found-progressive-disclosure.md) | should | Show everything users frequently need up front, put the rest one clearly labelled step away, and never nest more than two levels deep. |
+| [Responsive dashboards: reflow by priority, adapt by container](patterns/found-responsive-reflow.md) | must | Use media queries only for the page shell (columns, navigation). Let each widget adapt to its own container with container queries, and reflow by priority so the overview stays first on every size. |
+| [Scanning patterns and the inverted KPI pyramid](patterns/found-scanning-kpi-pyramid.md) | must | Design for scanning: put the answer top-leading, trends in the middle and detail at the bottom, and give each band a front-loaded heading so the eye can "layer-cake" down the page. |
+| [Typography for data](patterns/found-typography-for-data.md) | must | Set every number in tabular lining figures, right-align numeric columns with their headers, use a short type scale, and cap prose at about 65 characters per line. |
+| [Visual hierarchy: one place to look first](patterns/found-visual-hierarchy.md) | must | Every dashboard view has exactly one primary focal point. It answers the user's first question, and size, contrast, position and space are spent on it before anything else. |
+
+## Colour
+
+| Pattern | Priority | Rule |
+|---|---|---|
+| [Contrast rules: text, UI and chart marks](patterns/color-contrast-rules.md) | must | Text must meet WCAG 2.2 AA (4.5:1, or 3:1 for large text), and component boundaries, focus indicators, icons and chart marks must meet 3:1. Use APCA as a second check for dark themes and thin dashboard type, never in place of WCAG. |
+| [Dark mode done right](patterns/color-dark-mode.md) | should | Dark mode is a separately tuned theme, not an inversion: dark grey (not black) base, elevation shown by lighter surfaces, desaturated lighter accents, and every role pair re-checked for contrast. |
+| [Data-viz palettes: categorical, sequential, diverging](patterns/color-dataviz-palettes.md) | must | Choose the scale type from the data (unordered → categorical, ordered → sequential, meaningful midpoint → diverging), cap categorical colours at about 6–8, and make every mark meet 3:1 against the plot background. |
+| [Minimal colour: colour only where it carries meaning](patterns/color-minimal-usage.md) | must | Build the dashboard in neutrals first, then add colour only to encode something (action, status, direction, a data series, a highlight). Target ≤ 10% of the screen area in saturated colour. |
+| [Semantic status and money colours](patterns/color-semantic-status.md) | must | Status colours (danger, warning, success, info) and money colours (positive, negative) are separate token sets, never the only cue, and for money they must be locale- and preference-aware. |
+| [Colour system architecture (ramps → roles → components)](patterns/color-system-architecture.md) | must | Build colour as three layers (raw OKLCH ramps, semantic role tokens, component usage) so that components never touch a raw colour and themes change only the middle layer. |
+
+## Visual style: radius, elevation, surfaces, glass
+
+| Pattern | Priority | Rule |
+|---|---|---|
+| [Glass and translucency (and when not to use it)](patterns/style-glass-translucency.md) | nice | Use translucency only for thin chrome that floats over scrolling content (sticky headers, toolbars, command palettes over a dim scrim), with heavy blur and a high-opacity tint so the text contrast never depends on what's underneath. Never put data, tables or charts on glass. |
+| [Radius scale and nested (concentric) corners](patterns/style-radius-scale.md) | should | Use a small, fixed radius scale tied to component size, and make nested corners concentric: inner radius = outer radius − the gap between the edges (padding + border), clamped at a small minimum. |
+| [Soft shadows, elevation and borders vs shadows](patterns/style-shadows-and-borders.md) | should | Default to borders and whitespace for flat, in-flow surfaces. Reserve shadows for things that genuinely float (raised movable items, popovers, dialogs), use a 3–4 step layered shadow scale from one light source, and never let a shadow be the only boundary. |
+| [Surfaces, cards and layering](patterns/style-surfaces-and-layering.md) | must | Define 4–5 named surface levels (canvas, surface, raised, overlay, plus optional sunken) and place every element on exactly one of them. Use cards only to group a self-contained unit, never as default wrapping for everything. |
+
+## Data display: KPIs, numbers, tables, states
+
+| Pattern | Priority | Rule |
+|---|---|---|
+| [Cards vs tables vs lists: choosing the container](patterns/data-cards-vs-tables-vs-lists.md) | must | Choose by task. Use a table to compare many homogeneous records across attributes, a list to scan and pick one item, and cards for a few heterogeneous summaries. Default to the table for data; cards are the exception. |
+| [Deltas and trend indicators](patterns/data-delta-trend-indicators.md) | must | A change is shown as sign, then magnitude, then comparison basis, as text. Arrow and colour are redundant cues, and the colour encodes *desirability* per metric, not direction. |
+| [KPI / stat card](patterns/data-kpi-stat-card.md) | must | A KPI card answers one question at a glance. It holds a short label, one big formatted value, and context: a delta against a named comparison period, a target or a trend. Every card in a row shares the same anatomy and size. |
+| [List rows (resource lists, watchlists, activity rows)](patterns/data-list-rows.md) | should | A list row lets someone find one item and open it. It holds a leading visual, a primary label, at most one line of secondary metadata, and one trailing value or status, in fixed positions, and the whole row is one link. |
+| [Loading, empty, error and partial-data states](patterns/data-loading-empty-error-states.md) | must | Every data region has five explicit states (loading, empty first-use, zero-results, error, partial or missing), each scoped to the smallest region that has it. "No data" is never shown while still loading, and missing is never shown as zero. |
+| [Number and money formatting](patterns/data-number-formatting.md) | must | Format every number through one locale-aware `Intl.NumberFormat` layer: show only the precision the decision needs, keep precision the same within a column or a row of cards, use a true minus sign, and keep the exact value one hover away. |
+| [Data table interaction: sticky, sort, select, act, page](patterns/data-table-interaction.md) | must | Freeze the header and the identifier column. Sort with a `<button>` in the `<th>` and `aria-sort`. Keep 1–2 row actions inline and put the rest in an overflow menu. Paginate at about 20–50 rows by default, and virtualise only when you must. |
+| [Data table layout and typography](patterns/data-table-layout-and-typography.md) | must | Left-align text, right-align numbers *and their headers*, use tabular figures with consistent decimals, separate rows with thin horizontal rules (not grids, not heavy zebra), and pick one row density from a fixed scale. |
+| [Timestamps and data freshness](patterns/data-timestamps-freshness.md) | must | Show recent event times as relative ("5 min ago") and older ones as absolute dates. Always expose the exact time with timezone on hover or focus and in `<time datetime>`. Every dashboard states how fresh its data is ("Updated 4 min ago") next to the numbers it qualifies. |
+| [Units, definitions, footnotes and source attribution](patterns/data-units-footnotes-sources.md) | should | Every number states its unit, its period and its definition, and every derived or third-party number says where it came from. Keep this text small, grey and close to the number, but never absent. |
+
+## Charts and data visualisation
+
+| Pattern | Priority | Rule |
+|---|---|---|
+| [Chart accessibility: text alternative, table view, decals, keyboard](patterns/chart-accessibility.md) | must | Every chart ships with four layers: a title that states the takeaway, a short text summary, a real data table one click away, and non-colour encodings (labels, shapes, decals); interactive charts add keyboard navigation that never fights the screen reader. |
+| [Bad chart gallery](patterns/chart-bad-gallery.md) | should | Learn the failure modes from named, documented examples: for each one know what the reader believed, what the data said, which rule broke, and the fix. |
+| [Bars: zero baseline, sorted, horizontal for long labels](patterns/chart-bars-baseline-sorting.md) | must | Bar length is the value, so bars always start at zero; sort them by value unless the categories have a natural order; and turn them horizontal whenever labels are longer than about 10 characters or there are more than about 7 bars. |
+| [Choose the chart by the question](patterns/chart-choose-by-question.md) | must | Name the comparison the reader must make (change, rank, part-to-whole, distribution, deviation, correlation, flow, magnitude, spatial) and pick the chart from that row; never pick a chart for looks or because the library offers it. |
+| [Distributions and uncertainty](patterns/chart-distributions-uncertainty.md) | must | Show spread, not just a mean, and show uncertainty as graded ranges with a stated meaning ("80% of simulated outcomes"), never as a single confident line or an unlabelled error bar. |
+| [Financial charts: price vs value, candles, football field, waterfall](patterns/chart-financial-price-value.md) | must | Draw market price as a line over time and intrinsic value as a range, put them on one shared axis so the gap is the message, bridge from one value to another with a waterfall, and compare methods with a football field sorted and anchored by the current price. |
+| [Honest charts: no truncated bars, no dual axes, no 3D, no chartjunk](patterns/chart-honesty-chartjunk.md) | must | The visual size of an effect must match the size of the effect in the data (Tufte's lie factor ≈ 1), and every pixel of ink must either encode data or help read it. |
+| [Pies, donuts and gauges: mostly not](patterns/chart-pies-donuts-gauges.md) | must | Use a pie or donut only for one whole split into 2 to 5 parts with one part that matters; replace speedometer gauges with a bullet graph or a number plus a bar against target. |
+| [Sparklines and micro-charts](patterns/chart-sparklines-micro.md) | should | A sparkline is a word-sized line that gives a number its history: always pair it with the current value, keep it free of axes and frames, give it a stated time window, and never make it the only carrier of meaning. |
+| [Line and area time series](patterns/chart-time-series-line-area.md) | must | Lines show change by slope and position, so they may crop the y-axis; areas show amount by filled height, so they must start at zero; gaps in data stay visible gaps, and events get annotations, not legend entries. |
+| [Tooltips, crosshairs, legends vs direct labels](patterns/chart-tooltips-crosshair-labels.md) | must | Put the essential numbers on the chart (direct labels, end labels, annotations); use the tooltip only for detail on demand, triggered by hover, focus and touch alike; snap a crosshair to the nearest x and share it across charts that share an axis; use a legend only when direct labels cannot fit. |
+
+## Components and interaction
+
+| Pattern | Priority | Rule |
+|---|---|---|
+| [App shell: sidebar vs top bar, breadcrumbs and layout](patterns/comp-app-shell-navigation.md) | must | Use a persistent, collapsible left sidebar for product navigation once there are more than ~5 destinations or they will grow. Reserve the top bar for global, universal actions (search, create, account). Add breadcrumbs only when the hierarchy is ≥3 levels deep. |
+| [Button hierarchy, sizing and loading state](patterns/comp-button-hierarchy.md) | must | One primary button per view region, every other action steps down in emphasis, every target is at least 24×24 CSS px, and a busy button keeps its size, its focus and its label. |
+| [Search and the command palette (⌘K)](patterns/comp-command-palette-search.md) | should | Give power users one keyboard-summoned palette that finds *every* command, entity and page with fuzzy matching and teaches shortcuts. Keep a visible search field and visible buttons for everyone else, because the palette is an accelerator, not the only path. |
+| [Date-range picker with presets and comparison periods](patterns/comp-date-range-picker.md) | must | Lead with presets (most sessions take one click), always show the resolved absolute dates and timezone, allow typed entry, and make the comparison period explicit, length-matched and visible on every widget it affects. |
+| [Filter bars and filter chips](patterns/comp-filter-bar-chips.md) | must | Keep one filter bar per dashboard scope. Show every applied filter as a visible, individually removable chip with a "Clear all". Write the filter state to the URL so the filtered view can be shared. |
+| [Forms and inline editing inside dashboards](patterns/comp-inline-edit-and-forms.md) | must | Edit where the value lives (inline) for single, frequently changed fields. Use a side panel or a page for multi-field changes. Every edit has an obvious affordance, an explicit save/cancel path, a visible saved state and errors next to the field. |
+| [Keyboard shortcuts and focus management](patterns/comp-keyboard-shortcuts-focus.md) | must | Every action works from the keyboard with a visible focus ring. Composite widgets are one Tab stop with arrow keys inside. Shortcuts are discoverable (`?` sheet, tooltips, palette), never collide with browser or assistive-tech keys, and single-character shortcuts can be turned off. |
+| [Notifications, inline alerts and banners](patterns/comp-notifications-alerts.md) | must | Match intrusiveness to urgency and place the message next to its cause. Errors and anything requiring action persist inline until resolved. Toasts are a last resort for low-stakes, recoverable confirmations, and are never the only record. |
+| [Choosing an overlay: dialog, popover, drawer, toast, tooltip](patterns/comp-overlay-choice.md) | must | Pick the least intrusive overlay that does the job. Block the page (modal `<dialog>`) only for a decision the user must make *now*. Everything else is a non-modal popover, drawer or inline message built on the platform's top layer. |
+| [Sliders paired with numeric inputs](patterns/comp-slider-with-number-input.md) | should | A slider is for approximate, exploratory values in a narrow range. In a data product, always pair it with a typed numeric input bound to the same value, and never let the slider be the only way to enter a precise number. |
+| [Tabs vs segmented controls vs pills (and URL-addressable tabs)](patterns/comp-tabs-segmented-pills.md) | must | Tabs switch *panels of different content*, segmented controls switch *one view's mode or scope*, pills (chips) *filter or select values*. Whichever you use, the selected state belongs in the URL whenever a colleague opening the link should see the same thing. |
+
+## Motion and interactive exploration
+
+| Pattern | Priority | Rule |
+|---|---|---|
+| [Chart transitions: morphing, staggered entry, and when to animate data](patterns/motion-chart-transitions.md) | should | Animate a chart only to preserve object constancy (the same datum, tracked from old state to new). Key every mark by a stable ID, stage complex changes (axes first, then marks), keep the whole transition around 0.5–1 s, and cut or cross-fade when the data before and after are unrelated. |
+| [Interactive exploration: drill-down, cross-filtering, brushing and linking, zoom and pan](patterns/motion-linked-exploration.md) | should | Follow "overview first, zoom and filter, then details on demand". Every exploration action must update linked views within 100 ms during manipulation (redraw directly, no easing), show the active filters as removable chips, be reversible in one step, and live in the URL. |
+| [Micro-interactions: hover, press, selection and toggles](patterns/motion-micro-interactions.md) | must | Every interactive element gets distinct rest, hover, pressed, focus-visible, selected and disabled states. Respond in the next frame (≤ 100 ms visual change), animate state with colour/opacity in 70–150 ms, and keep motion to a 0.97–0.98 press scale at most. |
+| [Number tweening and counters](patterns/motion-number-tweening.md) | should | Tween a number only when its value changed for a reason the user cares about, and only the digits that changed. Finish within 400–600 ms, keep the width stable with tabular figures, and announce only the final value to assistive technology. |
+| [Motion principles and tokens for data UIs](patterns/motion-principles-and-tokens.md) | must | Every animation in a dashboard must explain a change (where something came from, went, or what it became); use a small set of duration and easing tokens, keep UI motion at or under 300 ms, and never animate what the user does dozens of times a day. |
+| [Reduced motion](patterns/motion-reduced-motion.md) | must | Design the static final state first and opt in to movement under `prefers-reduced-motion: no-preference`. Under `reduce`, remove spatial movement (translate, scale, rotate, parallax, zoom, morph) but keep colour and opacity feedback and slowed, essential activity indicators. Never use a global `0.01ms` override. |
+| [View Transitions for page, tab and panel changes](patterns/motion-view-transitions.md) | should | Use the View Transitions API to keep users oriented across route, tab and detail changes. Fetch first, then transition. Scope the transition to the component that changes, morph at most one to three named elements, finish within 250–350 ms, move focus afterwards, and skip it entirely under reduced motion. |
+| [What-if controls with live recompute](patterns/motion-what-if-live-recompute.md) | should | When users tune model assumptions (growth, discount rate, margin), recompute and repaint the outputs while they drag, within 100 ms per step. If you can't, show the instant input value plus a clearly provisional output, and commit on release. Always show the base case next to the scenario, with the delta, and offer one-click reset. |
+
+## Progressive loading and performance
+
+| Pattern | Priority | Rule |
+|---|---|---|
+| [Progressive loading: skeletons, streaming and staged reveal](patterns/prog-loading-states.md) | must | Choose the loading treatment by expected wait and scope. Under 1 s show nothing (delay indicators ~200 ms). For first page loads of 1–10 s use a layout-accurate skeleton. For a single panel use an in-place spinner. Past 10 s use determinate progress with a cancel. Stream and reveal panels independently, in priority order, with reserved dimensions so nothing shifts. |
+| [Optimistic UI and undo](patterns/prog-optimistic-ui-and-undo.md) | should | For reversible, likely-to-succeed edits, apply the change in the UI on the same frame, mark it as pending, reconcile with the server, and roll back visibly on failure. For destructive actions, prefer undo (a ≥ 8 s window plus a durable path such as a trash/history) over confirmation dialogs. Reserve confirmations for irreversible, high-stakes actions. |
+| [Perceived performance thresholds: 100 ms, 1 s, 10 s and INP](patterns/prog-perceived-performance-thresholds.md) | must | Design every interaction against four budgets: visual acknowledgement < 100 ms (handler ≤ 50 ms), INP ≤ 200 ms at p75, result or clear progress < 1 s to keep flow, and anything over 10 s becomes a cancellable, estimated, background-able job. Measure them in the field, not only in the lab. |
+| [Stale-while-revalidate and "Updating…" instead of blocking spinners](patterns/prog-stale-while-revalidate.md) | must | Once a panel has shown data, never replace it with a spinner or skeleton again. Keep the last good data visible and interactive, mark it as refreshing with a small non-blocking "Updating…" indicator (optionally dimming to ~60% after 1 s), show when it was last updated, and swap in new data without moving the layout. |
+
+## References: product teardowns, anti-patterns, review rubric
+
+| Pattern | Priority | Rule |
+|---|---|---|
+| [Dashboard anti-pattern catalog](patterns/ref-dashboard-anti-patterns.md) | must | Ten recurring failures, each with a symptom you can detect, why it hurts, and the specific fix. Check for all ten before shipping any dashboard. |
+| [Dashboard design review rubric](patterns/ref-design-review-rubric.md) | must | Score any dashboard on 35 checks in 7 sections, 0–2 points each, collecting evidence per check. A dashboard ships at 80% or more with no "must" check at 0. |
+| [Dev and ops dashboards: Vercel, Linear, Grafana, Datadog, Sentry](patterns/ref-devops-dashboards.md) | should | Operational dashboards are organised around a method (RED, USE or the golden signals), parameterised by variables instead of copied, and they hide detail behind progressive disclosure until triage needs it. |
+| [Fintech and money dashboards: Stripe, Mercury, Ramp, Robinhood, Wise](patterns/ref-fintech-money-dashboards.md) | should | A money dashboard should answer "how much is there, is that good, and where did it go" on the first screen, and every number should be one click from the records behind it. |
+| [Investing and valuation tools: Koyfin, Simply Wall St, TradingView, Morningstar, Finviz, Bloomberg](patterns/ref-investing-valuation-tools.md) | should | Investing UIs succeed when they compress a judgement into a glyph the eye can compare across many securities (a snowflake, a style box, a heatmap tile) while keeping the method open and the raw numbers one hover away. |
+| [Product analytics dashboards: PostHog, Amplitude, Mixpanel](patterns/ref-product-analytics-dashboards.md) | should | An analytics board is a curated narrative of 8–12 insights for a named audience. Each insight carries its comparison period, and text cards say what "good" looks like. |
+| [Dashboard UX research findings: NN/g, Baymard, Few](patterns/ref-ux-research-findings.md) | must | Base dashboard decisions on the few findings that are actually evidenced: position and length beat angle and area, every measure needs context, waits have hard thresholds, and consistency beats variety. |
