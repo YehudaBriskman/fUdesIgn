@@ -11,7 +11,7 @@
   - per-row details in tables
   - metric definitions and methodology
   - content that doesn't fit compact windows
-- **Use staged disclosure** (a wizard) only for linear setup tasks whose steps barely interact, such as connecting a data source. NN/g: avoid it when users must "alternate between" steps.
+- **Use staged disclosure** (a wizard) only for linear setup tasks whose steps barely interact, such as connecting a data source. NN/g: it is "problematic when the steps are interdependent and users must alternate between them".
 - **Don't use** when users need most of the content, or must compare sections side by side. Accordions on desktop fail here (NN/g accordions on desktop). Show it instead.
 - **Don't use** to hide the context that makes a number meaningful (unit, period, comparison). That's "empty and vague", not disclosure (see `found-data-ink-minimalism.md`).
 - **Don't use** to hide core navigation or the primary action on desktop (NN/g minimalism: hamburger-hidden desktop nav).
@@ -32,7 +32,7 @@
   | One record's details next to the list | side panel / drawer (non-modal) |
   | Long multi-step task | dedicated page or modal `<dialog>` (FocusView-style) |
 - **Prefer `<details>` or `hidden="until-found"`** over `display:none` for collapsed content, so Ctrl/Cmd+F and text-fragment links can find and auto-expand it (modern-web-guidance `ui-behaviors/search-hidden-content.md`).
-- **Allow several sections open at once.** Avoid exclusive (`name=`) accordions when users might compare, and offer "Expand all" for 4 or more sections (NN/g; modern-web-guidance `ui-components/accordion.md`).
+- **Allow several sections open at once.** Avoid exclusive (`name=`) accordions when users might compare, and offer "Expand all" and "Collapse all" for 4 or more sections (NN/g recommends both buttons; the threshold of 4 is ours).
 - **Remember disclosure state** per user for analytical views (an expanded group stays expanded on return). Reset it for shared links unless the state is encoded in the URL.
 - **On compact windows**, disclosure replaces columns: KPIs 5–8 go behind "Show more metrics", and secondary charts go behind section headers (see `found-responsive-reflow.md`).
 
@@ -46,7 +46,7 @@
 - **Auto-collapsing (exclusive) accordions** in comparison tasks. They cause layout shift for magnifier users (modern-web-guidance accordion guide).
 
 ## Good references
-- [NN/g: Progressive Disclosure](https://www.nngroup.com/articles/progressive-disclosure/): the canonical rules: up-front vs deferred, the > 2 levels warning, a single place for advanced features, and labels with clear expectations.
+- [NN/g: Progressive Disclosure](https://www.nngroup.com/articles/progressive-disclosure/): the canonical rules: up-front vs deferred, "designs that go beyond 2 disclosure levels typically have low usability", grouped advanced features so users "need check only one place", and labels that "set clear expectations".
 - [NN/g: Accordions on Desktop](https://www.nngroup.com/articles/accordions-on-desktop/): when accordions help (few needed sections, independent content) and hurt (users need most content, must compare, print). Caret or plus icons work best, and the whole heading should be clickable.
 - [Stripe Apps: ContextView vs FocusView](https://docs.stripe.com/stripe-apps/design): default to a side-by-side drawer that keeps the page context. Escalate to a blocking FocusView only for start-to-finish tasks or when a wider canvas is needed. A clear two-level disclosure model.
 - [Datadog integration dashboards](https://docs.datadoghq.com/developers/integrations/create-an-integration-dashboard): About text moved into the dashboard title's hovercard, and stream widgets in their own collapsible group at the end. Rarely needed content is disclosed in place without leaving the dashboard.
@@ -55,27 +55,27 @@
 ## Bad references
 - [NN/g: Characteristics of Minimalism](https://www.nngroup.com/articles/characteristics-minimalism/): desktop navigation hidden behind a hamburger, and a portfolio owner's name hidden behind a click. Primary content treated as secondary.
 - [Few, Common Pitfalls, Pitfall #1](https://www.perceptualedge.com/articles/Whitepapers/Common_Pitfalls.pdf): radio-button disclosure of core sales metrics one at a time. The overview itself was disclosed away, so comparison is impossible.
-- [NN/g: Negative Impact of Mobile-First on Desktop](https://www.nngroup.com/articles/content-dispersion/): mobile accordions carried to desktop add clicks and make users feel "the company is hiding information".
+- [NN/g: Negative Impact of Mobile-First on Desktop](https://www.nngroup.com/articles/content-dispersion/): mobile accordions carried to desktop add clicks ("I had to click on here if I wanted to read the information"), and dispersed content lowers trust: "Some users feel that the company is hiding information".
 
 ## Accessibility
 - Disclosure buttons follow the WAI-ARIA APG disclosure pattern: role `button`, Enter/Space toggles, `aria-expanded` true/false, optional `aria-controls`. Native `<details>/<summary>` provides this for free.
 - Don't put headings inside `<summary>`. Screen readers expose `summary` as a button and drop the heading (modern-web-guidance accordion guide).
-- Hover-revealed content must also appear on focus, be dismissible (Esc) and stay while the pointer moves onto it (WCAG 1.4.13). The `interestfor` default delay of 0.5s handles hover intent.
+- Hover-revealed content must also appear on focus, be dismissible (Esc) and stay while the pointer moves onto it (WCAG 1.4.13). The `interestfor` delay defaults to `normal`, which each browser defines, so set `interest-delay: 0.5s 0.25s` to make hover intent predictable.
 - When a panel opens, move focus into it only if it's modal. On close, return focus to the trigger.
 - Collapsed content must be removed from the accessibility tree (not just visually hidden) so it isn't read while "closed". `<details>` and `hidden` do this.
 
 ## Motion / interaction (if relevant)
-- Expand and collapse: 150–250ms height transition using `interpolate-size: allow-keywords` or `::details-content` transitions where supported. Content fades in about 100ms after the height starts. Use an instant switch under `prefers-reduced-motion`.
-- Drawer: 200–250ms slide in, 150–200ms out. Popovers and hints: 100–150ms fade.
+- Expand and collapse: a 240ms (`--motion-dur-medium`) height transition using `interpolate-size: allow-keywords` or `::details-content` transitions where supported. Content fades in about 100ms after the height starts. Use an instant switch under `prefers-reduced-motion`.
+- Drawer: 240ms slide in, 150ms out. Popovers and hints: 100–150ms fade (`--motion-dur-micro` / `--motion-dur-short`).
 - Never animate the overview away when details open. The context must stay still.
 
 ## Tokens and values
 | Token | Default |
 |---|---|
 | Max disclosure depth | 2 |
-| Hint/tooltip delay (hover) | 500ms in / 100–250ms out (`interest-delay`) |
-| Expand/collapse duration | 200ms, `cubic-bezier(.2,0,0,1)` |
-| Drawer width | `min(480px, 100vw)` |
+| Hint/tooltip delay (hover) | `interest-delay: 0.5s 0.25s` (the default `normal` varies by browser) |
+| Expand/collapse duration | 240ms, `--motion-ease-emphasized` `cubic-bezier(0.2,0,0,1)` |
+| Drawer width | `clamp(360px, 40vw, 480px)`; full width < 600px |
 | "Show more" threshold | > 6 KPIs, > 8 table columns, > 10 list items |
 | Trigger label | verb + object + count ("Show 12 more metrics") |
 | Disclosure icon | chevron/caret, rotates 90°/180° on open |
@@ -101,7 +101,7 @@
 ```css
 :root { interpolate-size: allow-keywords; }           /* progressive enhancement */
 details::details-content { block-size: 0; overflow: clip;
-  transition: block-size 200ms cubic-bezier(.2,0,0,1), content-visibility 200ms allow-discrete; }
+  transition: block-size 240ms cubic-bezier(.2,0,0,1), content-visibility 240ms allow-discrete; }
 details[open]::details-content { block-size: auto; }
 @media (prefers-reduced-motion: reduce) { details::details-content { transition: none; } }
 summary { cursor: pointer; min-block-size: 2.75rem; display: flex; align-items: center; gap: .5rem; }
