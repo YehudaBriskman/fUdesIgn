@@ -16,6 +16,13 @@ plugins/
       references/INDEX.md                all 84 patterns, each with its one-line rule
       references/patterns/*.md           one file per pattern (see below)
       assets/tokens.css                  starter light and dark tokens, every value traced to a pattern
+  marketing-ui/
+    .claude-plugin/plugin.json
+    skills/marketing-ui/
+      SKILL.md                           workflow, 16 non-negotiables, decision tables, token defaults
+      references/INDEX.md                all 19 patterns, each with its one-line rule
+      references/patterns/*.md           one file per pattern (see below)
+      assets/marketing.css               marketing layer (fluid type, sections, CTA, inverse band) on the dashboard-ui roles
 templates/PATTERN_TEMPLATE.md            the format every pattern file follows
 docs/research-brief.md                   how the research was run
 ```
@@ -34,6 +41,16 @@ docs/research-brief.md                   how the research was run
 | `prog-` | Progressive UI: loading states, stale-while-revalidate, optimistic UI and undo, perceived-performance thresholds | 4 |
 | `ref-` | References: fintech, dev/ops, product-analytics and investing teardowns, an anti-pattern catalog, research findings, a 39-check review rubric | 7 |
 
+### marketing-ui: 19 patterns in 5 clusters
+
+| Prefix | Cluster | Files |
+|---|---|---|
+| `mkfound-` | Foundations: page narrative and section order by goal, CTAs and graded conversion evidence, the accessibility floor | 3 |
+| `mksect-` | Sections: hero, social proof, features and bento grids, pricing tables, FAQ and objections, footer | 6 |
+| `mkstyle-` | Style: display type and pairing, colour and art direction, dark sections, scroll motion, a catalogue of generated-default tells | 5 |
+| `mkperf-` | Performance and SEO: LCP and hero media, web fonts, headings and metadata (OG images) | 3 |
+| `mkref-` | References: an anti-pattern gallery with named good and bad sites, a 35-check review rubric | 2 |
+
 Each pattern file has these sections: the rule, when to use and when not, rules with numbers, anti-patterns, good references, bad references, accessibility, motion, a tokens table, an implementation sketch, a checklist and sources.
 
 ## Research
@@ -50,9 +67,10 @@ Some claims rest on search summaries because the source page wouldn't load, and 
 ```
 /plugin marketplace add YehudaBriskman/fUdesIgn
 /plugin install dashboard-ui@fudesign
+/plugin install marketing-ui@fudesign
 ```
 
-The skill then triggers on dashboard design, build and review tasks. You can also copy `plugins/dashboard-ui/skills/dashboard-ui-design/` into `~/.claude/skills/`.
+Each skill then triggers on its own design, build and review tasks (dashboards, or landing and marketing pages). You can also copy a skill folder, such as `plugins/marketing-ui/skills/marketing-ui/`, into `~/.claude/skills/`.
 
 ## Adding a pattern or plugin
 
