@@ -22,10 +22,11 @@ jobs:
           cache: npm
           cache-dependency-path: tools/package-lock.json
       - run: npm ci
+      # every plugin skill with a references/patterns folder is checked
       - name: Structure, links and the any-type ban
-        run: npm run check
+        run: for d in ../plugins/*/skills/*/; do node check.mjs --dir "${d#../}" || exit 1; done
       - name: Code sketches compile (CSS via lightningcss, TS/TSX strict)
-        run: npm run check:sketches
+        run: for d in ../plugins/*/skills/*/; do NODE_PATH=./node_modules node check.mjs --sketches --dir "${d#../}" || exit 1; done
       - name: Plugin manifests are valid JSON
         working-directory: .
-        run: node -e "for (const f of ['.claude-plugin/marketplace.json','plugins/dashboard-ui/.claude-plugin/plugin.json']) JSON.parse(require('fs').readFileSync(f,'utf8'))"
+        run: for f in .claude-plugin/marketplace.json plugins/*/.claude-plugin/plugin.json; do node -e "JSON.parse(require('fs').readFileSync('$f','utf8'))" || exit 1; done
