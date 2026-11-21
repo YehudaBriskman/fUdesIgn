@@ -13,8 +13,10 @@
 | A blocking decision (delete, discard) | An alert/dialog, not a sheet |
 | Full task with its own navigation (compose, checkout) | Full-screen sheet or a pushed page |
 | Medium/expanded widths | Side sheet or centred dialog, max 640 px wide |
+| A preview of a linked record (what a desktop shows on hover) | Modal sheet at content height or the medium detent, opened by a visible peek control beside the link; the link's tap still navigates |
 
 - For the desktop overlay decision, see dashboard-ui `comp-overlay-choice.md`.
+- **Previews without hover.** Touch has no hover, so a hover preview needs another route: a peek button (an info icon of 44 px or more) that opens a tap-to-peek sheet with the same 3–5 context-chosen fields and an "Open" link. Long-press can be an extra route on rows, not on links: mobile browsers already use a long-press on a link for their own link menu. The preview is never the only path to the information. See dashboard-ui `comp-entity-links-and-hover-previews.md`.
 
 ## Rules (do)
 - **Detents:** at most three: *collapsed/peek* (non-modal only, e.g. 96–120 px showing a title), *medium* (about 50% of the small viewport; iOS `.medium`), *large* (full height minus the top safe area and a 10–12 px peek of the page behind; iOS `.large`). Size with `svh` so the sheet does not jump as the URL bar moves (`mofound-viewport-units-keyboard.md`).
