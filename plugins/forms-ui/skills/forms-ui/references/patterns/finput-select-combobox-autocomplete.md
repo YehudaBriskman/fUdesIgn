@@ -1,20 +1,20 @@
 # Selects, comboboxes and autocomplete
 
-> Use a native `<select>` for 7–15 known options and a combobox (type to filter) for long or searchable sets; a custom combobox follows the WAI-ARIA APG pattern exactly, keeps focus in the input, and never auto-selects or submits on its own.
+> Use a native `<select>` for 6–10 known options and a combobox (type to filter) for long or searchable sets; a custom combobox follows the WAI-ARIA APG pattern exactly, keeps focus in the input, and never auto-selects or submits on its own.
 
 **Category:** Inputs · **Applies to:** country, currency, timezone, assignee and tag pickers, address lookup, search-as-you-type fields · **Priority:** must
 
 ## When to use / when not
 | Options | Use |
 |---|---|
-| 2–6 | Radios (`finput-choice-controls.md`) |
-| 7–15, known, short labels | Native `<select>` |
-| 15–250, user knows the name (countries, currencies) | Native `<select>` with sensible order, or a combobox that filters |
+| 2–5 | Radios (`finput-choice-controls.md`) |
+| 6–10, known, short labels | Native `<select>` |
+| More than 10, user knows the name (countries, currencies) | A combobox that filters, with a native `<select>` in sensible order as the fallback |
 | Large or remote sets (people, products, addresses) | Combobox with async suggestions |
 | Free text with helpful suggestions | `<input list>` + `<datalist>`, or a combobox with "use what I typed" |
-| Many-of-many (tags, labels) | Multi-select combobox with removable chips, or checkboxes ≤ ~15 |
+| Many-of-many (tags, labels) | Multi-select combobox with removable chips, or checkboxes ≤ ~15 (this skill's cut-off) |
 
-- Luke Wroblewski calls dropdowns "the UI of last resort" and Baymard's testing agrees for short lists: hidden options cost a click and a scan.
+- Luke Wroblewski calls dropdowns "the UI of last resort". Baymard: "Drop-downs are generally a poor choice for offering fewer than 5 or more than 10 options" (rough guidance; the table follows it). Hidden options cost a click and a scan.
 - GOV.UK: avoid the select if possible; its accessible-autocomplete component replaces long selects such as country.
 
 ## Rules (do)

@@ -11,8 +11,8 @@
 - **Data-entry grids** (a model's assumptions table, a spreadsheet) are tables of inputs, not forms: use the batch-edit rules in `comp-inline-edit-and-forms.md`.
 
 ## Rules (do)
-- **One column, one path.** The eye and the Tab key move straight down. CXL Institute measured a single-column version of the same form being completed about 15 s faster than a multi-column one, and NN/g's form guidelines recommend a single column for the same reason: side-by-side fields get skipped or misread.
-- **Labels above fields.** Penzo's eye-tracking study (UXmatters, 2006) found top-aligned labels need the fewest fixations and roughly 50 ms to move from label to field, against about 500 ms for left-aligned labels. Top labels also survive translation (German labels run ~30% longer) and narrow screens. Left-aligned labels are acceptable only for long, rarely-completed admin forms where scanning the labels matters more than speed.
+- **One column, one path.** The eye and the Tab key move straight down. In CXL Institute's 2016 study (702 participants, the same survey in two layouts), the single-column form was completed on average 15.4 s faster than the multi-column one, significant at 95% confidence; and NN/g's form guidelines recommend a single column for the same reason: side-by-side fields get skipped or misread.
+- **Labels above fields.** Penzo's eye-tracking study (UXmatters, 2006) measured saccades of about 50 ms from a label placed above its field to the field, against about 500 ms for labels to the left, with most fixations landing on the fields themselves. Top labels also survive translation (labels that grow in languages such as German) and narrow screens. Left-aligned labels are acceptable only for long, rarely-completed admin forms where scanning the labels matters more than speed.
 - **Checkbox and radio labels sit to the right** of their control (inline-end), never above it.
 - **Order fields the way people think.** Name before address, address before payment. Follow the conventional order of the user's locale for addresses (see `finput-types-autocomplete-keyboards.md`).
 - **Field width hints at the answer.** A postcode field is about 10 characters wide, a card security code 4–5, a day 2–3, a year 4–5. GOV.UK sizes fields with fixed character-width classes (2, 3, 4, 5, 10, 20 characters) and full-width only for free text. Use `ch`-based widths, capped at the container.
@@ -43,7 +43,7 @@
 - [modern-web-guidance — Forms](https://github.com/GoogleChrome/modern-web-guidance/blob/main/skills/modern-web-guidance/guides/forms/forms.md) — `<fieldset>` with `<legend>` first, single column, label-gap smaller than group-gap, no CSS reordering.
 
 ## Bad references
-- [CXL — Form field usability: single vs multi-column](https://cxl.com/research-study/form-field-usability-matrix-vs-single-columns/) — the multi-column variant in the study: slower to complete, with fields skipped.
+- [CXL Institute — Form field usability: single or multi-column forms (Labay, 2016)](https://cxl.com/research-study/form-field-usability/) ([archived copy](https://web.archive.org/web/20240131015326/https://cxl.com/research-study/form-field-usability/)) — 702 participants; single column 15.4 s faster on average.
 - Multi-column "contact us" forms that put Email beside Phone beside Company: on a 1280 px screen the eye zig-zags and the Tab order jumps rows.
 - [UXmatters — Label placement in forms (Penzo)](https://www.uxmatters.com/mt/archives/2006/07/label-placement-in-forms.php) — the left-aligned-label variant: the largest label-to-field saccades of the variants tested.
 
@@ -111,7 +111,7 @@
 - https://design-system.service.gov.uk/components/text-input/
 - https://design-system.service.gov.uk/components/fieldset/
 - https://baymard.com/blog/checkout-flow-average-form-fields
-- https://cxl.com/research-study/form-field-usability-matrix-vs-single-columns/
+- https://cxl.com/research-study/form-field-usability/ (archived: https://web.archive.org/web/20240131015326/https://cxl.com/research-study/form-field-usability/)
 - https://www.uxmatters.com/mt/archives/2006/07/label-placement-in-forms.php
 - https://www.nngroup.com/articles/web-form-design/
 - https://primer.style/product/ui-patterns/forms

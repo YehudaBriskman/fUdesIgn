@@ -31,7 +31,7 @@
 | I1 | Visible, persistent label for every control; hints above fields via `aria-describedby`; no placeholder-only info | M | Clear a field, type; inspect | `ffound-labels-hints-placeholders.md` |
 | I2 | Correct `type`, `inputmode`, `enterkeyhint`; no `type="number"` on identifiers or money | M | Phone test of each field's keyboard | `finput-types-autocomplete-keyboards.md` |
 | I3 | `autocomplete` tokens on all user-data fields; browser autofill fills the form correctly | M | Autofill with a saved profile | same |
-| I4 | Choice controls match the decision table (radios 2–6, select 7–15, combobox beyond; switch only for instant effect) |  | Count options; check save model | `finput-choice-controls.md` |
+| I4 | Choice controls match the decision table (radios 2–5, select 6–10, combobox beyond; switch only for instant effect) |  | Count options; check save model | `finput-choice-controls.md` |
 | I5 | Money, numbers, dates and phones accept locale formats and show the expected format |  | Type "1.234,5", "3-9-2017", "+44 (0)20…" | `finput-money-number-phone.md`, `finput-dates-and-times.md` |
 | I6 | File upload states types and size first, has a native button, per-file status and remove |  | Upload a too-big and a wrong-type file | `finput-file-upload.md` |
 | I7 | Custom selects/comboboxes follow APG keys and roles; nothing auto-selects or submits |  | Keyboard + screen reader | `finput-select-combobox-autocomplete.md` |
