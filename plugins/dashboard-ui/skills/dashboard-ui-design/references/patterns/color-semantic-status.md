@@ -58,12 +58,12 @@
 |---|---|---|---|
 | `--danger-fg` | oklch(0.53 0.19 27) #c22826 | oklch(0.72 0.16 25) #f97770 | 5.8 / 6.6; on bg 5.0 / 5.8 |
 | `--warning-fg` | oklch(0.56 0.12 65) #a46311 | oklch(0.82 0.14 80) #f3b94c | 4.8 / 9.9; on bg **4.2** / 8.3 (light fails; 4.4 on `--surface-2`) |
-| `--success-fg` | oklch(0.52 0.13 150) #1d7d3e | oklch(0.76 0.15 150) #61cb7c | 5.2 / 8.6; on bg 4.5 / 7.4 |
-| `--info-fg` | oklch(0.52 0.14 250) #116bb5 | oklch(0.74 0.12 250) #6db0f4 | 5.5 / 7.6; on bg 4.8 / 6.6 |
+| `--success-fg` | oklch(0.50 0.13 150) #137738 | oklch(0.76 0.15 150) #61cb7c | 5.6 on surface, 4.6 on surface-3 / 8.6 |
+| `--info-fg` | oklch(0.51 0.14 250) #0b68b2 | oklch(0.74 0.12 250) #6db0f4 | 5.8 on surface, 4.7 on surface-3 / 7.6 |
 | `--{role}-bg` | `color-mix(in oklab, var(--{role}-fg) 10%, var(--surface))` | same formula | badge background (tokens.css) |
 | `--positive` / `--negative` | default = success-fg / danger-fg | same | swappable by locale/setting |
-| `--positive` (CVD option) | `--info-fg` blue | `--info-fg` | 5.5 / 7.6 |
-| `--negative` (CVD option) | oklch(0.58 0.15 48) #bf5914 | oklch(0.78 0.14 55) #fb9d59 | 4.5 / 8.4 (light is 4.3 on `--canvas`, 4.1 on `--surface-2`; oklch(0.56 0.15 48) #b85207 clears 4.5 on all three) |
+| `--positive` (CVD option) | `--info-fg` blue | `--info-fg` | 5.8 / 7.6 |
+| `--negative` (CVD option) | oklch(0.53 0.14 48) #aa4d0a | oklch(0.78 0.14 55) #fb9d59 | 5.6 on surface, 4.5 on surface-3 / 8.4 |
 | Status icon size | 16 px inline, 20 px in banners | | ≥ 3:1 |
 | Max indicators in view | 5–6 | | Carbon |
 
@@ -86,7 +86,7 @@
 /* Colour-vision-friendly option: needs a dark value too (3.9:1 on dark surface otherwise) */
 :root[data-money="cvd"] {
   --positive: var(--info-fg);
-  --negative: light-dark(oklch(0.56 0.15 48), oklch(0.78 0.14 55));
+  --negative: light-dark(oklch(0.53 0.14 48), oklch(0.78 0.14 55));
 }
 .num { font-variant-numeric: tabular-nums; text-align: end; }
 .delta { display: inline-flex; gap: 0.25em; align-items: center; font-weight: 500; }
