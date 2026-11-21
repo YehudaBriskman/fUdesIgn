@@ -60,6 +60,13 @@ plugins/
       references/INDEX.md                all 20 patterns, each with its one-line rule
       references/patterns/*.md           aifound-, aichat-, aiinline-, aiagent-, airef- (see below)
       assets/ai-ui.css                   thread, composer, streaming, citation, diff and approval tokens on the dashboard-ui roles
+  i18n-rtl/
+    .claude-plugin/plugin.json
+    skills/i18n-rtl/
+      SKILL.md                           8-step workflow, 20 non-negotiables, decision tables, token defaults
+      references/INDEX.md                all 19 patterns, each with its one-line rule
+      references/patterns/*.md           rtl-, i18n-, iref- (see below)
+      assets/rtl.css                     direction variables, Hebrew/Arabic type resets, bidi islands, logical utilities on the dashboard-ui roles
 templates/PATTERN_TEMPLATE.md            the format every pattern file follows
 docs/research-brief.md                   how the research was run
 ```
@@ -146,6 +153,16 @@ UI for AI features: chat, assistants, generation, inline AI and agents. Sources 
 | `aiagent-` | Agents: approval tiers, human in the loop, undo and audit log; WebMCP and agent-readable UI | 2 |
 | `airef-` | References: 12 anti-patterns tied to documented incidents, a 39-check review rubric | 2 |
 
+### i18n-rtl: 19 patterns in 3 clusters
+
+Internationalisation and right-to-left UI, with Hebrew and Arabic as first-class cases. Numbers were verified against Node 26 (ICU 78.3, CLDR 48), bidi renderings in headless Chromium, and twelve real Hebrew and Arabic sites were inspected for good and bad references. General number formatting stays in dashboard-ui's `data-number-formatting.md`, which i18n-rtl links to.
+
+| Prefix | Cluster | Files |
+|---|---|---|
+| `rtl-` | Right-to-left: logical properties, what mirrors and what must not (media, clocks, charts, logos, phone numbers), `dir` and `dir="auto"`, bidi isolation and mixed Hebrew/English/number strings, digits, minus sign and `₪` position, directional icons, Hebrew and Arabic typography, RTL forms, tables and charts, `:dir()` and Tailwind `rtl:` | 10 |
+| `i18n-` | Internationalisation: dates, Hebrew and Hijri calendars and week start, string externalisation, ICU plurals (Hebrew dual forms) and gender, text expansion, locale negotiation and language switchers without flags, pseudo-localisation with a Playwright RTL recipe | 6 |
+| `iref-` | References: a 35-check review rubric, a 14-item anti-pattern catalogue, a Hebrew-site teardown with Israeli accessibility (IS 5568) | 3 |
+
 Each pattern file has these sections: the rule, when to use and when not, rules with numbers, anti-patterns, good references, bad references, accessibility, motion, a tokens table, an implementation sketch, a checklist and sources.
 
 ## Research
@@ -168,9 +185,10 @@ Some claims rest on search summaries because the source page wouldn't load, and 
 /plugin install forms-ui@fudesign
 /plugin install design-system@fudesign
 /plugin install ai-ui@fudesign
+/plugin install i18n-rtl@fudesign
 ```
 
-Each skill then triggers on its own design, build and review tasks (dashboards, landing and marketing pages, mobile web and PWAs, product-UI motion and gestures, forms, setting up and keeping a design system, or AI features such as chat, copilots and agents). You can also copy a skill folder, such as `plugins/marketing-ui/skills/marketing-ui/`, into `~/.claude/skills/`.
+Each skill then triggers on its own design, build and review tasks (dashboards, landing and marketing pages, mobile web and PWAs, product-UI motion and gestures, forms, setting up and keeping a design system, AI features such as chat, copilots and agents, or internationalised and right-to-left UI in Hebrew and Arabic). You can also copy a skill folder, such as `plugins/marketing-ui/skills/marketing-ui/`, into `~/.claude/skills/`.
 
 ## Adding a pattern or plugin
 
