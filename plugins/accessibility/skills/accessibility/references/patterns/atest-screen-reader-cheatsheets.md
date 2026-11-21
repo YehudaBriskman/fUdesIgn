@@ -11,18 +11,18 @@
 
 ## Rules (do)
 - **Browse vs focus mode.** Desktop screen readers read web pages in a virtual "browse" mode where single letters jump between elements; they switch to "focus/forms" mode in inputs and widgets so keys go to the page. Test both: a widget that works only in one mode is broken.
-- **Turn on speech text** while testing so you can read what was said: NVDA › Tools › Speech Viewer; VoiceOver caption panel is on by default on macOS.
+- **Turn on speech text** while testing so you can read what was said: NVDA menu › Tools › Speech Viewer; on macOS, the VoiceOver caption panel (VoiceOver Utility › Visuals; VO + Fn + Command + F10 shows or hides it).
 
 **VoiceOver on macOS (Safari)** — VO = Control + Option (or Caps Lock if set)
 
 | Action | Keys |
 |---|---|
 | Turn on/off | Cmd + F5 |
-| Read from here / stop | VO + A / Control |
+| Read from here to the end / pause or resume speech | VO + A / Control |
 | Next / previous item | VO + Right / VO + Left |
 | Activate | VO + Space |
 | Rotor (headings, links, landmarks, form controls lists) | VO + U, then Left/Right to switch list |
-| Next heading / link / form control | VO + Cmd + H / VO + Cmd + L / VO + Cmd + J |
+| Next heading / link / control (add Shift for previous) | VO + Cmd + H / VO + Cmd + L / VO + Cmd + J |
 | Enter / leave a group (table, toolbar, web area) | VO + Shift + Down / VO + Shift + Up |
 | Tab through focusable elements | Tab / Shift + Tab |
 
@@ -36,16 +36,16 @@
 | Read all from top / from here | Two-finger swipe up / down |
 | Rotor (choose headings, links, form controls…) | Two-finger rotate |
 | Move by rotor setting | Swipe down / up |
-| Scroll | Three-finger swipe |
+| Scroll one page | Three-finger swipe up / down |
 | Back / dismiss | Two-finger scrub (Z shape) |
-| Stop speech | Two-finger tap |
+| Pause / resume speech | Two-finger tap |
 
-**NVDA on Windows (Chrome or Firefox)** — NVDA key = Insert (desktop layout) or Caps Lock (laptop layout)
+**NVDA on Windows (Chrome or Firefox)** — NVDA key = Insert by default in both keyboard layouts; Caps Lock can be added in Settings › Keyboard
 
 | Action | Keys |
 |---|---|
-| Start / quit | Control + Alt + N / NVDA + Q |
-| Read all / stop | NVDA + Down Arrow (laptop: NVDA + A) / Control |
+| Start / quit | Control + Alt + N / NVDA + Q, then Enter |
+| Say all / stop speech | NVDA + Down Arrow (laptop layout: NVDA + A) / Control |
 | Next / previous item in browse mode | Down / Up Arrow |
 | Next heading, level 1–6 (Shift = previous) | H, 1–6 |
 | Next landmark / link / form field / button | D / K / F / B |
@@ -91,7 +91,7 @@
 - Test reports that say "tested with a screen reader" without naming which, which version and which browser: the result can't be reproduced.
 
 ## Accessibility
-- This file is accessibility testing. Learn commands with your monitor on, then repeat key flows with the screen off (VoiceOver: VO + Fn + Shift + Underscore, the screen curtain) to avoid relying on sight.
+- This file is accessibility testing. Learn commands with your monitor on, then repeat key flows with the screen off (screen curtain: VO + Shift + Fn + F11 on macOS, three-finger triple-tap on iOS) to avoid relying on sight.
 
 ## Motion / interaction (if relevant)
 - Screen readers don't wait for animations; content that appears after a transition must already be in the DOM and named when focus or the virtual cursor reaches it.
@@ -132,9 +132,9 @@ export const describe = (f: SrFinding): string =>
 - [ ] Findings record steps, heard vs expected and criteria.
 
 ## Sources
-- https://support.apple.com/guide/voiceover/welcome/mac
-- https://support.apple.com/guide/iphone/learn-voiceover-gestures-iph3e2e2281/ios
-- https://download.nvaccess.org/documentation/userGuide.html
+- https://support.apple.com/guide/voiceover/welcome/mac (general, navigation, interaction, search and web command charts checked November 2026)
+- https://support.apple.com/guide/iphone/learn-voiceover-gestures-iph3e2e2281/ios (gesture table checked November 2026)
+- https://download.nvaccess.org/documentation/userGuide.html (NVDA 2026.3.1 guide; commands checked November 2026)
 - https://support.google.com/accessibility/android/answer/6151827 (gesture table checked November 2026)
 - https://webaim.org/projects/screenreadersurvey10/
 - https://a11ysupport.io/
