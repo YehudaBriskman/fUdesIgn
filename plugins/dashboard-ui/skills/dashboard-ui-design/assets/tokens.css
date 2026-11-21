@@ -148,8 +148,8 @@
     --border: oklch(0.35 0.012 250);
     --border-strong: oklch(0.56 0.014 250);
     --text: oklch(0.95 0.006 250);
-    --text-muted: oklch(0.77 0.014 250);    /* APCA Lc ≥ 60 */
-    --accent: oklch(0.72 0.13 265);
+    --text-muted: oklch(0.785 0.014 250);   /* APCA Lc ≥ 60 incl. on surface-3 */
+    --accent: oklch(0.785 0.10 265);
     --on-accent: oklch(0.18 0.006 250);
     --scrim: oklch(0 0 0 / 0.6);
     --danger-fg: oklch(0.72 0.16 25);
@@ -180,8 +180,8 @@
   --border: oklch(0.35 0.012 250);
   --border-strong: oklch(0.56 0.014 250);
   --text: oklch(0.95 0.006 250);
-  --text-muted: oklch(0.77 0.014 250);
-  --accent: oklch(0.72 0.13 265);
+  --text-muted: oklch(0.785 0.014 250);
+  --accent: oklch(0.785 0.10 265);
   --on-accent: oklch(0.18 0.006 250);
   --scrim: oklch(0 0 0 / 0.6);
   --danger-fg: oklch(0.72 0.16 25);
