@@ -1,7 +1,7 @@
 # Pattern index
 
 Every pattern file in `patterns/`, grouped by cluster. **Priority** says how binding it is: must = always apply, should = apply unless there's a reason not to, nice = optional.
-16 patterns in total.
+19 patterns in total.
 
 Motion for data (number tweening, chart transitions, linked exploration, loading states) lives in dashboard-ui's `motion-*` and `prog-*` patterns; these files cover general product-UI motion and link there instead of repeating it.
 
@@ -41,3 +41,16 @@ Motion for data (number tweening, chart transitions, linked exploration, loading
 | [Scroll-driven animations](patterns/mtrans-scroll-driven-animations.md) | nice | Link animation to scroll only for progress and context (a reading-progress bar, a header that condenses, an edge fade under sticky chrome, a gentle reveal as content enters), with CSS `animation-timeline: scroll()` or `view()` on `transform` and `opacity`, inside `@supports` and `prefers-reduced-motion: no-preference`; never scroll-jack, never move content at a different speed from the scroll in a working screen. |
 | [Spatial origin and continuity](patterns/mtrans-spatial-origin-and-continuity.md) | should | Things come from where they live and go back the same way: set `transform-origin` to the trigger side for menus and popovers, open detail views out of the item that was tapped, keep enter and exit paths mirror images, and keep navigation directions consistent (forward moves in from the trailing edge, back from the leading edge). |
 | [Page and route transitions with View Transitions](patterns/mtrans-view-transitions-and-routes.md) | should | Use View Transitions for route changes: same-document `startViewTransition()` in SPAs and `@view-transition { navigation: auto; }` for multi-page sites, both as progressive enhancement. Keep the default 250 ms cross-fade or a 16–24 px directional shift, morph at most 1–3 named elements, set direction with transition types, and move focus after the swap. |
+
+## Performance
+
+| Pattern | Priority | Rule |
+|---|---|---|
+| [Performance: compositor-only properties, `will-change` and INP](patterns/mperf-compositor-will-change-and-inp.md) | must | Animate only `transform` (or `translate`/`scale`/`rotate`) and `opacity` so the compositor can run the animation off the main thread; never animate layout properties per frame; use `will-change` only to fix a measured problem and remove it afterwards; and keep the input that starts an animation inside INP's 200 ms "good" budget, with the first visual response in the next frame. |
+
+## Review and references
+
+| Pattern | Priority | Rule |
+|---|---|---|
+| [Motion anti-patterns, with good and bad references](patterns/mref-anti-patterns-gallery.md) | must | Refuse these by default: `transition: all`, `scale(0)` entrances, `ease-in` on entrances, keyframes on toggled UI, animation on keyboard actions, motion over 400 ms in UI chrome, bounce on chrome or data, fade-up-on-scroll everywhere, scroll-jacking and parallax, dead-stop gestures, motion without a reduced variant, and layout properties animated per frame. Each one has a named fix below. |
+| [Motion review rubric and frame-capture recipe](patterns/mref-motion-review-rubric.md) | must | Review motion from evidence, not memory: capture every animated interaction as frames (slowed 4× to 10×, full and reduced motion), run the in-page audit, then score the 18 checks below 0–2 each. Ship at 80% or more with no must-check at 0, and report each finding as check ID, evidence (frame, selector or value) and fix. |
