@@ -1,0 +1,18 @@
+{
+  "name": "motion-ui",
+  "description": "Design, build and review product-UI motion and gestures: purpose and frequency, durations and easing, springs mapped across CSS, Motion, React Spring, SwiftUI and Material 3, drag, momentum, sheets, enter/exit, View Transitions, scroll-driven animation, performance and reduced motion.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Yehuda Briskman"
+  },
+  "keywords": [
+    "motion",
+    "animation",
+    "springs",
+    "gestures",
+    "view-transitions",
+    "accessibility",
+    "design-tokens"
+  ],
+  "license": "PolyForm-Internal-Use-1.0.0"
+}
