@@ -1,0 +1,18 @@
+{
+  "name": "fudesign-design-review",
+  "private": true,
+  "type": "module",
+  "description": "Capture, rendered gate and static UI lint for the design-review skill",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "capture": "node scripts/capture.mjs",
+    "gate": "node scripts/gate.mjs",
+    "lint": "node scripts/lint-ui.mjs",
+    "test": "node --test test/"
+  },
+  "dependencies": {
+    "playwright-core": "^1.50.0"
+  }
+}
