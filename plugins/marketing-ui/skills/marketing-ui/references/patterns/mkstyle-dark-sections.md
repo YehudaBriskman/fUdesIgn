@@ -42,7 +42,7 @@
 ## Accessibility
 - Every pair in the band meets WCAG 1.4.3 (4.5:1) and 1.4.11 (3:1). Focus rings use `--focus-ring`, which follows the band's `--accent`.
 - **Evidence on polarity:** NN/g (Budiu, 2020) summarises Piepenbrock 2013: light mode was better for acuity and proofreading in ages 18–33 and 60–85; dark mode may help people with cataract (Legge 1985, 7 participants). Offer, don't force, dark long-form reading.
-- **Halation and astigmatism:** accessibility vendors (Level Access) describe light text appearing to bleed on dark for people with astigmatism. We found no primary study isolating this; treat it as plausible practitioner guidance (the Level Access page blocked our fetch; this relies on a search summary). It is one more reason to avoid `#fff` on `#000` and thin weights.
+- **Halation and astigmatism:** an accessibility vendor (Level Access, 2020) says white text on black creates a fuzzing effect called halation for people with astigmatism. It cites no study, and we found no primary study isolating this; treat it as vendor guidance, not evidence. It is one more reason to avoid `#fff` on `#000` and thin weights.
 - Forced-colors mode replaces band backgrounds; keep structure with borders and headings, not colour alone.
 
 ## Motion / interaction (if relevant)
@@ -104,7 +104,7 @@
 - https://developer.mozilla.org/en-US/docs/Web/CSS/color-scheme
 - https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html
 - https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html
-- https://www.levelaccess.com/blog/accessibility-for-people-with-astigmatism/ (search summary only; page returned 403)
+- https://www.levelaccess.com/blog/accessibility-for-people-with-astigmatism/ (Level Access blog, 30 Jun 2020; vendor claim, no study cited)
 - https://github.com/pbakaus/impeccable (Apache-2.0; rules `dark-glow`, `radial-halo`, `ai-color-palette`)
 - https://github.com/anthropics/skills/tree/main/skills/frontend-design (ideas only)
 - Repo: `plugins/marketing-ui/skills/marketing-ui/assets/marketing.css` (`[data-tone="inverse"]`), `plugins/dashboard-ui/skills/dashboard-ui-design/assets/tokens.css`; contrast ratios computed from those OKLCH values (WCAG 2 formula)

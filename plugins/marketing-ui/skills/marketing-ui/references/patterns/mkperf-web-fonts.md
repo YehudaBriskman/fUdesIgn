@@ -42,7 +42,7 @@
 
 ## Bad references
 - [Web Almanac 2024 — Fonts](https://almanac.httparchive.org/en/2024/fonts) — only 11% of pages preload fonts, `font-display: optional` is on about 1% of pages, and 23% still use `block`.
-- [LG München I, 3 O 17493/20 (20 Jan 2022)](https://www.ra-plutte.de/lg-muenchen-dynamische-einbindung-google-web-fonts-ist-dsgvo/) — a site that loaded Google Fonts from Google's servers without consent passed visitors' IP addresses to Google. The court found a GDPR breach and awarded €100 in damages; the ruling triggered a wave of form-letter claims in Germany (100–170 €).
+- [LG München I, 3 O 17493/20 (20 Jan 2022)](https://www.gesetze-bayern.de/Content/Document/Y-300-Z-BECKRS-B-2022-N-612) — a site that loaded Google Fonts from Google's servers without consent passed the visitor's IP address to Google. The court found no consent and no legitimate interest (Art. 6(1) GDPR), since the fonts can be used without contacting Google, ordered the site to stop and awarded €100 in damages.
 - A common template pattern: a `fonts.googleapis.com` stylesheet requesting two families in 9 weights each, discovered after the main CSS, with `display=block`. It adds a cross-origin connection and up to 3 s of invisible hero text.
 
 ## Accessibility
@@ -123,6 +123,6 @@ body { font-family: var(--mk-font-body); }
 - https://github.com/seek-oss/capsize
 - https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display
 - https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/unicode-range
-- https://www.ra-plutte.de/lg-muenchen-dynamische-einbindung-google-web-fonts-ist-dsgvo/ (LG München I, 3 O 17493/20)
+- https://www.gesetze-bayern.de/Content/Document/Y-300-Z-BECKRS-B-2022-N-612 (LG München I, judgment of 20 Jan 2022, 3 O 17493/20, official Bavarian publication)
 - https://www.ihk.de/bergische/recht-und-steuern/wettbewerbsrecht/google-fonts-5646176 (follow-on demand letters of 100–170 €)
 - https://fontsource.org

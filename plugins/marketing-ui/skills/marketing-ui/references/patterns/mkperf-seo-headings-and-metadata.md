@@ -124,8 +124,7 @@ h1, h2, h3 { margin: 0; }
 - https://developers.google.com/search/docs/appearance/structured-data/organization
 - https://developers.google.com/search/docs/appearance/structured-data/software-app
 - https://developers.google.com/search/blog/2023/08/howto-faq-changes
-- https://developers.google.com/search/docs/appearance/structured-data/faqpage (deprecation note, 2026)
-- https://searchengineland.com/google-to-no-longer-support-faq-rich-results-476957 (secondary coverage of the May 2026 retirement)
+- https://developers.google.com/search/updates (Search Central changelog: FAQ rich results no longer shown from 7 May 2026, deprecation notice 8 May 2026, documentation removed 15 June 2026)
 - https://developers.google.com/search/docs/appearance/page-experience
 - https://developers.facebook.com/documentation/sharing/webmasters/images
 - https://ogp.me/

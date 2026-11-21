@@ -17,14 +17,14 @@
   A [B] result is a hypothesis to test on your own traffic, never a rule.
 - **One primary CTA per view [C, consistent with A].** Every design system cited in `comp-button-hierarchy.md` allows one filled primary per region. NN/g found that 57% of viewing time stays above the fold [A], so that one button must be in the first viewport. A secondary action is outlined or a text link.
 - **Label = verb + outcome [C].** Use "Start free trial", "Book a 20-minute demo" or "Get the PDF", not "Submit", "Learn more" or "Click here". Keep it to 2–5 words, in sentence case. The label must match what happens next: if the button leads to a form, don't say "Get instant access".
-- **First person ("Start my trial") is a vendor test result, not a rule [B].** Michael Aagaard reported a 90% click-through lift for "Start my free 30 day trial" over "your" on one Unbounce page after 3 weeks. Sample sizes were not published, and a separate test of his showed a drop of about 25% for "my" (search-summary only, source pages not loaded). Test it; don't assume it.
+- **First person ("Start my trial") is a vendor test result, not a rule [B].** Michael Aagaard reported a 90% click-through lift for "Start my free 30 day trial" over "your" on one Unbounce page after 3 weeks. Sample sizes were not published, and it is one page in one language. Test it; don't assume it.
 - **Size and contrast.** The CTA height is `--mk-cta-height` (48px) and never below 44×44 CSS px on touch (WCAG 2.5.5 AAA; 2.5.8 AA sets the 24px floor). Label text is ≥4.5:1 on the fill. The button edge is ≥3:1 against the section (SC 1.4.11). It is the only element in the view that uses `--brand-accent` as a fill.
 - **Cut fields [A].** Baymard's benchmark finds the average US checkout shows 23.48 form elements (14.88 fields), while 12–14 elements (7–8 fields) is achievable. On a SaaS sign-up, ask for email and password, or SSO, and nothing else. Collect company size, role and phone after activation.
-- **Offer a guest or SSO path [A].** In a Baymard survey of 1,026 US adults, 18% had abandoned an order because they did not want to create an account. "Sign up with Google" next to the primary is the SaaS equivalent (Stripe does this in its hero).
+- **Offer a guest or SSO path [A].** In Baymard's abandonment survey, 18% of US shoppers who abandoned for reasons other than browsing said the site wanted them to create an account. "Sign up with Google" next to the primary is the SaaS equivalent (Stripe does this in its hero).
 - **Show the total cost early [A].** Baymard's average documented abandonment rate is 70.22% across 50 studies. Among non-browsing reasons, extra costs such as shipping, tax and fees lead at 40%. On pricing and buy buttons, state the price and the billing period beside the button.
 - **Use risk-reversal microcopy under the CTA [C, B for effect size].** One line of `--mk-step--1` text such as "14-day trial · no credit card · cancel anytime". Only write what is true. Vendor data (ChartMogul via Userpilot, Adapty) reports that opt-in, no-card trials get more sign-ups but convert to paid at a lower rate (about 18% vs 49% in Adapty's app data) [B]. Choose by business model, then say plainly which one you run.
 - **Urgency and scarcity only when real.** A countdown must end when it says. A stock count must be live. Otherwise it is a dark pattern (see Anti-patterns).
-- **Test properly or don't claim a win.** Fix the sample size and duration before the test starts and don't stop when it "hits significance" (CXL: peeking inflates false positives). Run full weeks. Treat a single test under a few hundred conversions per arm as noise. Convert's analysis of 28,304 experiments found only 20% reached 95% significance [B].
+- **Test properly or don't claim a win.** Fix the sample size and duration before the test starts and don't stop when it "hits significance" (CXL's 10,000-run simulation: stopping at the first significant peek gave false positives on 30% of no-difference tests at 90% confidence, against 10% expected). Run full weeks. Treat a single test under a few hundred conversions per arm as noise. Convert's analysis of 28,304 experiments found only 20% reached 95% significance [B].
 
 ## Anti-patterns (don't)
 - Fake timers, "only 2 left" banners with plentiful stock, and "14 people are viewing this" without real data. The FTC's 2022 staff report "Bringing Dark Patterns to Light" lists false scarcity and fake countdown timers as deceptive design.
@@ -70,10 +70,10 @@
 | Claim | Grade | Basis |
 |---|---|---|
 | Most attention stays in the first screen (57% / 74% in two) | A | NN/g eyetracking, 120 users, 2018 |
-| Fewer form fields reduce abandonment | A | Baymard benchmark + surveys (1,026 and 4,384 US adults) |
+| Fewer form fields reduce abandonment | A | Baymard checkout benchmark and abandonment survey |
 | Unexpected costs are the top checkout abandonment reason (40%) | A | Baymard survey, 50-study average 70.22% |
 | Fake urgency and scarcity are common and deceptive | A | Mathur et al., 11k sites, peer-reviewed |
-| "My" beats "your" in button copy | B | Single Unbounce page; mixed replications |
+| "My" beats "your" in button copy | B | Single Unbounce page, 2013, no sample size published |
 | No-card trials: more sign-ups, lower paid conversion | B | ChartMogul / Adapty vendor data |
 | Green or orange buttons convert better | C | No generalisable evidence; contrast matters, hue does not |
 | One primary CTA per view | C | Design-system consensus, consistent with A |
@@ -119,13 +119,12 @@
 
 ## Sources
 - https://www.nngroup.com/articles/scrolling-and-attention/
-- https://baymard.com/lists/cart-abandonment-rate (70.22%, 50 studies; 40% extra costs; 23.48 vs 12–14 elements)
-- https://baymard.com/research-articles/current-state-of-checkout-ux (1,026 US adults, 18% account creation; from search summary)
+- https://baymard.com/lists/cart-abandonment-rate (70.22%, 50 studies; 40% extra costs; 18% account creation; 23.48 vs 12–14 elements)
 - https://webtransparency.cs.princeton.edu/dark-patterns/ (Mathur et al., CSCW 2019)
-- https://www.ftc.gov/reports/bringing-dark-patterns-light (via https://www.venable.com/insights/blogs/2022/09/the-ftc-brings-more-light-to-dark-patterns-in-new)
-- https://eur-lex.europa.eu/eli/reg/2022/2065/oj (DSA Art. 25; via https://www.springlex.eu/en/packages/dsa/dsa-regulation/article-25/)
-- https://cxl.com/blog/ab-testing-statistics/ and https://cxl.com/blog/peeking-sequential-testing/ (search summaries; cxl.com returned 403)
+- https://www.ftc.gov/reports/bringing-dark-patterns-light (staff report PDF, 14 Sep 2022: countdown timers, false scarcity, drip pricing, hard-to-cancel flows)
+- https://eur-lex.europa.eu/eli/reg/2022/2065/oj (DSA Art. 25(1) and 25(2), read on EUR-Lex)
+- https://cxl.com/blog/ab-testing-statistics/ and https://cxl.com/blog/peeking-sequential-testing/ (10,000 simulations; 30% false positives with peeking at 90% confidence)
 - https://www.convert.com/blog/a-b-testing/experiments-statistical-significance-speed/ (28,304 experiments)
-- https://unbounce.com/conversion-rate-optimization/design-call-to-action-buttons/ ("my" vs "your", search summary)
+- https://unbounce.com/conversion-rate-optimization/design-call-to-action-buttons/ (Aagaard, 22 May 2013: "Start my free 30 day trial" +90% CTR after 3 weeks)
 - https://userpilot.com/blog/how-to-increase-free-trial-conversion/ and https://adapty.io/blog/trial-conversion-rates-for-in-app-subscriptions/ (vendor trial data)
 - https://www.w3.org/WAI/WCAG22/Understanding/target-size-enhanced.html
