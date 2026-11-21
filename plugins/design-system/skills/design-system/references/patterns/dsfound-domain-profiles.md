@@ -39,7 +39,7 @@
 - [ui-ux-pro-max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) `--design-system` for "fintech portfolio investing dashboard" — in our run it matched "portfolio" to a creative-portfolio landing style with 900-weight display type, the opposite of a data-dense finance view. Keyword matching without user and task facts picks the wrong profile (idea of product-type reasoning kept, data not used; MIT).
 
 ## Accessibility
-- Every profile keeps the same floors (WCAG 2 4.5:1 text and 3:1 non-text, APCA Lc 75/60/15); profiles only raise them.
+- Every profile keeps the same floors (WCAG 2 4.5:1 text and 3:1 non-text, APCA Lc 75/60/30); profiles only raise them.
 - The health profile and the older-audience modifier raise the generator contrast to 70 and the body to 16–19px.
 - Reduced-motion support is required in every profile, including marketing.
 
