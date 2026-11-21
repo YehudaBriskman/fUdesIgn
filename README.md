@@ -58,3 +58,9 @@ The skill then triggers on dashboard design, build and review tasks. You can als
 
 - **New pattern:** copy `templates/PATTERN_TEMPLATE.md` into the right cluster folder, keep every section, cite sources, then regenerate `references/INDEX.md`.
 - **New plugin:** add `plugins/<name>/.claude-plugin/plugin.json` and `plugins/<name>/skills/<skill>/SKILL.md`, then list it in `.claude-plugin/marketplace.json`.
+
+## Licence
+
+Free to use, not to copy. fUdesIgn is source-available under the [PolyForm Internal Use License 1.0.0](LICENSE.md), with the clarifications in [NOTICE.md](NOTICE.md):
+- **Allowed:** using and modifying the skills for personal and company work, including commercial work, and shipping whatever you build with them.
+- **Not allowed:** redistributing or republishing the skills, plugins or patterns themselves.
