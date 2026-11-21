@@ -19,10 +19,10 @@
 - **Numerals:** `font-variant-numeric: tabular-nums lining-nums` on the whole table (A List Apart, Ström). Same decimals per column. Use decimal alignment (`text-align: "." center`) only if precision must vary, which is rare. Better to fix the precision.
 - **Units in the header, not in every cell.** "Revenue (USD)", "Latency (ms)", "Margin (%)". If the currency varies per row, show the code in the cell (`USD 1,234.00`), and never mix currencies in one column total. Ström shows the unit once, with the first data point, which is an acceptable alternative for print-like tables.
 - **Column order:** the identifier first (a human-readable name, not a UUID; NN/g: "should be a human-readable record identifier"), then the most important attributes, with related columns adjacent. Put the main numeric column first or second (data.europa.eu).
-- **Row separators:** 1px horizontal rules in a subtle border colour (about 1.2–1.5:1 against the surface). No vertical rules. If alignment is right, "rules are largely redundant" (Ström). No outer frame (A List Apart).
-- **Zebra striping:** optional, and only for wide tables (8 or more columns) or ones without row hover. If used, keep the stripe very light (about 2–4% luminance delta). The evidence is mixed: NN/g lists zebra among aids to tracking rows, Carbon offers it as an optional modifier, and Ström and A List Apart advise against it. Pick rules *or* stripes, not both.
-- **Row hover** is always on for interactive tables (Carbon: "The data table's row hover state should always be enabled"). Use a background tint, never a border-width change.
-- **Density scale**, from Carbon. Row height equals header height:
+- **Row separators:** 1px horizontal rules in `--border` (about 1.5:1 against the surface). No vertical rules. Ström: once data is aligned, "rules become redundant". No outer frame (A List Apart: "avoid any border or frame surrounding the table").
+- **Zebra striping:** optional, and only for wide tables (8 or more columns) or ones without row hover. If used, keep the stripe very light (about 2–4% luminance delta). The evidence is mixed: NN/g lists zebra striping among aids to keeping your place across rows, Carbon offers it as an optional modifier, A List Apart says "Avoid zebra striping", and Ström calls it "Really, really bad" while admitting it is an "unsubstantiated opinion". Pick rules *or* stripes, not both.
+- **Row hover** is on for every table. Carbon: the row hover state "should always be enabled", even on non-interactive rows, to help scanning. Use a background tint, never a border-width change.
+- **Density scale**, from Carbon (medium is Carbon's default). The header row "should always match the row size of the table":
 
   | Density | Row height | Use |
   |---|---|---|
@@ -34,10 +34,10 @@
 
   The toolbar and pagination bar match the row height. Offer a density toggle when users stay in the table all day.
 - **Cell padding:** 8–12px inline, 16px on the first and last cells. Vertical padding is derived from the row height.
-- **Width:** size columns to content (`table-layout: auto`) for read-only tables. Use `table-layout: fixed` with explicit widths when truncating or virtualising, because auto layout grows cells instead of truncating (`ui-atoms/single-line-overflow.md`). Don't stretch a 3-column table to 1600px. A List Apart: "Don't stretch tables to full width."
-- **Truncation:** one line per cell, ellipsis at the end. For IDs and file names, keep the end visible (`…-v2.pdf`). The full text stays in the DOM, with a tooltip on hover *and* focus. Headers wrap to at most 2 lines, then truncate (Carbon).
-- **Totals and summary rows:** in `<tfoot>`, weight 600, with a 2px top rule (or a background tint, which is Ström's "backgrounds mark different data types"). Polaris supports totals in header or footer, so pick one per product.
-- **Inline sparklines in a column:** fixed 80–120×20px, no axes, a shared Y scale across rows *if* the reader compares rows (say so in the header: "Trend (30d, shared scale)"), otherwise per-row scale. Put them after the numeric value they explain.
+- **Width:** size columns to content (`table-layout: auto`) for read-only tables, but expect layout shift when content changes (Primer warns about this for its `auto` width mode). Use `table-layout: fixed` with explicit widths when truncating or virtualising, because auto layout grows cells instead of truncating (`ui-atoms/single-line-overflow.md`). Don't stretch a 3-column table to 1600px. A List Apart, "Don't stretch tables": spread-out data is harder to read.
+- **Truncation:** one line per cell, ellipsis at the end. For IDs and file names, keep the end visible (`…-v2.pdf`). The full text stays in the DOM, with a tooltip on hover *and* focus. Carbon: long headers "wrap the text to two lines and then truncate the rest".
+- **Totals and summary rows:** in `<tfoot>`, weight 600, with a 2px top rule, or a background tint (Ström: "Backgrounds are most useful when indicating differences in the domain of data", such as sums vs single values). Polaris supports totals in header or footer, so pick one per product.
+- **Inline sparklines in a column:** fixed 96×20px (80–120px wide), no axes, a shared Y scale across rows *if* the reader compares rows (say so in the header: "Trend (30d, shared scale)"), otherwise per-row scale. Put them after the numeric value they explain.
 - **Empty cells:** see `data-loading-empty-error-states.md`. Never a bare `-` in a numeric column, where it reads as minus.
 - **Status columns:** text plus icon badge, never colour alone. See `color-semantic-status.md`.
 
@@ -53,16 +53,16 @@
 - UUIDs as the first column.
 
 ## Good references
-- [Matthew Ström, "Design better data tables"](https://mattstromawn.com/writing/tables) — alignment rules, tabular lining figures, minimal light horizontal rules, and annotation symbols (✻ † ▵) instead of colour.
+- [Matthew Ström, "Design better data tables"](https://mattstromawn.com/writing/tables) — "3½ simple rules" for alignment (the half rule: "Don't use center alignment"), tabular lining figures, the unit only with the first data point, and annotation symbols (✻ † ▵) instead of background colour.
 - [A List Apart, "Web Typography: Designing Tables to be Read, Not Looked At"](https://alistapart.com/article/web-typography-tables/) — CSS for `lining-nums tabular-nums`, no outer borders, content-sized columns, `caption-side`.
-- [IBM Carbon data table usage](https://carbondesignsystem.com/components/data-table/usage/) — the explicit 24/32/40/48/64px row scale, header matching row size, and the 2-line-then-truncate header rule.
+- [IBM Carbon data table usage](https://carbondesignsystem.com/components/data-table/usage/) — the 24/32/40/48/64px row scale (medium 40px is the default; extra large only for two-line rows), header matching row size, always-on row hover, and the 2-line-then-truncate header rule.
 - [GOV.UK Design System: Table](https://design-system.service.gov.uk/components/table/) — the numeric cell and header modifier classes, `<caption>` as heading, `scope` attributes.
 - [data.europa.eu: Table design for scannability](https://data.europa.eu/apps/data-visualisation-guide/table-design-scannability) — consistent rounding per column, no wrapping, grouping by extra spacing.
-- [Primer DataTable guidelines](https://primer-docs-preview.github.com/product/components/data-table/guidelines) — "Right-align numeric values and use the `tabular-num` font variant", and column width modes (grow, grow-or-collapse, auto, explicit) with a warning that `auto` causes layout shift.
+- [Primer DataTable guidelines](https://primer-docs-preview.github.com/product/components/data-table/guidelines) — "Right-align numeric values and use the tabular-num font variant when possible", and column width modes (grow, grow-or-collapse, auto, explicit) with a warning that `auto` causes "a layout shift ... when the content changes".
 
 ## Bad references
 - Spreadsheet-export tables (the default Excel-to-HTML look): every cell boxed, centred headers and proportional figures. They are the "awful" tables Ström opens with.
-- [Polaris DataTable summary-row alignment bug (PR #7693)](https://github.com/Shopify/polaris-react/pull/7693) — a text label in a numeric column's summary row inherited right alignment. Totals labels need explicit handling.
+- [Polaris DataTable summary-row alignment bug (PR #7693)](https://github.com/Shopify/polaris-react/pull/7693) — the totals row ignored `columnContentTypes` and treated every cell as numeric, so text cells (a date in the example) were right-aligned. Totals rows need per-column alignment.
 - Default shadcn/TanStack table demos that left-align every column, including amounts. Alignment is opt-in per column there, and teams forget it.
 
 ## Accessibility
@@ -79,12 +79,12 @@
 | Token | Default |
 |---|---|
 | `--row-h-xs/sm/md/lg/xl` | 24 / 32 / 40 / 48 / 64px |
-| Cell padding inline | 12px (16px on first and last) |
+| Cell padding inline | 12px `--space-3` (16px `--space-4` on first and last) |
 | Body font | 0.875rem (14px) / 1.4; xs density 0.75rem |
-| Header font | 0.75–0.8125rem, weight 600, `--text-muted`, sentence case |
-| Row rule | 1px `--border-subtle` |
-| Zebra tint | `--surface-2` at about 2–4% luminance delta (optional) |
-| Hover tint | `--surface-hover` |
+| Header font | 0.75rem (`--type-meta` size), weight 600, `--text-muted`, sentence case |
+| Row rule | 1px `--border` |
+| Zebra tint | `color-mix(in oklab, var(--surface-2) 50%, var(--surface))`, about 2% luminance delta (optional) |
+| Hover tint | `--surface-2` |
 | Totals row | weight 600, 2px top rule `--border-strong` |
 | Inline sparkline | 96×20px, 1.25px stroke |
 | Numerals | `tabular-nums lining-nums` |
@@ -127,15 +127,15 @@
   block-size: var(--row-h);           /* acts as min-height on table cells */
   padding: 0 12px;
   text-align: start;
-  border-block-end: 1px solid var(--border-subtle);
+  border-block-end: 1px solid var(--border);
   white-space: nowrap;
 }
 .dt :is(th, td):first-child { padding-inline-start: 16px; }
 .dt :is(th, td):last-child  { padding-inline-end: 16px; }
-.dt thead th { font-weight: 600; font-size: .8125rem; color: var(--text-muted); text-wrap: balance; }
+.dt thead th { font-weight: 600; font-size: .75rem; color: var(--text-muted); text-wrap: balance; }
 .dt tbody th { font-weight: 500; }
 .dt .num { text-align: end; }
-.dt tbody tr:hover { background: var(--surface-hover); }
+.dt tbody tr:hover { background: var(--surface-2); }
 .dt tfoot :is(th, td) { font-weight: 600; border-block-start: 2px solid var(--border-strong); border-block-end: 0; }
 .dt .trunc { display: block; max-inline-size: 24ch; overflow: hidden; text-overflow: ellipsis; }
 ```

@@ -15,7 +15,7 @@
 | Browse visual items (images, thumbnails) | many | image-led | **Grid** (not cards) |
 | Compare 2–5 options side by side on many attributes | 2–5 | many | **Comparison table** (attributes as rows) |
 
-- NN/g: cards suit "heterogeneous" content and browsing. Lists are better when items are "homogeneous", when users "search" or "compare", and when they "scan for a specific attribute". Cards "deemphasize ranking", are "less scannable", are "a poor choice for comparison", and "take more space".
+- NN/g: "Cards work best for collections of heterogeneous items." For very homogeneous items, use a vertical list. Cards are "less appropriate than lists when people search for information", "a poor choice when users need to compare between multiple options", "less scannable than lists", "typically deemphasize the ranking of content", and "take more space". Lists win on scanning because each attribute sits in a fixed position.
 - If you can't name the columns, you don't have a table. If every card has the same four fields, you have a table drawn badly.
 
 ## Rules (do)
@@ -28,26 +28,26 @@
 - **Responsive switch.** A table may become stacked cards *below a container width* (about 600px) as a presentation of the same data (`ui-atoms/responsive-table.md`). That is the one legitimate "table to cards" transform. Keep sort and filter available.
 - **View toggle (table/cards)** only when both tasks are real (for example a portfolio as "compare" vs "browse"). Persist the choice per user. Default to the table.
 - **Card grid rules** when cards are right: fixed width with variable height is fine (NN/g), but within a row align regions using subgrid (`ui-components/card.md`). Use the same field order on every card, and limit each card to 1 primary value plus 3 or fewer secondary facts.
-- **Comparison tables:** at most 5 compared items, ideally 3–4 (NN/g comparison tables). Use a "highlight differences" toggle for long attribute lists.
+- **Comparison tables:** at most 5 compared items (NN/g; "Most dynamic comparison tables accept 3–4 items only"), and about 2 on a phone. Keep column headers fixed while scrolling, and offer a "highlight differences" toggle for long attribute lists.
 - **Don't double-encode.** A KPI card row *above* a table that repeats the same totals is fine. Cards *instead of* a table for 50 records is not.
 
 ## Anti-patterns (don't)
 - **"Card soup":** 40 identically structured cards for records users need to compare (for example customer accounts with MRR, plan, seats and status). Users must memorise values across scattered positions. NN/g notes cards rely on short-term memory because fewer fit on screen.
-- Cards with a table inside each card (nested containers, Carbon: "Avoid placing tables inside tables or smaller containers").
+- Cards with a table inside each card (nested containers, Carbon: "Avoid placing data tables inside data tables or smaller containers").
 - Tables used to lay out a dashboard (GOV.UK: "Never use the table component to layout content").
 - A list row that tries to show 8 attributes. That's a table squeezed into a list.
 - A different field order or position per card, which breaks scanning.
-- Wrapping every dashboard section in a card with shadow and border "for consistency". Borders and shadows are ink. Use whitespace and headings to group when there's nothing to contain (Carbon: whitespace grouping; see `found-visual-hierarchy.md`).
+- Wrapping every dashboard section in a card with shadow and border "for consistency". Borders and shadows are ink. Use whitespace and headings to group when there's nothing to contain (Carbon dashboards: "White space either sets elements apart or brings them together"; see `found-visual-hierarchy.md`).
 
 ## Good references
 - [NN/g, "Cards: UI-Component Definition"](https://www.nngroup.com/articles/cards-component/) — the heterogeneous vs homogeneous rule, and the drawbacks of cards for ranking, scanning and comparison.
-- [NN/g, "Data Tables: Four Major User Tasks"](https://www.nngroup.com/articles/data-tables/) — tables exist for find, compare, view or edit, and act on records.
-- [NN/g, "Comparison Tables"](https://www.nngroup.com/articles/comparison-tables/) — at most 5 items, sticky headers, highlight differences, about 2 items on mobile.
+- [NN/g, "Data Tables: Four Major User Tasks"](https://www.nngroup.com/articles/data-tables/) — find records that fit criteria, compare data, view or edit a single row, and take actions on records.
+- [NN/g, "Comparison Tables"](https://www.nngroup.com/articles/comparison-tables/) — at most 5 items, fixed column headers, hide rows where all items are the same, "unlikely" to fit more than 2 items on a phone.
 - [Stripe Dashboard (teardown)](https://www.925studios.co/blog/stripe-dashboard-design-breakdown) — a handful of metric summaries on home, while Payments "leads with a filterable list of recent transactions". Summaries are cards and records are a table.
-- [Carbon dashboards](https://carbondesignsystem.com/data-visualization/dashboards) — presentation dashboards (overview) vs exploration dashboards (search, sort, filter, drill down) need different containers.
+- [Carbon dashboards](https://carbondesignsystem.com/data-visualization/dashboards) — presentation dashboards "show viewers the current status of key performance indicators", exploration dashboards "allow users to interact with the data". They need different containers.
 
 ## Bad references
-- Dribbble-style "SaaS dashboard" shots with 12 or more glossy cards, each with an icon, a big number and a fake upward sparkline. No comparisons, no table, no drill-down. Few's pitfall #6 is "Introducing meaningless variety", and Tufte calls this decoration that "pretends to show statistical data" ([Tufte](https://www.edwardtufte.com/notebook/executive-dashboards/)).
+- Dribbble-style "SaaS dashboard" shots with 12 or more glossy cards, each with an icon, a big number and a fake upward sparkline. No comparisons, no table, no drill-down. Few's pitfall #6 is "Introducing meaningless variety" ([white paper](https://www.perceptualedge.com/articles/Whitepapers/Common_Pitfalls.pdf)), and Tufte calls this decoration that "pretends to show statistical data" ([Tufte](https://www.edwardtufte.com/notebook/executive-dashboards/)).
 - Card-per-row CRM or account views where sorting by revenue is impossible because cards have no column headers. This is the exact comparison failure NN/g describes.
 
 ## Accessibility
@@ -62,7 +62,8 @@
 ## Tokens and values
 | Decision | Threshold |
 |---|---|
-| KPI cards per row | 3–6 |
+| KPI cards in total | 3–6 |
+| KPI cards per row | 4–6 at 1280px or wider, 2 at 768px or wider, 1 below |
 | Max entity cards before switching to a table | about 12 |
 | Max compared items in a comparison table | 5 (ideal 3–4) |
 | List row: attributes beyond name | at most 3 |
@@ -109,7 +110,7 @@ export function chooseContainer(task: Task, itemCount: number, comparableAttrs: 
 - https://design-system.service.gov.uk/components/table/
 - https://www.925studios.co/blog/stripe-dashboard-design-breakdown
 - https://www.edwardtufte.com/notebook/executive-dashboards/
-- https://www.thedataschool.co.uk/anh-vu/are-you-making-these-13-dashboard-design-mistakes/
+- https://www.perceptualedge.com/articles/Whitepapers/Common_Pitfalls.pdf
 - Repo: modern-web-guidance/skills/modern-web-guidance/guides/ui-components/card.md
 - Repo: modern-web-guidance/skills/modern-web-guidance/guides/ui-atoms/responsive-table.md
 - Repo: modern-web-guidance/skills/modern-web-guidance/guides/accessibility/accessible-generated-content.md
