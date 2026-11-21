@@ -59,7 +59,7 @@ Do not animate when:
 - Marketing-site motion pasted into apps: long staggered fades of 600–1200 ms on dashboard tiles. That is past NN/g's 500 ms "real drag" point and past the 300 ms stagger cap below.
 
 ## Accessibility
-- Respect `prefers-reduced-motion` (Baseline widely available since January 2020): drop spatial movement, keep colour and opacity feedback (see `motion-reduced-motion.md`).
+- Respect `prefers-reduced-motion`, which is Baseline widely available (newly available January 2020): drop spatial movement, keep colour and opacity feedback (see `motion-reduced-motion.md`).
 - Anything that starts automatically, moves for more than 5 s and sits alongside other content needs a pause, stop or hide control (WCAG 2.2.2, Level A).
 - Never flash more than 3 times per second (WCAG 2.3.1).
 - Make the final state the default state, so disabling animation never leaves content at `opacity: 0`.
@@ -99,7 +99,7 @@ Rows marked † are in `assets/tokens.css`; the others are values this file adds
   --motion-ease-enter: cubic-bezier(0, 0, 0.38, 0.9);
   --motion-ease-exit: cubic-bezier(0.2, 0, 1, 0.9);
   /* Critically damped spring x(t) = 1 − (1 + ωt)·e^(−ωt), ωT = 6.6, sampled for linear() (same value as tokens.css).
-     linear() is Baseline widely available (newly available Dec 2023). */
+     linear() is Baseline widely available since June 2026 (newly available December 2023: Chrome 113, Firefox 112, Safari 17.2). */
   --motion-ease-spring: linear(0, 0.044 5%, 0.142 10%, 0.261 15%, 0.380 20%, 0.589 30%, 0.740 40%, 0.841 50%, 0.905 60%, 0.968 80%, 1);
 }
 
@@ -122,7 +122,7 @@ Rows marked † are in `assets/tokens.css`; the others are values this file adds
   @starting-style { .panel { translate: none; } }
 }
 ```
-Support and fallback: `@starting-style` and `transition-behavior: allow-discrete` (the `display … allow-discrete` line) are Baseline 2024, newly available since August 2024 (Chrome 117, Firefox 129, Safari 17.4/17.5). Firefox supports both but does not transition `display` with `allow-discrete` (MDN browser-compat-data marks Firefox 129 as a partial implementation, [bug 1882408](https://bugzil.la/1882408)), so in Firefox the entry animates and the exit snaps. Older browsers ignore both, so the panel simply appears and disappears without the entry or exit animation, which is an acceptable fallback because the final state is the default state. Individual `translate`/`scale`/`rotate` properties are Baseline widely available.
+Support and fallback: `@starting-style` and `transition-behavior: allow-discrete` (the `display … allow-discrete` line) are Baseline newly available since August 2024 (Chrome 117, Firefox 129, Safari 17.5). Firefox supports both but does not transition `display` with `allow-discrete` (MDN browser-compat-data marks Firefox 129 as a partial implementation, [bug 1882408](https://bugzil.la/1882408)), so in Firefox the entry animates and the exit snaps. Older browsers ignore both, so the panel simply appears and disappears without the entry or exit animation, which is an acceptable fallback because the final state is the default state. Individual `translate`/`scale`/`rotate` properties are Baseline widely available (newly available August 2022).
 
 ## Checklist
 - [ ] Every animation has a stated purpose: continuity, feedback, orientation or attention.

@@ -112,7 +112,7 @@ export function settleSheet(el: HTMLElement, toY: number, velocity: number) {
   return animate(el, { y: toY }, { type: 'spring', bounce: 0.1, visualDuration: 0.3, velocity });
 }
 ```
-Support: `prefers-reduced-motion` and `prefers-contrast` are Baseline; `prefers-reduced-transparency` is Chromium-only, so the translucent default must stay legible on its own.
+Support: `prefers-reduced-motion` is Baseline widely available (newly available January 2020) and `prefers-contrast` is Baseline too; `prefers-reduced-transparency` is Chromium-only, so the translucent default must stay legible on its own.
 
 ## Checklist
 - [ ] Every spatial effect has a listed substitute under `reduce`.

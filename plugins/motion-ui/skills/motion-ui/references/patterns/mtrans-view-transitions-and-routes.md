@@ -10,8 +10,8 @@ Use when the user navigates and something persists or relates across the two vie
 ## Rules (do)
 - **Know the support.**
   - Same-document (`document.startViewTransition`): Baseline newly available since October 2025 (Chrome 111, Firefox 144, Safari 18).
-  - Cross-document (`@view-transition { navigation: auto; }`): Chrome 126 and Safari 18.2; not in Firefox stable. Same-origin only; not for address-bar navigations, bookmarks or reloads. Chrome skips the transition if the new page takes more than 4 s.
-  - `view-transition-class`: Baseline newly available (October 2025). `types` and `:active-view-transition-type()`: Chrome 125, Firefox 147, Safari 18.2.
+  - Cross-document (`@view-transition { navigation: auto; }`): not Baseline (Chrome 126, Safari 18.2; not in Firefox stable). Same-origin only; not for address-bar navigations, bookmarks or reloads. Chrome skips the transition if the new page takes more than 4 s.
+  - `view-transition-class`: Baseline newly available since October 2025 (Chrome 125, Firefox 144, Safari 18.2). `types` and `:active-view-transition-type()`: Baseline newly available since January 2026 (Chrome 125, Firefox 147, Safari 18.2).
   - Everything degrades to a normal navigation.
 - **Start from the default.** The UA stylesheet cross-fades the old and new snapshots over 0.25 s. That is right for most routes; only customise when there's a spatial relationship to show.
 - **Directional by type, not by guesswork.** Pass `types: ['forward']` or `['back']` (SPA), or add types in `pageswap`/`pagereveal` (MPA) from the Navigation API's `navigation.activation`, and style `:active-view-transition-type(forward)`.

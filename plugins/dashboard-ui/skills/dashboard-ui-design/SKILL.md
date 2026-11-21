@@ -125,7 +125,7 @@ Break one of these only with a written reason.
 | Need | Use |
 |---|---|
 | Blocking decision now | Modal `<dialog>` |
-| Contextual detail or small form, page still usable | Popover (popover API, Baseline; anchor positioning with an `@supports` fallback to fixed placement) |
+| Contextual detail or small form, page still usable | Popover (popover API, Baseline widely available since October 2026; anchor positioning with an `@supports` fallback to fixed placement) |
 | Large secondary task beside the context | Drawer or sheet |
 | Low-stakes, recoverable confirmation | Toast, persistent if it holds an action |
 | Name or hint of an icon or term | Tooltip, never essential content (`popover="hint"` and `interestfor` are not Baseline: feature-detect) |

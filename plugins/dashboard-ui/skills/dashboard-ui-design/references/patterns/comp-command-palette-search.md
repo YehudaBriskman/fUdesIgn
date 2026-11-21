@@ -63,7 +63,7 @@
 
 ## Accessibility
 - Use a modal `<dialog>` with `aria-label="Command palette"`. Native modality handles focus containment and Esc.
-- The sketch's `command="show-modal"` is Baseline newly available (December 2025: Chrome 135, Firefox 144, Safari 26.2); the ⌘K handler calls `showModal()` anyway. `closedby="any"` is not Baseline (Chrome/Edge 134, Firefox 141, Safari 27.3), so also close on a click whose target is the `<dialog>` itself.
+- The sketch's `command="show-modal"` is Baseline newly available since December 2025 (Chrome 135, Firefox 144, Safari 26.2); the ⌘K handler calls `showModal()` anyway. `closedby="any"` is not Baseline (Chrome/Edge 134, Firefox 141, Safari 27.3), so also close on a click whose target is the `<dialog>` itself.
 - The input is `role="combobox"` with `aria-expanded`, `aria-controls` and `aria-autocomplete="list"`. Results are `role="listbox"` with `role="option"` rows. Group headings use `role="group"` with `aria-label`.
 - Announce the result count politely after debouncing ("12 results"), not on every keystroke.
 - Shortcut hints are visible text in `<kbd>`. Also expose the trigger's shortcut with `aria-keyshortcuts="Meta+K Control+K"` on the search field.

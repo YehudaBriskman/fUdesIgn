@@ -5,7 +5,7 @@
 **Category:** Springs · **Applies to:** CSS transitions and keyframes for popovers, sheets settling, toggles, layout shifts, View Transition pseudo-elements · **Priority:** should
 
 ## When to use / when not
-`linear()` is a piecewise-linear easing function: you list output values (and optional input percentages) and the browser interpolates between them. With enough points it approximates any curve, including a spring's overshoot. It is Baseline widely available (newly available December 2023: Chrome 113, Firefox 112, Safari 17.2; widely available June 2026).
+`linear()` is a piecewise-linear easing function: you list output values (and optional input percentages) and the browser interpolates between them. With enough points it approximates any curve, including a spring's overshoot. It is Baseline widely available since June 2026 (newly available December 2023: Chrome 113, Firefox 112, Safari 17.2).
 
 Use it when the animation always starts at rest: a menu opening, a sheet settling after a tap, a toggle thumb, a View Transition group. Don't use it after a drag or fling: CSS can't take an initial velocity, so the element would stop dead at release and then accelerate again. Use a JS spring there (`mgesture-momentum-projection-and-snap.md`).
 

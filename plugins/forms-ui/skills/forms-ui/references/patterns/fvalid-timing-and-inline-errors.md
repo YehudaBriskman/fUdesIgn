@@ -21,7 +21,7 @@
 | `blur` / `change` (field was edited) | Run the field's checks; show the error if any. |
 | `submit` | Run every check, block, show all errors, move focus to the summary (`fvalid-error-summary-and-focus.md`). |
 
-- **Style with `:user-invalid`**, not `:invalid`. `:user-invalid` matches only after the user has interacted with the field or tried to submit, so empty required fields aren't red on load. Baseline widely available (Chrome 119, Firefox 88, Safari 16.5). Fall back with a `data-touched` attribute set on blur where unsupported.
+- **Style with `:user-invalid`**, not `:invalid`. `:user-invalid` matches only after the user has interacted with the field or tried to submit, so empty required fields aren't red on load. Baseline widely available since May 2026 (newly available November 2023: Chrome 119, Firefox 88, Safari 16.5). Fall back with a `data-touched` attribute set on blur where unsupported.
 - **Error position**: above the field, below label and hint (GOV.UK order: label → hint → error → field). Above keeps it visible when the on-screen keyboard or autofill pop-up covers the area below the field. Below the field is acceptable if your system already does that consistently (Carbon, Polaris); never at the top of the form only, and never in a tooltip or toast.
 - **Error styling**: a red left border on the whole field group (4–5 px, GOV.UK) or a 2 px red field border, plus an icon and the message text in `--danger-fg`. Never colour alone (WCAG 1.4.1): the text is the signal.
 - **Programmatic link**: `aria-invalid="true"` on the field and the error's id added to `aria-describedby` only while the error shows; remove both when fixed.

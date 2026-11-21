@@ -59,7 +59,7 @@
 ## Accessibility
 - "Why this number" is a `<button>` with `aria-expanded` and `aria-controls`, or a link to an anchor. Its accessible name names the number: "Why $142 value per share".
 - The provenance tree uses nested `<details>`/`<summary>` (keyboard and screen-reader support for free) or the ARIA tree pattern if it needs arrow-key navigation.
-- Formulas: block `<math display="block">` with an `aria-label` in words, plus the variables defined in a `<dl>` below. MathML has been Baseline across browsers since January 2023.
+- Formulas: block `<math display="block">` with an `aria-label` in words, plus the variables defined in a `<dl>` below. MathML is Baseline newly available since January 2023.
 - The methodology TOC is a `<nav aria-label="On this page">`. Headings follow a strict outline.
 - Every source link says what it opens: "10-K filed 1 Nov 2026 (EDGAR, opens in new tab)".
 

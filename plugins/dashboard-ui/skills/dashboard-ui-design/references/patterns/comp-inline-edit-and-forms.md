@@ -34,7 +34,7 @@
   - A sticky footer bar reads "N unsaved changes · Discard · Save".
   - Warn on navigation away (`beforeunload` + in-app route guard).
 - **Validation.**
-  - Use native constraints (`required`, `min`, `max`, `step`, `pattern`) and style errors with `:user-invalid` (Baseline widely available: Chrome 119, Firefox 88, Safari 16.5), so errors appear only after interaction, not while the user is still typing "1." of "1.5".
+  - Use native constraints (`required`, `min`, `max`, `step`, `pattern`) and style errors with `:user-invalid` (Baseline widely available since May 2026 (newly available November 2023: Chrome 119, Firefox 88, Safari 16.5)), so errors appear only after interaction, not while the user is still typing "1." of "1.5".
   - In panel forms, follow forms-ui's `fvalid-timing-and-inline-errors.md` (check on blur after an edit, never per keystroke; error text between hint and field). In an inline cell, the error sits directly below the cell. Either way it starts with an icon carrying a text alternative, says how to fix it ("Enter a rate between 0% and 25%"), and is linked through `aria-describedby` only while invalid.
 - **Numeric inputs.**
   - Use `<input type="text" inputmode="decimal">`, not `type="number"`. The latter has spinner and scroll-wheel accidents and locale issues.

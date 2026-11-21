@@ -19,7 +19,7 @@ Always. Every animated component ships with an explicit reduced-motion variant. 
 | Auto-playing ticker or carousel | stopped by default, plus a pause control for everyone |
 
 ## Rules (do)
-- **Static-first CSS:** declare animation inside `@media (prefers-reduced-motion: no-preference)` when reduced = none; web.dev's example plays the animation "only … for those users who are explicitly OK with animations". Use `@media (prefers-reduced-motion: reduce)` only to **adjust** parameters (slower spinner, fade instead of slide). Nest the query inside the component rule (CSS nesting, Baseline widely available) so both variants sit together.
+- **Static-first CSS:** declare animation inside `@media (prefers-reduced-motion: no-preference)` when reduced = none; web.dev's example plays the animation "only … for those users who are explicitly OK with animations". Use `@media (prefers-reduced-motion: reduce)` only to **adjust** parameters (slower spinner, fade instead of slide). Nest the query inside the component rule (CSS nesting, Baseline widely available since June 2026 (newly available December 2023)) so both variants sit together.
 - **No global kill switch** (`*, *::before { animation-duration: 0.01ms !important }`). It deletes helpful fades and state changes along with the motion, and it does nothing for JS-driven animation; Josh Comeau reports it can make JS animations "super fast and dizzying" (quoted by Chris Coyier, CSS-Tricks). The near-zero `0.01ms` (rather than `0`) is there so `transitionend`/`animationend` still fire, so the real event risk comes from `animation: none` or never-started transitions, covered under "Keep the final state".
 - **"Reduced" ≠ "none":** Chrome's view-transitions docs say a reduced-motion preference "doesn't mean the user wants *no motion*". Colour and opacity changes that don't alter perceived size, shape or position are not "motion animation" under WCAG 2.3.3, so a short fade remains a good way to show what changed. Blur is no longer excluded (WCAG erratum), so treat blur transitions as motion.
 - **JS-driven motion** (WAAPI, D3 transitions, canvas, number tweens) reads `matchMedia('(prefers-reduced-motion: reduce)')` and **listens for `change`**, so a toggle mid-session takes effect without reload.
@@ -114,7 +114,7 @@ export async function afterAnimations(el: Element): Promise<void> {
   await Promise.allSettled(el.getAnimations().map((a) => a.finished));
 }
 ```
-Support: `prefers-reduced-motion` is Baseline widely available (since January 2020). The nested `@media` and `@starting-style` need CSS nesting (Baseline December 2023) and `@starting-style` (Baseline August 2024); without them the drawer appears with no entry animation, which is the safe default.
+Support: `prefers-reduced-motion` is Baseline widely available (newly available January 2020). The nested `@media` and `@starting-style` need CSS nesting (Baseline widely available since June 2026 (newly available December 2023)) and `@starting-style` (Baseline newly available since August 2024 (Chrome 117, Firefox 129, Safari 17.5)); without them the drawer appears with no entry animation, which is the safe default.
 
 ## Checklist
 - [ ] Every animation has a documented reduced variant (remove, fade, or slow).
