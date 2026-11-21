@@ -28,10 +28,10 @@
 - Default to the basic three: bar, line, scatter. NN/g: these let people "quickly and accurately perceive the differences between values"; pie, bubble, mosaic, waffle, Sankey and stacked area "require users to visually assess angle, area, or volume". Use a complex type only when it shows something a basic one cannot.
 - Use position on a common scale whenever precision matters (bar ends, dots, line points). Encodings below that (length without common baseline, angle, area, colour saturation) are for gist only.
 - Put the important comparison next to each other: group bars by the comparison the reader should make (NN/g). Two series that must be compared go in one chart; two that are independent go in two.
-- Replace stacked bars by small multiples when the middle segments matter. NN/g: only the first and last segments are easy to compare; "use a series of 3 bar charts instead."
+- Replace stacked bars by small multiples when the middle segments matter. NN/g: segments that share a baseline are easy to compare, the middle ones "much harder"; "use a series of 3 bar charts instead."
 - One chart, one message. If the panel needs two messages, use two charts with a shared x-axis (see chart-tooltips-crosshair-labels.md for synchronised crosshairs).
 - For dashboards, also decide the mode: monitoring (at a glance, sparkline + number + target) vs exploration (filters, drill-down, linked charts). Carbon dashboards: exploration views must "mirror chart modifications like filter and zoom" across linked charts.
-- Match the chart family across the product: the same metric uses the same chart type and colour everywhere (Carbon dashboards: "assign each data set a consistent color").
+- Match the chart family across the product: the same metric uses the same chart type and colour everywhere (Carbon dashboards: "Always use consistent colors for each data set within a dashboard").
 
 ## Anti-patterns (don't)
 - Pie because "it is a share": only valid for 2 to 5 slices with one highlighted (see chart-pies-donuts-gauges.md).
@@ -44,9 +44,9 @@
 - Word clouds for anything quantitative.
 
 ## Good references
-- [FT Visual Vocabulary](https://github.com/Financial-Times/chart-doctor/tree/main/visual-vocabulary) — nine relationship rows with 70+ chart types; each row has a one-line purpose ("Use where an item's position in an ordered list is more important than its absolute or relative value"). Print it next to the design review.
+- [FT Visual Vocabulary](https://github.com/Financial-Times/chart-doctor/tree/main/visual-vocabulary) — nine relationship rows with about 70 chart entries (some charts appear in two rows); each row has a one-line purpose ("Use where an item's position in an ordered list is more important than its absolute or relative value"). Print it next to the design review.
 - [NN/g: Choosing Chart Types](https://www.nngroup.com/articles/choosing-chart-types/) — pushes everyday UX dashboards to bar, line, scatter and gives the reason (angle/area judgements are poor).
-- [Datawrapper: area charts](https://www.datawrapper.de/blog/area-charts) — decision rules: area only when the total matters, fewer than ~10 dates use stacked columns, small differences use lines.
+- [Datawrapper: area charts](https://www.datawrapper.de/blog/area-charts) — decision rules: area "works best if the total is as important as its shares", fewer than ~10 dates use stacked columns, small differences use lines.
 - [IBM Carbon dashboards](https://carbondesignsystem.com/data-visualization/dashboards/) — separates presentation vs exploration dashboards and gives layout consistency rules.
 - [Kaiser Fung's Trifecta Checkup](https://jonpage.github.io/r-course/trifecta.html) — review a chart on Question, Data and Visual separately; many "bad charts" have a fine visual and a broken question.
 
@@ -87,14 +87,14 @@ interface ChartChoiceInput {
 }
 
 type ChartKind =
-  | "line" | "column" | "bar-sorted" | "stacked-bar-100" | "donut"
+  | "line" | "column" | "stacked-area" | "stacked-column" | "bar-sorted" | "stacked-bar-100" | "donut"
   | "diverging-bar" | "histogram" | "box" | "scatter" | "sankey" | "waterfall" | "table";
 
 export function chooseChart({ question, pointCount, seriesCount, totalMatters = false }: ChartChoiceInput): ChartKind {
   switch (question) {
     case "change-over-time":
-      if (totalMatters && seriesCount > 1) return pointCount < 10 ? "column" : "line"; // stacked
-      return pointCount < 10 ? "column" : "line";
+      if (totalMatters && seriesCount > 1) return pointCount < 10 ? "stacked-column" : "stacked-area";
+      return pointCount < 10 ? "column" : "line"; // Datawrapper: under ~10 dates, columns read better
     case "magnitude":
     case "ranking":
       return pointCount > 15 ? "table" : "bar-sorted";

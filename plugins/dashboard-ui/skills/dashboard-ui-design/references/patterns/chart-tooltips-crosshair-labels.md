@@ -5,7 +5,7 @@
 **Category:** Charts and data visualisation · **Applies to:** every interactive chart, linked dashboards, small multiples, mobile charts · **Priority:** must
 
 ## When to use / when not
-- Direct labels: default for ≤5 series, for bars (value at the end), for pies/donuts (2 to 5 slices) and for line ends. Carbon: "Avoid legends when possible and label data directly instead, since legends rely on visual association." Datawrapper: removing the key reduces eye travel.
+- Direct labels: default for ≤5 series, for bars (value at the end), for pies/donuts (2 to 5 slices) and for line ends. Carbon: "When possible, avoid using a legend and label data representations directly"; "legends rely on visual association". Datawrapper: "remove the color key and directly label your categories" to cut eye travel.
 - Legend: when series are many, labels would collide, or space is tiny (mobile). Skip it entirely for a single-series chart (Carbon).
 - Tooltip: details-on-demand for exact values, secondary metrics, dates. Not a home for anything the user needs to understand the chart (NN/g: "Users shouldn't need to find a tooltip in order to complete their task"; Fossheim: don't hide important data behind hovers).
 - Crosshair: dense time series (>30 points) and multi-panel views that share an x-axis (price + volume, p50/p99 + error rate). Not on bar charts with few bars; highlight the band instead.
@@ -14,11 +14,11 @@
 **Direct labels**
 - Line end labels in the series colour, right of the last point, collision-avoided (nudge vertically, min 14 px apart; if still colliding, fall back to legend).
 - Label the latest value too ("EMEA 2.6M") so the most-asked number needs no hover.
-- Max two text styles: small muted and larger strong (Datawrapper).
+- Max two text styles: small muted and larger strong (Datawrapper's example: "a 12px gray and a 14px black").
 - On mobile, Datawrapper moves the colour key to the top; do the same when end labels would take more than ~25% of width.
 
 **Legends**
-- Position: top-left under the title on dashboards where space is scarce, bottom by default (Carbon). Keep the same position in every chart on a dashboard (Carbon dashboards).
+- Position: bottom by default; Carbon allows "bottom or top of a chart in situations where space is scarce, such as a dashboard". Keep the same position in every chart on a dashboard (Carbon dashboards).
 - Order legend items in the same order as the data (top-to-bottom of the stack or of line end values), not alphabetically.
 - Legend ≤ 2 lines by default; "View more" up to 30% of chart height, then scroll (Carbon).
 - Interactive legend: hover dims other series to 30% opacity; click isolates; provide "Show all" reset (Carbon). Legend items are real `<button aria-pressed>` elements.

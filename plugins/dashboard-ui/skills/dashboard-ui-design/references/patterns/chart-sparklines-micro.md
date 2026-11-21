@@ -10,11 +10,11 @@
 - Not when the exact values over time matter (use a full chart with axes), not for comparing magnitudes across rows (each sparkline is usually scaled to its own range), not for fewer than ~5 points (show the two numbers and the change instead).
 
 ## Rules (do)
-- Pair it with the number. Tufte: a line "lacking a scale" is "dequantified"; label the latest value at the right end, or put the KPI number immediately to its left.
+- Pair it with the number. Tufte: "Lacking a scale of measurement, this free-floating line is dequantified"; label the latest value at the right end, or put the KPI number immediately to its left.
 - State the window once, visibly: "Last 30 days", "12 months". The window must be the same across a row of cards; mixing 7-day and 90-day sparklines in one grid is a lie by layout.
 - State the scale policy. Default: each sparkline scaled to its own min/max (shape comparison). If rows must be compared in magnitude, use a shared y-domain and say so in the column header ("shared scale").
 - Size: word-sized. Tremor default is 48 × 112 px (`h-12 w-28`); its KPI card example uses 32 × 80 px, 40 × 144 px from `sm`. In tables, height ≈ row text cap-height × 1.5 to 2, i.e. 16 to 24 px; width 60 to 120 px.
-- Aspect ratio wider than tall: Tufte's financial sparklines are about 5:1; aim for an average slope near 45° (not spiky, not flat).
+- Aspect ratio wider than tall: Tufte's example "financial sparkline is 5 to 1"; aim for "hill-slopes averaging 45°" (not spiky, not flat).
 - No axes, no gridlines, no frame, no legend, no fill gradient by default. Tufte: "Avoid all data frames."
 - Optional context, in this order of value: (1) a dot on the last point; (2) a light grey band for the normal or target range (Tufte's glucose example); (3) min/max dots in a muted second colour with their numbers nearby. Do not add all three to every card.
 - Colour: neutral ink for the line. If you colour by direction (green up / red down), the rule must be explicit and consistent, and direction must also appear as text or an arrow with sign ("+4.1%"). Robinhood Legend colours the line green when the last close in the window is above the first close; state this rule if you copy it, because it differs from "change since yesterday".
@@ -55,7 +55,7 @@
 ## Tokens and values
 | Token | Default |
 |---|---|
-| Sparkline size (card) | 32–48 px high × 80–144 px wide |
+| Sparkline size (card) | 28–48 px high × 80–144 px wide (SKILL.md KPI default: 120 × 28) |
 | Sparkline size (table) | 16–24 px high × 60–120 px wide |
 | Aspect ratio | 4:1 to 6:1 |
 | Stroke | 1.25 px, neutral ink |

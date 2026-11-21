@@ -17,7 +17,7 @@
 - Values do not sum to a meaningful whole (multi-select survey answers, overlapping segments).
 
 **Gauge: almost never**
-- Stephen Few built the bullet graph "to replace the meters and gauges that are often used on dashboards". A gauge "uses a great deal of space to say very little" (Few, Threat Analysis Reporter critique).
+- Stephen Few's spec opens: "The bullet graph was developed to replace the meters and gauges that are often used on dashboards." His 2006 critique of the Threat Analysis Reporter says its circular gauges use "a great deal of space to say very little".
 - Acceptable: a single-purpose display where the physical metaphor is the point (a car app speedometer), or a utilisation ring on a tiny device. On a data dashboard, use a bullet graph, a progress meter, or a number with "of target".
 
 ## Rules (do)
@@ -33,7 +33,7 @@
 
 **Gauge replacements**
 - Bullet graph (Few spec): one featured bar, one target tick, 2 to 5 qualitative background ranges (ideally 3), horizontal, label on the left. Range intensities of one hue: two ranges 35%/10%; three 40%/25%/10%; four 50%/35%/20%/10%; five 50%/35%/20%/10%/3%. Darker = worse. Featured bar ≈ 1/3 of the container thickness. When the scale does not start at zero, the measure becomes a dot or X, not a bar.
-- For "lower is better" metrics, reverse the range order rather than reusing the same red-on-the-right template (Few's critique: "high productivity shown in the red makes little sense").
+- For "lower is better" metrics, reverse the range order rather than reusing the same red-on-the-right template (Few, on a gauge that puts high productivity in the red zone, asks "why a high level of productivity ... is a bad thing").
 - For usage/quota: a native `<meter>` or a linear bar with value text ("7.2 of 10 GB, 72%") and threshold markers.
 
 ## Anti-patterns (don't)
@@ -53,9 +53,9 @@
 - [Few: Why most dashboards fail](https://blogs.ischool.berkeley.edu/i247s13/files/2013/02/WhyMostDashboardsFail.pdf) — rationale for bullet graphs in less space.
 
 ## Bad references
-- [Steve Jobs, Macworld 2008, US smartphone share](https://daringfireball.net/linked/2008/02/07/snake-oil) — a tilted 3D pie made Apple's 19.5% slice, placed in front, look larger than a 21.2% slice behind it. Gruber called the styling "anti-Tufteian chartjunk".
+- [Steve Jobs, Macworld 2008, US smartphone share](https://daringfireball.net/linked/2008/02/07/snake-oil) — a tilted 3D pie made Apple's 19.5% slice, placed in front, look larger than the 21.2% "Other" slice behind it. Gruber called the styling "anti-Tufteian chartjunk".
 - [Wikipedia: Misleading graph, 3D pie](https://en.wikipedia.org/wiki/Misleading_graph) — side-by-side 2D vs 3D pie of the same data; the 3D one ranks the slices wrongly.
-- [Few: Threat Analysis Reporter dashboard](https://www.perceptualedge.com/blog/?p=54) — a wall of circular gauges, each with green-left/red-right zones regardless of whether high is good; one number per large circle.
+- [Few: "Dashboard design for snail-paced monitoring" (2006)](https://www.perceptualedge.com/blog/?p=54) — the Threat Analysis Reporter: a wall of circular gauges, each with green-left/red-right zones regardless of whether high is good; one number per large circle.
 - [TechCrunch pie (via Storytelling with Data)](https://www.storytellingwithdata.com/blog/2011/07/death-to-pie-charts) — default rainbow palette, slices impossible to rank.
 
 ## Accessibility
@@ -79,7 +79,7 @@
 | Bullet graph ranges | 3 (max 5) |
 | Bullet range fills | 40% / 25% / 10% of one hue (3 ranges) |
 | Bullet featured bar thickness | 1/3 of track |
-| Bullet target marker | 2 px wide, 2/3 of track height |
+| Bullet target marker | 2 px wide, 2/3 of track height (house default; Few specifies only a short perpendicular line, 100% black, less dominant than the measure) |
 | Bullet height (dashboard row) | 16 to 24 px |
 
 ## Implementation sketch
@@ -127,7 +127,6 @@ DOM order paints widest range first, so narrower (darker, worse) ranges sit on t
 - https://www.perceptualedge.com/articles/misc/Bullet_Graph_Design_Spec.pdf
 - https://www.perceptualedge.com/blog/?p=54
 - https://blogs.ischool.berkeley.edu/i247s13/files/2013/02/WhyMostDashboardsFail.pdf
-- https://www.tableau.com/blog/bullet-graphs-beat-gauge-charts (search result; 403 to fetcher)
 - https://daringfireball.net/linked/2008/02/07/snake-oil
 - https://en.wikipedia.org/wiki/Misleading_graph
 - https://carbondesignsystem.com/data-visualization/chart-types/

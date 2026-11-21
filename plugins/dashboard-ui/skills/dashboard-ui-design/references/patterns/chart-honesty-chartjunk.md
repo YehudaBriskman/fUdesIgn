@@ -10,8 +10,8 @@
 
 ## Rules (do)
 **Scale honesty**
-- Lie factor = (size of effect shown in graphic) ÷ (size of effect in data); keep it between 0.95 and 1.05 (Tufte, via Wikipedia "Misleading graph"). Test: measure two bar lengths in px and compare to the two values.
-- Bars and areas start at zero (see chart-bars-baseline-sorting.md). Lines may crop, but the axis must be labelled and visible, never hidden on the far side (the Fox tax chart hid its axis on the right).
+- Lie factor = (size of effect shown in graphic) ÷ (size of effect in data); keep it between 0.95 and 1.05, the ±5% band of the graph discrepancy index that Wikipedia's "Misleading graph" cites as the limit beyond which a graph is "considered to be distorted". Test: measure two bar lengths in px and compare to the two values.
+- Bars and areas start at zero (see chart-bars-baseline-sorting.md). Lines may crop, but the axis must be labelled and visible, never hidden on the far side (the Fox tax chart hid its axis on the right). Cropping still inflates perceived change on lines too (Correll et al., CHI 2020), so follow Gelman's rule: if the data's minimum is close to zero relative to its range, include zero; if it is far away, crop (Kosara, Observable 2024).
 - Same metric, same scale across small multiples unless each panel says "independent scale".
 - Axes run in the conventional direction: up = more, right = later. Inverting the y-axis is only acceptable when the title and labels make it unmissable, and even then usually wrong (Reuters Florida chart).
 - Pictograms/symbols scale in one dimension (length) or by area, never both dimensions by the value (doubling width and height shows 4×; 3D volume shows 8×) (Wikipedia, improper scaling).
@@ -22,12 +22,12 @@
 **Dual axes**
 - Default: never. Datawrapper's critique: scales are arbitrary, so the author can make two lines cross, converge or run parallel at will; Isenberg et al. (2011) found dual-scale charts "performed poorly both in terms of accuracy and time".
 - Alternatives, in order (Datawrapper): (1) side-by-side charts with a shared x-axis and synchronised crosshair; (2) indexed chart (both series = 100 at a common start date, absolute values in tooltip); (3) show one series and annotate the other; (4) connected scatterplot for expert audiences.
-- If a dual axis is unavoidable for expert users (Datawrapper re-allowed it in 2026 for business plans): both axes labelled in the series colour, both start at zero or both at an explicitly justified value, and one series as bars, the other as a line.
+- If a dual axis is unavoidable for expert users (since July 2026 Datawrapper offers dual-axis charts on its Business plan, saying they are sometimes "the best way to show the data"): both axes labelled in the series colour, both start at zero or both at an explicitly justified value, and one series as bars, the other as a line.
 
 **3D and decoration**
 - No 3D for 2D data: no 3D bars, pies, or areas. Perspective changes apparent size (Wikipedia 3D pie: item C looks ≥ A while being less than half).
 - No drop shadows, bevels, glossy gradients, background images, or textures behind marks (Tufte chartjunk; heavy gridlines and ornamented axes are his examples).
-- Gridlines light (1 px, ≤ 20% contrast against the surface), 3 to 6 of them, or none when every mark is labelled.
+- Gridlines light (1 px, ≤ 1.5:1 contrast against the surface), 3 to 6 of them, or none when every mark is labelled.
 - No unnecessary borders/frames around the plot area.
 - Colour only where it encodes something; one accent for the story, neutrals for the rest.
 - Smoothing only monotone; never splines that create peaks (Datawrapper).
@@ -46,7 +46,7 @@
 - Gauges and "dashboard" skeuomorphism (Few).
 
 ## Good references
-- [Datawrapper: dual-axis charts](https://www.datawrapper.de/blog/dualaxis/) — the clearest argument with a GDP example (~80% vs ~40% growth drawn as equal) and four alternatives; updated 2026 to explain when experts may use them.
+- [Datawrapper: dual-axis charts](https://www.datawrapper.de/blog/dualaxis/) — the clearest argument with a GDP example (~80% vs ~40% growth drawn as equal) and four alternatives (side-by-side, indexed, annotate one series, connected scatter); first published 2018, intro updated July 2026 when dual axes became a Business-plan feature.
 - [Datawrapper: why our column and bar charts start at zero](https://www.datawrapper.de/academy/why-our-column-and-bar-charts-start-at-zero) — product-level enforcement, citing Pandey et al. CHI 2015.
 - [Wikipedia: Misleading graph](https://en.wikipedia.org/wiki/Misleading_graph) — taxonomy (truncated, 3D, improper scaling, omitted data, dual axis, log) and lie-factor definition.
 - [Wikipedia: Chartjunk](https://en.wikipedia.org/wiki/Chartjunk) — Tufte's definition plus critiques (Few, Kosara, Holmes, Bateman et al.), useful to avoid over-minimalism.
@@ -134,5 +134,7 @@ Run `lintChart` in development (console warning) and in Storybook/visual tests (
 - https://daringfireball.net/linked/2008/02/07/snake-oil
 - https://www.perceptualedge.com/blog/?p=54
 - https://jonpage.github.io/r-course/trifecta.html
-- https://observablehq.com/blog/never-okay-crop-y-axis-except-when-it-is (search result; fetch rate-limited)
+- https://web.archive.org/web/20260719070816/https://observablehq.com/blog/never-okay-crop-y-axis-except-when-it-is (Kosara, Oct 2024; live page rate-limits bots)
+- https://doi.org/10.1145/3313831.3376222 (Correll, Bertini, Franconeri, "Truncating the Y-Axis: Threat or Menace?", CHI 2020)
+- https://doi.org/10.1145/1753326.1753716 (Bateman et al., "Useful junk?", CHI 2010)
 - https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/forced-colors

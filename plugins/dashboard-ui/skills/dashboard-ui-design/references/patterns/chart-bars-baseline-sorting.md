@@ -12,13 +12,14 @@
 ## Rules (do)
 **Baseline**
 - Start the value axis at zero, always. Datawrapper's tool refuses to start bar/column axes above zero: "Truncated y-axes in column charts and bar charts are considered deceptive and misleading", citing Pandey et al. (CHI 2015), whose participants "perceived the underlying message in its exaggerated form".
+- Indicators do not rescue a cut bar: Correll, Bertini and Franconeri (CHI 2020) found readers overestimate differences on truncated axes even when a break symbol marks the cut (summarised by Kosara, Observable 2024).
 - With negative values, the axis includes them and the zero line is drawn heavier than gridlines (1.5 to 2 px vs 1 px).
 - If differences are too small to see: switch to a dot or range plot ("Readers don't expect dot plots ... to start at zero"), or compute and chart the differences.
 - Never use an axis break on a bar. Datawrapper's waterfall guide: readers still compare the broken column's height.
 
 **Sorting and orientation**
 - Sort descending by value (largest at top for horizontal bars) unless categories have an inherent order: time, age bands, Likert scales, funnel steps (Storytelling with Data "Death to pie charts" redesign).
-- Horizontal bars when labels are long or numerous (NN/g: "Use horizontal bars for long labels"). Rule of thumb: horizontal when any label exceeds ~10 characters, or more than ~7 categories. Never rotate category labels 45° or 90° to make columns fit.
+- Horizontal bars when labels are long or numerous (NN/g: horizontal bars are "a good option when you're working with long labels", because nothing has to be abbreviated or rotated). Rule of thumb: horizontal when any label exceeds ~10 characters, or more than ~7 categories. Never rotate category labels 45° or 90° to make columns fit.
 - Columns (vertical) for time periods, so time reads left to right.
 - Keep "Other" and "Unknown" at the bottom regardless of size.
 
@@ -49,6 +50,7 @@
 - [Storytelling with Data: death to pie charts](https://www.storytellingwithdata.com/blog/2011/07/death-to-pie-charts) — redesign into a sorted horizontal bar; "sort ... unless categories have a natural order".
 - [NN/g: Choosing chart types](https://www.nngroup.com/articles/choosing-chart-types/) — horizontal bars for long labels; replace stacked bars with small multiples.
 - [IBM Carbon axes and labels](https://carbondesignsystem.com/data-visualization/axes-and-labels/) — "Always start numerical axes at zero for part-to-whole and comparisons charts."
+- [Kosara: it's never okay to crop the y-axis, except when it is (Observable, 2024, archived)](https://web.archive.org/web/20260719070816/https://observablehq.com/blog/never-okay-crop-y-axis-except-when-it-is) — bars always from zero; lines follow Gelman's "if zero is in the neighborhood, invite it in".
 - [Stephen Few bullet graph spec](https://www.perceptualedge.com/articles/misc/Bullet_Graph_Design_Spec.pdf) — when a bar-like measure starts above zero, encode it as a dot or X, not a bar. The same rule generalises to every bar.
 
 ## Bad references
@@ -125,6 +127,8 @@ A pure HTML/CSS horizontal bar list: accessible as a list, no chart library, zer
 - https://carbondesignsystem.com/data-visualization/axes-and-labels/
 - https://carbondesignsystem.com/data-visualization/legends/
 - https://www.perceptualedge.com/articles/misc/Bullet_Graph_Design_Spec.pdf
+- https://web.archive.org/web/20260719070816/https://observablehq.com/blog/never-okay-crop-y-axis-except-when-it-is
+- https://doi.org/10.1145/3313831.3376222
 - https://echarts.apache.org/handbook/en/best-practices/aria/
 - https://www.highcharts.com/docs/accessibility/accessibility-module-feature-overview
 - https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html
