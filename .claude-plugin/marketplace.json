@@ -15,6 +15,14 @@
       "version": "0.1.0",
       "category": "design",
       "license": "PolyForm-Internal-Use-1.0.0"
+    },
+    {
+      "name": "marketing-ui",
+      "source": "./plugins/marketing-ui",
+      "description": "Landing pages, marketing sites and product pages: 19 researched patterns (narrative, hero, proof, features and bento, pricing, FAQ, footer, type and art direction, generated-default tells, motion, LCP, fonts, SEO) plus a review rubric and a token layer.",
+      "version": "0.1.0",
+      "category": "design",
+      "license": "PolyForm-Internal-Use-1.0.0"
     }
   ]
 }
