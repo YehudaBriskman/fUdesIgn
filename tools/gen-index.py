@@ -7,6 +7,8 @@ CLUSTERS = {
     'found': 'Foundations', 'color': 'Colour', 'style': 'Visual style', 'data': 'Data display', 'chart': 'Charts',
     'comp': 'Components and interaction', 'motion': 'Motion and interaction', 'prog': 'Progressive loading and performance',
     'ref': 'References, anti-patterns and review',
+    'aifound': 'AI foundations', 'aichat': 'Chat and conversation', 'aiinline': 'Inline AI in documents, forms and dashboards',
+    'aiagent': 'Agents and human in the loop', 'airef': 'AI references, anti-patterns and review',
 }
 def row(path, name):
     text = open(path, encoding='utf-8').read()
