@@ -53,7 +53,7 @@
 - A model download shows a `<progress>` with a value and a text percentage.
 
 ## Motion / interaction (if relevant)
-- Busy indicators appear only after 400 ms without output (so fast answers never flash a spinner) and, once shown, stay at least 300 ms.
+- A busy state on the control that started a short transform (Rewrite, Summarise) appears only after 400 ms (so fast results never flash a spinner) and, once shown, stays at least 300 ms. In a chat thread the status line waits 1 s, because the empty assistant slot already acknowledges the send (`aichat-thinking-and-step-progress.md`).
 - Under `prefers-reduced-motion: reduce`, replace shimmer or pulsing with a static "Working…" label.
 
 ## Tokens and values
@@ -61,7 +61,8 @@
 |---|---|---|
 | acknowledge | ≤ 100 ms | user message rendered, Send → Stop |
 | first output | ≤ 1 s target, ≤ 2 s acceptable (p75) | first token or named step |
-| `--ai-busy-delay` | 400 ms | delay before any busy indicator |
+| `--ai-busy-delay` | 400 ms | delay before a busy state on a control |
+| `--ai-thinking-delay` | 1 s | delay before the chat status line |
 | busy minimum | 300 ms | once shown |
 | ghost text deadline | 300 ms after typing pauses | drop the suggestion after it |
 | short transform | ≤ 2 s total | rewrite, summarise |
@@ -102,7 +103,7 @@ export function delayedBusy(show: () => void, hide: () => void, delay = 400, min
 ## Checklist
 - [ ] Send is acknowledged in ≤ 100 ms (message in thread, Send → Stop).
 - [ ] First token or named step in ≤ 1 s at p75 (≤ 2 s acceptable), measured in the field.
-- [ ] Busy indicators wait 400 ms and stay ≥ 300 ms.
+- [ ] Control busy states wait 400 ms (chat status lines 1 s) and stay ≥ 300 ms.
 - [ ] Runs that can exceed 10 s show steps, elapsed time and Cancel, and can continue in the background.
 - [ ] INP stays ≤ 200 ms while streaming; the composer is never disabled during a stream.
 - [ ] Short structured outputs are not streamed; long prose is.
