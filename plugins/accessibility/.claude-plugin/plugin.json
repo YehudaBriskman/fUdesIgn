@@ -1,0 +1,19 @@
+{
+  "name": "accessibility",
+  "description": "Build and audit any UI to WCAG 2.2 AA: a success-criteria map by builder task, structure and names, keyboard and focus (2.4.11), targets (2.5.8) and dragging (2.5.7), ARIA and APG patterns, live regions, reflow and text spacing, forced colours, screen-reader cheat-sheets and test plans, axe-core with Playwright, accessibility statements and the legal landscape (EAA, ADA Title II, Section 508, EN 301 549, Israel IS 5568), plus an audit rubric and report template.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Yehuda Briskman"
+  },
+  "keywords": [
+    "accessibility",
+    "a11y",
+    "wcag",
+    "aria",
+    "screen-reader",
+    "axe-core",
+    "audit",
+    "eaa"
+  ],
+  "license": "PolyForm-Internal-Use-1.0.0"
+}

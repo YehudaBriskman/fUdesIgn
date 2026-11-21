@@ -1,0 +1,114 @@
+/*
+ * Accessibility utilities: skip link, screen-reader-only text, focus, target size, text spacing and
+ * forced colours. Self-sufficient: the dashboard-ui role tokens it reads (--accent, --on-accent,
+ * --focus-ring, --target-min, --space-*, --radius-sm) are declared below as zero-specificity defaults,
+ * so it works alone in light and dark, and dashboard-ui's tokens.css or the project's own tokens
+ * override them whatever the load order.
+ * Every value traces to a pattern in ../references/patterns (named beside each group).
+ */
+
+/* ── Shared roles: dashboard-ui tokens.css values, zero specificity ─────────────
+   tools/check.mjs keeps these values in sync with dashboard-ui's tokens.css. */
+:where(:root) {
+  color-scheme: light dark;
+  --space-2: 8px;
+  --space-4: 16px;
+  --radius-sm: 6px;
+  --target-min: 24px;
+  --accent: light-dark(oklch(0.50 0.17 265), oklch(0.785 0.10 265));
+  --on-accent: light-dark(oklch(1 0 0), oklch(0.18 0.006 250));
+  --focus-ring: var(--accent);
+}
+:root[data-theme="light"] { color-scheme: light; }
+:root[data-theme="dark"] { color-scheme: dark; }
+@media (pointer: coarse) {
+  :where(:root) { --target-min: 44px; }
+}
+
+:root {
+  /* Focus (a11y-keyboard-focus-order.md): 2px ring, 2px offset, ≥ 3:1 against both neighbours */
+  --a11y-focus-w: 2px;
+  --a11y-focus-offset: 2px;
+  --a11y-focus-color: var(--focus-ring);
+  /* Height of sticky chrome, set by the app, so focus is never hidden under it (WCAG 2.4.11) */
+  --a11y-sticky-top: 0px;
+  --a11y-sticky-bottom: 0px;
+}
+
+/* ── Screen-reader-only text (a11y-names-roles-states.md) ───────────────────
+ * Hidden visually, kept in the accessibility tree. Focusable children make it visible again. */
+.sr-only:where(:not(:focus-within, :active)) {
+  position: absolute !important;
+  inline-size: 1px !important;
+  block-size: 1px !important;
+  margin: -1px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  overflow: hidden !important;
+  clip-path: inset(50%) !important;
+  white-space: nowrap !important;
+}
+
+/* ── Skip link (a11y-structure-landmarks-headings.md) ───────────────────────
+ * First focusable element; visible on focus; fixed so the page does not shift. */
+.skip-link {
+  position: fixed;
+  inset-block-start: var(--space-2);
+  inset-inline-start: var(--space-2);
+  z-index: 1000;
+  padding: var(--space-2) var(--space-4);
+  min-block-size: var(--target-min);
+  border-radius: var(--radius-sm);
+  background: var(--accent);
+  color: var(--on-accent);
+  font-weight: 600;
+  text-decoration: underline;
+  transform: translateY(calc(-100% - var(--space-4)));
+  transition: transform 150ms ease-out;
+}
+.skip-link:focus-visible,
+.skip-link:focus { transform: none; }
+/* The skip target takes focus programmatically; no ring on a whole region */
+:where(main[tabindex="-1"], h1[tabindex="-1"]):focus { outline: none; }
+
+/* ── Focus visible and not obscured (a11y-keyboard-focus-order.md) ──────────
+ * outline, not box-shadow: outlines survive forced colours. */
+:where(a[href], button, input, select, textarea, summary, [tabindex]:not([tabindex="-1"])):focus-visible {
+  outline: var(--a11y-focus-w) solid var(--a11y-focus-color);
+  outline-offset: var(--a11y-focus-offset);
+}
+html {
+  scroll-padding-block-start: calc(var(--a11y-sticky-top) + var(--space-2));
+  scroll-padding-block-end: calc(var(--a11y-sticky-bottom) + var(--space-2));
+}
+
+/* ── Target size (a11y-pointer-targets-dragging.md): 24px floor, 44px on coarse pointers ── */
+.a11y-target {
+  min-inline-size: var(--target-min);
+  min-block-size: var(--target-min);
+  display: inline-grid;
+  place-items: center;
+}
+
+/* ── Text spacing and reflow (a11y-resize-reflow-text-spacing.md) ──────────
+ * Containers that hold text grow with it; long strings wrap at 320 CSS px. */
+.a11y-text-box { min-block-size: var(--target-min); block-size: auto; overflow-wrap: anywhere; }
+
+/* ── Reduced motion (a11y-motion-vestibular.md; motion-ui owns the tokens) ─ */
+@media (prefers-reduced-motion: reduce) {
+  .skip-link { transition: none; }
+}
+
+/* ── Forced colours (a11y-forced-colours-high-contrast.md) ──────────────────
+ * System colour keywords only; never forced-color-adjust: none for looks. */
+@media (forced-colors: active) {
+  :root { --a11y-focus-color: Highlight; }
+  .skip-link { background: Canvas; color: LinkText; border: 2px solid LinkText; }
+  :where(button, [role="button"], [role="tab"], [role="switch"]) { border: 1px solid ButtonText; }
+  :where([aria-current="page"], [aria-selected="true"], [aria-pressed="true"]) {
+    outline: 2px solid Highlight;
+    outline-offset: -2px;
+  }
+  :where([aria-disabled="true"]) { color: GrayText; border-color: GrayText; }
+  :where(svg[role="img"], .icon) { fill: currentColor; stroke: currentColor; }
+}
