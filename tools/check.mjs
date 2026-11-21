@@ -16,7 +16,7 @@ const DIR = join(SKILL, 'references/patterns')
 if (!existsSync(DIR)) { console.log(`no patterns folder at ${DIR}`); process.exit(1) }
 const SECTIONS = ['## When to use', '## Rules', '## Anti-patterns', '## Good references', '## Bad references',
   '## Accessibility', '## Tokens and values', '## Implementation sketch', '## Checklist', '## Sources']
-// cluster prefixes of every plugin: dashboard-ui, forms-ui, marketing-ui, motion-ui, ai-ui, mobile-ui, design-system, then i18n-rtl
+// cluster prefixes of every plugin: dashboard-ui, forms-ui, marketing-ui, motion-ui, ai-ui, mobile-ui, design-system, i18n-rtl, then accessibility
 const PREFIXES = ['found', 'color', 'style', 'data', 'chart', 'comp', 'motion', 'prog', 'ref',
   'ffound', 'finput', 'fvalid', 'fflow', 'fref',
   'mkfound', 'mksect', 'mkstyle', 'mkperf', 'mkref',
@@ -24,7 +24,8 @@ const PREFIXES = ['found', 'color', 'style', 'data', 'chart', 'comp', 'motion', 
   'aifound', 'aichat', 'aiinline', 'aiagent', 'airef',
   'mofound', 'monav', 'moinput', 'moplat', 'moref',
   'dsfound', 'dstoken', 'dsmap', 'dsref',
-  'rtl', 'i18n', 'iref']
+  'rtl', 'i18n', 'iref',
+  'a11y', 'aaria', 'atest', 'alaw', 'aref']
 const LINK = new RegExp(`\\b((?:${PREFIXES.join('|')})-[a-z0-9-]+\\.md)\\b`, 'g')
 
 const sketches = args.includes('--sketches')
