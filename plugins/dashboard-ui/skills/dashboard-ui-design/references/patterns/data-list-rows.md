@@ -5,7 +5,7 @@
 **Category:** Data display · **Applies to:** resource lists, watchlists, recent activity, notifications, sidebar collections, mobile versions of tables · **Priority:** should
 
 ## When to use / when not
-- **Use** when the task is "find this one and open it": projects, accounts, tickers in a watchlist, recent transactions on mobile, alerts. Polaris: "Use a resource list to help merchants find individual objects", and a data table "to visualize or analyze highly structured data for comparison."
+- **Use** when the task is "find this one and open it": projects, accounts, tickers in a watchlist, recent transactions on mobile, alerts. Polaris: "The main job of a resource list is to help merchants find an object and navigate to a full-page representation of it." A data table "works best to present highly structured data for comparison and analysis."
 - **Don't** use a list when users sort or compare by more than one attribute. Use a table (`data-cards-vs-tables-vs-lists.md`).
 - **Don't** use a list as a styled table. If a row needs 4 or more attributes aligned in columns, it *is* a table, so give it `<table>` semantics.
 
@@ -14,23 +14,23 @@
   1. **Leading** (optional): avatar, logo, icon or checkbox. Fixed size: 24px icon, 32–40px avatar or logo.
   2. **Primary:** the human-readable name, weight 500, one line, truncated with an ellipsis.
   3. **Secondary** (optional): 1 line of muted metadata. At most 2–3 facts joined with ` · `, such as "NYSE · Technology · Updated 2h ago".
-  4. **Trailing value:** one right-aligned number (price, balance, count) in `tabular-nums`, optionally with a delta beneath it (stacked, also right-aligned). The Tremor and Robinhood pattern is ticker | sparkline | price over a delta badge.
+  4. **Trailing value:** one right-aligned number (price, balance, count) in `tabular-nums`, optionally with a delta beneath it (stacked, also right-aligned). Tremor's spark-chart example is ticker and name | spark area | price over a delta badge.
   5. **Trailing affordance:** status badge, chevron (`›`) for navigation, or 1 overflow menu.
-- **Fixed positions.** Every row puts the same field in the same place. NN/g: fixed positions are what make lists scannable for an attribute.
-- **Row heights** (comparable to Carbon's table scale and Material list densities):
+- **Fixed positions.** Every row puts the same field in the same place. NN/g: lists place elements in fixed positions, so the eye can predict where to look for an attribute.
+- **Row heights** (aligned with Carbon's 32/40/48/64px table rows):
   - one-line: 40px compact, 48px default;
   - two-line: 56–64px;
   - three-line: 72–88px, and only if the third line is essential.
-  Touch targets are at least 44px, at least 24px per WCAG 2.5.8.
+  On touch, keep rows at 44px or taller (WCAG 2.5.5, AAA). Separate controls inside a row need at least 24×24px (WCAG 2.5.8, AA).
 - **The whole row is one link** to the detail view. Use a stretched link on the primary label (`ui-components/card.md` "Clickable cards with independent actions"). Secondary controls (star, overflow) sit above the overlay with `position: relative; z-index: 1`.
 - **Actions:**
   - At most 1 persistent trailing action (star, toggle, overflow).
-  - Hover-revealed shortcut actions are allowed only if the same action exists elsewhere (Polaris: they "don't show on small screens, so the same action must also be reachable elsewhere").
+  - Hover-revealed shortcut actions are allowed only if the same action exists elsewhere (Polaris: shortcut actions "are not shown on small screen devices, so the action must also be accessible in another way").
   - On touch, use swipe actions only as an accelerator, never the sole path (`ui-behaviors/swipe-to-reveal.md`).
 - **Separators:** 1px hairlines inset to align with the primary text start (skip the leading visual), or none with 4–8px gaps. Not both.
 - **Grouping:** group rows by date ("Today", "Yesterday", "Nov 18") or by category with sticky section headers (`ui-atoms/state-aware-sticky-headers.md`), not by inserting cards.
-- **Count and sort:** show "248 accounts" and the current sort ("Sorted by: Last activity") above the list (Polaris shows a total count and a sort select).
-- **Long lists:** paginate or "Load more" (NN/g). For more than about 300 rows, use `content-visibility: auto` on row groups.
+- **Count and sort:** show "248 accounts" and the current sort ("Sorted by: Last activity") above the list (Polaris ResourceList has a total-count option and a sort select).
+- **Long lists:** paginate or "Load more". NN/g: infinite scroll without a Load More button "can make it impossible to access the footer". For more than about 300 rows, use `content-visibility: auto` on row groups.
 - **Unread or new state:** a bold primary label plus a dot with accessible text ("Unread"), not colour alone.
 
 ## Anti-patterns (don't)
@@ -43,10 +43,10 @@
 - Coloured row backgrounds for status. Use a badge.
 
 ## Good references
-- [Polaris ResourceList (v4 docs)](https://app.unpkg.com/@shopify/polaris@4.6.1/files/docs/components/ResourceList/README.md) — clear purpose split (find-and-act vs analyse), every item clickable to detail, hover shortcut actions must exist elsewhere, persistent actions "rarely" and collapsing into overflow on small screens, "View details for …" accessibility labels.
+- [Polaris ResourceList (v4 docs)](https://app.unpkg.com/@shopify/polaris@4.6.1/files/docs/components/ResourceList/README.md) — clear purpose split (find-and-navigate vs analyse), every item links to its detail page, hover shortcut actions must be reachable another way, persistent shortcut actions only "in rare cases" and rolled into an overflow menu on small screens, "View details for …" accessibility labels.
 - [NN/g, "Cards: UI-Component Definition"](https://www.nngroup.com/articles/cards-component/) — lists beat cards for homogeneous items, search, comparison and attribute scanning, thanks to fixed positions.
 - [Tremor spark chart KPI example](https://www.tremor.so/docs/visualizations/spark-charts) — the watchlist row: ticker plus name | spark area | price plus delta badge, a compact three-zone row.
-- [Material Web list](https://github.com/material-components/material-web/blob/main/docs/components/list.md) — slot model `start` / `headline` / `supporting-text` / `trailing-supporting-text` / `end`, a clean anatomy to mirror. Avatar is 40px.
+- [Material Web list](https://github.com/material-components/material-web/blob/main/docs/components/list.md) — slot model `start` / `headline` / `supporting-text` / `trailing-supporting-text` / `end`, a clean anatomy to mirror. The leading avatar defaults to 40px (`--md-list-item-leading-avatar-size`).
 
 ## Bad references
 - Notification and activity feeds that use infinite scroll with no date grouping. Users can't refind an item ([NN/g infinite scroll](https://www.nngroup.com/articles/infinite-scrolling-tips/)).
@@ -69,13 +69,13 @@
 |---|---|
 | Row height, 1-line | 40px compact / 48px default |
 | Row height, 2-line | 56–64px |
-| Row padding inline | 12–16px |
+| Row padding inline | 12–16px (`--space-3`–`--space-4`) |
 | Leading visual | icon 20–24px, avatar or logo 32–40px, gap 12px |
 | Primary text | 0.875–1rem, weight 500 |
-| Secondary text | 0.75–0.8125rem, `--text-muted`, separator ` · ` |
+| Secondary text | 0.75rem (`--type-meta`), `--text-muted`, separator ` · ` |
 | Trailing value | 0.875–1rem, weight 500, `tabular-nums`, end-aligned |
-| Separator | 1px `--border-subtle`, inset to text start |
-| Section header | 0.75rem, weight 600, sticky, `--surface-1` background |
+| Separator | 1px `--border`, inset to text start |
+| Section header | 0.75rem, weight 600, sticky, `--surface` background |
 
 ## Implementation sketch
 ```html
@@ -102,19 +102,19 @@
   display: grid;
   grid-template-columns: auto 1fr auto auto;
   align-items: center;
-  gap: 12px;
+  gap: var(--space-3);
   min-block-size: 56px;
-  padding: 8px 16px;
+  padding: var(--space-2) var(--space-4);
 }
-.row + .row::before { content: ""; position: absolute; inset-block-start: 0; inset-inline: 60px 0; border-block-start: 1px solid var(--border-subtle); }
+.row + .row::before { content: ""; position: absolute; inset-block-start: 0; inset-inline: 60px 0; border-block-start: 1px solid var(--border); }
 .row-main { min-inline-size: 0; }
 .row-link { font-weight: 500; color: inherit; text-decoration: none; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .row-link::after { content: ""; position: absolute; inset: 0; } /* stretched link */
-.row-sub { margin: 0; font-size: .8125rem; color: var(--text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.row-sub { margin: 0; font-size: .75rem; color: var(--text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .row-value { display: grid; justify-items: end; font-variant-numeric: tabular-nums; font-weight: 500; }
 .row-more { position: relative; z-index: 1; min-inline-size: 32px; min-block-size: 32px; }
-.row:hover { background: var(--surface-hover); }
-.row:has(.row-link:focus-visible) { outline: 2px solid var(--focus); outline-offset: -2px; }
+.row:hover { background: var(--surface-2); }
+.row:has(.row-link:focus-visible) { outline: 2px solid var(--focus-ring); outline-offset: -2px; }
 .row-link:focus-visible { outline: none; }
 ```
 

@@ -12,37 +12,37 @@
 ## Rules (do)
 ### Sticky header and first column
 - Make the table header sticky (`position: sticky; inset-block-start: 0`) whenever the table is taller than its scroll container. Make the identifier column sticky (`inset-inline-start: 0`) whenever it scrolls horizontally. NN/g: "Freeze header rows and header columns (if the table is larger than the screen)."
-- Stacking: the corner cell gets `z-index: 3`, column headers 2, row headers 1 (Roselli). Every sticky cell needs an opaque background.
+- Stacking: the corner cell gets `z-index: 3`, column headers 2, row headers 1 (Roselli). Every sticky cell needs an opaque background, or scrolled text shows through. Borders scroll away with the content, so draw the sticky edge with a `linear-gradient` background or a shadow.
 - Show a subtle shadow or 1px border on the sticky edge only when content is scrolled under it. Use `@container scroll-state(stuck: top)` with an `IntersectionObserver` fallback (`ui-atoms/state-aware-sticky-headers.md`).
 - The scroll container is `<div role="region" aria-labelledby="caption-id" tabindex="0">`, so keyboard users can scroll it (`ui-atoms/responsive-table.md`).
 - Set `scroll-padding-top` (equal to or greater than the sticky header height) on the scroller so focused rows aren't hidden under the header (WCAG 2.4.11).
 - Keep sticky regions small. Sticky header plus sticky first column should stay at or below about 40% of the viewport width at 200% zoom.
 
 ### Sorting
-- Put a `<button type="button">` inside each sortable `<th scope="col">`. Set `aria-sort="ascending|descending"` on the sorted `<th>` only, and remove it elsewhere (no `aria-sort="none"`).
+- Put a `<button type="button">` inside each sortable `<th scope="col">`. Set `aria-sort="ascending|descending"` on the sorted `<th>` only. Roselli: "You should not use `aria-sort` on more than one column header at a time", and remove it rather than set `aria-sort="none"`.
 - The first click sorts ascending for text and **descending for numbers and dates** (people want the biggest or newest first). The second click toggles. Pick one default and document it. modern-web-guidance defaults to ascending.
-- Show the direction icon on the sorted column. Unsorted sortable columns show a faint icon on hover or focus (Carbon) or a persistent neutral chevron (Roselli, for infrequent-use UIs).
+- Show the direction icon on the sorted column. Unsorted sortable columns show a faint icon on hover or focus, or a persistent neutral icon. Roselli found that "showing the sort controls visually was useful to users to know the column was sortable", so prefer persistent icons for infrequent users.
 - Sort on raw values (`data-value`), with `Intl.Collator({numeric: true})` for text. `null` values sort last in both directions.
-- Announce "Sorted by Amount, descending, 248 rows" in one visually hidden `role="status"` element. Never put `aria-live` on the table.
+- Announce "Sorted by Amount, descending, 248 rows" in one visually hidden `role="status"` element; Roselli: "not all screen readers tell the user that anything has happened." Never put `aria-live` on the table.
 - Move existing `<tr>` nodes (`moveBefore`), don't re-render, so focus and row state survive (`ui-behaviors/sortable-table.md`).
 - Server-sorted, paginated tables reset to page 1 on sort change and keep the sort in the URL.
 
 ### Selection and batch actions
 - Use a checkbox column first (after an expand toggle, if any). The header checkbox is tri-state: checked, unchecked, indeterminate (Carbon).
-- When 1 or more rows are selected, a batch action bar replaces the toolbar and shows "3 selected · Export · Delete · Cancel". Row-level actions are disabled during batch mode (Carbon).
-- If select-all applies to a page, offer "Select all 2,481 results" explicitly (NN/g).
+- When 1 or more rows are selected, a batch action bar replaces the toolbar and shows "3 selected · Export · Delete · Cancel". Carbon: in batch mode "single action icons and overflow menus on the row should be disabled."
+- If select-all applies to a page, offer "Select all 2,481 results" explicitly. NN/g recommends a "single-click option to Select All" when one action often applies to the whole dataset.
 - The selected row uses a tint plus the checked box, never only the tint.
 
 ### Row actions
 - **1–2 actions:** inline text or icon buttons with tooltips, visible always (touch has no hover).
-- **3 or more:** a `⋯` overflow menu at the row's end. Carbon: with fewer than three options "keep the actions inline as icon buttons instead." The action column has no visible header (Primer) but keeps an accessible name ("Actions").
+- **3 or more:** a `⋯` overflow menu at the row's end. Carbon: when an overflow menu would hold "fewer than three options", keep the actions inline as icon buttons. Primer: "The column that contains row actions does not have a visible column header"; keep an accessible name ("Actions").
 - The primary row click opens detail (a drawer or page) via a real link in the identifier cell. Don't make the whole `<tr>` a click target without a link.
 - Prefer a non-modal side panel for editing (NN/g: "we generally don't recommend modals for deep editing work").
 
 ### Pagination vs load more vs virtualisation
-- **Pagination (default):** 25 rows per page, with options 10, 25, 50 and 100. Primer suggests 20 as a starting point. The footer shows "1–25 of 2,481" and previous and next controls (Carbon: always at the bottom). This keeps position on return, makes items easy to refind, and gives a reachable footer (NN/g).
+- **Pagination (default):** 25 rows per page, inside the SKILL.md range of 20–50. Offer 10, 25, 50 and 100 as user choices. Primer: "20 rows is a good place to start." The footer shows "1–25 of 2,481" and previous and next controls (Carbon: pagination is "always placed at the bottom of the data table"). This keeps position on return, makes items easy to refind, and gives a reachable footer (NN/g).
 - **Load more:** for feeds, activity logs and audit trails read newest-first. Not for tables people compare across.
-- **Infinite scroll:** avoid for data tables. NN/g says avoid it when users must "find something specific, compare items spread across a long list".
+- **Infinite scroll:** avoid for data tables. NN/g advises against it when users want to "Find something specific" or "Compare items in a long list".
 - **Virtualisation:** only when one view must hold more than about 1,000 rows client-side (traders' blotters, log explorers). Then:
   - use `table-layout: fixed` with fixed row heights (`estimateSize` equal to the density height);
   - use an overscan of 5–10 rows;
@@ -51,8 +51,8 @@
 - For long but bounded DOM tables (200–1,000 rows), `content-visibility: auto` with `contain-intrinsic-size: auto var(--row-h)` on row groups gives most of the win without virtualisation (`performance/defer-rendering-heavy-content.md`).
 
 ### Filtering and toolbar
-- The toolbar sits above the table, with at most 5 actions (Carbon), and the rest in overflow. Put filters outside the header cells (Roselli).
-- Active filters are visible as removable chips plus a "Clear filters" link (NN/g: "clear visual indication that filters are active").
+- The toolbar sits above the table. Carbon: "Include up to five actions within the table toolbar", the rest in overflow. Put filters outside the header cells (Roselli).
+- Active filters are visible as removable chips plus a "Clear filters" link (NN/g: "there should be a clear visual indication that filters are active").
 - Show a result count: "248 of 2,481 invoices".
 
 ### Narrow screens
@@ -71,7 +71,7 @@
 ## Good references
 - [Carbon data table usage](https://carbondesignsystem.com/components/data-table/usage/) — batch action bar behaviour, the 3-action inline/overflow threshold, persistent row menus on touch, a toolbar of at most 5 actions, pagination always at the bottom.
 - [NN/g, "Data Tables: Four Major User Tasks"](https://www.nngroup.com/articles/data-tables/) — freeze headers and columns, show active filters, side panel over modal for edits, select-all-results.
-- [Adrian Roselli, "Sortable Table Columns"](https://adrianroselli.com/2021/04/sortable-table-columns.html) — button in th, one aria-sort, live-region announcement because several screen reader pairs stayed silent.
+- [Adrian Roselli, "Sortable Table Columns"](https://adrianroselli.com/2021/04/sortable-table-columns.html) — button in th, one aria-sort, no `aria-sort="none"`, visible sort icons, and a live region because some screen readers say nothing on sort.
 - [Adrian Roselli, "Fixed Table Headers"](https://adrianroselli.com/2020/01/fixed-table-headers.html) — z-index stacking for corner, header and row header cells; opaque backgrounds; region plus tabindex scroller; borders don't stick, so use gradients.
 - [Primer DataTable](https://primer-docs-preview.github.com/product/components/data-table/guidelines) — 20 rows as a starting page size, no header on the action column.
 - [WAI-ARIA APG data grid](https://www.w3.org/WAI/ARIA/apg/patterns/grid/examples/data-grids/) — `aria-rowcount` and `aria-rowindex` for partially loaded data.
@@ -96,11 +96,11 @@
 ## Tokens and values
 | Token | Default |
 |---|---|
-| Page sizes | 10 / 25 / 50 / 100 (default 25) |
+| Page sizes | default 25 (SKILL.md range 20–50); user options 10 / 25 / 50 / 100 |
 | Inline row actions | at most 2; 3 or more go to overflow |
 | Toolbar actions | at most 5 visible |
 | Sticky z-index | corner 3 / col header 2 / row header 1 |
-| Sticky shadow | `0 1px 0 var(--border-subtle), 0 2px 4px rgb(0 0 0 / .06)` |
+| Sticky shadow | `0 1px 0 var(--border), 0 2px 4px rgb(0 0 0 / .06)` |
 | Sort icon | 12–16px, `currentColor`, `aria-hidden` |
 | Virtualise threshold | more than 1,000 rows client-side |
 | Overscan | 5–10 rows |
@@ -126,16 +126,16 @@
 ```
 ```css
 .dt-scroll { overflow: auto; max-block-size: min(70vh, 720px); container-type: inline-size; scroll-padding-block-start: var(--row-h); }
-.dt thead th { position: sticky; inset-block-start: 0; z-index: 2; background: var(--surface-1); }
-.dt tbody th[scope="row"] { position: sticky; inset-inline-start: 0; z-index: 1; background: var(--surface-1); }
+.dt thead th { position: sticky; inset-block-start: 0; z-index: 2; background: var(--surface); }
+.dt tbody th[scope="row"] { position: sticky; inset-inline-start: 0; z-index: 1; background: var(--surface); }
 /* Corner: the column header above the sticky row-header column sticks on both axes.
    Mark it in markup (class="corner"); if a checkbox column precedes it, make that sticky too
    and offset the corner/row headers by its width via --sel-w. */
 .dt thead th.corner { inset-inline-start: var(--sel-w, 0px); z-index: 3; }
 .dt tbody th[scope="row"] { inset-inline-start: var(--sel-w, 0px); }
-.dt th > button { all: unset; display: flex; gap: 4px; inline-size: 100%; min-block-size: 24px; cursor: pointer; justify-content: inherit; }
+.dt th > button { all: unset; display: flex; gap: var(--space-1); inline-size: 100%; min-block-size: 24px; cursor: pointer; justify-content: inherit; }
 .dt th.num > button { justify-content: flex-end; }
-.dt th > button:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+.dt th > button:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: -2px; }
 .dt th:not([aria-sort]) > button svg { opacity: 0; }
 .dt th:not([aria-sort]) > button:is(:hover, :focus-visible) svg { opacity: .4; }
 .dt th[aria-sort="ascending"] svg { rotate: 180deg; }

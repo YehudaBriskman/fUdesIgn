@@ -7,7 +7,7 @@
 ## When to use / when not
 - **Relative:** recency matters more than the exact instant (last deploy, last login, activity feed, "updated").
 - **Absolute:** the exact instant matters (transaction time, audit log, legal or financial records, anything screenshotted or exported), or the event is older than the threshold.
-- **Both:** audit trails and tables that are screenshotted for incidents. Aaron Parecki: screenshots with "2 hours ago" lose meaning later.
+- **Both:** audit trails and tables that are screenshotted for incidents. Aaron Parecki: with a relative date in a screenshot, "Months later, you've completely lost the date."
 - **Data freshness indicator:** always on dashboards backed by batch, ETL or cached data, and on any number that can be stale. SaaSframe: "Explain freshness near the metrics where users rely on it."
 
 ## Rules (do)
@@ -18,21 +18,22 @@
   |---|---|
   | Vercel dashboard | 3 days ("10m ago" → "Jan 3") |
   | Palantir Foundry freshness | 24 hours |
-  | AEM timeline | 7 days |
+  | AEM timeline | 7 days (user-adjustable) |
   | GitHub Primer `relative-time` | 30 days (`threshold: P30D`) |
+  | Cloudscape | no cut-off; relative up to "# years ago" |
 
   Recommended for data dashboards: **relative under 24h, absolute after**. Activity feeds can go to 7 days.
-- Relative granularity (Cloudscape): under 60s is "Just now"; then "N min ago", "N h ago" and "N days ago". Don't use seconds-level ticking for anything that isn't a live monitor.
-- Generate the text with `Intl.RelativeTimeFormat(locale, { numeric: "auto" })` → "yesterday", "5 min. ago" (short style). Never hand-concatenate.
+- Relative granularity (Cloudscape): 0–59 s is "Now", then "# minutes ago" (1–59 min), "# hours ago" (1–24 h), "# days ago" (1–31 days), then weeks, months and years. Within the 24h window that means: under 60s "Just now", then minutes, then hours. Don't use seconds-level ticking for anything that isn't a live monitor.
+- Generate the text with `Intl.RelativeTimeFormat(locale, { numeric: "auto" })`. Verified in `en`: `-1 day` → "yesterday", `-5 minute` → "5 minutes ago" ("5 min. ago" with `style: "short"`, "3 hr. ago" for hours). Never hand-concatenate.
 - Absolute format via `Intl.DateTimeFormat`:
-  - same year: "Nov 21, 14:32";
+  - same year: "Nov 21, 14:32" (`month: "short", day: "numeric", hour: "2-digit", minute: "2-digit", hourCycle: "h23"` in `en-US`);
   - different year: "Nov 21, 2025";
-  - tables in ops and finance: ISO-like `2026-11-21 14:32` in a fixed-width column, which sorts visually and is locale-neutral.
+  - tables in ops and finance: ISO-like `2026-11-21 14:32` in a fixed-width column, which sorts visually and is locale-neutral. `Intl.DateTimeFormat("sv-SE", { dateStyle: "short", timeStyle: "short" })` produces exactly this (verified).
 - **Timezone:** show it whenever users span zones or the data's zone differs from the viewer's: "14:32 UTC" or "(UTC+2:00)". Cloudscape: "Always include the UTC offset, including for UTC itself." For finance, state the business timezone of period boundaries ("Days end at 00:00 America/New_York").
 - **Exact time on demand:** wrap every timestamp in `<time datetime="2026-11-21T14:32:05Z">`, with a tooltip on hover *and focus* showing the full absolute time and zone (Primer, Cloudscape, Vercel).
-- **Label the timestamp:** "[Noun] [verb]": "Created", "Last updated", "Invoice paid". Omit "date" or "time" from labels (Cloudscape). In tables, use the header "Updated" rather than "Date".
-- **Future times:** "in 3 days", "Due Nov 24" (Cloudscape: "In [number] [unit]").
-- **Times in GOV.UK-style prose:** "5:30pm", "midday", "midnight". Ranges use "to", not hyphens. In dense tables a 24h clock is acceptable and preferred for ops.
+- **Label the timestamp:** "[Noun] [verb]": "Created", "Invoice paid". Omit "date", "time" or "timestamp" from labels. Cloudscape reserves "Last updated" for the last successful refresh. In tables, use the header "Updated" rather than "Date".
+- **Future times:** "in 3 days", "Due Nov 24" (Cloudscape: "In [number] [unit of time]").
+- **Times in GOV.UK-style prose:** "5:30pm (not 1730hrs)", "midday (not 12 noon, noon or 12pm)", "midnight (not 00:00)". Ranges use "to": "10am to 11am (not 10-11am)". In dense ops tables a 24h clock is the better choice.
 
 ### Freshness
 - Put a freshness line in the dashboard header near the date-range picker: "Data as of Nov 21, 14:00 UTC · Updated 4 min ago · ↻ Refresh".
@@ -41,8 +42,8 @@
   - **fetched at:** the last successful refresh.
   For batch pipelines these differ by hours. Show "as of" whenever it lags more than one refresh interval.
 - **Stale threshold:** each source declares its expected cadence (real-time, 15 min, hourly, daily). When `now − asOf > 2 × cadence`, show a warning status: "Data delayed, last updated 3 h ago", with an amber icon plus text and a tooltip explaining the cause.
-- **Manual refresh:** the button sits in the header actions. Keep data visible during refresh, show an inline spinner or progress after about 1s, then update "Last updated" (Cloudscape loading and refreshing).
-- **Auto refresh:** state the interval ("Auto-refresh: 30s" with an off toggle). Pause while the tab is hidden (`document.visibilityState`) and when the user is interacting (open menu, selection, scrolled table).
+- **Manual refresh:** the button sits in the header actions. Keep the data visible during refresh and update "Last updated" on success. Cloudscape: if a refresh can't finish within about 1 to 10 seconds, show a status indicator next to the refresh button; use a warning indicator with a popover for partial or total failure.
+- **Auto refresh:** state the interval ("Auto-refresh: 30s" with an off toggle; Cloudscape's example interval is 10s). Pause while the tab is hidden (`document.visibilityState`) and when the user is interacting (open menu, selection, scrolled table).
 - **Relative text must tick.** Re-render "4 min ago" every 60s, or the label lies. Use one shared interval, not one per element.
 - **Per-widget freshness** only when sources differ. Otherwise one global line (avoid 12 "updated 2 min ago" footers).
 - **Exports and screenshots** embed the absolute as-of time and timezone.
@@ -50,22 +51,22 @@
 ## Anti-patterns (don't)
 - Relative times on records people cite later (invoices, audit logs) with no absolute fallback.
 - "Updated just now" that never re-renders.
-- Ambiguous numeric dates (`03/04/2026`). Use month names or ISO. GOV.UK: "2 June", no ordinals, no comma between month and year.
+- Ambiguous numeric dates (`03/04/2026`). Use month names or ISO. GOV.UK: "2 June and not 2nd June", and no comma between month and year ("4 June 2017").
 - Mixing relative and absolute formats in one column. Pick one per column; absolute is the safer default in tables.
 - Timezone-less times in multi-region products.
 - A spinner replacing all data on each auto-refresh.
 - A freshness indicator that shows the fetch time when the pipeline is 6 hours behind, so "Updated 1 min ago" on yesterday's data.
 
 ## Good references
-- [Cloudscape: Timestamps](https://cloudscape.design/patterns/general/timestamps/) — relative bands, always a UTC offset, `<time>` with a `title` for absolute, "[Noun] [verb]" labels, "Last updated" for the last successful refresh.
-- [Cloudscape: Loading and refreshing](https://cloudscape.design/patterns/general/loading-and-refreshing/) — manual vs auto refresh, keeping data visible, timestamp after success, a pending or warning indicator with popover for delayed or partial refresh, announcing updates via a live region.
-- [Primer `relative-time`](https://primer.style/product/components/relative-time/) — `threshold: P30D`, `tense`, `format: micro | elapsed`, and a title with the full date by default.
-- [Vercel changelog: date display](https://vercel.com/changelog/improvement-to-how-dates-display-in-the-dashboard) — relative for 3 days then absolute, exact timestamp on hover.
-- [Palantir Foundry data freshness widget](https://palantir.com/docs/foundry/workshop/widgets-data-freshness/) — a dedicated "Last Updated" per datasource, with a 24h relative/absolute switch.
+- [Cloudscape: Timestamps](https://cloudscape.design/patterns/general/timestamps/) — relative bands from "Now" to "# years ago", "Always include the UTC offset, including for UTC itself", `<time>` with a `title` for absolute, "[Noun] [verb]" labels, "Last updated" for the last successful refresh.
+- [Cloudscape: Loading and refreshing](https://cloudscape.design/patterns/general/loading-and-refreshing/) — manual vs auto refresh, "Keep the dataset visible while the refresh operation is ongoing", timestamp after success, a pending or warning indicator with popover for delayed or partial refresh, announcing the new refresh timestamp via a live region.
+- [Primer `relative-time`](https://primer.style/product/components/relative-time/) — `threshold` default `P30D`, `tense: auto | past | future`, `format: auto | micro | elapsed`, and a `title` attribute by default (`noTitle` removes it).
+- [Vercel changelog: date display](https://vercel.com/changelog/improvement-to-how-dates-display-in-the-dashboard) — "For the first three days, dates are displayed as relative", then absolute; hover reveals the exact timestamp.
+- [Palantir Foundry data freshness widget](https://palantir.com/docs/foundry/workshop/widgets-data-freshness/) — a "Last Updated" time per object type and datasource. "If the last index time exceeds 24 hours, the timestamp renders an absolute format."
 
 ## Bad references
-- [Aaron Parecki, "You should not be displaying relative dates"](https://aaronparecki.com/2012/08/23/3/you-should-not-be-displaying-relative-dates) — the failure modes of relative-only: useless screenshots, no machine-readability, "9 hours ago" hiding a window of many minutes.
-- [Appian "Display last refresh time" recipe](https://docs.appian.com/suite/help/25.1/recipe-display-last-refresh-time.html) — refreshes every 30s whether or not data changed, so the timestamp reports polling, not data currency. That's a useful example of measuring the wrong "freshness".
+- [Aaron Parecki, "You should not be displaying relative dates"](https://aaronparecki.com/2012/08/23/3/you-should-not-be-displaying-relative-dates) — the failure modes of relative-only: useless screenshots, no machine-readability, and "9 hours ago" covering every time from 10:25pm to 10:57pm.
+- [Appian "Display last refresh time" recipe](https://docs.appian.com/suite/help/25.1/recipe-display-last-refresh-time.html) — the timestamp has its own 30s timer (`refreshInterval: 0.5`) and updates even when the data hasn't changed, so it reports polling, not data currency. That's a useful example of measuring the wrong "freshness".
 
 ## Accessibility
 - Use `<time datetime>` for every timestamp. The tooltip content is also reachable via focus (`tabindex="0"` on the time element only if it's not inside another control) or exposed via `aria-describedby`.
@@ -88,11 +89,16 @@
 | Tooltip delay | 300ms hover, immediate on focus |
 | Absolute, table | `YYYY-MM-DD HH:mm` 24h + zone in header |
 | Absolute, prose | `Nov 21, 2026, 2:32 PM UTC` (locale-driven) |
-| Freshness text | 0.75–0.8125rem, `--text-muted`; warning `--status-warning` + icon |
+| Freshness text | 0.75rem (`--type-meta`), `--text-muted`; warning `--warning-fg` + icon |
 
 ## Implementation sketch
 ```ts
-const rtf = new Intl.RelativeTimeFormat(undefined, { numeric: "auto", style: "short" });
+const rtfCache = new Map<string, Intl.RelativeTimeFormat>();
+function rtfFor(locale: string): Intl.RelativeTimeFormat {
+  let f = rtfCache.get(locale);
+  if (!f) { f = new Intl.RelativeTimeFormat(locale, { numeric: "auto", style: "short" }); rtfCache.set(locale, f); }
+  return f;
+}
 const UNITS: ReadonlyArray<[Intl.RelativeTimeFormatUnit, number]> = [
   ["day", 86_400_000], ["hour", 3_600_000], ["minute", 60_000],
 ];
@@ -103,9 +109,10 @@ export function formatEventTime(at: Date, now: Date, locale: string, timeZone: s
   if (Math.abs(diff) < 60_000) return { text: "Just now", full };
   if (Math.abs(diff) < 86_400_000) {
     const [unit, ms] = UNITS.find(([, ms]) => Math.abs(diff) >= ms) ?? ["minute", 60_000];
-    return { text: rtf.format(Math.round(diff / ms), unit), full };
+    return { text: rtfFor(locale).format(Math.trunc(diff / ms), unit), full };
   }
-  const sameYear = at.getFullYear() === now.getFullYear();
+  const year = (d: Date): string => new Intl.DateTimeFormat("en", { year: "numeric", timeZone }).format(d);
+  const sameYear = year(at) === year(now); // compare in the display zone, not the host zone
   const text = new Intl.DateTimeFormat(locale, {
     month: "short", day: "numeric", ...(sameYear ? {} : { year: "numeric" }), timeZone,
   }).format(at);

@@ -15,9 +15,9 @@
 - **Unit placement:**
   - Tables: in the column header, in parentheses: "Latency (ms)", "Revenue (USD thousands)". Use the latter only if values aren't compacted. Prefer compact formats over multipliers (Datawrapper: "consider using number formats like 20b, 20m, or 20k").
   - KPI: inline with the value (`$1.42M`, `212 ms`, `4.2%`).
-  - Charts: on the axis title or in the subtitle, *and* in tooltips (Datawrapper: units belong "in the description, axis labels, tooltips, and annotations, not only in one place").
-  - Use SI and standard symbols with a thin or non-breaking space: `212 ms`, `3.4 GB`. Use `Intl.NumberFormat` with `style: "unit"` where supported (`unit: "millisecond"`, `unitDisplay: "short"`).
-- **One measurement system per dashboard.** Carbon: don't mix imperial and metric. Use one reporting currency per view, with FX-converted values footnoted ("Converted to USD at the Nov 20 ECB rate").
+  - Charts: on the axis title or in the subtitle, *and* in tooltips. Datawrapper: "Don't just put units in the description, but also in axis labels, tooltips, and annotations."
+  - Use SI and standard symbols with a thin or non-breaking space: `212 ms`, `3.4 GB`. Use `Intl.NumberFormat` with `style: "unit"` (`unit: "millisecond"`, `unitDisplay: "short"` gives `212 ms` in `en-US`; `unitDisplay: "long"` gives `212 milliseconds` for accessible names).
+- **One measurement system per dashboard.** Carbon: "Do not switch measurement systems, like imperial to metric." Use one reporting currency per view, with FX-converted values footnoted ("Converted to USD at the Nov 20 ECB rate").
 - **Period in the label or subtitle:** "Revenue, Nov 1–20 2026", "Active users (30d)". Fiscal vs calendar periods are stated explicitly ("FY26 Q3, Aug–Oct").
 - **Metric definitions on demand:**
   - an info affordance (ⓘ) or a dotted-underlined label that opens a popover with the definition, formula, inclusions and exclusions, and owner;
@@ -31,11 +31,11 @@
 - **Source line format** (OWID, Datawrapper, FT practice): small grey text under the chart or table.
   > `Source: SEC EDGAR 10-K filings (FY2021–FY2025); Damodaran industry betas (Jan 2026) – processed by <Product>.`
   - Name the publisher and dataset, and the vintage or date.
-  - Name processing steps when you transformed the data ("processed by", "per-capita adjustment", "inflation-adjusted to 2026 USD"). OWID flags "whenever we have combined data sources or made changes to the original datasets."
+  - Name processing steps when you transformed the data ("processed by", "per-capita adjustment", "inflation-adjusted to 2026 USD"). OWID: "We also indicate whenever we have combined data sources or made changes to the original datasets."
   - Link to the original when possible, and to the exact record (filing URL, accession number, API endpoint docs) for finance.
 - **Provenance drill-down** (high-stakes numbers such as valuation outputs, regulatory figures): the value opens a panel tracing it to inputs. Formula → input values → source documents with links. The source line is the summary and the trace is the evidence.
 - **Estimated or modelled values** are visually distinct from reported values: "est." suffix, italic, or a lighter tint plus a legend. Never mix reported and estimated in one series without a marker.
-- **Hierarchy:** units, notes and sources use small (0.75rem), muted text at least 4.5:1 contrast. Datawrapper: "Small, thin, and gray text should be reserved for less important information, like the description or source."
+- **Hierarchy:** units, notes and sources use small (0.75rem, `--type-meta`), muted text at least 4.5:1 contrast. Datawrapper: "Small, thin, and gray text should be reserved for less important information, like the description or source."
 
 ## Anti-patterns (don't)
 - "Revenue: 1,234". Is that dollars, thousands or millions?
@@ -45,18 +45,18 @@
 - Footnotes collected on a separate "Methodology" page nobody opens, with nothing near the number.
 - Colour as the only marker for provisional or estimated values.
 - Charts exported as images without title, unit, period, source and as-of date. The export is the thing that gets forwarded.
-- Bare `m` and `bn` in accessible names (screen readers misread them; FT dropped "m", per data.europa.eu).
+- Bare `m` and `bn` in accessible names. data.europa.eu: the prefix "can be misinterpreted by screen readers"; GOV.UK: "Do not abbreviate million to m."
 
 ## Good references
-- [Our World in Data FAQ](https://ourworldindata.org/faqs) — "In every chart, we clearly indicate the source of the data being shown", with the `<Source> (year) – processed by Our World in Data` format and a "Learn more about this data" drill-down.
-- [Datawrapper, "Text in data visualizations"](https://www.datawrapper.de/blog/text-in-data-visualizations) — units in multiple places, compact formats over multipliers, precision moved to notes, small grey text reserved for source and notes.
-- [Matthew Ström, "Design better data tables"](https://mattstromawn.com/writing/tables) — symbols (✻, †, ▵) for annotation instead of colour.
-- [Carbon dashboards](https://carbondesignsystem.com/data-visualization/dashboards) — one measurement system and consistent colours per dataset.
-- [Few, "Common pitfalls" #4 (summary)](https://www.thedataschool.co.uk/anh-vu/are-you-making-these-13-dashboard-design-mistakes/) — "Choosing a deficient measure": the measure must be clearly defined, with a unit.
+- [Our World in Data FAQ](https://ourworldindata.org/faqs) — "In every chart, we clearly indicate the source of the data being shown", with citations of the form `<Source> (2025) – processed by Our World in Data`.
+- [Datawrapper, "Text in data visualizations"](https://www.datawrapper.de/blog/text-in-data-visualizations) — units in axis labels, tooltips and annotations as well as the description, "number formats like 20b, 20m, or 20k" instead of multipliers, and "Small, thin, and gray text" reserved for description and source.
+- [Matthew Ström, "Design better data tables"](https://mattstromawn.com/writing/tables) — symbols (✻, †, ▵) for annotation instead of background colour; the dagger is his favourite.
+- [Carbon dashboards](https://carbondesignsystem.com/data-visualization/dashboards) — one measurement system, and "Always use consistent colors for each data set within a dashboard."
+- [Few, "Common Pitfalls in Dashboard Design" #4](https://www.perceptualedge.com/articles/Whitepapers/Common_Pitfalls.pdf) — "Expressing Measures Indirectly": "A measure is poorly expressed if it fails to directly, clearly, and efficiently communicate the meaning" the viewer needs.
 
 ## Bad references
-- Executive "cockpit" dashboards criticised by [Tufte](https://www.edwardtufte.com/notebook/executive-dashboards/) — no annotation and no data-quality checks. He asks to "build in systematic checks of data quality into the display".
-- [data.europa.eu: percentage-point mislabelling](https://data.europa.eu/apps/data-visualisation-guide/percentages-versus-percentage-points) — the mask study where 0.3 pp was reported as a "percent" difference. Unit mislabelling changed the public reading of the result.
+- Executive "cockpit" dashboards criticised by [Tufte](https://www.edwardtufte.com/notebook/executive-dashboards/) — no annotation and no data-quality checks. Tufte: "It is essential to build in systematic checks of data quality into the display and analysis system."
+- [data.europa.eu: percentage-point mislabelling](https://data.europa.eu/apps/data-visualisation-guide/percentages-versus-percentage-points) — the mask study (2.1% vs 1.8% infected): the 0.3-point gap was called a "percentage difference" and quoted as "0,3 percent", hiding a 14% relative effect. Unit mislabelling changed the public reading of the result.
 - Template dashboards whose sample subtitles don't match their metric (shadcn dashboard-01 "Total Revenue … Visitors for the last 6 months", [source](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/blocks/dashboard-01/components/section-cards.tsx)). The definition text is the first thing to rot.
 
 ## Accessibility
@@ -71,10 +71,10 @@
 ## Tokens and values
 | Token | Default |
 |---|---|
-| Note and source text | 0.75rem / 1.4, `--text-muted` (at least 4.5:1) |
+| Note and source text | 0.75rem / 1.4 (`--type-meta` size), `--text-muted` (at least 4.5:1) |
 | Footnote marker | superscript, 0.7em, `--text-muted`, order * † ‡ § then 1 2 3 |
-| Source line spacing | 8px above, aligned with the table or chart's start edge |
-| Definition popover | max-width 320px, padding 12px, radius 8px |
+| Source line spacing | 8px (`--space-2`) above, aligned with the table or chart's start edge |
+| Definition popover | max-width 320px, padding 12px `--space-3`, radius 8px `--radius-md` |
 | Estimated value style | italic or `--text-muted` + "est." suffix |
 | Unit separator | U+202F narrow no-break space or U+00A0 between number and unit |
 
@@ -123,7 +123,8 @@ sup a { text-decoration: none; color: var(--text-muted); font-size: .7em; }
 - https://www.datawrapper.de/blog/text-in-data-visualizations
 - https://mattstromawn.com/writing/tables
 - https://carbondesignsystem.com/data-visualization/dashboards
-- https://www.thedataschool.co.uk/anh-vu/are-you-making-these-13-dashboard-design-mistakes/
+- https://www.perceptualedge.com/articles/Whitepapers/Common_Pitfalls.pdf
+- https://guidance.publishing.service.gov.uk/writing-to-gov-uk-standards/style-guides/a-to-z-style-guide/
 - https://www.edwardtufte.com/notebook/executive-dashboards/
 - https://data.europa.eu/apps/data-visualisation-guide/percentages-versus-percentage-points
 - https://data.europa.eu/apps/data-visualisation-guide/number-formatting
