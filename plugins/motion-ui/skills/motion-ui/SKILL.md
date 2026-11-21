@@ -9,7 +9,7 @@ A research-backed playbook for product-UI motion and gesture: 19 pattern files, 
 
 - **Pattern index:** `references/INDEX.md` lists every pattern with its one-line rule.
 - **Pattern files:** `references/patterns/<prefix>-<name>.md`. The prefixes are `mfound` (purpose, timing, choreography, reduced motion), `mspring` (springs), `mgesture` (drag, momentum, edges, sheets, interruption), `mtrans` (enter/exit, spatial origin, route transitions, micro-interactions, scroll-driven), `mperf` (performance) and `mref` (review rubric, anti-patterns).
-- **Starter tokens:** `assets/motion-tokens.css`. Duration, easing and stagger names match dashboard-ui's `tokens.css`, so both can share one `:root`.
+- **Starter tokens:** `assets/motion-tokens.css`. Duration, easing and stagger names and values match dashboard-ui's `tokens.css`. It works on its own in light and dark: the dashboard-ui role tokens it reads are declared at zero specificity, so dashboard-ui's `tokens.css` or the project's own tokens on the same role names override them in any load order.
 - **Data UIs:** for number tweening, chart transitions, linked exploration, live recompute and loading states, use dashboard-ui's `motion-*` and `prog-*` patterns. This skill doesn't repeat them.
 
 ## Workflow
@@ -142,7 +142,7 @@ Full set in `assets/motion-tokens.css`.
 ## How to apply this skill
 
 - **When building:**
-  - Load `assets/motion-tokens.css`, or map it onto the project's tokens. If dashboard-ui's `tokens.css` is already there, the shared names resolve to the same values.
+  - Load `assets/motion-tokens.css`, or map it onto the project's tokens.
   - Prefer platform features: CSS transitions, `@starting-style`, `<dialog>` and the popover API, View Transitions, scroll-driven animations, `linear()`. Reach for a JS library only for gestures and velocity.
   - Never use the TypeScript `any` type.
 - **When reviewing:** capture frames first, then run the anti-pattern gallery and the rubric. Report a table of check, score, evidence and fix, ordered by severity, and list what you didn't check.

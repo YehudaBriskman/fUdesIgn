@@ -88,7 +88,7 @@
   align-content: center;
   gap: 2px;
   min-block-size: var(--bottom-bar-h);
-  font: 500 0.75rem/1.2 var(--font-sans);
+  font: 500 0.75rem/1.2 var(--mo-font-sans);
   color: var(--text-muted);
   text-decoration: none;
 }

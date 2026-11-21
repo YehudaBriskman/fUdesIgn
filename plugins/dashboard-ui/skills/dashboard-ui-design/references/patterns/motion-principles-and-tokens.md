@@ -83,7 +83,7 @@ Rows marked † are in `assets/tokens.css`; the others are values this file adds
 | `--motion-ease-enter` † | `cubic-bezier(0, 0, 0.38, 0.9)` | entering, settling (Carbon productive entrance) |
 | `--motion-ease-exit` † | `cubic-bezier(0.2, 0, 1, 0.9)` | leaving permanently (Carbon productive exit) |
 | `--motion-ease-emphasized` † | `cubic-bezier(0.2, 0, 0, 1)` | rare, important moments (M3 emphasized) |
-| `--motion-ease-spring` | `linear()` approximation, below | drag release, sheet snap (not in tokens.css) |
+| `--motion-ease-spring` | `linear()` sample of a critically damped spring, below | drag release, sheet snap |
 | spring in JS (Motion) | bounce 0, visualDuration 0.3 s | drag release, sheet snap |
 | exit / enter ratio | 0.75 (house rule) | 240 → 180 ms, 150 → 110 ms |
 | stagger per item | 20–40 ms, max total 300 ms (house rule) | list or bar entry |
@@ -99,7 +99,7 @@ Rows marked † are in `assets/tokens.css`; the others are values this file adds
   --motion-ease-enter: cubic-bezier(0, 0, 0.38, 0.9);
   --motion-ease-exit: cubic-bezier(0.2, 0, 1, 0.9);
   /* Critically damped spring approximation via linear() (Baseline widely available; newly available Dec 2023) */
-  --motion-ease-spring: linear(0, 0.25 8%, 0.6 18%, 0.86 30%, 0.97 45%, 1);
+  --motion-ease-spring: linear(0, 0.044 5%, 0.142 10%, 0.261 15%, 0.380 20%, 0.589 30%, 0.740 40%, 0.841 50%, 0.905 60%, 0.968 80%, 1);
 }
 
 .panel {

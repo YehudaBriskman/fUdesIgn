@@ -1,38 +1,76 @@
 /*
  * AI-UI layer: chat thread, composer, streaming, citations, ghost text and diffs, approvals.
- * Load after dashboard-ui's tokens.css (or any file that defines the same role names:
- * --canvas, --surface, --surface-2, --sunken, --text, --text-muted, --border, --border-strong,
- * --accent, --on-accent, --focus-ring, --warning-*, --danger-*, --success-*, --space-*,
- * --radius-*, --type-*, --font-mono, --motion-*). The fallbacks after each var() keep this file
- * usable on its own in light mode. Every value traces to a pattern in ../references/patterns
+ * Self-sufficient: the dashboard-ui role tokens it reads (--surface, --text, --accent, --warning-*,
+ * --danger-*, --space-*, --radius-*, --type-*, --font-mono, --motion-*) are declared below as
+ * zero-specificity defaults, so it works alone in light and dark, and dashboard-ui's tokens.css or
+ * the project's own tokens override them whatever the load order. Every value traces to a pattern in ../references/patterns
  * (named beside each group). Components use these --ai-* tokens, never raw values.
  */
+
+/* ── Shared roles: dashboard-ui tokens.css values, zero specificity ─────────────
+   :where(:root) lets this file work on its own in light and dark, while any :root
+   definition (dashboard-ui tokens.css or the project's design system mapped onto these
+   role names) wins whatever the load order. tools/check.mjs keeps the values in sync. */
+:where(:root) {
+  color-scheme: light dark;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 32px;
+  --radius-xs: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+  --font-sans: Inter, "SF Pro Text", Roboto, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "SF Mono", ui-monospace, monospace;
+  --type-meta: 400 0.75rem/1.35 var(--font-sans);
+  --motion-dur-short: 150ms;
+  --surface: light-dark(oklch(1 0 0), oklch(0.215 0.008 250));
+  --surface-2: light-dark(oklch(0.97 0.004 250), oklch(0.25 0.009 250));
+  --sunken: light-dark(oklch(0.955 0.005 250), oklch(0.165 0.006 250));
+  --border: light-dark(oklch(0.88 0.008 250), oklch(0.35 0.012 250));
+  --border-strong: light-dark(oklch(0.60 0.012 250), oklch(0.56 0.014 250));
+  --text: light-dark(oklch(0.22 0.02 250), oklch(0.95 0.006 250));
+  --text-muted: light-dark(oklch(0.50 0.016 250), oklch(0.785 0.014 250));
+  --accent: light-dark(oklch(0.50 0.17 265), oklch(0.785 0.10 265));
+  --focus-ring: var(--accent);
+  --danger-fg: light-dark(oklch(0.53 0.19 27), oklch(0.72 0.16 25));
+  --warning-fg: light-dark(oklch(0.52 0.11 65), oklch(0.82 0.14 80));
+  --success-fg: light-dark(oklch(0.50 0.13 150), oklch(0.76 0.15 150));
+  --danger-bg: light-dark(color-mix(in oklab, var(--danger-fg) 10%, var(--surface)), color-mix(in oklab, var(--danger-fg) 18%, var(--surface)));
+  --warning-bg: light-dark(color-mix(in oklab, var(--warning-fg) 10%, var(--surface)), color-mix(in oklab, var(--warning-fg) 18%, var(--surface)));
+  --success-bg: light-dark(color-mix(in oklab, var(--success-fg) 10%, var(--surface)), color-mix(in oklab, var(--success-fg) 18%, var(--surface)));
+}
+:root[data-theme="light"] { color-scheme: light; }
+:root[data-theme="dark"] { color-scheme: dark; }
 
 :root {
   /* Thread and turns (aichat-layout-and-message-anatomy.md) */
   --ai-thread-measure: 46rem;                         /* reading column and composer width */
-  --ai-turn-gap: var(--space-6, 32px);                /* between turns */
-  --ai-part-gap: var(--space-3, 12px);                /* between parts of one turn */
+  --ai-turn-gap: var(--space-6);                /* between turns */
+  --ai-part-gap: var(--space-3);                /* between parts of one turn */
   --ai-bubble-max: 80%;                               /* user bubble width cap */
-  --ai-bubble-bg: var(--surface-2, oklch(0.97 0.004 250));
-  --ai-bubble-radius: var(--radius-lg, 12px);
+  --ai-bubble-bg: var(--surface-2);
+  --ai-bubble-radius: var(--radius-lg);
   --ai-panel-inline: 400px;                           /* side-panel copilot, 360–480 */
   --ai-sidebar-inline: 280px;                         /* history sidebar, 260–300 */
-  --ai-text: var(--text, oklch(0.22 0.02 250));      /* generated text = authored text (aifound-accessible-generated-content.md) */
+  --ai-text: var(--text);      /* generated text = authored text (aifound-accessible-generated-content.md) */
 
   /* Labels and identity (aifound-expectations-and-identity.md) */
-  --ai-label-font: var(--type-meta, 400 0.75rem/1.35 system-ui, sans-serif);
-  --ai-label-fg: var(--text-muted, oklch(0.50 0.016 250));   /* ≥ 4.5:1, never lighter */
+  --ai-label-font: var(--type-meta);
+  --ai-label-fg: var(--text-muted);   /* ≥ 4.5:1, never lighter */
 
   /* Action row (aichat-feedback-and-reporting.md, aichat-streaming-text.md) */
   --ai-actions-block: 32px;                           /* reserved before the stream ends: no shift */
   --ai-action-size: 32px;                             /* 44px on coarse pointers, below */
-  --ai-action-fg: var(--text-muted, oklch(0.50 0.016 250));
+  --ai-action-fg: var(--text-muted);
 
   /* Composer (aichat-prompt-input.md) */
   --ai-composer-min-block: 44px;
   --ai-composer-max-block: 40dvh;
-  --ai-composer-radius: var(--radius-xl, 16px);
+  --ai-composer-radius: var(--radius-xl);
   --ai-chip-name-max: 24ch;
   --ai-chip-thumb: 40px;
 
@@ -44,41 +82,41 @@
   --ai-slot-min: 50dvh;                               /* JS sets: viewport minus the pinned user turn */
   --ai-caret-w: 1px;
   --ai-indicator-size: 16px;
-  --ai-step-dur: var(--motion-dur-short, 150ms);
+  --ai-step-dur: var(--motion-dur-short);
 
   /* Markdown, code, tables (aichat-markdown-code-tables.md) */
-  --ai-code-bg: var(--sunken, oklch(0.955 0.005 250));
-  --ai-code-font: 400 0.8125rem/1.55 var(--font-mono, ui-monospace, monospace);
+  --ai-code-bg: var(--sunken);
+  --ai-code-font: 400 0.8125rem/1.55 var(--font-mono);
   --ai-code-max-block: 24lh;                          /* collapsed height for blocks over 30 lines */
-  --ai-inline-code-bg: var(--surface-2, oklch(0.97 0.004 250));
+  --ai-inline-code-bg: var(--surface-2);
 
   /* Citations and suggestions (aichat-citations-and-sources.md, aichat-empty-state-and-suggestions.md) */
-  --ai-cite-bg: color-mix(in oklab, var(--accent, oklch(0.50 0.17 265)) 12%, var(--surface, white));
-  --ai-cite-fg: var(--accent, oklch(0.50 0.17 265));
+  --ai-cite-bg: color-mix(in oklab, var(--accent) 12%, var(--surface));
+  --ai-cite-fg: var(--accent);
   --ai-cite-target: 24px;
-  --ai-chip-radius: var(--radius-full, 9999px);
-  --ai-chip-pad: var(--space-1, 4px) var(--space-3, 12px);
+  --ai-chip-radius: var(--radius-full);
+  --ai-chip-pad: var(--space-1) var(--space-3);
   --ai-starter-cols: repeat(auto-fit, minmax(14rem, 1fr));
-  --ai-pager-gap: var(--space-1, 4px);
+  --ai-pager-gap: var(--space-1);
 
   /* Warnings and errors (aifound-uncertainty-and-disclaimers.md, aichat-errors-refusals-limits.md) */
-  --ai-warn-bg: var(--warning-bg, oklch(0.96 0.05 85));
-  --ai-warn-fg: var(--warning-fg, oklch(0.45 0.11 70));
-  --ai-error-bg: var(--danger-bg, oklch(0.96 0.03 25));
-  --ai-error-fg: var(--danger-fg, oklch(0.50 0.19 25));
+  --ai-warn-bg: var(--warning-bg);
+  --ai-warn-fg: var(--warning-fg);
+  --ai-error-bg: var(--danger-bg);
+  --ai-error-fg: var(--danger-fg);
 
   /* Inline AI (aiinline-ghost-text-and-diffs.md) */
-  --ai-ghost-fg: var(--text-muted, oklch(0.50 0.016 250));   /* ≥ 4.5:1, plus italic */
-  --ai-diff-ins-bg: var(--success-bg, oklch(0.96 0.04 150));
-  --ai-diff-del-bg: var(--danger-bg, oklch(0.96 0.03 25));
-  --ai-inserted-bg: color-mix(in oklab, var(--accent, oklch(0.50 0.17 265)) 8%, transparent);
+  --ai-ghost-fg: var(--text-muted);   /* ≥ 4.5:1, plus italic */
+  --ai-diff-ins-bg: var(--success-bg);
+  --ai-diff-del-bg: var(--danger-bg);
+  --ai-inserted-bg: color-mix(in oklab, var(--accent) 8%, transparent);
 
   /* Agents and privacy (aiagent-approval-and-audit.md, aiagent-webmcp-agent-readable-ui.md,
      aifound-privacy-consent-data-use.md) */
-  --ai-approval-border: 2px solid var(--warning-fg, oklch(0.45 0.11 70));
-  --ai-agent-outline: 2px dashed var(--accent, oklch(0.50 0.17 265));
-  --ai-agent-submit-outline: 2px solid var(--warning-fg, oklch(0.45 0.11 70));
-  --ai-private-border: 2px solid var(--text, oklch(0.22 0.02 250));
+  --ai-approval-border: 2px solid var(--warning-fg);
+  --ai-agent-outline: 2px dashed var(--accent);
+  --ai-agent-submit-outline: 2px solid var(--warning-fg);
+  --ai-private-border: 2px solid var(--text);
 }
 @media (pointer: coarse) {
   :root { --ai-action-size: 44px; }
@@ -96,7 +134,7 @@
 .ai-msg[data-author="user"] {
   justify-self: end;
   max-inline-size: var(--ai-bubble-max);
-  padding: var(--space-3, 12px) var(--space-4, 16px);
+  padding: var(--space-3) var(--space-4);
   background: var(--ai-bubble-bg);
   border-radius: var(--ai-bubble-radius);
 }
@@ -104,7 +142,7 @@
 .ai-author { font: var(--ai-label-font); color: var(--ai-label-fg); }
 .ai-actions {
   display: flex;
-  gap: var(--space-1, 4px);
+  gap: var(--space-1);
   min-block-size: var(--ai-actions-block);
 }
 .ai-actions:empty { visibility: hidden; }              /* reserves the row while streaming */
@@ -113,7 +151,7 @@
   min-block-size: var(--ai-action-size);
   color: var(--ai-action-fg);
 }
-.ai-actions button[aria-pressed="true"] { color: var(--accent, oklch(0.50 0.17 265)); }
+.ai-actions button[aria-pressed="true"] { color: var(--accent); }
 
 /* ── Streaming (aichat-streaming-text.md) ──────────────────────────────────── */
 .ai-msg[aria-busy="true"] .ai-body > :last-child::after {
@@ -130,15 +168,15 @@
 }
 @keyframes ai-blink { 50% { opacity: 0; } }
 .ai-status { font: var(--ai-label-font); color: var(--ai-label-fg); }
-.ai-jump-latest { position: sticky; inset-block-end: var(--space-4, 16px); justify-self: center; }
+.ai-jump-latest { position: sticky; inset-block-end: var(--space-4); justify-self: center; }
 
 /* ── Composer (aichat-prompt-input.md) ─────────────────────────────────────── */
 .ai-composer {
   inline-size: min(100%, var(--ai-thread-measure));
   margin-inline: auto;
-  border: 1px solid var(--border-strong, oklch(0.60 0.012 250));
+  border: 1px solid var(--border-strong);
   border-radius: var(--ai-composer-radius);
-  background: var(--surface, white);
+  background: var(--surface);
   padding-block-end: env(safe-area-inset-bottom, 0px);
 }
 .ai-composer textarea {
@@ -161,17 +199,17 @@
 /* ── Markdown output (aichat-markdown-code-tables.md) ──────────────────────── */
 .ai-body pre {
   overflow-x: auto;
-  padding: var(--space-3, 12px) var(--space-4, 16px);
+  padding: var(--space-3) var(--space-4);
   background: var(--ai-code-bg);
-  border-radius: var(--radius-md, 8px);
+  border-radius: var(--radius-md);
   font: var(--ai-code-font);
   tab-size: 2;
 }
 .ai-body pre[data-collapsed] { max-block-size: var(--ai-code-max-block); overflow-y: hidden; }
-.ai-body :not(pre) > code { background: var(--ai-inline-code-bg); padding-inline: 0.25em; border-radius: var(--radius-xs, 4px); }
+.ai-body :not(pre) > code { background: var(--ai-inline-code-bg); padding-inline: 0.25em; border-radius: var(--radius-xs); }
 .ai-scroll { overflow-x: auto; }
 .ai-body table { border-collapse: collapse; font-variant-numeric: tabular-nums lining-nums; }
-.ai-body th, .ai-body td { padding: var(--space-1, 4px) var(--space-3, 12px); border-block-end: 1px solid var(--border, oklch(0.88 0.008 250)); text-align: start; }
+.ai-body th, .ai-body td { padding: var(--space-1) var(--space-3); border-block-end: 1px solid var(--border); text-align: start; }
 .ai-body td[data-num], .ai-body th[data-num] { text-align: end; }
 
 /* ── Citations and suggestions (aichat-citations-and-sources.md, aichat-empty-state-and-suggestions.md) ── */
@@ -180,8 +218,8 @@
   place-items: center;
   min-inline-size: var(--ai-cite-target);
   min-block-size: var(--ai-cite-target);
-  padding-inline: var(--space-1, 4px);
-  border-radius: var(--radius-xs, 4px);
+  padding-inline: var(--space-1);
+  border-radius: var(--radius-xs);
   background: var(--ai-cite-bg);
   color: var(--ai-cite-fg);
   font: var(--ai-label-font);
@@ -191,15 +229,15 @@
 }
 .ai-chip {
   padding: var(--ai-chip-pad);
-  border: 1px solid var(--border-strong, oklch(0.60 0.012 250));
+  border: 1px solid var(--border-strong);
   border-radius: var(--ai-chip-radius);
 }
-.ai-starters { display: grid; grid-template-columns: var(--ai-starter-cols); gap: var(--space-3, 12px); }
+.ai-starters { display: grid; grid-template-columns: var(--ai-starter-cols); gap: var(--space-3); }
 .ai-pager { display: inline-flex; align-items: center; gap: var(--ai-pager-gap); font-variant-numeric: tabular-nums; }
 
 /* ── Warnings and errors ───────────────────────────────────────────────────── */
-.ai-warn { background: var(--ai-warn-bg); color: var(--ai-text); border-inline-start: 3px solid var(--ai-warn-fg); padding: var(--space-2, 8px) var(--space-3, 12px); }
-.ai-error { background: var(--ai-error-bg); color: var(--ai-text); border-inline-start: 3px solid var(--ai-error-fg); padding: var(--space-2, 8px) var(--space-3, 12px); }
+.ai-warn { background: var(--ai-warn-bg); color: var(--ai-text); border-inline-start: 3px solid var(--ai-warn-fg); padding: var(--space-2) var(--space-3); }
+.ai-error { background: var(--ai-error-bg); color: var(--ai-text); border-inline-start: 3px solid var(--ai-error-fg); padding: var(--space-2) var(--space-3); }
 .ai-meta { font: var(--ai-label-font); color: var(--ai-label-fg); }
 
 /* ── Identity badge (aifound-expectations-and-identity.md): decorative glyph, the word is the label ── */
@@ -209,10 +247,10 @@
 .ai-ghost { color: var(--ai-ghost-fg); font-style: italic; pointer-events: none; }
 ins.ai-diff { background: var(--ai-diff-ins-bg); text-decoration: underline; }
 del.ai-diff { background: var(--ai-diff-del-bg); text-decoration: line-through; }
-.ai-inserted { background: var(--ai-inserted-bg); box-shadow: inset 2px 0 0 var(--accent, oklch(0.50 0.17 265)); }
+.ai-inserted { background: var(--ai-inserted-bg); box-shadow: inset 2px 0 0 var(--accent); }
 
 /* ── Agents and privacy ────────────────────────────────────────────────────── */
-.ai-approval { border: var(--ai-approval-border); border-radius: var(--radius-lg, 12px); padding: var(--space-4, 16px); }
+.ai-approval { border: var(--ai-approval-border); border-radius: var(--radius-lg); padding: var(--space-4); }
 form:tool-form-active { outline: var(--ai-agent-outline); outline-offset: 4px; }
 button:tool-submit-active { outline: var(--ai-agent-submit-outline); outline-offset: 2px; }
 .ai-private { outline: var(--ai-private-border); outline-offset: -2px; }
@@ -227,7 +265,7 @@ button:tool-submit-active { outline: var(--ai-agent-submit-outline); outline-off
   white-space: nowrap;
 }
 :where(.ai-thread, .ai-composer, .ai-approval) :focus-visible {
-  outline: 2px solid var(--focus-ring, oklch(0.50 0.17 265));
+  outline: 2px solid var(--focus-ring);
   outline-offset: 2px;
 }
 @media (forced-colors: active) {

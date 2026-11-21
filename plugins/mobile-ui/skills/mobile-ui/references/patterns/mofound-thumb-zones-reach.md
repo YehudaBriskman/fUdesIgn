@@ -72,7 +72,7 @@
   background: var(--surface);
   border-block-start: 1px solid var(--border);
 }
-.sticky-cta > button { inline-size: 100%; min-block-size: 52px; border-radius: var(--radius-lg); background: var(--accent); color: var(--on-accent); font: var(--type-headline); border: 0; }
+.sticky-cta > button { inline-size: 100%; min-block-size: 52px; border-radius: var(--radius-lg); background: var(--accent); color: var(--on-accent); font: var(--mo-type-headline); border: 0; }
 @media (width >= 600px) {
   .sticky-cta { position: static; padding: 0; border: 0; background: none; }
   .sticky-cta > button { inline-size: auto; }

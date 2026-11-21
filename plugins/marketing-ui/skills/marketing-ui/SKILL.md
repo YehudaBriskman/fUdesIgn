@@ -9,7 +9,7 @@ A research-backed playbook for pages that persuade: 19 pattern files, each with 
 
 - **Pattern index:** `references/INDEX.md` lists every pattern with its one-line rule.
 - **Pattern files:** `references/patterns/<prefix>-<name>.md`. The prefixes are `mkfound` (narrative, conversion evidence, accessibility), `mksect` (hero, proof, features, pricing, FAQ, footer), `mkstyle` (type, colour, dark sections, motion, generated-default tells), `mkperf` (LCP, fonts, SEO metadata) and `mkref` (anti-pattern gallery, review rubric).
-- **Tokens:** `assets/marketing.css`, a marketing layer (fluid type, section rhythm, containers, CTA, inverse band, reveal) on top of the dashboard-ui role tokens. Load `plugins/dashboard-ui/skills/dashboard-ui-design/assets/tokens.css` first for dark mode and status colours; without it, the light fallbacks apply.
+- **Tokens:** `assets/marketing.css`, a marketing layer (fluid type, section rhythm, containers, CTA, inverse band, reveal) on the dashboard-ui role names. It works on its own in light and dark: the dashboard-ui role tokens it reads are declared at zero specificity, so dashboard-ui's `tokens.css` or the project's own tokens on the same role names override them in any load order.
 
 Marketing pages are not product screens. This skill allows what dashboard-ui forbids on a working screen (display type, one inverse band, one orchestrated motion moment) and forbids what generators do by default. For signed-in app screens, use dashboard-ui.
 

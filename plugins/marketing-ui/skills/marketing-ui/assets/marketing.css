@@ -1,22 +1,43 @@
 /*
  * Marketing page layer: fluid type, section rhythm, containers, CTAs, inverse bands and reveal motion.
- * It is built on the dashboard-ui ROLE tokens (--canvas, --surface, --text, --text-muted, --accent,
- * --on-accent, --border, --border-strong, --focus-ring, --radius-*, --space-*, --motion-*).
- *   - Best: load plugins/dashboard-ui/skills/dashboard-ui-design/assets/tokens.css first, then this file.
- *     You get light and dark themes, status colours and elevation for free.
- *   - Standalone: every role read below has a fallback equal to the dashboard-ui light value, so a
- *     light page renders correctly without tokens.css (no OS dark theme in that case).
+ * Self-sufficient: it carries the dashboard-ui role tokens it reads (--canvas, --text, --accent, …)
+ * as zero-specificity defaults, so it works alone in light and dark. Loading dashboard-ui's
+ * tokens.css too (in any order) adds status colours and elevation; its values win.
  * Components use the --mk-* tokens and the roles, never raw values. Brand work changes the
  * three --brand-* inputs and the type families; everything else derives from them.
  * Every value traces to a pattern in ../references/patterns (named beside each group).
  */
 
+/* ── Shared roles: dashboard-ui tokens.css values, zero specificity ─────────────
+   :where(:root) lets this file work on its own in light and dark, while any :root
+   definition (dashboard-ui tokens.css or the project's design system mapped onto these
+   role names) wins whatever the load order. tools/check.mjs keeps the values in sync. */
+:where(:root) {
+  color-scheme: light dark;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --motion-dur-short: 150ms;
+  --motion-dur-long: 400ms;
+  --motion-ease-enter: cubic-bezier(0, 0, 0.38, 0.9);
+  --canvas: light-dark(oklch(0.985 0.003 250), oklch(0.18 0.006 250));
+  --border: light-dark(oklch(0.88 0.008 250), oklch(0.35 0.012 250));
+  --border-strong: light-dark(oklch(0.60 0.012 250), oklch(0.56 0.014 250));
+  --text: light-dark(oklch(0.22 0.02 250), oklch(0.95 0.006 250));
+  --text-muted: light-dark(oklch(0.50 0.016 250), oklch(0.785 0.014 250));
+  --accent: light-dark(oklch(0.50 0.17 265), oklch(0.785 0.10 265));
+  --on-accent: light-dark(oklch(1 0 0), oklch(0.18 0.006 250));
+  --focus-ring: var(--accent);
+}
+:root[data-theme="light"] { color-scheme: light; }
+:root[data-theme="dark"] { color-scheme: dark; }
+
 :root {
   /* ── Brand inputs (mkstyle-colour-art-direction.md) ─────────────────────────
      Pick these from the brief, not from a default. One accent, used sparingly. */
-  --brand-accent: var(--accent, oklch(0.50 0.17 265));
-  --brand-on-accent: var(--on-accent, oklch(1 0 0));
-  --brand-ink: var(--text, oklch(0.22 0.02 250));
+  --brand-accent: var(--accent);
+  --brand-on-accent: var(--on-accent);
+  --brand-ink: var(--text);
 
   /* ── Type families (mkstyle-display-type-pairing.md) ───────────────────────
      System stacks so a page renders with zero font requests. Replace --mk-font-display with the
@@ -64,21 +85,21 @@
   /* ── CTA (mkfound-cta-and-conversion.md, mksect-hero.md) ────────────────── */
   --mk-cta-height: 48px;          /* ≥ 44px touch target; 24px is the WCAG 2.5.8 floor */
   --mk-cta-pad-inline: 24px;
-  --mk-cta-radius: var(--radius-md, 8px);
+  --mk-cta-radius: var(--radius-md);
   --mk-cta-font: 600 var(--mk-step-0) / 1 var(--mk-font-body);
 
   /* ── Media (mksect-hero.md, mksect-features-and-bento.md) ───────────────── */
-  --mk-media-radius: var(--radius-xl, 16px);
-  --mk-media-border: 1px solid var(--border, oklch(0.88 0.008 250));
-  --mk-card-radius: var(--radius-lg, 12px);
+  --mk-media-radius: var(--radius-xl);
+  --mk-media-border: 1px solid var(--border);
+  --mk-card-radius: var(--radius-lg);
   --mk-card-pad: clamp(20px, 1rem + 1.5vw, 32px);
 
   /* ── Motion (mkstyle-scroll-motion.md) ────────────────────────────────────
      One orchestrated hero moment, then quiet. Reveals move little and finish fast. */
   --mk-reveal-distance: 16px;
-  --mk-reveal-duration: var(--motion-dur-long, 400ms);
-  --mk-reveal-ease: var(--motion-ease-enter, cubic-bezier(0, 0, 0.38, 0.9));
-  --mk-hover-duration: var(--motion-dur-short, 150ms);
+  --mk-reveal-duration: var(--motion-dur-long);
+  --mk-reveal-ease: var(--motion-ease-enter);
+  --mk-hover-duration: var(--motion-dur-short);
 }
 
 /* ── Inverse band (mkstyle-dark-sections.md) ──────────────────────────────────
@@ -92,8 +113,8 @@
   --border: oklch(0.35 0.012 250);
   --border-strong: oklch(0.56 0.014 250);
   --text: oklch(0.95 0.006 250);
-  --text-muted: oklch(0.77 0.014 250);
-  --accent: oklch(0.72 0.13 265);
+  --text-muted: oklch(0.785 0.014 250);
+  --accent: oklch(0.785 0.10 265);
   --on-accent: oklch(0.18 0.006 250);
   --brand-accent: var(--accent);
   --brand-on-accent: var(--on-accent);
@@ -123,7 +144,7 @@
 }
 .mk-lead {
   font: 400 var(--mk-step-1) / 1.45 var(--mk-font-body);
-  color: var(--text-muted, oklch(0.50 0.016 250));
+  color: var(--text-muted);
   max-inline-size: var(--mk-measure-lead);
   text-wrap: pretty;
 }
@@ -151,13 +172,13 @@
   .mk-cta:hover { background: color-mix(in oklab, var(--brand-accent) 88%, var(--brand-ink)); }
 }
 .mk-cta:focus-visible {
-  outline: 2px solid var(--focus-ring, var(--brand-accent));
+  outline: 2px solid var(--focus-ring);
   outline-offset: 3px;
 }
 .mk-cta[data-variant="secondary"] {
   background: transparent;
-  color: var(--text, oklch(0.22 0.02 250));
-  box-shadow: inset 0 0 0 1px var(--border-strong, oklch(0.60 0.012 250));
+  color: var(--text);
+  box-shadow: inset 0 0 0 1px var(--border-strong);
 }
 
 /* Reveal: progressive enhancement, never hides content when unsupported or reduced. */

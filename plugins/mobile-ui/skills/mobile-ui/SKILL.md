@@ -9,7 +9,7 @@ A research-backed playbook for mobile web and responsive apps: 19 pattern files,
 
 - **Pattern index:** `references/INDEX.md` lists every pattern with its one-line rule.
 - **Pattern files:** `references/patterns/<prefix>-<name>.md`. The prefixes are `mofound` (foundations), `monav` (navigation, sheets, gestures), `moinput` (forms and haptics), `moplat` (PWA, performance, native conventions) and `moref` (review rubric and anti-patterns).
-- **Starter tokens:** `assets/mobile.css`. Its colour roles have the same names and values as dashboard-ui's `tokens.css`, so the two files work together.
+- **Starter tokens:** `assets/mobile.css`. It works on its own in light and dark: the dashboard-ui role tokens it reads are declared at zero specificity, so dashboard-ui's `tokens.css` or the project's own tokens on the same role names override them in any load order. Mobile-only type tokens are `--mo-type-*`.
 - **Responsive reflow** (window classes, container queries, grid columns) lives in dashboard-ui's `found-responsive-reflow.md`. This skill builds on it and does not repeat it.
 
 ## Workflow

@@ -52,7 +52,7 @@ Generated with the sketch below (ζ = 1 − bounce, ω = 2π / duration), 99.9% 
 | `--motion-spring-slow` / `-dur` | duration 0.45 s, bounce 0 → CSS 670 ms | full-screen surfaces |
 | `--motion-spring-snappy` / `-dur` | duration 0.3 s, bounce 0.15 → CSS 420 ms | snap after tap, card lift |
 | `--motion-spring-playful` / `-dur` | duration 0.4 s, bounce 0.3 → CSS 660 ms | rare delight only |
-| `--motion-ease-spring` | dashboard-ui's critically damped approximation | kept for compatibility |
+| `--motion-ease-spring` | dashboard-ui's critically damped curve (same value as its tokens.css) | drag release, sheet snap |
 
 The full `linear()` strings live in `assets/motion-tokens.css`.
 
