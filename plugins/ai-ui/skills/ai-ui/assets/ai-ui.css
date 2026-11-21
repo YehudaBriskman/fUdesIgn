@@ -1,0 +1,236 @@
+/*
+ * AI-UI layer: chat thread, composer, streaming, citations, ghost text and diffs, approvals.
+ * Load after dashboard-ui's tokens.css (or any file that defines the same role names:
+ * --canvas, --surface, --surface-2, --sunken, --text, --text-muted, --border, --border-strong,
+ * --accent, --on-accent, --focus-ring, --warning-*, --danger-*, --success-*, --space-*,
+ * --radius-*, --type-*, --font-mono, --motion-*). The fallbacks after each var() keep this file
+ * usable on its own in light mode. Every value traces to a pattern in ../references/patterns
+ * (named beside each group). Components use these --ai-* tokens, never raw values.
+ */
+
+:root {
+  /* Thread and turns (aichat-layout-and-message-anatomy.md) */
+  --ai-thread-measure: 46rem;                         /* reading column and composer width */
+  --ai-turn-gap: var(--space-6, 32px);                /* between turns */
+  --ai-part-gap: var(--space-3, 12px);                /* between parts of one turn */
+  --ai-bubble-max: 80%;                               /* user bubble width cap */
+  --ai-bubble-bg: var(--surface-2, oklch(0.97 0.004 250));
+  --ai-bubble-radius: var(--radius-lg, 12px);
+  --ai-panel-inline: 400px;                           /* side-panel copilot, 360–480 */
+  --ai-sidebar-inline: 280px;                         /* history sidebar, 260–300 */
+  --ai-text: var(--text, oklch(0.22 0.02 250));      /* generated text = authored text (aifound-accessible-generated-content.md) */
+
+  /* Labels and identity (aifound-expectations-and-identity.md) */
+  --ai-label-font: var(--type-meta, 400 0.75rem/1.35 system-ui, sans-serif);
+  --ai-label-fg: var(--text-muted, oklch(0.50 0.016 250));   /* ≥ 4.5:1, never lighter */
+
+  /* Action row (aichat-feedback-and-reporting.md, aichat-streaming-text.md) */
+  --ai-actions-block: 32px;                           /* reserved before the stream ends: no shift */
+  --ai-action-size: 32px;                             /* 44px on coarse pointers, below */
+  --ai-action-fg: var(--text-muted, oklch(0.50 0.016 250));
+
+  /* Composer (aichat-prompt-input.md) */
+  --ai-composer-min-block: 44px;
+  --ai-composer-max-block: 40dvh;
+  --ai-composer-radius: var(--radius-xl, 16px);
+  --ai-chip-name-max: 24ch;
+  --ai-chip-thumb: 40px;
+
+  /* Streaming and waiting (aichat-streaming-text.md, aichat-thinking-and-step-progress.md,
+     aifound-latency-and-perceived-performance.md). Durations are read by JS. */
+  --ai-busy-delay: 400ms;                             /* busy state on a control */
+  --ai-thinking-delay: 1000ms;                        /* status line in the chat slot */
+  --ai-stream-lag-max: 300ms;                         /* max reveal lag behind arrival */
+  --ai-slot-min: 50dvh;                               /* JS sets: viewport minus the pinned user turn */
+  --ai-caret-w: 1px;
+  --ai-indicator-size: 16px;
+  --ai-step-dur: var(--motion-dur-short, 150ms);
+
+  /* Markdown, code, tables (aichat-markdown-code-tables.md) */
+  --ai-code-bg: var(--sunken, oklch(0.955 0.005 250));
+  --ai-code-font: 400 0.8125rem/1.55 var(--font-mono, ui-monospace, monospace);
+  --ai-code-max-block: 24lh;                          /* collapsed height for blocks over 30 lines */
+  --ai-inline-code-bg: var(--surface-2, oklch(0.97 0.004 250));
+
+  /* Citations and suggestions (aichat-citations-and-sources.md, aichat-empty-state-and-suggestions.md) */
+  --ai-cite-bg: color-mix(in oklab, var(--accent, oklch(0.50 0.17 265)) 12%, var(--surface, white));
+  --ai-cite-fg: var(--accent, oklch(0.50 0.17 265));
+  --ai-cite-target: 24px;
+  --ai-chip-radius: var(--radius-full, 9999px);
+  --ai-chip-pad: var(--space-1, 4px) var(--space-3, 12px);
+  --ai-starter-cols: repeat(auto-fit, minmax(14rem, 1fr));
+  --ai-pager-gap: var(--space-1, 4px);
+
+  /* Warnings and errors (aifound-uncertainty-and-disclaimers.md, aichat-errors-refusals-limits.md) */
+  --ai-warn-bg: var(--warning-bg, oklch(0.96 0.05 85));
+  --ai-warn-fg: var(--warning-fg, oklch(0.45 0.11 70));
+  --ai-error-bg: var(--danger-bg, oklch(0.96 0.03 25));
+  --ai-error-fg: var(--danger-fg, oklch(0.50 0.19 25));
+
+  /* Inline AI (aiinline-ghost-text-and-diffs.md) */
+  --ai-ghost-fg: var(--text-muted, oklch(0.50 0.016 250));   /* ≥ 4.5:1, plus italic */
+  --ai-diff-ins-bg: var(--success-bg, oklch(0.96 0.04 150));
+  --ai-diff-del-bg: var(--danger-bg, oklch(0.96 0.03 25));
+  --ai-inserted-bg: color-mix(in oklab, var(--accent, oklch(0.50 0.17 265)) 8%, transparent);
+
+  /* Agents and privacy (aiagent-approval-and-audit.md, aiagent-webmcp-agent-readable-ui.md,
+     aifound-privacy-consent-data-use.md) */
+  --ai-approval-border: 2px solid var(--warning-fg, oklch(0.45 0.11 70));
+  --ai-agent-outline: 2px dashed var(--accent, oklch(0.50 0.17 265));
+  --ai-agent-submit-outline: 2px solid var(--warning-fg, oklch(0.45 0.11 70));
+  --ai-private-border: 2px solid var(--text, oklch(0.22 0.02 250));
+}
+@media (pointer: coarse) {
+  :root { --ai-action-size: 44px; }
+}
+
+/* ── Thread (aichat-layout-and-message-anatomy.md) ─────────────────────────── */
+.ai-thread {
+  display: grid;
+  gap: var(--ai-turn-gap);
+  inline-size: min(100%, var(--ai-thread-measure));
+  margin-inline: auto;
+  overflow-anchor: auto;                              /* keep the reading position when content above grows */
+}
+.ai-msg { display: grid; gap: var(--ai-part-gap); color: var(--ai-text); }
+.ai-msg[data-author="user"] {
+  justify-self: end;
+  max-inline-size: var(--ai-bubble-max);
+  padding: var(--space-3, 12px) var(--space-4, 16px);
+  background: var(--ai-bubble-bg);
+  border-radius: var(--ai-bubble-radius);
+}
+.ai-msg[data-author="assistant"][data-pending] { min-block-size: var(--ai-slot-min); }
+.ai-author { font: var(--ai-label-font); color: var(--ai-label-fg); }
+.ai-actions {
+  display: flex;
+  gap: var(--space-1, 4px);
+  min-block-size: var(--ai-actions-block);
+}
+.ai-actions:empty { visibility: hidden; }              /* reserves the row while streaming */
+.ai-actions button {
+  min-inline-size: var(--ai-action-size);
+  min-block-size: var(--ai-action-size);
+  color: var(--ai-action-fg);
+}
+.ai-actions button[aria-pressed="true"] { color: var(--accent, oklch(0.50 0.17 265)); }
+
+/* ── Streaming (aichat-streaming-text.md) ──────────────────────────────────── */
+.ai-msg[aria-busy="true"] .ai-body > :last-child::after {
+  content: "";
+  display: inline-block;
+  inline-size: var(--ai-caret-w);
+  block-size: 1em;
+  margin-inline-start: 2px;
+  vertical-align: text-bottom;
+  background: currentColor;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .ai-msg[aria-busy="true"] .ai-body > :last-child::after { animation: ai-blink 1s steps(2) infinite; }
+}
+@keyframes ai-blink { 50% { opacity: 0; } }
+.ai-status { font: var(--ai-label-font); color: var(--ai-label-fg); }
+.ai-jump-latest { position: sticky; inset-block-end: var(--space-4, 16px); justify-self: center; }
+
+/* ── Composer (aichat-prompt-input.md) ─────────────────────────────────────── */
+.ai-composer {
+  inline-size: min(100%, var(--ai-thread-measure));
+  margin-inline: auto;
+  border: 1px solid var(--border-strong, oklch(0.60 0.012 250));
+  border-radius: var(--ai-composer-radius);
+  background: var(--surface, white);
+  padding-block-end: env(safe-area-inset-bottom, 0px);
+}
+.ai-composer textarea {
+  inline-size: 100%;
+  min-block-size: var(--ai-composer-min-block);
+  max-block-size: var(--ai-composer-max-block);
+  resize: none;
+  font-size: max(1rem, 1em);                          /* iOS zooms inputs under 16px */
+}
+@supports (field-sizing: content) {
+  .ai-composer textarea { field-sizing: content; block-size: auto; }
+}
+.ai-attachment-name {
+  max-inline-size: var(--ai-chip-name-max);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ── Markdown output (aichat-markdown-code-tables.md) ──────────────────────── */
+.ai-body pre {
+  overflow-x: auto;
+  padding: var(--space-3, 12px) var(--space-4, 16px);
+  background: var(--ai-code-bg);
+  border-radius: var(--radius-md, 8px);
+  font: var(--ai-code-font);
+  tab-size: 2;
+}
+.ai-body pre[data-collapsed] { max-block-size: var(--ai-code-max-block); overflow-y: hidden; }
+.ai-body :not(pre) > code { background: var(--ai-inline-code-bg); padding-inline: 0.25em; border-radius: var(--radius-xs, 4px); }
+.ai-scroll { overflow-x: auto; }
+.ai-body table { border-collapse: collapse; font-variant-numeric: tabular-nums lining-nums; }
+.ai-body th, .ai-body td { padding: var(--space-1, 4px) var(--space-3, 12px); border-block-end: 1px solid var(--border, oklch(0.88 0.008 250)); text-align: start; }
+.ai-body td[data-num], .ai-body th[data-num] { text-align: end; }
+
+/* ── Citations and suggestions (aichat-citations-and-sources.md, aichat-empty-state-and-suggestions.md) ── */
+.ai-cite {
+  display: inline-grid;
+  place-items: center;
+  min-inline-size: var(--ai-cite-target);
+  min-block-size: var(--ai-cite-target);
+  padding-inline: var(--space-1, 4px);
+  border-radius: var(--radius-xs, 4px);
+  background: var(--ai-cite-bg);
+  color: var(--ai-cite-fg);
+  font: var(--ai-label-font);
+  font-variant-numeric: tabular-nums;
+  text-decoration: none;
+  vertical-align: baseline;
+}
+.ai-chip {
+  padding: var(--ai-chip-pad);
+  border: 1px solid var(--border-strong, oklch(0.60 0.012 250));
+  border-radius: var(--ai-chip-radius);
+}
+.ai-starters { display: grid; grid-template-columns: var(--ai-starter-cols); gap: var(--space-3, 12px); }
+.ai-pager { display: inline-flex; align-items: center; gap: var(--ai-pager-gap); font-variant-numeric: tabular-nums; }
+
+/* ── Warnings and errors ───────────────────────────────────────────────────── */
+.ai-warn { background: var(--ai-warn-bg); color: var(--ai-text); border-inline-start: 3px solid var(--ai-warn-fg); padding: var(--space-2, 8px) var(--space-3, 12px); }
+.ai-error { background: var(--ai-error-bg); color: var(--ai-text); border-inline-start: 3px solid var(--ai-error-fg); padding: var(--space-2, 8px) var(--space-3, 12px); }
+.ai-meta { font: var(--ai-label-font); color: var(--ai-label-fg); }
+
+/* ── Identity badge (aifound-expectations-and-identity.md): decorative glyph, the word is the label ── */
+.ai-badge::before { content: "✦ "; content: "✦ " / ""; }
+
+/* ── Inline AI (aiinline-ghost-text-and-diffs.md) ──────────────────────────── */
+.ai-ghost { color: var(--ai-ghost-fg); font-style: italic; pointer-events: none; }
+ins.ai-diff { background: var(--ai-diff-ins-bg); text-decoration: underline; }
+del.ai-diff { background: var(--ai-diff-del-bg); text-decoration: line-through; }
+.ai-inserted { background: var(--ai-inserted-bg); box-shadow: inset 2px 0 0 var(--accent, oklch(0.50 0.17 265)); }
+
+/* ── Agents and privacy ────────────────────────────────────────────────────── */
+.ai-approval { border: var(--ai-approval-border); border-radius: var(--radius-lg, 12px); padding: var(--space-4, 16px); }
+form:tool-form-active { outline: var(--ai-agent-outline); outline-offset: 4px; }
+button:tool-submit-active { outline: var(--ai-agent-submit-outline); outline-offset: 2px; }
+.ai-private { outline: var(--ai-private-border); outline-offset: -2px; }
+
+/* ── Shared helpers ────────────────────────────────────────────────────────── */
+.visually-hidden {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+:where(.ai-thread, .ai-composer, .ai-approval) :focus-visible {
+  outline: 2px solid var(--focus-ring, oklch(0.50 0.17 265));
+  outline-offset: 2px;
+}
+@media (forced-colors: active) {
+  ins.ai-diff, del.ai-diff, .ai-cite { background: none; }
+  .ai-ghost { color: GrayText; }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "ai-ui",
+  "description": "Design, build and review the UI of AI features with researched patterns: chat and message anatomy, streaming and stop, thinking and agent-step progress, citations, uncertainty, edit and branching, prompt input, inline AI and diffs, agent approvals and audit, errors and refusals, feedback, privacy, accessibility of generated content and WebMCP.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Yehuda Briskman"
+  },
+  "keywords": [
+    "ai",
+    "chat",
+    "llm",
+    "agents",
+    "ui",
+    "design",
+    "accessibility",
+    "streaming",
+    "webmcp"
+  ],
+  "license": "PolyForm-Internal-Use-1.0.0"
+}

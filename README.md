@@ -53,6 +53,13 @@ plugins/
       scripts/theme.mjs                  verified OKLCH theme generator: CSS, Tailwind v4, shadcn, DTCG, DESIGN.md front matter
       scripts/theme.test.mjs             node --test suite (APCA reference values, gamut, outputs, CLI)
       assets/DESIGN.template.md          the decision record written into your project
+  ai-ui/
+    .claude-plugin/plugin.json
+    skills/ai-ui/
+      SKILL.md                           workflow, 22 non-negotiables, decision tables, token defaults
+      references/INDEX.md                all 20 patterns, each with its one-line rule
+      references/patterns/*.md           aifound-, aichat-, aiinline-, aiagent-, airef- (see below)
+      assets/ai-ui.css                   thread, composer, streaming, citation, diff and approval tokens on the dashboard-ui roles
 templates/PATTERN_TEMPLATE.md            the format every pattern file follows
 docs/research-brief.md                   how the research was run
 ```
@@ -127,6 +134,18 @@ General product-UI motion and gesture. Motion for data views (number tweening, c
 
 `scripts/theme.mjs` turns base hue, accent, contrast and density into light, dark and high-contrast OKLCH roles under the dashboard-ui role names. It checks every pair against WCAG 2 and APCA on the sRGB-gamut values it ships, adjusts lightness automatically, and exits 1 naming the pairs when it can't comply.
 
+### ai-ui: 20 patterns in 5 clusters
+
+UI for AI features: chat, assistants, generation, inline AI and agents. Sources include Microsoft HAX, Google PAIR, Apple HIG, NN/g, WAI-ARIA and modern-web-guidance; product names appear only as good or bad references.
+
+| Prefix | Cluster | Files |
+|---|---|---|
+| `aifound-` | Foundations: AI identity and expectations, uncertainty and disclaimers without crying wolf, latency budgets, privacy and consent, accessibility of generated content | 5 |
+| `aichat-` | Chat: layout and message anatomy, streaming and stop, thinking and agent-step progress, markdown/code/tables, citations, edit/regenerate/branching, IME-safe prompt input, empty states and suggestions, errors/refusals/rate limits, feedback | 10 |
+| `aiinline-` | Inline AI: ghost text, accept/reject and diffs in documents, forms and dashboards | 1 |
+| `aiagent-` | Agents: approval tiers, human in the loop, undo and audit log; WebMCP and agent-readable UI | 2 |
+| `airef-` | References: 12 anti-patterns tied to documented incidents, a 39-check review rubric | 2 |
+
 Each pattern file has these sections: the rule, when to use and when not, rules with numbers, anti-patterns, good references, bad references, accessibility, motion, a tokens table, an implementation sketch, a checklist and sources.
 
 ## Research
@@ -148,9 +167,10 @@ Some claims rest on search summaries because the source page wouldn't load, and 
 /plugin install motion-ui@fudesign
 /plugin install forms-ui@fudesign
 /plugin install design-system@fudesign
+/plugin install ai-ui@fudesign
 ```
 
-Each skill then triggers on its own design, build and review tasks (dashboards, landing and marketing pages, mobile web and PWAs, product-UI motion and gestures, forms, or setting up and keeping a design system). You can also copy a skill folder, such as `plugins/marketing-ui/skills/marketing-ui/`, into `~/.claude/skills/`.
+Each skill then triggers on its own design, build and review tasks (dashboards, landing and marketing pages, mobile web and PWAs, product-UI motion and gestures, forms, setting up and keeping a design system, or AI features such as chat, copilots and agents). You can also copy a skill folder, such as `plugins/marketing-ui/skills/marketing-ui/`, into `~/.claude/skills/`.
 
 ## Adding a pattern or plugin
 
