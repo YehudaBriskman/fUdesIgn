@@ -1,0 +1,19 @@
+{
+  "name": "marketing-ui",
+  "description": "Design, build and review landing pages, marketing sites and product pages with researched patterns, rules and tokens.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Yehuda Briskman"
+  },
+  "keywords": [
+    "landing-page",
+    "marketing",
+    "conversion",
+    "typography",
+    "web-performance",
+    "accessibility",
+    "seo",
+    "design-tokens"
+  ],
+  "license": "PolyForm-Internal-Use-1.0.0"
+}
