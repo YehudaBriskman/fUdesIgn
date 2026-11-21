@@ -5,7 +5,7 @@
 **Category:** Charts and data visualisation · **Applies to:** every interactive chart, linked dashboards, small multiples, mobile charts · **Priority:** must
 
 ## When to use / when not
-- Direct labels: default for ≤5 series, for bars (value at the end), for pies/donuts (2 to 5 slices) and for line ends. Carbon: "Avoid legends when possible and label data directly instead, since legends rely on visual association." Datawrapper: removing the key reduces eye travel.
+- Direct labels: default for ≤5 series, for bars (value at the end), for pies/donuts (2 to 5 slices) and for line ends. Carbon: "When possible, avoid using a legend and label data representations directly"; "legends rely on visual association". Datawrapper: "remove the color key and directly label your categories" to cut eye travel.
 - Legend: when series are many, labels would collide, or space is tiny (mobile). Skip it entirely for a single-series chart (Carbon).
 - Tooltip: details-on-demand for exact values, secondary metrics, dates. Not a home for anything the user needs to understand the chart (NN/g: "Users shouldn't need to find a tooltip in order to complete their task"; Fossheim: don't hide important data behind hovers).
 - Crosshair: dense time series (>30 points) and multi-panel views that share an x-axis (price + volume, p50/p99 + error rate). Not on bar charts with few bars; highlight the band instead.
@@ -14,11 +14,11 @@
 **Direct labels**
 - Line end labels in the series colour, right of the last point, collision-avoided (nudge vertically, min 14 px apart; if still colliding, fall back to legend).
 - Label the latest value too ("EMEA 2.6M") so the most-asked number needs no hover.
-- Max two text styles: small muted and larger strong (Datawrapper).
+- Max two text styles: small muted and larger strong (Datawrapper's example: "a 12px gray and a 14px black").
 - On mobile, Datawrapper moves the colour key to the top; do the same when end labels would take more than ~25% of width.
 
 **Legends**
-- Position: top-left under the title on dashboards where space is scarce, bottom by default (Carbon). Keep the same position in every chart on a dashboard (Carbon dashboards).
+- Position: bottom by default; Carbon allows "bottom or top of a chart in situations where space is scarce, such as a dashboard". Keep the same position in every chart on a dashboard (Carbon dashboards).
 - Order legend items in the same order as the data (top-to-bottom of the stack or of line end values), not alphabetically.
 - Legend ≤ 2 lines by default; "View more" up to 30% of chart height, then scroll (Carbon).
 - Interactive legend: hover dims other series to 30% opacity; click isolates; provide "Show all" reset (Carbon). Legend items are real `<button aria-pressed>` elements.
@@ -29,8 +29,8 @@
 - Content order: x value (date) as header, then series rows sorted by value or in legend order, each with swatch, name, value with unit, optionally change vs previous. Grafana tooltip modes: single (series under cursor), all (every series, hovered in bold, sortable), hidden. Default to "all" for ≤8 series, "single" beyond.
 - Hide zero/empty rows when there are many series (Grafana "Hide zeros").
 - Format numbers fully in the tooltip (more precision than the axis): axis "1.2M", tooltip "1,214,503".
-- Position: offset 8 to 12 px from the pointer, flip to stay in the viewport, never cover the hovered point. For HTML tooltips, CSS anchor positioning with `position-try-fallbacks: flip-block, flip-inline` (modern-web-guidance ui-atoms/position-aware-tooltips.md).
-- WCAG 1.4.13: dismissible with Escape without moving the pointer, hoverable (pointer can move onto it), persistent until dismissed or focus/hover leaves (modern-web-guidance ui-behaviors/interest-triggered-tooltips.md).
+- Position: offset 8 to 12 px from the pointer, flip to stay in the viewport, never cover the hovered point. For HTML tooltips, CSS anchor positioning with `position-try-fallbacks: flip-block, flip-inline` (MDN anchor positioning). `position-try-fallbacks` is Baseline newly available since January 2026, so older browsers still need a fallback: wrap it in `@supports (position-anchor: --a)` and position with JS (pointer coordinates clamped to the viewport) otherwise.
+- WCAG 1.4.13: dismissible with Escape without moving the pointer, hoverable (pointer can move onto it), persistent until dismissed or focus/hover leaves.
 - Max width ~280 px; no scrolling inside tooltips; no interactive content inside hover tooltips. If you need links ("open filing"), make it a click-opened popover (toggletip pattern).
 - Hover proximity: snap to the nearest point within ~20 to 30 px (Grafana exposes "hover proximity" in px); outside it, hide.
 
@@ -65,13 +65,13 @@
 ## Accessibility
 - Tooltip content must be reachable without a pointer: each focusable data point's accessible name equals the tooltip text ("12 Mar 2025, Revenue $1,214,503, up 3.1%").
 - Do not put the tooltip in an `aria-live` region on hover; it floods screen readers. Announce only on keyboard moves. Screen readers do not reliably re-read a changed `aria-label` on an element that already has focus, so in the single-focus-target pattern below, also write the same text into a visually hidden `aria-live="polite"` region, updated only from the key handler. The alternative is one focusable element per data point (roving tabindex), which Highcharts and Recharts' `accessibilityLayer` take.
-- Legend buttons: `aria-pressed`, visible focus ring with 3:1 contrast (modern-web-guidance accessibility/accessibility.md), hit area ≥24 × 24 px (WCAG 2.5.8).
-- Focus must not be obscured by the tooltip (WCAG 2.4.11; modern-web-guidance position-aware-tooltips.md).
+- Legend buttons: `aria-pressed`, visible focus ring with 3:1 contrast (WCAG 1.4.11), hit area ≥24 × 24 px (WCAG 2.5.8).
+- Focus must not be obscured by the tooltip (WCAG 2.4.11).
 - Respect `prefers-reduced-motion`: tooltips appear instantly, no slide.
 
 ## Motion / interaction (if relevant)
-- Tooltip move: follow pointer with no easing (or ≤80 ms) to avoid lag; opacity fade-in ≤100 ms.
-- Legend isolate: series fade 150 ms; axis rescale ≤200 ms or none.
+- Tooltip move: follow pointer with no easing (or ≤100 ms, `--motion-dur-micro`) to avoid lag; opacity fade-in ≤100 ms (`--motion-dur-micro`).
+- Legend isolate: series fade 150 ms (`--motion-dur-short`); axis rescale ≤240 ms (`--motion-dur-medium`) or none.
 - Touch: tap shows tooltip and crosshair; drag scrubs; tap outside dismisses. Long press for scrubbing if the chart sits in a scroll view (Robinhood pattern), so vertical scroll still works.
 
 ## Tokens and values
@@ -103,10 +103,11 @@ interface CrosshairChartProps {
   height: number;
   formatValue: (n: number) => string;
   onIndexChange?: (index: number | null) => void; // for shared crosshair across charts
+  onAnnounce?: (text: string) => void;            // writes into a visually hidden aria-live="polite" region
   sharedIndex?: number | null;
 }
 
-export function CrosshairLayer({ points, width, height, formatValue, onIndexChange, sharedIndex }: CrosshairChartProps) {
+export function CrosshairLayer({ points, width, height, formatValue, onIndexChange, onAnnounce, sharedIndex }: CrosshairChartProps) {
   const [local, setLocal] = useState<number | null>(null);
   const idx = sharedIndex ?? local;
   const tipId = useId();
@@ -127,7 +128,13 @@ export function CrosshairLayer({ points, width, height, formatValue, onIndexChan
     const step = Math.max(1, Math.round(points.length / 10));
     const next: Record<string, number> = { ArrowLeft: cur - 1, ArrowRight: cur + 1, Home: 0, End: last, PageUp: cur - step, PageDown: cur + step };
     if (e.key === "Escape") { set(null); return; }
-    if (e.key in next) { e.preventDefault(); set(Math.min(last, Math.max(0, next[e.key]))); }
+    if (e.key in next) {
+      e.preventDefault();
+      const i = Math.min(last, Math.max(0, next[e.key]));
+      set(i);
+      const q = points[i]; // announce only from keyboard moves, never on hover
+      onAnnounce?.(`${q.date}: ${q.values.map((v) => `${v.series} ${formatValue(v.value)}`).join(", ")}`);
+    }
   };
 
   const p = idx === null ? null : points[idx];
@@ -149,7 +156,7 @@ export function CrosshairLayer({ points, width, height, formatValue, onIndexChan
 .hit:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
 .chart-tooltip { position: fixed; max-inline-size: 280px; padding: 8px 10px; border-radius: 6px;
   font: 12px/1.4 var(--font-ui); font-variant-numeric: tabular-nums; pointer-events: auto; }
-@media (prefers-reduced-motion: no-preference) { .chart-tooltip { transition: opacity .1s; } }
+@media (prefers-reduced-motion: no-preference) { .chart-tooltip { transition: opacity var(--motion-dur-micro, 100ms); } }
 ```
 The visible tooltip (HTML, positioned next to `p.x`) repeats `label`; it is `aria-hidden` because the focused element's name already carries the same text.
 
@@ -174,6 +181,6 @@ The visible tooltip (HTML, positioned next to `p.x`) repeats `label`; it is `ari
 - https://fossheim.io/writing/posts/accessible-dataviz-design/
 - https://www.w3.org/WAI/ARIA/apg/patterns/grid/
 - https://robinhood.com/us/en/support/articles/using-advanced-charts
-- modern-web-guidance: skills/modern-web-guidance/guides/ui-atoms/position-aware-tooltips.md
-- modern-web-guidance: skills/modern-web-guidance/guides/ui-behaviors/interest-triggered-tooltips.md
-- modern-web-guidance: skills/modern-web-guidance/guides/accessibility/accessibility.md
+- https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Anchor_positioning
+- https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/position-try-fallbacks
+- https://www.w3.org/WAI/WCAG22/Understanding/content-on-hover-or-focus.html

@@ -11,7 +11,7 @@
 
 ## Rules (do)
 **Axes and baselines**
-- Line y-axis may start above zero (Datawrapper, FlowingData, Storytelling with Data, Carbon axes). Keep a zero baseline when values come close to zero so readers can judge distance from it; extend to 100% for shares near 100% (Datawrapper line charts).
+- Line y-axis may start above zero (Datawrapper: lines "don't need to start from zero"; Carbon axes). Cropping still exaggerates perceived change on lines (Correll et al., CHI 2020), so apply Gelman's rule: "if zero is in the neighborhood, invite it in" (Kosara, Observable 2024). Extend to 100% for shares near 100% (Datawrapper line charts).
 - Area y-axis starts at zero, always. Datawrapper: area charts need a zero baseline, so small differences are hard to see; if differences are small, use a line instead.
 - Prefer "soft" auto-ranges: let the axis expand to include the data, never clip spikes. Grafana distinguishes soft min/max (preferred limits that keep small wiggles from being magnified) from hard min/max (which clip values and can hide spikes). Use soft limits; never hard-clip.
 - When cropping, pick a range where the data fills roughly 60 to 80% of plot height. Cropping that turns a 0.3% move into a cliff is the line-chart version of the truncated bar (see chart-honesty-chartjunk.md).
@@ -29,7 +29,7 @@
 - Stroke 1.5 to 2 px for the primary series; 1 px for context series in a grey token. Highlight with colour, width and dashes; push comparison series to grey (Datawrapper).
 - Label lines directly at the right end, in the line's colour, instead of a legend when there are 5 or fewer lines (see chart-tooltips-crosshair-labels.md).
 - No point markers when dates are evenly spaced and dense; use markers when you have few points or irregular sampling (Datawrapper; NN/g CSAT example adds markers to show when data was collected).
-- Avoid aggressive smoothing. Datawrapper recommends monotone "Curved" interpolation, not "natural"/"cardinal" splines, which overshoot and invent peaks. In code: `curveMonotoneX`, never `curveCardinal`/`curveBasis` for data.
+- Avoid aggressive smoothing. Datawrapper recommends its "Curved" option over "Curved (natural)" and "Curved (cardinal)", calling it "a still smooth but more honest line"; natural and cardinal splines overshoot and invent peaks. In d3, `curveMonotoneX` has the same no-overshoot property; never `curveCardinal`/`curveBasis` for data.
 - Aspect ratio: wider than tall. Tufte: graphics "moderately greater in length than in height"; aim for average slopes near 45° (Cleveland banking). Typical dashboard panel: 2:1 to 3:1.
 
 **Annotations**
@@ -57,7 +57,7 @@
 - [Datawrapper: area charts](https://www.datawrapper.de/blog/area-charts) — when area beats line and the ten-date threshold.
 - [IBM Carbon axes and labels](https://carbondesignsystem.com/data-visualization/axes-and-labels/) — never interpolate missing periods, label gap start/end, landmark labels, axis break spec (16 px break, 0.5 px stroke inside).
 - [Grafana time series panel](https://grafana.com/docs/grafana/latest/panels-visualizations/visualizations/time-series/) — explicit null-handling modes (Never / Always / Threshold) and soft vs hard min/max; a good model for settings to expose.
-- [Datawrapper: why bars start at zero](https://www.datawrapper.de/academy/why-our-column-and-bar-charts-start-at-zero) — "line charts can but don't need to start at zero".
+- [Datawrapper: why bars start at zero](https://www.datawrapper.de/academy/why-our-column-and-bar-charts-start-at-zero) — bars must start at zero; dot plots and lines need not.
 
 ## Bad references
 - [Reuters "Gun deaths in Florida" (2014)](https://www.livescience.com/45083-misleading-gun-death-chart.html) — inverted y-axis with red fill from the top: deaths rose after 2005 but the chart reads as a fall. Area fill plus inverted axis made the drop-looking shape dominant.
@@ -65,12 +65,12 @@
 - Default library behaviour that connects nulls (for example Recharts `connectNulls`, Tremor `connectNulls`): defaults are `false` in Tremor, which is correct; watch for teams flipping it to make a chart "look complete".
 
 ## Accessibility
-- Lines need 3:1 contrast against the background (WCAG 1.4.11, modern-web-guidance visual-design/color.md); grey context lines are decorative-ish but the highlighted series must pass.
+- Lines need 3:1 contrast against the background (WCAG 1.4.11); grey context lines are decorative-ish but the highlighted series must pass.
 - Do not rely on colour alone to separate lines: add direct labels, dash patterns or end markers with different shapes (Highcharts low-vision features).
 - Provide the summary sentence and a table view (see chart-accessibility.md).
 
 ## Motion / interaction (if relevant)
-- Draw-in animation (line path growing) at most 400 to 600 ms, once, only under `prefers-reduced-motion: no-preference`. On data refresh, do not re-animate from zero; transition values in ≤250 ms or swap instantly.
+- Draw-in animation (line path growing) 400 ms (`--motion-dur-long`), up to 600 ms only for a staged data reveal (the low end of SKILL.md's 600–900 ms staged-data range), once, only under `prefers-reduced-motion: no-preference`. On data refresh, do not re-animate from zero; transition values in ≤240 ms (`--motion-dur-medium`) or swap instantly.
 - Zoom/brush: show the selected range in text ("1 Mar to 14 Apr 2025") and a reset button.
 - Hover crosshair snaps to the nearest x (see chart-tooltips-crosshair-labels.md).
 
@@ -141,11 +141,12 @@
 - https://carbondesignsystem.com/data-visualization/dashboards/
 - https://grafana.com/docs/grafana/latest/panels-visualizations/visualizations/time-series/
 - https://www.storytellingwithdata.com/blog/2012/09/bar-charts-must-have-zero-baseline
-- https://flowingdata.com/2024/03/06/line-chart-baselines (search summary; page 403 to fetcher)
+- https://web.archive.org/web/20260719070816/https://observablehq.com/blog/never-okay-crop-y-axis-except-when-it-is
+- https://doi.org/10.1145/3313831.3376222
 - https://www.nngroup.com/articles/choosing-chart-types/
 - https://www.edwardtufte.com/notebook/sparkline-theory-and-practice-edward-tufte/
 - https://www.livescience.com/45083-misleading-gun-death-chart.html
 - https://www.tremor.so/docs/visualizations/spark-charts
 - https://chartability.fizz.studio/ and https://github.com/Chartability/POUR-CAF
-- modern-web-guidance: skills/modern-web-guidance/guides/visual-design/color.md
-- modern-web-guidance: skills/modern-web-guidance/guides/ui-behaviors/motion.md
+- https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html
+- https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/prefers-reduced-motion

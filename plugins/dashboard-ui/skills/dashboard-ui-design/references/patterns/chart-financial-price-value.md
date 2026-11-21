@@ -12,7 +12,7 @@
 | How do valuation methods compare; where is the defensible range? | Football field (floating horizontal range bars) |
 | How do we get from revenue to free cash flow / from last quarter to this one / from EV to equity value? | Waterfall (bridge) |
 | How sensitive is value to two assumptions? | Sensitivity table with sequential colour (not a 3D surface) |
-- Candles are not for long-term investors: Robinhood's own explainer says candles suit "short-term, near-term analysis" and the line is better for "general price direction".
+- Candles are not for long-term investors: Robinhood's own explainer says "candlesticks are short-term" signals of "a near-term reversal or continuation", while following a line "can give you an indication of the general price direction".
 
 ## Rules (do)
 **Price vs value**
@@ -32,7 +32,7 @@
 - Volume as a separate panel below with its own axis (a separate chart, not a dual axis), height ≈ 20 to 25% of the price panel, sharing the x-axis and crosshair.
 
 **Football field**
-- Horizontal floating bars, one per method: e.g. 52-week trading range, analyst targets, trading comps (EV/EBITDA, P/E), precedent transactions, DCF (perpetuity), DCF (exit multiple), LBO. (Wall Street Prep, CFI, Macabacus.)
+- Horizontal floating bars, one per method: e.g. 52-week trading range, analyst targets, trading comps (EV/EBITDA, P/E), precedent transactions, DCF (perpetuity), DCF (exit multiple), LBO. (Wall Street Prep lists DCF, LBO, comparable companies, precedent transactions and the 52-week high/low; analyst targets are a common addition.)
 - Each bar labelled with low and high values at its ends; method name and key assumption on the left ("DCF · WACC 8–10%, g 2–3%").
 - Vertical reference lines spanning all bars: current price (solid), offer price or our point estimate (dashed). The overlap zone of methods may be shaded lightly as the "consensus range".
 - Order: group market-based (52-week, analyst targets) then intrinsic (comps, precedents, DCF), or sort by midpoint. Pick one and keep it identical across the product.
@@ -40,8 +40,8 @@
 - Use one neutral colour for all bars and a highlight only for the method the narrative depends on. Do not colour by "bullish/bearish".
 
 **Waterfall**
-- Start and end totals anchored on zero; intermediate steps float (SAP Fiori, Datawrapper).
-- Three colours only: increase, decrease, total (neutral). Datawrapper: avoid pure red/green pairs; lime green with dark red or teal with red are safer. Add +/− signs to every label so colour is not required.
+- Start and end totals anchored on zero; intermediate steps float (Datawrapper: totals "sit on the baseline"; when steps are tiny it allows floating or faded totals instead).
+- Three colours only: increase, decrease, total (neutral). Datawrapper: "certain combinations of red and green" look alike to colour-blind readers; use "lime green/dark red or teal/red". Add +/− signs to every label so colour is not required.
 - Label every step; then hide the y-axis and gridlines (Datawrapper).
 - Order: accounting order when the bridge follows a statement (Revenue → COGS → Opex → EBIT → Tax → ...); otherwise group gains and losses and sort each by size (Datawrapper).
 - Subtotals as neutral bars anchored at zero (EBITDA, EBIT) where the reader needs a checkpoint.
@@ -62,9 +62,8 @@
 - [Robinhood: What is a candlestick](https://robinhood.com/us/en/learn/articles/3YzdYQ8bI4XqfnYUNj3dac/what-is-a-candlestick) — plain-language anatomy and line-vs-candle guidance.
 - [Robinhood Legend widgets](https://robinhood.com/us/en/support/articles/widgets-in-robinhood-legend) — documents the line colour rule (first vs last close in frame) and a draggable baseline for area charts; good pattern for "price vs my reference".
 - [Datawrapper: waterfall charts guide](https://www.datawrapper.de/blog/waterfall-charts-guide) — ordering, totals, three colours, colour-blind-safe pairs, connectors.
-- [SAP Fiori: waterfall chart usage](https://www.sap.com/design-system/fiori-design-web/v1-136/ui-elements/waterfall-chart/usage) — enterprise defaults (positive blue, negative orange, totals grey), orientation by time vs category.
-- [CFI: Football field chart](https://corporatefinanceinstitute.com/resources/valuation/football-field-chart/) and [Wall Street Prep football field](https://www.wallstreetprep.com/knowledge/football-field-valuation-real-example-excel-template/) — floating bars per method, target/offer price as reference line.
-- [Macabacus: building a football field](https://macabacus.com/blog/build-football-field-chart-excel) — construction as invisible base + visible spread, which maps directly to `[low, high]` ranges in code.
+- [SAP Fiori: waterfall chart usage](https://www.sap.com/design-system/fiori-design-web/v1-136/ui-elements/waterfall-chart/usage) — enterprise defaults (positive blue, negative orange, totals grey) and orientation by time vs category. Unverified: the page blocks automated fetching, so check it before relying on these colours.
+- [Wall Street Prep football field](https://www.wallstreetprep.com/knowledge/football-field-valuation-real-example-excel-template/) — the standard method list (DCF, LBO, comps, precedents, 52-week range) with a worked example. [CFI's template page](https://corporatefinanceinstitute.com/resources/valuation/football-field-chart/) gives only a one-line definition.
 
 ## Bad references
 - [Chris Goldammer: The curse of same-day changes](https://chrisgoldammer.notion.site/Stock-price-charts-4-22-2021-179a9339afd544eebee8fbd88d8d7dd1) — binary red/green by day change drives emotion and hides magnitude.
@@ -80,7 +79,7 @@
 
 ## Motion / interaction (if relevant)
 - Shared crosshair between price and volume panels; tooltip shows OHLC + volume + value range on that date.
-- Range selector chips (1M, 6M, 1Y, 5Y, Max) with the selected one as `aria-pressed="true"`; changing range re-scales without animation or with ≤200 ms.
+- Range selector chips (1M, 6M, 1Y, 5Y, Max) with the selected one as `aria-pressed="true"`; changing range re-scales without animation or in ≤240 ms (`--motion-dur-medium`).
 - Football field: hovering a bar reveals assumptions; clicking opens the method's detail. Keep the current-price line visible during hover.
 
 ## Tokens and values
@@ -159,10 +158,9 @@ export function toWaterfall(steps: ReadonlyArray<WaterfallStep>): WaterfallBar[]
 - https://www.datawrapper.de/blog/waterfall-charts-guide
 - https://www.sap.com/design-system/fiori-design-web/v1-136/ui-elements/waterfall-chart/usage
 - https://corporatefinanceinstitute.com/resources/valuation/football-field-chart/
-- https://www.wallstreetprep.com/knowledge/football-field-valuation-real-example-excel-template/ (search summary; fetch 403)
-- https://macabacus.com/blog/build-football-field-chart-excel (search summary)
+- https://www.wallstreetprep.com/knowledge/football-field-valuation-real-example-excel-template/
 - https://www.datawrapper.de/blog/dualaxis/
 - https://chrisgoldammer.notion.site/Stock-price-charts-4-22-2021-179a9339afd544eebee8fbd88d8d7dd1
 - https://www.benzinga.com/general/education/21/10/23258001/did-you-know-you-dont-want-to-be-in-the-green-if-youre-trading-in-china-japan-or-taiwan
-- modern-web-guidance: skills/modern-web-guidance/guides/visual-design/color.md
+- https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html
 - See also ref-fintech-money-dashboards.md (product references) and chart-distributions-uncertainty.md (value ranges)

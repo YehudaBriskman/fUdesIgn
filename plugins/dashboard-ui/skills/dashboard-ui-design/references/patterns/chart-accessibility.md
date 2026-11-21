@@ -5,7 +5,7 @@
 **Category:** Charts and data visualisation · **Applies to:** every chart, sparkline, KPI visual and map · **Priority:** must
 
 ## When to use / when not
-- Always. A chart without a text alternative fails WCAG 1.1.1 (Non-text Content, Level A); modern-web-guidance accessibility.md: "Provide semantic data tables as accessible alternatives for charts and other complex visualizations."
+- Always. A chart without a text alternative fails WCAG 1.1.1 (Non-text Content, Level A); W3C WAI requires "a two-part text alternative" for complex images: a short description plus a long one.
 - Decorative micro-visuals that repeat adjacent text (a sparkline next to "+4.1% over 30 days") are `aria-hidden="true"`; that is the only exception.
 
 ## Rules (do)
@@ -14,7 +14,7 @@
 - Short description (alt/aria-label): chart type + subject + period, ≤ ~150 characters. "Line chart of monthly active users, Oct 2024 to Apr 2025."
 - Long description (visible, preferred): 1 to 3 sentences with the key numbers, trend, extremes and any gaps. W3C WAI complex images: a two-part alternative, short + long, where the long one carries "scales, values, relationships, and trends". Prefer visible text: Highcharts advises against visually hidden descriptions because visible text also helps cognitive accessibility.
 - Reading level grade 9 or lower (Chartability).
-- Markup: `<figure>` + `<figcaption>`; the SVG gets `role="img"` and `aria-labelledby` (title) / `aria-describedby` (summary) (modern-web-guidance accessibility.md, Inline SVGs; W3C WAI). For `aria-describedby`, the target is read as one paragraph, so keep headings and tables out of it (W3C WAI).
+- Markup: `<figure>` + `<figcaption>`; the SVG gets `role="img"` and `aria-labelledby` (title) / `aria-describedby` (summary) (W3C WAI complex images). For `aria-describedby`, the target is read as one paragraph, so keep headings and tables out of it (W3C WAI).
 
 **2. Table view (Chartability "No table")**
 - A real `<table>` with `<caption>`, `<th scope>`, units in headers, the same numbers and precision the chart uses (or more).
@@ -24,10 +24,10 @@
 
 **3. Not colour alone (WCAG 1.4.1)**
 - Every colour-coded series also differs by one of: direct label, marker shape, dash pattern, or texture/decal. ECharts `aria.decal.show: true` and Highcharts pattern fills exist for this.
-- Contrast: marks (lines, bars, slices, points) ≥ 3:1 against background (WCAG 1.4.11); adjacent fills that must be told apart ≥ 3:1 to each other or separated by a 1 to 2 px gap in the surface colour; text ≥ 4.5:1 (Chartability; modern-web-guidance visual-design/color.md).
+- Contrast: marks (lines, bars, slices, points) ≥ 3:1 against background (WCAG 1.4.11); adjacent fills that must be told apart ≥ 3:1 to each other or separated by a 1 to 2 px gap in the surface colour; text ≥ 4.5:1 (Chartability; WCAG 1.4.3, 1.4.11).
 - No text smaller than 12 px (Chartability "Small text size": 9 pt / 12 px).
 - Test with a colour-blindness simulator (Coblis, Chrome DevTools vision deficiencies) and greyscale (Fossheim).
-- Forced colours (Windows High Contrast): map series to `CanvasText`, `Highlight`, `LinkText`, `GrayText` and use dashes/markers to separate them; don't rely on `box-shadow` or background images for marks (modern-web-guidance color.md). Highcharts ships built-in high-contrast support; copy the behaviour.
+- Forced colours (Windows High Contrast): map series to `CanvasText`, `Highlight`, `LinkText`, `GrayText` and use dashes/markers to separate them; don't rely on `box-shadow` or background images for marks (MDN `forced-colors`). Highcharts ships built-in high-contrast support; copy the behaviour.
 
 **4. Keyboard and screen reader (interactive charts)**
 - One Tab stop into the chart (Chartability "Controls override AT controls": custom keys only while the chart has focus); arrows move between points; Up/Down switch series; Home/End first/last; Escape leaves. Highcharts: Tab between chart elements, arrows within; series exposed as regions.
@@ -35,11 +35,11 @@
 - Interactive affordances explained in text (Chartability "No interaction cues or instructions"): a one-line hint near the chart or in `aria-describedby`.
 - Every pointer interaction (hover, brush, click-to-filter) has a keyboard and touch equivalent (Chartability "Interaction modality only has one input type").
 - Library switches: Recharts/shadcn `accessibilityLayer`, Highcharts accessibility module, ECharts `aria.show` (+ `AriaComponent` import in v5). Turn them on; they are off or warn by default.
-- Canvas charts: canvas content is not in the accessibility tree. Provide the DOM table/summary, or use HTML-in-canvas (`<canvas content="drawable">`) where supported (modern-web-guidance visual-design/expose-canvas-content-to-browser-features.md).
+- Canvas charts: canvas content is not in the accessibility tree. Provide the DOM table/summary, or, experimentally, HTML-in-canvas (`<canvas content="drawable">` + `drawElementImage()`). That is a WICG explainer, not a standard and not Baseline, so the DOM table and summary stay mandatory.
 
 **5. Motion, zoom, user styles**
-- No flashing; respect `prefers-reduced-motion` (modern-web-guidance ui-behaviors/motion.md). Chart must be understandable without animation (Fossheim).
-- Charts reflow to 320 CSS px and survive 200% text zoom: labels wrap or abbreviate, legends stack, nothing clips. Use `rem` for chart text so OS text scale applies (modern-web-guidance accessibility/respect-os-text-scale.md).
+- No flashing; respect `prefers-reduced-motion` (WCAG 2.3.1; MDN). Chart must be understandable without animation (Fossheim).
+- Charts reflow to 320 CSS px and survive 200% text zoom: labels wrap or abbreviate, legends stack, nothing clips. Use `rem` for chart text so OS text scale applies (WCAG 1.4.4 Resize Text, 1.4.10 Reflow).
 - Don't override user style sheets (Chartability "User style change not respected").
 
 ## Anti-patterns (don't)
@@ -163,8 +163,8 @@ for (const fig of document.querySelectorAll<HTMLElement>("figure.chart")) {
 - https://fossheim.io/writing/posts/accessible-dataviz-design/
 - https://www.w3.org/WAI/ARIA/apg/patterns/grid/
 - https://ourworldindata.org/faqs
-- modern-web-guidance: skills/modern-web-guidance/guides/accessibility/accessibility.md (Inline SVGs; Complex images and charts)
-- modern-web-guidance: skills/modern-web-guidance/guides/visual-design/color.md
-- modern-web-guidance: skills/modern-web-guidance/guides/visual-design/expose-canvas-content-to-browser-features.md
-- modern-web-guidance: skills/modern-web-guidance/guides/ui-behaviors/motion.md
-- modern-web-guidance: skills/modern-web-guidance/guides/accessibility/respect-os-text-scale.md
+- https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/forced-colors
+- https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/prefers-reduced-motion
+- https://github.com/WICG/html-in-canvas
+- https://www.w3.org/WAI/WCAG22/Understanding/reflow.html
+- https://www.w3.org/WAI/WCAG22/Understanding/resize-text.html

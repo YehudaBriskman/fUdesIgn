@@ -10,16 +10,16 @@
 - Not when the exact values over time matter (use a full chart with axes), not for comparing magnitudes across rows (each sparkline is usually scaled to its own range), not for fewer than ~5 points (show the two numbers and the change instead).
 
 ## Rules (do)
-- Pair it with the number. Tufte: a line "lacking a scale" is "dequantified"; label the latest value at the right end, or put the KPI number immediately to its left.
+- Pair it with the number. Tufte: "Lacking a scale of measurement, this free-floating line is dequantified"; label the latest value at the right end, or put the KPI number immediately to its left.
 - State the window once, visibly: "Last 30 days", "12 months". The window must be the same across a row of cards; mixing 7-day and 90-day sparklines in one grid is a lie by layout.
 - State the scale policy. Default: each sparkline scaled to its own min/max (shape comparison). If rows must be compared in magnitude, use a shared y-domain and say so in the column header ("shared scale").
 - Size: word-sized. Tremor default is 48 × 112 px (`h-12 w-28`); its KPI card example uses 32 × 80 px, 40 × 144 px from `sm`. In tables, height ≈ row text cap-height × 1.5 to 2, i.e. 16 to 24 px; width 60 to 120 px.
-- Aspect ratio wider than tall: Tufte's financial sparklines are about 5:1; aim for an average slope near 45° (not spiky, not flat).
+- Aspect ratio wider than tall: Tufte's example "financial sparkline is 5 to 1"; aim for "hill-slopes averaging 45°" (not spiky, not flat).
 - No axes, no gridlines, no frame, no legend, no fill gradient by default. Tufte: "Avoid all data frames."
 - Optional context, in this order of value: (1) a dot on the last point; (2) a light grey band for the normal or target range (Tufte's glucose example); (3) min/max dots in a muted second colour with their numbers nearby. Do not add all three to every card.
 - Colour: neutral ink for the line. If you colour by direction (green up / red down), the rule must be explicit and consistent, and direction must also appear as text or an arrow with sign ("+4.1%"). Robinhood Legend colours the line green when the last close in the window is above the first close; state this rule if you copy it, because it differs from "change since yesterday".
 - Remember that "up" is not always good (costs, churn, latency). Colour by meaning (good/bad), not by direction, or stay neutral. See color-semantic-status.md.
-- Locale: in mainland China, Japan and Taiwan red means rising price (Benzinga, Bloomberg). A finance UI with Asian markets must make up/down colours a setting.
+- Locale: in mainland China, Japan and Taiwan red means rising price (Benzinga). A finance UI with Asian markets must make up/down colours a setting.
 - Line 1 to 1.5 px; last-point dot 3 to 4 px diameter.
 - Handle nulls as gaps, as in full charts (see chart-time-series-line-area.md). Tremor `connectNulls` defaults to `false`; keep it.
 - Variants: spark bar (≤ 30 bars, discrete periods such as daily orders), win/loss bars (sign only), spark area only for a single series with fill ≤ 20% opacity.
@@ -44,18 +44,18 @@
 
 ## Accessibility
 - The sparkline is supplementary: give the SVG `aria-hidden="true"` when the adjacent text already says the value and trend, or `role="img"` with a short label ("Up 4.1% over 30 days, low 1.02k on 3 Mar, high 1.31k today").
-- Never let colour be the only indicator of direction (WCAG 1.4.1, modern-web-guidance visual-design/color.md): add sign and arrow.
+- Never let colour be the only indicator of direction (WCAG 1.4.1): add sign and arrow.
 - Line contrast 3:1 against the card background when it carries meaning.
 - In tables, include the trend summary as text in the cell or a visually hidden span so screen readers get it per row.
 
 ## Motion / interaction (if relevant)
-- No draw-in animation in tables (twenty lines animating at once is noise). On live updates, shift the line without easing or with ≤150 ms linear.
+- No draw-in animation in tables (twenty lines animating at once is noise). On live updates, shift the line without easing or with ≤150 ms (`--motion-dur-short`) linear easing; linear is an intentional exception to the standard ease because the motion tracks data, not an entrance.
 - Hover/scrub on a sparkline is optional; if present, show value and date in a tooltip and keep the number next to it updating (Robinhood "scrubbing" pattern). Touch: long press to scrub.
 
 ## Tokens and values
 | Token | Default |
 |---|---|
-| Sparkline size (card) | 32–48 px high × 80–144 px wide |
+| Sparkline size (card) | 28–48 px high × 80–144 px wide (SKILL.md KPI default: 120 × 28) |
 | Sparkline size (table) | 16–24 px high × 60–120 px wide |
 | Aspect ratio | 4:1 to 6:1 |
 | Stroke | 1.25 px, neutral ink |
@@ -129,7 +129,5 @@ export function Sparkline({ values, width = 96, height = 24, minSpanRatio = 0.01
 - https://robinhood.com/us/en/support/articles/using-charts
 - https://chrisgoldammer.notion.site/Stock-price-charts-4-22-2021-179a9339afd544eebee8fbd88d8d7dd1
 - https://www.benzinga.com/general/education/21/10/23258001/did-you-know-you-dont-want-to-be-in-the-green-if-youre-trading-in-china-japan-or-taiwan
-- https://www.bloombergquint.com/markets/2018/05/30/the-oddest-things-about-china-s-7-4-trillion-stock-market
 - https://fossheim.io/writing/posts/accessible-dataviz-design/
-- modern-web-guidance: skills/modern-web-guidance/guides/visual-design/color.md
-- modern-web-guidance: skills/modern-web-guidance/guides/accessibility/accessibility.md (Inline SVGs)
+- https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html

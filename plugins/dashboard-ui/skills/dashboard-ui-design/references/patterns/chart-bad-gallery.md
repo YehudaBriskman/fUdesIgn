@@ -23,14 +23,14 @@ For every entry the gallery records: **What it showed · What was true · Rule b
 
 **2. Reuters, "Gun deaths in Florida" (2014)**
 - Showed: a red shape that appears to fall sharply after the 2005 "Stand Your Ground" law.
-- True: deaths rose (by more than 200 in two years per Business Insider's reporting).
-- Rule broken: inverted y-axis (0 at top) with an area fill that reads as blood dripping, without a strong cue that "down is more". The designer cited an Iraq casualties chart as inspiration; critics noted that one had cues this one lacked.
+- True: gun deaths rose after the law (Misbar's 2021 fact check rates the chart "Misleading").
+- Rule broken: inverted y-axis (0 at top) with an area fill, without a strong cue that "down is more". The designer, Christine Chan, said she prefers "to show deaths in negative terms (inverted)" (quoted by Misbar).
 - Fix: conventional axis, line not area; annotate the law's date.
-- Critiques: [Live Science](https://www.livescience.com/45083-misleading-gun-death-chart.html), [Pacific Standard](https://psmag.com/news/mislead-charts-stand-ground-laws-gun-deaths-79726/), [Misbar fact check](https://seo.misbar.com/en/factcheck/2021/06/30/florida-gun-deaths-graph-inverted-data).
+- Critiques: [Live Science](https://www.livescience.com/45083-misleading-gun-death-chart.html), [Pacific Standard](https://psmag.com/news/mislead-charts-stand-ground-laws-gun-deaths-79726/), [Misbar fact check (archived)](https://web.archive.org/web/20241107233138/https://seo.misbar.com/en/factcheck/2021/06/30/florida-gun-deaths-graph-inverted-data).
 
 **3. Apple keynote, US smartphone market share (Macworld 2008)**
 - Showed: a tilted 3D pie with Apple's slice in the foreground.
-- True: Apple 19.5% was smaller than a 21.2% competitor slice that sat at the back and looked smaller.
+- True: Apple's 19.5% was smaller than the 21.2% "Other" slice, which sat at the back and looked smaller.
 - Rule broken: 3D perspective inflates near slices; pie used to compare close values.
 - Fix: sorted horizontal bar with labels.
 - Critiques: [Daring Fireball (quoting Jack Schofield, The Guardian)](https://daringfireball.net/linked/2008/02/07/snake-oil). (Gruber himself called the complaint "weak sauce", which makes it a good example of how subtle 3D distortion is.)
@@ -75,7 +75,7 @@ For every entry the gallery records: **What it showed · What was true · Rule b
 - Showed: bar lengths from 0 °C.
 - True: 0 °C is arbitrary; a 10 °C bar is not "half as hot" as 20 °C.
 - Rule broken: length encoding on an interval scale.
-- Fix: dots or lines. [Carleton University: never bar graph temperatures](https://carleton.ca/roslyndakin/2022/never-bar-graph-temperatures).
+- Fix: dots or lines. [Carleton University: never bar graph temperatures (archived)](https://web.archive.org/web/20250820183424/https://carleton.ca/roslyndakin/2022/never-bar-graph-temperatures/).
 
 ### Dashboard twins (composite, recurring product failures)
 These are generic patterns seen across SaaS and fintech dashboards, described without naming a product.
@@ -98,7 +98,7 @@ These are generic patterns seen across SaaS and fintech dashboards, described wi
 - [Wikipedia: Misleading graph](https://en.wikipedia.org/wiki/Misleading_graph) — taxonomy with diagrams for each failure.
 - [Kaiser Fung, Junk Charts / Trifecta Checkup](https://jonpage.github.io/r-course/trifecta.html) — classify a bad chart by whether the Question, Data or Visual failed.
 - [Datawrapper blog](https://www.datawrapper.de/blog/dualaxis/) — redraws each bad example with alternatives side by side.
-- [Pandey et al. CHI 2015](https://researchr.org/publication/PandeyRSNB15) — empirical backing that these distortions change beliefs.
+- [Pandey et al. CHI 2015](https://doi.org/10.1145/2702123.2702608) — empirical backing that these distortions change beliefs.
 
 ## Bad references
 The whole file is the bad-reference list; each entry links its critique.
@@ -162,14 +162,14 @@ export function isPartial(bucketEnd: Date, now: Date = new Date()): boolean {
 - https://flowingdata.com/2012/08/06/fox-news-continues-charting-excellence/
 - https://www.livescience.com/45083-misleading-gun-death-chart.html
 - https://psmag.com/news/mislead-charts-stand-ground-laws-gun-deaths-79726/
-- https://seo.misbar.com/en/factcheck/2021/06/30/florida-gun-deaths-graph-inverted-data
+- https://web.archive.org/web/20241107233138/https://seo.misbar.com/en/factcheck/2021/06/30/florida-gun-deaths-graph-inverted-data
 - https://daringfireball.net/linked/2008/02/07/snake-oil
 - https://en.wikipedia.org/wiki/Misleading_graph
 - https://en.wikipedia.org/wiki/Chartjunk
 - https://www.datawrapper.de/blog/dualaxis/
 - https://www.storytellingwithdata.com/blog/2011/07/death-to-pie-charts
 - https://www.perceptualedge.com/blog/?p=54
-- https://carleton.ca/roslyndakin/2022/never-bar-graph-temperatures
+- https://web.archive.org/web/20250820183424/https://carleton.ca/roslyndakin/2022/never-bar-graph-temperatures/
 - https://jonpage.github.io/r-course/trifecta.html
-- https://researchr.org/publication/PandeyRSNB15
-- modern-web-guidance: skills/modern-web-guidance/guides/visual-design/color.md
+- https://doi.org/10.1145/2702123.2702608
+- https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/forced-colors

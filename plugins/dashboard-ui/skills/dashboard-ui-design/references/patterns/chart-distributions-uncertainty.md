@@ -7,7 +7,7 @@
 ## When to use / when not
 - Distribution charts (histogram, box, strip, density, ECDF) when the question is "how spread out / what is typical / are there outliers". FT Visual Vocabulary "Distribution" row.
 - Uncertainty displays (fan chart, interval band, graded error bars, quantile dot plot) whenever a number is an estimate or a projection. A valuation tool showing one value per share with no range overstates precision.
-- Not: a box plot for fewer than ~10 observations (show the dots), a density curve for small samples (Wilke: density plots "can mislead with only a few points"), a histogram of 3 bins.
+- Not: a box plot for fewer than ~10 observations (show the dots), a density curve for small samples (Wilke: density plots "can be misleading for data sets of only a few points"), a histogram of 3 bins.
 
 ## Rules (do)
 **Histograms**
@@ -24,13 +24,13 @@
 - Percentile ladders for latency: show p50, p90, p99 as separate lines over time, never averages alone.
 
 **Uncertainty: intervals and bands**
-- Always state what the interval is: "95% confidence interval", "±1 standard error", "80% of 10,000 simulations" (Wilke: "Always state what the error bars show").
+- Always state what the interval is: "95% confidence interval", "±1 standard error", "80% of 10,000 simulations" (Wilke: "you must specify what quantity and/or confidence level the error bars represent").
 - Prefer graded intervals: e.g. 50% / 80% / 95% bands, with the narrowest darkest. Wilke: graded bars reduce "deterministic construal errors", where readers treat a single interval as hard min and max.
-- Fan chart for forecasts: past data as a solid line, future as a central line plus widening bands. Bank of England has used it since the 1990s; in BoE convention each pair of identically shaded bands holds 10% probability and the whole fan covers 90%. Symmetric fans of ±1σ, ±2σ, ±3σ correspond to ~68%, 95%, 99.7% (Wikipedia, fan chart).
+- Fan chart for forecasts: past data as a solid line, future as a central line plus widening bands. The Bank of England has published its inflation forecast as a fan chart since February 1996; in BoE convention each pair of identically shaded bands holds 10% probability and the whole fan covers 90%. Symmetric fans of ±1σ, ±2σ, ±3σ correspond to ~68%, 95%, 99.7% (Wikipedia, fan chart).
 - Separate history from forecast with a vertical "today" rule and a label ("Forecast"). Datawrapper: use a highlight range "when values shift into projections".
 - Show the central estimate as a line, but do not let it be visually dominant over the band: 1.5 px line, bands carrying most of the ink.
 - For skewed distributions (valuation outcomes are usually right-skewed), use quantile-based bands (HPD/percentiles), not mean ± kσ.
-- Quantile dot plot for "what are my chances" questions: ~20 to 50 dots, each a 1/N chance. Wilke: frequency framing is judged better than areas under curves; too many dots read as a continuum.
+- Quantile dot plot for "what are my chances" questions: 10 to 50 dots, each a 1/N chance. Wilke shows 50- and 10-dot versions and recommends "a small to moderate number of dots" (frequency framing); too many dots read as a continuum.
 - Do not judge significance from overlapping error bars; chart the difference with its interval instead (Wilke).
 
 **Valuation-specific (applies to a value-per-share tool)**
@@ -39,18 +39,18 @@
 
 ## Anti-patterns (don't)
 - A single forecast line extending into the future with no band ("spaghetti of certainty").
-- "Dynamite plots": bar of the mean + SE whisker, hiding the data (Wilke: technically correct but hides within-group variation).
+- "Dynamite plots": bar of the mean + SE whisker. Wilke calls them "technically correct" but says they "represent neither the variation within each category nor the uncertainty of the sample means particularly well".
 - Unlabelled error bars or bands; mixing SD and SE across panels.
 - Uniform-opacity confidence strips that readers perceive as a solid region (Wilke's "confidence strips are hard to integrate").
 - Density curves that extend into impossible values (negative ages, negative prices) (Wilke).
 - Averages of percentiles (averaging p99s across hosts is meaningless).
 - Gaussian bands over a skewed or bounded quantity.
-- Smoothly morphing hypothetical-outcome animations: Wilke says fade or cut between outcomes; morphing makes probabilities harder to judge.
+- Smoothly morphing hypothetical-outcome animations: Wilke cites evidence that smooth transitions make probabilities harder to judge and suggests fast cuts or fades instead (he calls it an open question).
 
 ## Good references
 - [Claus Wilke, Fundamentals of Data Visualization, ch. 16 "Visualizing uncertainty"](https://clauswilke.com/dataviz/visualizing-uncertainty.html) — graded error bars, frequency framing, quantile dot plots, HOPs, and why overlap tests mislead.
 - [Claus Wilke, ch. 7 "Histograms and density plots"](https://clauswilke.com/dataviz/histograms-density-plots.html) — bin width examples, no stacked/overlaid histograms, density pitfalls.
-- [Bank of England fan charts (Inflation Report, Feb 2017)](https://www.bankofengland.co.uk/-/media/boe/files/inflation-report/2017/fan-charts-february-2017.pdf) — the reference implementation: graded bands, each pair 10% probability, central 90% shown.
+- [Bank of England, "The Inflation Report projections: understanding the fan chart" (Quarterly Bulletin, 1998)](https://www.bankofengland.co.uk/-/media/boe/files/quarterly-bulletin/1998/the-inflation-report-projections-understanding-the-fan-chart) — the reference construction: central band darkest, each further pair of bands adds 10% probability "until 90% of the distribution is covered". [Feb 2017 fan charts](https://www.bankofengland.co.uk/-/media/boe/files/inflation-report/2017/fan-charts-february-2017.pdf) show the convention in use.
 - [Wikipedia: Fan chart (time series)](https://en.wikipedia.org/wiki/Fan_chart_%28time_series%29) — symmetric vs HPD construction; centre darkest.
 - [FT Visual Vocabulary, Distribution row](https://github.com/Financial-Times/chart-doctor/tree/main/visual-vocabulary) — histogram, box, violin, strip, barcode, cumulative curve, plus fan chart under change over time.
 - [Stephen Few bullet graph spec](https://www.perceptualedge.com/articles/misc/Bullet_Graph_Design_Spec.pdf) — includes a projection segment for "will we hit target by period end", a lightweight uncertainty cue.
@@ -63,10 +63,10 @@
 - Band shading must remain distinguishable: graded bands differ in lightness by ≥ ~15 L* steps, and the outermost band still reaches 3:1 against the surface, or is outlined.
 - Text alternative must say the range, not just the centre: "Central estimate $142; 80% range $118 to $171; 95% range $101 to $199."
 - Table view lists percentiles as columns (p5, p25, p50, p75, p95).
-- In forced-colors mode bands lose fills; draw band edges as 1 px lines so the range survives (modern-web-guidance visual-design/color.md: don't rely on backgrounds to convey state).
+- In forced-colors mode bands lose fills; draw band edges as 1 px lines so the range survives (MDN `forced-colors`: background colours are replaced by system colours).
 
 ## Motion / interaction (if relevant)
-- HOPs (cycling outcomes) only on explicit play, ≥ 400 ms per frame, with pause control (WCAG 2.2.2; modern-web-guidance ui-behaviors/motion.md).
+- HOPs (cycling outcomes) only on explicit play, ≥ 400 ms per frame (house default; Wilke leaves frame rate open), with pause control (WCAG 2.2.2).
 - A slider for confidence level (50 to 95%) is a good exploratory control; update bands without easing.
 - Hover on a forecast date shows all percentiles in the tooltip, not only the median.
 
@@ -135,10 +135,10 @@ export function percentiles(samples: ReadonlyArray<number>, ps: ReadonlyArray<nu
 - https://clauswilke.com/dataviz/visualizing-uncertainty.html
 - https://clauswilke.com/dataviz/histograms-density-plots.html
 - https://en.wikipedia.org/wiki/Fan_chart_%28time_series%29
-- https://www.bankofengland.co.uk/-/media/boe/files/inflation-report/2017/fan-charts-february-2017.pdf (search result summary)
-- https://www.bankofengland.co.uk/-/media/boe/files/quarterly-bulletin/1998/the-inflation-report-projections-understanding-the-fan-chart (search result)
+- https://www.bankofengland.co.uk/-/media/boe/files/inflation-report/2017/fan-charts-february-2017.pdf
+- https://www.bankofengland.co.uk/-/media/boe/files/quarterly-bulletin/1998/the-inflation-report-projections-understanding-the-fan-chart
 - https://github.com/Financial-Times/chart-doctor/tree/main/visual-vocabulary
 - https://www.datawrapper.de/blog/line-charts
 - https://www.perceptualedge.com/articles/misc/Bullet_Graph_Design_Spec.pdf
-- modern-web-guidance: skills/modern-web-guidance/guides/visual-design/color.md
-- modern-web-guidance: skills/modern-web-guidance/guides/ui-behaviors/motion.md
+- https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/forced-colors
+- https://www.w3.org/WAI/WCAG22/Understanding/pause-stop-hide.html

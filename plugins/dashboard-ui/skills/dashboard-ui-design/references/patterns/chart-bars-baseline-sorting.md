@@ -12,13 +12,14 @@
 ## Rules (do)
 **Baseline**
 - Start the value axis at zero, always. Datawrapper's tool refuses to start bar/column axes above zero: "Truncated y-axes in column charts and bar charts are considered deceptive and misleading", citing Pandey et al. (CHI 2015), whose participants "perceived the underlying message in its exaggerated form".
+- Indicators do not rescue a cut bar: Correll, Bertini and Franconeri (CHI 2020) found readers overestimate differences on truncated axes even when a break symbol marks the cut (summarised by Kosara, Observable 2024).
 - With negative values, the axis includes them and the zero line is drawn heavier than gridlines (1.5 to 2 px vs 1 px).
 - If differences are too small to see: switch to a dot or range plot ("Readers don't expect dot plots ... to start at zero"), or compute and chart the differences.
 - Never use an axis break on a bar. Datawrapper's waterfall guide: readers still compare the broken column's height.
 
 **Sorting and orientation**
 - Sort descending by value (largest at top for horizontal bars) unless categories have an inherent order: time, age bands, Likert scales, funnel steps (Storytelling with Data "Death to pie charts" redesign).
-- Horizontal bars when labels are long or numerous (NN/g: "Use horizontal bars for long labels"). Rule of thumb: horizontal when any label exceeds ~10 characters, or more than ~7 categories. Never rotate category labels 45° or 90° to make columns fit.
+- Horizontal bars when labels are long or numerous (NN/g: horizontal bars are "a good option when you're working with long labels", because nothing has to be abbreviated or rotated). Rule of thumb: horizontal when any label exceeds ~10 characters, or more than ~7 categories. Never rotate category labels 45° or 90° to make columns fit.
 - Columns (vertical) for time periods, so time reads left to right.
 - Keep "Other" and "Unknown" at the bottom regardless of size.
 
@@ -49,21 +50,22 @@
 - [Storytelling with Data: death to pie charts](https://www.storytellingwithdata.com/blog/2011/07/death-to-pie-charts) — redesign into a sorted horizontal bar; "sort ... unless categories have a natural order".
 - [NN/g: Choosing chart types](https://www.nngroup.com/articles/choosing-chart-types/) — horizontal bars for long labels; replace stacked bars with small multiples.
 - [IBM Carbon axes and labels](https://carbondesignsystem.com/data-visualization/axes-and-labels/) — "Always start numerical axes at zero for part-to-whole and comparisons charts."
+- [Kosara: it's never okay to crop the y-axis, except when it is (Observable, 2024, archived)](https://web.archive.org/web/20260719070816/https://observablehq.com/blog/never-okay-crop-y-axis-except-when-it-is) — bars always from zero; lines follow Gelman's "if zero is in the neighborhood, invite it in".
 - [Stephen Few bullet graph spec](https://www.perceptualedge.com/articles/misc/Bullet_Graph_Design_Spec.pdf) — when a bar-like measure starts above zero, encode it as a dot or X, not a bar. The same rule generalises to every bar.
 
 ## Bad references
 - [Fox Business "If Bush tax cuts expire"](https://www.mediamatters.org/fox-business/dishonest-fox-chart-bush-tax-cut-edition) — y-axis from 34; 4.6 percentage points look like a sixfold increase.
-- [Carleton: never bar graph temperatures](https://carleton.ca/roslyndakin/2022/never-bar-graph-temperatures) — bars from an arbitrary zero encode nothing.
+- [Carleton: never bar graph temperatures (archived)](https://web.archive.org/web/20250820183424/https://carleton.ca/roslyndakin/2022/never-bar-graph-temperatures/) — bars from an arbitrary zero encode nothing.
 
 ## Accessibility
-- Bars must meet 3:1 against the background and against adjacent bars where adjacency carries meaning (WCAG 1.4.11; modern-web-guidance visual-design/color.md).
+- Bars must meet 3:1 against the background and against adjacent bars where adjacency carries meaning (WCAG 1.4.11).
 - Value labels at 4.5:1; inside-bar labels must be checked against the bar fill, in both themes.
 - Use patterns/decals for grouped or stacked segments when colour is the only separator (ECharts `aria.decal.show`, Highcharts pattern fills).
 - Each bar is a natural keyboard stop; announce "Category, value, rank n of N".
 
 ## Motion / interaction (if relevant)
-- Grow-from-baseline on first render: ≤400 ms, ease-out, staggered ≤30 ms per bar, only under `prefers-reduced-motion: no-preference`.
-- Re-sorting on filter: animate positions (FLIP / View Transitions) in 200 to 300 ms so the eye can follow a bar to its new rank; see modern-web-guidance ui-behaviors/dynamic-sort.md.
+- Grow-from-baseline on first render: ≤400 ms (`--motion-dur-long`) with `--motion-ease-enter`, staggered 20 to 40 ms per bar and 300 ms of stagger in total at most (SKILL.md motion tokens), only under `prefers-reduced-motion: no-preference`.
+- Re-sorting on filter: animate positions in 240 ms (`--motion-dur-medium`, `--motion-ease-standard`) so the eye can follow a bar to its new rank. Same-document View Transitions (`document.startViewTransition`) are Baseline newly available since October 2025 (MDN); feature-detect and fall back to FLIP with the Web Animations API, or to an instant re-sort.
 - Hover dims other bars to ~30% opacity (Carbon legend behaviour) rather than adding a heavy outline.
 
 ## Tokens and values
@@ -120,12 +122,14 @@ A pure HTML/CSS horizontal bar list: accessible as a list, no chart library, zer
 - https://www.storytellingwithdata.com/blog/2012/09/bar-charts-must-have-zero-baseline
 - https://www.storytellingwithdata.com/blog/2011/07/death-to-pie-charts
 - https://www.mediamatters.org/fox-business/dishonest-fox-chart-bush-tax-cut-edition
-- https://carleton.ca/roslyndakin/2022/never-bar-graph-temperatures
+- https://web.archive.org/web/20250820183424/https://carleton.ca/roslyndakin/2022/never-bar-graph-temperatures/
 - https://www.nngroup.com/articles/choosing-chart-types/
 - https://carbondesignsystem.com/data-visualization/axes-and-labels/
 - https://carbondesignsystem.com/data-visualization/legends/
 - https://www.perceptualedge.com/articles/misc/Bullet_Graph_Design_Spec.pdf
+- https://web.archive.org/web/20260719070816/https://observablehq.com/blog/never-okay-crop-y-axis-except-when-it-is
+- https://doi.org/10.1145/3313831.3376222
 - https://echarts.apache.org/handbook/en/best-practices/aria/
 - https://www.highcharts.com/docs/accessibility/accessibility-module-feature-overview
-- modern-web-guidance: skills/modern-web-guidance/guides/visual-design/color.md
-- modern-web-guidance: skills/modern-web-guidance/guides/ui-behaviors/dynamic-sort.md
+- https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html
+- https://developer.chrome.com/docs/web-platform/view-transitions/same-document
