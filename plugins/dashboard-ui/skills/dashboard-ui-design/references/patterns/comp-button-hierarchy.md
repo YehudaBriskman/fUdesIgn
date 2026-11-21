@@ -62,7 +62,7 @@
 - Busy buttons use `aria-disabled="true"` plus a polite live region. Don't rely on `aria-busy` alone: it can hide the button's children from screen readers.
 
 ## Motion / interaction (if relevant)
-- Hover background change: `--motion-dur-micro` (100 ms) with `--motion-ease-standard`. Press: `scale: 0.98` or a darker background, applied on `:active` with no transition so it paints in the next frame. Wrap the hover transition in `@media (prefers-reduced-motion: no-preference)` and `@media (hover: hover)`.
+- Hover background change: `--motion-dur-micro` (100 ms) with `--motion-ease-standard`. Press: `scale: 0.97` (motion-ui `--motion-press-scale`) or a darker background, applied on `:active` with no transition so it paints in the next frame. Wrap the hover transition in `@media (prefers-reduced-motion: no-preference)` and `@media (hover: hover)`.
 - Spinner rotation runs at about 1 s per turn. Under reduced motion, slow it to 1 turn per 6 s or swap it for a pulsing opacity or "Saving…" text; never leave a frozen glyph (`motion-reduced-motion.md`).
 
 ## Tokens and values

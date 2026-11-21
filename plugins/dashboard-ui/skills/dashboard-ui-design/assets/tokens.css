@@ -256,5 +256,5 @@
               opacity var(--motion-dur-micro) var(--motion-ease-standard);
 }
 @media (prefers-reduced-motion: no-preference) {
-  .interactive:active { scale: 0.98; transition: scale var(--motion-dur-micro) var(--motion-ease-standard); }
+  .interactive:active { scale: 0.97; transition: scale var(--motion-dur-micro) var(--motion-ease-standard); }
 }
