@@ -13,7 +13,7 @@
 ## Rules (do)
 - **Marker next to the claim.** Place a superscript-style marker (`[1]`, or a compact chip with the domain) directly after the sentence or clause it supports, never only at the end of a paragraph that holds several claims. NN/g recommends putting each citation next to its claim and linking to the exact passage.
 - **One marker per distinct source**, numbered in order of first use across the whole answer. The same source keeps the same number when reused. At most 3 markers on one sentence; above that, cite the 3 strongest and put the rest in the list.
-- **Preview on hover, focus and tap.** The preview shows: title, domain (and favicon), publication or last-modified date, and the passage that supports the claim, about 1–3 sentences with the matched words highlighted. Open after the 500 ms interest delay on hover, immediately on focus or tap.
+- **Preview on hover, focus and tap.** The preview shows: title, domain (and favicon), publication or last-modified date, and the passage that supports the claim, about 1–3 sentences with the matched words highlighted. Open after the 500 ms interest delay on hover, immediately on focus or tap: the hover delay only filters out accidental pointer passes (NN/g, Harley 2015), while focus and tap are deliberate, and the WAI-ARIA APG tooltip pattern shows the popup on focus with no delay. On pointer-out or blur, wait about 250 ms before closing so the pointer can reach the card (WCAG 1.4.13 hoverable).
 - **Deep-link to the passage.** For web pages use a text fragment (`#:~:text=`) or an anchor; for files use page and line or cell references; for your own records use the record URL plus the field. NN/g found that links which make users hunt for the passage discourage checking. Check the fragment resolves before showing it; fall back to the page URL with the quoted passage in the preview.
 - **Descriptive labels.** The list shows the title and domain, not "Source 1" or a bare URL. NN/g's explainable-AI study prefers descriptive labels over "Source".
 - **Only retrieved sources, only supporting ones.** A citation is generated from the retrieval record (document ID, offsets), never from text the model writes. Drop any citation whose passage does not contain support for the claim (an entailment or string-overlap check). Never render a URL the model produced from memory as a source.
@@ -60,7 +60,8 @@
 | `--ai-cite-target` | 24px | minimum marker hit area |
 | markers per sentence | ≤ 3 | more go to the list only |
 | preview passage | 1–3 sentences, matched words in `<mark>` | hover/focus card |
-| preview open delay | 500 ms hover (`--interest-delay`), 0 ms focus or tap | |
+| preview open delay | 500 ms hover (`--interest-delay`), 0 ms focus or tap | delay filters accidental pointer passes only |
+| preview close delay | 250 ms after pointer-out or blur | lets the pointer reach the card (WCAG 1.4.13) |
 | sources list default | first 3–5, then "Show all N" | |
 | steps to verify a claim | 1 (preview) or 2 (open passage) | NN/g measured about 6 |
 
@@ -118,7 +119,7 @@ export function numberCitations(
 ## Checklist
 - [ ] Every grounded claim has a marker directly after it; ≤ 3 per sentence.
 - [ ] Markers map to retrieval records; no model-written citations; unsupported ones dropped.
-- [ ] Preview opens on hover, focus and tap with title, domain, date and the supporting passage.
+- [ ] Preview opens after 500 ms on hover, at once on focus and tap, closes 250 ms after leaving, and shows title, domain, date and the supporting passage.
 - [ ] Links land on the passage (text fragment, page/line, record field), and dead links are marked.
 - [ ] A numbered sources list matches the markers, with descriptive titles.
 - [ ] Each marker has a descriptive accessible name and a 24 px target.
@@ -134,5 +135,7 @@ export function numberCitations(
 - https://www.microsoft.com/en-us/haxtoolkit/ai-guidelines/ (G11 "Make clear why the system did what it did")
 - https://developer.mozilla.org/en-US/docs/Web/URI/Reference/Fragment/Text_fragments
 - https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html
+- https://www.nngroup.com/articles/timing-exposing-content/ (Aurora Harley, 2015: 0.3–0.5 s hover pause against accidental activation; click or tap begins exposing within 0.1 s)
+- https://www.w3.org/WAI/ARIA/apg/patterns/tooltip/ (the tooltip appears on keyboard focus or hover; Esc dismisses; no focus delay specified)
 - https://www.shapeof.ai/patterns/citations (ideas only; CC BY-NC-SA, no text reused)
 - https://github.com/GoogleChrome/modern-web-guidance/blob/main/skills/modern-web-guidance/guides/ui-components/hovercard.md (Apache-2.0)

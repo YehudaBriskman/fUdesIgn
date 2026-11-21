@@ -60,7 +60,7 @@
 
 ## Motion / interaction (if relevant)
 - Animated count-ups are covered in `motion-number-tweening.md`. Tabular figures are mandatory there, or the width jitters.
-- On hover or focus, show the exact value in a tooltip after about 300 ms. It must also be reachable by keyboard focus.
+- On hover, show the exact value in a tooltip after 200 ms; on keyboard focus, show it immediately (`comp-overlay-choice.md`). It must be reachable by keyboard focus.
 
 ## Tokens and values
 | Token | Default | Notes |

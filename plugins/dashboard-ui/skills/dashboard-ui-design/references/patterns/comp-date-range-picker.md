@@ -27,6 +27,7 @@
   - Desktop shows two months side by side; mobile shows one.
   - The range is highlighted as a continuous band, with start and end visually distinct.
   - Mark today.
+  - Day cells are 40×40 px on desktop and 44×44 px on touch (`@media (pointer: coarse)`), the same 40/44 split as `forms-ui` `finput-dates-and-times.md`. Both clear the WCAG 2.5.8 24×24 px minimum; 44 px matches the repo's touch-target rule.
   - Disable impossible dates, such as the future for actuals or before the data starts, but keep them visible.
   - **Don't shift the months after the start date is picked** (NN/g: users click the wrong date when the view jumps).
 - **Calendar plus typed input, never three dropdowns.** This is Tesler's law (the law of conservation of complexity, from Larry Tesler of Xerox PARC and Apple): the complexity of entering a date can't be removed, only moved, and the product should carry it rather than the user.
@@ -97,8 +98,8 @@
 ## Tokens and values
 | Token | Default |
 |---|---|
-| Popover width | ~640px (presets 180px + 2 months × ~224px); single month below 640px viewport |
-| Day cell | 32×32px desktop, 44×44 touch (≥24×24 minimum) |
+| Popover width | ~760px (presets 180px + 2 months × 280px + gaps); single month below 760px viewport |
+| Day cell | 40×40px desktop, 44×44px touch via `pointer: coarse` (WCAG 2.5.8 minimum is 24×24) |
 | Range band | `color-mix(in oklab, var(--accent) 15%, var(--surface))`; ends `--accent` with `--surface` text |
 | Today marker | 1px ring or dot, not colour-fill only |
 | Presets | 6–10 visible; recent customs ≤3 |
@@ -122,7 +123,7 @@
     <label>Start <input name="from" inputmode="numeric" aria-describedby="fmt"></label>
     <label>End <input name="to" inputmode="numeric" aria-describedby="fmt"></label>
     <span id="fmt" class="hint">YYYY-MM-DD</span>
-    <!-- calendar grid(s) -->
+    <table role="grid" class="cal" aria-label="November 2026"><!-- one row per week; each day cell a button --></table>
     <label><input type="checkbox" name="cmp"> Compare to</label>
     <select name="cmp_mode"><option value="prev">Previous period</option><option value="yoy">Same period last year</option></select>
     <p class="cmp-resolved">vs May 25 – Aug 22, 2026</p>
@@ -130,6 +131,11 @@
     <button type="button" class="btn btn--primary">Apply</button>
   </div>
 </div>
+```
+```css
+.cal { border-collapse: collapse; }
+.cal button { inline-size: 40px; block-size: 40px; } /* day cell: 40px desktop */
+@media (pointer: coarse) { .cal button { inline-size: 44px; block-size: 44px; } } /* 44px touch */
 ```
 ```ts
 import type { Temporal } from 'temporal-spec'; // or the global Temporal where shipped, or a polyfill
@@ -157,6 +163,7 @@ export function comparisonFor(r: DateRange, mode: CompareMode): DateRange {
 - [ ] Partial current periods are labelled or compared on the same elapsed days.
 - [ ] The range and comparison round-trip via the URL (relative or absolute, as intended).
 - [ ] The calendar grid is fully keyboard-operable with full date names for screen readers.
+- [ ] Day cells are 40×40 px on desktop and 44×44 px under `pointer: coarse`.
 
 ## Sources
 - https://docs.cloud.google.com/looker/docs/studio/set-report-date-ranges

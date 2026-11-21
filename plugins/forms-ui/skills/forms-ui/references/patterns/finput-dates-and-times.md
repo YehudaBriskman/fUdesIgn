@@ -67,7 +67,7 @@
 | Day / month field | 2ch + padding | Memorable dates |
 | Year field | 4ch + padding | Memorable dates |
 | Field gap | 16px | Between day, month, year |
-| Calendar cell | 40px (44px coarse) | Picker grid |
+| Calendar day cell | 40×40px desktop, 44×44px touch via `pointer: coarse` | Picker grid; WCAG 2.5.8 minimum is 24×24 |
 | Today marker | 1px `--border-strong` ring | Calendar |
 
 ## Implementation sketch
@@ -87,6 +87,8 @@
 .date-fields { display: flex; gap: var(--space-4, 16px); }
 .w-2 { inline-size: calc(2ch + 2 * var(--field-pad-inline, 12px) + 2px); }
 .w-4 { inline-size: calc(4ch + 2 * var(--field-pad-inline, 12px) + 2px); }
+.cal button { inline-size: 40px; block-size: 40px; } /* calendar day cell: 40px desktop */
+@media (pointer: coarse) { .cal button { inline-size: 44px; block-size: 44px; } } /* 44px touch */
 ```
 ```ts
 const MONTHS = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec']
@@ -118,6 +120,7 @@ export function readMemorableDate(p: DateParts, label: string): DateResult {
 - [ ] Format shown as hint text above the field; multiple separators accepted.
 - [ ] No auto-advance between date segments.
 - [ ] Calendar pickers always have typed entry and follow the APG keyboard model.
+- [ ] Calendar day cells are 40×40 px on desktop and 44×44 px under `pointer: coarse` (same as `dashboard-ui` `comp-date-range-picker.md`).
 - [ ] No day/month/year drop-down triples; the system carries the date complexity (Tesler's law), and any relative words typed are echoed as the resolved date.
 - [ ] Errors name the missing or wrong part and highlight only that part.
 - [ ] Times state their time zone when it can differ.

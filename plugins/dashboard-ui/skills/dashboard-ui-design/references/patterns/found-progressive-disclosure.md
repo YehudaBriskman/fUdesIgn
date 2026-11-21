@@ -60,7 +60,7 @@
 ## Accessibility
 - Disclosure buttons follow the WAI-ARIA APG disclosure pattern: role `button`, Enter/Space toggles, `aria-expanded` true/false, optional `aria-controls`. Native `<details>/<summary>` provides this for free.
 - Don't put headings inside `<summary>`. Screen readers expose `summary` as a button and drop the heading (modern-web-guidance accordion guide).
-- Hover-revealed content must also appear on focus, be dismissible (Esc) and stay while the pointer moves onto it (WCAG 1.4.13). The `interestfor` delay defaults to `normal`, which each browser defines, so set `interest-delay: 0.5s 0.25s` to make hover intent predictable.
+- Hover-revealed content must also appear on focus, be dismissible (Esc) and stay while the pointer moves onto it (WCAG 1.4.13). The `interestfor` delay defaults to `normal`, which each browser defines, so set `interest-delay: 0.5s 0.25s` to make hover intent predictable. That delay is for the pointer only: keyboard focus opens the content immediately (`comp-entity-links-and-hover-previews.md`), and leaving keeps the 0.25 s grace period.
 - When a panel opens, move focus into it only if it's modal. On close, return focus to the trigger.
 - Collapsed content must be removed from the accessibility tree (not just visually hidden) so it isn't read while "closed". `<details>` and `hidden` do this.
 
@@ -74,6 +74,7 @@
 |---|---|
 | Max disclosure depth | 2 |
 | Hint/tooltip delay (hover) | `interest-delay: 0.5s 0.25s` (the default `normal` varies by browser) |
+| Hint/tooltip delay (keyboard focus) | 0 s open; 0.25 s close grace |
 | Expand/collapse duration | 240ms, `--motion-ease-emphasized` `cubic-bezier(0.2,0,0,1)` |
 | Drawer width | `clamp(360px, 40vw, 480px)`; full width < 600px |
 | "Show more" threshold | > 6 KPIs, > 8 table columns, > 10 list items |

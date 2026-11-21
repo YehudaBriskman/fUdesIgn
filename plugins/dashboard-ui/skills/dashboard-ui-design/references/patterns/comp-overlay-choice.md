@@ -51,7 +51,7 @@ NN/g's limits for modals: use them for critical warnings, missing critical info,
   - If the panel shows a record, put its id in the URL (`?inspect=txn_123`) so the view is shareable. The *open/closed* state of a pure modal does not go in the URL.
 - **Tooltips**
   - Plain text, never task-critical (NN/g: "keep it brief"; NN/g sets no length, so cap it at ~80 characters as a house rule).
-  - Show on hover *and* keyboard focus: the first tooltip in a group after a 200 ms hover delay (house value; Vercel gives no number), its neighbours instantly once one is open (Vercel: "Delay the first tooltip in a group; subsequent peers have no delay"), and immediately on focus. Hide 100 ms after leaving. Same values as `motion-micro-interactions.md`.
+  - Show on hover *and* keyboard focus: the first tooltip in a group after a 200 ms hover delay (house value; Vercel gives no number), its neighbours instantly once one is open (Vercel: "Delay the first tooltip in a group; subsequent peers have no delay"), and immediately on keyboard focus, because focus is deliberate and the hover delay only filters out accidental pointer passes (NN/g, Harley 2015; the WAI-ARIA APG tooltip pattern shows the tooltip on focus with no delay). Hide 100 ms after leaving. Same values as `motion-micro-interactions.md`.
   - Must be hoverable, dismissible with Esc and persistent while hovered (WCAG 1.4.13).
   - In a horizontal toolbar, position them on the axis the toolbar doesn't stack along (`block-end`). Otherwise the hint covers the next button and swallows its click.
 - **Nesting:** never put a modal on a modal. A popover inside a dialog is fine because it's in the top layer.
@@ -64,7 +64,7 @@ NN/g's limits for modals: use them for critical warnings, missing critical info,
   | `command` / `commandfor` | Baseline newly available since December 2025 (Chrome 135, Firefox 144, Safari 26.2) | a click handler that calls `showModal()` / `togglePopover()`, or `popovertarget` for popovers |
   | `closedby` | Not Baseline: Chrome/Edge 134, Firefox 141, Safari 27.3 | without it a modal behaves as `closerequest`. For `any`, close on a click whose target is the `<dialog>` itself (the backdrop). For `none`, cancel the `cancel` event |
   | `popover="hint"` | Not Baseline: Chrome/Edge 151, Firefox 153, Safari 27.3 | an unknown `popover` value falls back to `manual` (HTML spec), so the hint still shows but you must hide it yourself on `pointerleave`, `focusout` and Esc |
-  | `interestfor` | Chromium only (Chrome/Edge 142), experimental | open on `pointerenter`/`focusin` after the delay, close on `pointerleave`/`focusout`/Esc |
+  | `interestfor` | Chromium only (Chrome/Edge 142), experimental | open on `pointerenter`/`focusin` after the delay (the native delay also applies to focus, so open on keyboard focus yourself), close on `pointerleave`/`focusout`/Esc |
   | Anchor positioning (`anchor-name`, `position-area`, `position-try-fallbacks`) | Baseline newly available since January 2026 (Chrome 125–129, Firefox 147, Safari 26); `position-anchor` only since September 2026 (Safari 27) | gate it in `@supports`; otherwise keep the UA-centred popover or load `@oddbird/css-anchor-positioning` |
   | `@starting-style`, `transition-behavior: allow-discrete` | Baseline newly available since August 2024 (Chrome 117, Firefox 129, Safari 17.5); Firefox does not transition `display` ([bug 1882408](https://bugzil.la/1882408)), so exits snap there | the overlay appears without animation |
   | `overlay` in a transition list | Chromium only | ignored elsewhere; the exit animation may be cut short, which is harmless |
@@ -196,6 +196,8 @@ Feature-detect polyfills, and load them only when missing: `'commandForElement' 
 - https://primer.style/accessibility/toasts/
 - https://carbondesignsystem.com/components/notification/usage/
 - https://vercel.com/design/guidelines (first tooltip in a group delayed, peers instant)
+- https://www.nngroup.com/articles/timing-exposing-content/ (Aurora Harley, 2015: 0.3–0.5 s hover pause against accidental activation; click or tap begins exposing within 0.1 s)
+- https://www.w3.org/WAI/ARIA/apg/patterns/tooltip/ (the tooltip appears on keyboard focus or hover; Esc dismisses; no focus delay specified)
 - https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog (`closedby` values and defaults, Esc behaviour)
 - https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button (`command`/`commandfor` values, `interestfor`)
 - https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/popover (`auto` / `manual` / `hint` behaviour)
