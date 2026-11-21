@@ -24,11 +24,11 @@
 - **Icon-only buttons:** give them an accessible name (`aria-label` or visually hidden text) and a visible tooltip naming the action. Carbon makes the tooltip mandatory. Icons are 16px in buttons and sit 8px from the label.
 - **Loading state** (see the timings in Tokens):
   - Show nothing for the first ~300 ms. Under 1 s, users stay in flow and need no feedback (NN/g response-time limits).
-  - Then swap the leading icon, or add one, for a spinner and keep the label. Optionally change the label to the progressive form ("Saving…").
+  - Then swap the leading icon, or add one, for a spinner and keep the label (Vercel: "Show a loading indicator & keep the original label"). Put the progressive wording ("Saving…") in the live region, not on the button.
   - **Lock the button's inline size** so the swap causes no layout shift.
-  - Keep the button focusable: set `aria-disabled="true"`, not `disabled`. Primer explicitly says not to add `disabled` or remove the button, because that drops focus.
+  - Keep the button focusable: set `aria-disabled="true"`, not `disabled`. Primer: "don't remove them from the DOM or add `disabled` to avoid disrupting focus and keyboard navigation."
   - Guard the handler against re-entry to prevent double submits.
-  - Announce the progress and the result through a polite live region that exists on page load.
+  - Announce the progress and the result through a polite live region that exists on page load (Primer: "The live region must be present on page load").
   - Past ~10 s, replace the spinner with determinate progress and a Cancel action.
 - **Prefer "inactive" to `disabled`.** A greyed button with no explanation is a dead end. Keep it clickable and, on click, explain why it cannot run: Primer's "inactive" pattern, Atlassian's "avoid disabling buttons". If you must disable it, put the reason in visible text next to it, not in a tooltip on the disabled button. Disabled elements can't receive hover or focus on many devices.
 
@@ -43,7 +43,7 @@
 - Tooltips on `disabled` buttons, which can't be reached by keyboard or touch.
 
 ## Good references
-- [IBM Carbon — Button usage](https://carbondesignsystem.com/components/button/usage/) — explicit emphasis ladder (primary, secondary, tertiary, ghost, danger), recommended and banned combinations, "one primary per screen", a mandatory tooltip on icon-only buttons, and "use a link, not a button, to navigate".
+- [IBM Carbon — Button usage](https://carbondesignsystem.com/components/button/usage/) — explicit emphasis ladder (primary, secondary, tertiary, ghost, danger), recommended and banned combinations, "Each page should have only one primary button", "a tooltip is always required" on icon-only buttons, and "Do not use buttons as navigational elements".
 - [Primer — Button guidelines](https://primer.style/product/components/button/guidelines) and [Button accessibility](https://primer.style/product/components/button/accessibility) — the "inactive" state as an alternative to disabled, a loading state that uses `aria-disabled` plus a polite live region, and a 24×24 floor with the honest note that their small variant can fall to ~21.5px wide.
 - [Atlassian — Button usage](https://atlassian.design/components/button/usage) — one primary per area, buttons vs links, "avoid disabling buttons", and alignment rules (right-align in modals, left-align in full-page forms).
 - [Linear](https://linear.app) (product) — a single high-emphasis "New issue" button. Every other chrome action is a ghost icon button with a tooltip that shows the shortcut.
@@ -147,8 +147,7 @@ async function runBusy(button: HTMLButtonElement, status: HTMLElement, task: () 
 - https://www.nngroup.com/articles/response-times-3-important-limits/
 - https://www.nngroup.com/articles/ui-copy/
 - https://gitlab.com/gitlab-org/gitlab-ui/-/issues/1044
-- https://bekk-christmas.vercel.app/post/2023/24/accessible-loading-button (aria-busy caveat, via search summary)
-- modern-web-guidance: `skills/modern-web-guidance/guides/ui-components/toolbar.md` (24×24 minimum, `pointer: coarse`, `aria-pressed` only for toggles, live region for action feedback)
-- modern-web-guidance: `skills/modern-web-guidance/guides/accessibility/accessibility.md` (focus indicators, `disabled` vs `aria-disabled`)
-- modern-web-guidance: `skills/modern-web-guidance/guides/ui-components/spinner.md`
-- modern-web-guidance: `skills/modern-web-guidance/guides/ui-behaviors/interest-triggered-tooltips.md`
+- https://www.bekk.christmas/post/2023/24/accessible-loading-button (`aria-busy` "hides the busy element's children from screenreaders")
+- https://www.w3.org/WAI/WCAG22/Understanding/target-size-enhanced.html (44×44, AAA)
+- https://vercel.com/design/guidelines (keep the label while loading; spinner show-delay ~150–300 ms and minimum visible ~300–500 ms; 24px hit targets, 44px on mobile)
+- https://developer.mozilla.org/en-US/docs/Web/API/Popover_API/Using_interest_invokers

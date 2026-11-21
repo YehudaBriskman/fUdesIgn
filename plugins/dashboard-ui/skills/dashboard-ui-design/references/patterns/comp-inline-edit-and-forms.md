@@ -13,7 +13,7 @@
 | Long, multi-section configuration | **Full page form** with sections. Not a modal |
 | Toggling a boolean that takes effect immediately | **Switch** (`<input type="checkbox" switch>`), no save button |
 
-- Atlassian: inline edit is for *existing* information in fields updated often, and **never inside a form**.
+- Atlassian: inline edit is for *existing* information on screens updated often ("Use a form instead when the information doesn't already exist"), and "Don't use inline edit inside of a form."
 - Don't use inline edit for fields whose change has big consequences (currency, fiscal year start). Route those through a confirm dialog.
 
 ## Rules (do)
@@ -55,7 +55,7 @@
 - Read and edit views with different font sizes, so the layout jumps on click.
 - Invisible editability: plain text that happens to be clickable, discoverable only by accident.
 - Save-on-blur with no visible feedback, so users don't know whether the change stuck.
-- Errors shown in a toast or at the top of a long panel, far from the field. NN/g: validation must be next to the field and say how to fix it.
+- Errors shown in a toast or at the top of a long panel, far from the field. NN/g: a toast is "a bad way to implement an error message, be it validation or otherwise"; validation belongs to the specific input.
 - `type="number"` fields that change value when the user scrolls the page over them.
 - Showing errors on every keystroke (`:invalid`) before the user has finished typing.
 - Autosaving assumption changes that silently recompute every chart without an undo or a "changed" indicator.
@@ -63,7 +63,7 @@
 
 ## Good references
 - [Atlassian — Inline edit](https://atlassian.design/components/inline-edit/usage) — read and edit views, ✓ and ✕ at the end of the field, Enter saves and Esc cancels, identical styling across views, keep edit open on blur for text areas, never inside a form.
-- [NN/g — Indicators, Validations, and Notifications](https://www.nngroup.com/articles/indicators-validations-notifications/) — validation is contextual, next to the field, and explains how to fix the problem. Keep errors out of transient toasts.
+- [NN/g — Indicators, Validations, and Notifications](https://www.nngroup.com/articles/indicators-validations-notifications/) — validation is contextual and tied to one input, ideally with an icon beside the message. Keep errors out of transient toasts.
 - [Linear](https://linear.app) (product) — issue title, status, assignee and estimate are inline-editable in place with keyboard shortcuts, and changes reflect immediately with no separate save step.
 - [Airtable](https://www.airtable.com) / [Notion databases](https://www.notion.so) (products) — cell editing with Enter/Esc/Tab semantics that mirror spreadsheets, which users already know.
 
@@ -156,9 +156,7 @@ export function onEditKeydown(e: KeyboardEvent, commit: () => void, cancel: () =
 - https://www.nngroup.com/articles/date-input/
 - https://atlassian.design/components/button/usage (avoid disabled buttons)
 - https://www.nngroup.com/articles/response-times-3-important-limits/
-- modern-web-guidance: `skills/modern-web-guidance/guides/forms/forms.md`
-- modern-web-guidance: `skills/modern-web-guidance/guides/forms/validate-input-after-interaction.md`
-- modern-web-guidance: `skills/modern-web-guidance/guides/forms/ime-safe-enter-submit.md`
-- modern-web-guidance: `skills/modern-web-guidance/guides/forms/switch.md`
-- modern-web-guidance: `skills/modern-web-guidance/guides/accessibility/accessible-error-announcement.md`
-- modern-web-guidance: `skills/modern-web-guidance/guides/accessibility/accessibility.md`
+- https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/:user-invalid
+- https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/isComposing
+- https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/checkbox (the `switch` attribute)
+- https://vercel.com/design/guidelines (indicator show-delay and minimum visible time)

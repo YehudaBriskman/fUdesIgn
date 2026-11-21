@@ -19,6 +19,7 @@
   - Decide deliberately whether ⌘K fires inside text inputs. Recommended: yes for ⌘K, which has a modifier; no for `/`, a character key.
 - **Container.**
   - Use a modal `<dialog>` near the top: `inset-block-start: 12–20vh`, 560–720px wide, results area ≤ 60vh.
+  - A modal is right here even though `comp-overlay-choice.md` reserves modals for decisions: the user summoned it for a short focused task, it blocks nothing they didn't ask to leave, and Esc or the shortcut closes it.
   - Inside it, a combobox input (`role="combobox"`, `aria-controls` → `role="listbox"`, `aria-activedescendant`) keeps DOM focus in the input while arrows move a virtual highlight (ARIA APG).
 - **Empty state (before typing).** Show "Recent" (last 5 items or commands used) and "Suggested", the 5–8 highest-value commands for the current context. Superhuman gives commands a default score so the best features surface before typing.
 - **Matching.**
@@ -49,10 +50,10 @@
 - No visible hint that ⌘K exists. Discoverability depends on a `⌘K` badge in the search field and in tooltips.
 
 ## Good references
-- [Superhuman — How to build a remarkable command palette](https://blog.superhuman.com/how-to-build-a-remarkable-command-palette/) — one palette for everything, toggle shortcut, focus restoration, fuzzy plus alias matching (command-score with a threshold), default scores, context boosting and "follow" ordering.
+- [Superhuman — How to build a remarkable command palette](https://blog.superhuman.com/how-to-build-a-remarkable-command-palette/) — one palette for everything, toggle shortcut, focus restoration, fuzzy plus alias matching (their command-score library, example cutoff 0.0015), default scores (0 hides a command until typed), context boosting, and "you shouldn't use Cmd+K for some types of actions, and Cmd+P for others".
 - [Maggie Appleton — Command bars](https://maggieappleton.com/command-bar) — explains why palettes exist (GUIs don't scale to hundreds of commands), recall vs recognition, shortcut hints, chained actions (Tana), and the downside that they hide functionality.
 - [Linear](https://linear.app) (product) — ⌘K lists contextual actions for the focused issue first, every row shows its shortcut, and nested steps ("Change status ›") stay in the same surface.
-- [Grafana](https://grafana.com/docs/grafana/latest/dashboards/use-dashboards/) — Ctrl+K command palette alongside `f` dashboard finder and `?` shortcut help.
+- [Grafana — Use dashboards](https://grafana.com/docs/grafana/latest/dashboards/use-dashboards/) — Ctrl+K "Opens the command palette", alongside `f` for the dashboard finder and `?` for shortcut help.
 - [WAI-ARIA APG — Combobox](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/) — the authoritative roles and keyboard contract for an input with a listbox popup.
 
 ## Bad references
@@ -144,7 +145,6 @@ export function rank(query: string, commands: readonly Command[], score: (q: str
 - https://grafana.com/docs/grafana/latest/dashboards/use-dashboards/
 - https://github.com/orgs/community/discussions/113472
 - https://www.nngroup.com/articles/response-times-3-important-limits/
-- modern-web-guidance: `skills/modern-web-guidance/guides/ui-components/dialog.md`
-- modern-web-guidance: `skills/modern-web-guidance/guides/ui-behaviors/declarative-dialog-popover-control.md`
-- modern-web-guidance: `skills/modern-web-guidance/guides/forms/ime-safe-enter-submit.md` (don't run commands on Enter during IME composition)
-- modern-web-guidance: `skills/modern-web-guidance/guides/accessibility/accessibility.md` (live regions)
+- https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog
+- https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button (`command="show-modal"`)
+- https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/isComposing (don't run commands on Enter during IME composition)

@@ -17,11 +17,11 @@
 ## Rules (do)
 - **Shell grid.**
   - Use CSS grid with named areas: `"sidebar header" "sidebar main"`.
-  - The sidebar is full-height. Atlassian's new navigation overlaps the top bar to read as a full-height sidebar.
+  - The sidebar is full-height. Atlassian's 2025 redesign moved product navigation into the sidebar and left the top bar "dedicated to universal actions like search and create".
   - The top bar is 48–56px. Only `main` scrolls; the sidebar has its own overflow.
 - **Landmarks.** Use `<header>`, a `<nav aria-label="Main">` for the sidebar, `<main id="main">`, and a skip link "Skip to main content" as the first focusable element.
 - **Sidebar.**
-  - Width 240–280px, defaulting to 256px. Atlassian Atlaskit defaults to 320px, resizable from 240px to 50% of the viewport, and the width persists.
+  - Width 240–280px, defaulting to 256px. Atlassian's navigation-system package defaults to 320px, resizable from 240px to 50% of the viewport, and keeps the resized width across collapse and expand.
   - Collapsible to a 56–64px icon rail via a visible toggle in the top bar *and* a shortcut (`[` or ⌘\). Persist the collapsed state per user.
   - Order: product switcher or org at the top, then primary sections, then user content (Starred, Recent, Saved views), then Settings and Help at the bottom.
   - Use text labels, never icon-only at full width. In rail mode, every icon gets a tooltip with the label (NN/g: icon-only nav costs hover time and decoding).
@@ -36,12 +36,12 @@
   - The global filter bar sits under the tabs (see `comp-filter-bar-chips.md`).
 - **Breadcrumbs.**
   - Show hierarchy, not history. Each item except the current one links to a real ancestor page.
-  - Use `<nav aria-label="Breadcrumbs"><ol>`, and give the current page `aria-current="page"`. The repo guide keeps it a link; NN/g says don't link it. Either is acceptable, but it must look different from the links.
+  - Use `<nav aria-label="Breadcrumbs"><ol>`, and give the current page `aria-current="page"`. The WAI-ARIA APG example keeps it a link; NN/g says don't link it ("You should never have a link that does nothing"). Either is acceptable, but it must look different from the links.
   - Separators (`/` or `›`) are generated in CSS with empty alt text: `content: "/" / ""`.
-  - Don't let the trail wrap. On narrow screens, collapse the middle items into "…", a menu button, or show only the parent ("‹ Company").
-  - Start from the first meaningful level. If the logo already links home, skip "Home".
+  - Don't let the trail wrap (NN/g). On narrow screens, collapse the middle items into "…", a menu button, or show only the parent ("‹ Company"), which NN/g allows on mobile only.
+  - NN/g starts the trail with Home but says not to duplicate it in both the global navigation and the trail. In an app shell where the logo and sidebar already link home, start from the first meaningful level.
 - **Mobile (<768px).**
-  - The sidebar becomes a modal drawer: native `<dialog>` + `showModal()`, swipe-to-close via scroll-snap per the repo guide.
+  - The sidebar becomes a modal drawer: native `<dialog>` + `showModal()`, optionally with swipe-to-close via scroll-snap.
   - If the same element is both sidebar and drawer, use `popover="manual"` + `role="dialog"` toggled by a media query, and handle `inert`, `aria-modal`, Esc and focus return manually.
 - **Route changes (SPA).** On navigation, move focus to the new page's H1 (`tabindex="-1"`) and update `document.title`. Gatsby's user testing found heading focus works best for screen reader users, and resetting focus to the top was "very overwhelming".
 
@@ -50,17 +50,17 @@
 - An icon-only sidebar with no labels or tooltips.
 - Hiding desktop navigation behind a hamburger. Users forget it exists (NN/g).
 - Breadcrumbs that reflect click history, link to non-page categories, or duplicate a 2-level nav.
-- Pill-styled breadcrumbs without separators, which read as filters (repo breadcrumbs guide).
+- Pill-styled breadcrumbs without separators, which read as filters.
 - Two scrollbars on the page: body *and* main. Only one region should scroll vertically.
 - A sticky top bar + sticky page header + sticky filter bar together taking more than ~25% of a 768px-tall viewport.
 - Shifting the layout when the sidebar collapses without animation or persistence, so charts reflow twice on every page load.
 
 ## Good references
 - [NN/g — Left-side vertical navigation on desktop](https://www.nngroup.com/articles/vertical-nav/) — when vertical beats horizontal (broad or growing IA), keep it visible, text labels, left-aligned, and the trade-off against the content-to-chrome ratio.
-- [Atlassian — Designing Atlassian's new navigation](https://www.atlassian.com/blog/design/designing-atlassians-new-navigation) — why they moved from top bar to sidebar, Starred and Recent from research with 16 + 160 users, consistent hover actions, and indentation instead of labels (12px vs 26px tested).
-- [NN/g — Breadcrumbs: 11 design guidelines](https://www.nngroup.com/articles/breadcrumbs/) — hierarchy not history, current page last, skip on flat sites, and on mobile show only the last 1–2 levels.
-- [Linear](https://linear.app), [Vercel](https://vercel.com/dashboard) (products) — a full-height sidebar with workspace switcher, Inbox, My issues, Favorites and Teams. A collapsible rail and ⌘K search in the shell, and a quiet top area.
-- modern-web-guidance `ui-components/breadcrumbs.md` — `<nav><ol>` semantics, CSS-generated separators hidden from AT, a focus ring of ≥3:1, and a forced-colors fix for the current page.
+- [Atlassian — Designing Atlassian's new navigation](https://www.atlassian.com/blog/design/designing-atlassians-new-navigation) — why they moved from top bar to sidebar, research with 16 Jira users then 160 users via a Chrome plugin, one consistent position for hover actions, and indentation instead of category labels (12px chosen over 26px, which truncated items).
+- [NN/g — Breadcrumbs: 11 design guidelines](https://www.nngroup.com/articles/breadcrumbs/) — hierarchy not history, current page last and unlinked, skip on sites with only 1–2 levels, no wrapping, and on mobile show only the parent level.
+- [Linear](https://linear.app) and the Vercel dashboard (products; Vercel's requires a login) — a full-height sidebar with workspace switcher, Inbox, My issues, Favorites and Teams. A collapsible rail and ⌘K search in the shell, and a quiet top area.
+- [WAI-ARIA APG — Breadcrumb pattern](https://www.w3.org/WAI/ARIA/apg/patterns/breadcrumb/) — `<nav>` with a label, an ordered list, separators added in CSS so they aren't read, and `aria-current="page"` on the last item.
 
 ## Bad references
 - [NN/g — Vertical nav](https://www.nngroup.com/articles/vertical-nav/) — sites that duplicate the same menu as a horizontal bar and a hamburger, and centred labels that create a jagged scanning edge.
@@ -78,7 +78,7 @@
 
 ## Motion / interaction (if relevant)
 - Sidebar collapse and expand: 200 ms width/translate, ease-out. Main content reflows once at the end, or uses `transition` on the grid's `grid-template-columns`. None under reduced motion.
-- The mobile drawer is driven by the finger (scroll-snap) with a backdrop opacity tied to the scroll position (repo guide).
+- The mobile drawer is driven by the finger (scroll-snap), with the backdrop opacity tied to the scroll position.
 - Route transitions: a cross-fade of ≤150 ms via View Transitions is optional. Never animate the sidebar on route change.
 
 ## Tokens and values
@@ -151,11 +151,7 @@ export function onRouteChange(title: string): void {
 - https://www.nngroup.com/articles/vertical-nav/
 - https://www.nngroup.com/articles/breadcrumbs/
 - https://www.atlassian.com/blog/design/designing-atlassians-new-navigation
-- https://cdn.jsdelivr.net/npm/@atlaskit/navigation-system@7.2.1/constellation/layout/examples.mdx (side nav 320px default, 240px–50vw resize, via search summary)
-- https://support.atlassian.com/navigation/docs/navigation-best-practices/ (via search summary)
+- https://cdn.jsdelivr.net/npm/@atlaskit/navigation-system@7.2.1/constellation/layout/examples.mdx (side nav 320px default, 240px–50vw resize)
 - https://www.gatsbyjs.com/blog/2019-07-11-user-testing-accessible-client-routing/
-- modern-web-guidance: `skills/modern-web-guidance/guides/ui-components/breadcrumbs.md`
-- modern-web-guidance: `skills/modern-web-guidance/guides/ui-components/navbar.md`
-- modern-web-guidance: `skills/modern-web-guidance/guides/ui-components/navigation-drawer.md`
-- modern-web-guidance: `skills/modern-web-guidance/guides/accessibility/accessibility.md` (skip links, tab order)
-- modern-web-guidance: `skills/modern-web-guidance/guides/css/css-layout.md`
+- https://www.w3.org/WAI/ARIA/apg/patterns/breadcrumb/
+- https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog

@@ -1,23 +1,23 @@
 # Date-range picker with presets and comparison periods
 
-> Lead with presets (most sessions take one click), always show the resolved absolute dates and timezone, allow typed entry, and make the comparison period explicit, length-matched and visible on every widget it affects.
+> Lead with presets (they make the common case one click), always show the resolved absolute dates and timezone, allow typed entry, and make the comparison period explicit, length-matched and visible on every widget it affects.
 
 **Category:** Components and interaction · **Applies to:** global dashboard time range, chart zoom, report periods, KPI deltas ("vs previous period"), fiscal periods · **Priority:** must
 
 ## When to use / when not
 - Use a **range picker with presets** for any time-series dashboard. It's the most-used control on analytics and finance screens.
-- Use **only a preset select** (no calendar) when ranges are always standard, e.g. a valuation tool that only offers LTM / FY / quarterly. Stripe's homepage keeps presets minimal for this reason.
+- Use **only a preset select** (no calendar) when ranges are always standard, e.g. a valuation tool that only offers LTM / FY / quarterly. Stripe's dashboard home keeps its presets short for this reason.
 - Use a **relative-expression input** (Grafana `now-6h`, `now/d`) for monitoring and ops tools whose users are engineers. Don't expose that syntax to finance or business users.
-- Don't use a calendar for distant dates (> ~1 year away). Typing is faster (NN/g). For relative times ("tonight", "next hour") use a select, not a picker (Carbon).
+- Don't use a calendar for distant dates (> ~1 year away). Typing is faster (NN/g). For relative times ("now", "in one hour", "tonight") use a select, not a picker (Carbon).
 
 ## Rules (do)
-- **Trigger button shows the resolved range**, e.g. `Last 90 days · Aug 23 – Nov 20, 2026`. The preset name alone isn't enough. CloudZero changed its presets to show exact dates for this reason.
+- **Trigger button shows the resolved range**, e.g. `Last 90 days · Aug 23 – Nov 20, 2026`. The preset name alone isn't enough. CloudZero changed its presets so "Each one now shows the exact dates it covers."
 - **Preset list (left column, 6–10 items)**, grouped:
   - *To date:* Today, Week to date, Month to date, Quarter to date, Year to date.
   - *Rolling:* Last 7 days, Last 30 days, Last 90 days, Last 12 months.
   - *Calendar:* Last month, Last quarter, Last year (or fiscal equivalents).
   - Plus *Custom…* and, where useful, *All time*.
-  - Order by frequency of use. Put recently used custom ranges at the top (Grafana does this).
+  - Order by frequency of use. Show recently used custom ranges (Grafana lists recently used absolute ranges).
 - **Definitions are explicit.**
   - "Last 7 days" either includes today, and says so with an "Include today" toggle as in Looker Studio, or ends yesterday. Pick one convention for the whole product.
   - The week start (Mon or Sun) is a setting, and the default is locale-based.
@@ -29,9 +29,9 @@
   - Mark today.
   - Disable impossible dates, such as the future for actuals or before the data starts, but keep them visible.
   - **Don't shift the months after the start date is picked** (NN/g: users click the wrong date when the view jumps).
-- **Typed entry always available** (Carbon, NN/g): two text fields `Start` / `End` above the calendar.
-  - Accept `-`, `/`, `.` and spaces as separators, and ignore leading zeros.
-  - Show the format as helper text, never as a placeholder only.
+- **Typed entry always available** (Carbon: there "should always be a simple way to enter dates in a text field"; NN/g): two text fields `Start` / `End` above the calendar.
+  - Accept `-`, `/`, `.` and spaces as separators, and ignore leading zeros (NN/g).
+  - Show the format as helper text, never as a placeholder only (Carbon: placeholder text "will disappear from view once the user begins typing").
   - Validate on blur.
 - **Apply model.**
   - Presets apply on click and close the popover.
@@ -42,36 +42,36 @@
   - It's an explicit toggle (GA4's "Compare" control), off by default unless the dashboard is fundamentally about change.
   - Options:
     - **Previous period:** the same length, immediately before.
-    - **Same period last year:** YoY. Offer *day-of-week aligned* (52 weeks back) as an option for weekly-seasonal data; Looker Studio's "Advanced" supports Monday-to-Monday alignment.
+    - **Same period last year:** YoY. Offer *day-of-week aligned* (52 weeks back) as an option for weekly-seasonal data; Looker Studio's "Advanced" offsets support day-of-week alignment (Monday matches Monday).
     - **Custom.**
   - **Length matching.** The comparison is always length-matched to the primary range. When the primary range changes, recompute a relative comparison automatically. If a custom comparison no longer matches in length, warn ("Comparison is 30 days; selected range is 7 days").
   - Show the resolved comparison dates under the primary dates: `vs May 25 – Aug 22, 2026`.
-  - Rendering, as in Looker Studio:
-    - On time series, the comparison is a secondary line in a muted or dashed style, *aligned by offset* (day 1 to day 1), with a legend that names both ranges.
+  - Rendering (Looker Studio draws the comparison as a second line in another colour, and as a delta with an up/down indicator in tables):
+    - On time series, make the comparison a secondary line in a muted or dashed style, *aligned by offset* (day 1 to day 1), with a legend that names both ranges.
     - On KPIs and tables, show a delta with a sign, an arrow and a percentage, e.g. "+12.4% vs prev. 90 days".
     - See `color-semantic-status.md` for delta colours.
 - **Partial periods are flagged.**
   - "Quarter to date" compared with the full previous quarter is misleading. Default to *same elapsed days* in the previous quarter, or label it clearly.
   - Mark an incomplete current bucket (this week or month) on charts with a hatched or lighter final bar or dot.
-- **Granularity follows range.** Suggest or adapt the bucket size: ≤ 2 days → hourly, ≤ 90 days → daily, ≤ 2 years → weekly or monthly, longer → monthly or quarterly. Stripe couples the granularity to the range choice.
+- **Granularity follows range.** Suggest or adapt the bucket size (house defaults): ≤ 2 days → hourly, ≤ 90 days → daily, ≤ 2 years → weekly or monthly, longer → monthly or quarterly.
 - **URL.** Write `?from=2026-08-23&to=2026-11-20&cmp=prev` or `?range=last_90d&cmp=yoy` with a relative key, so a shared link means "last 90 days" or "these exact dates" as intended. Grafana supports both relative and absolute `from`/`to`.
 - **Keyboard (calendar grid).** Arrows move by day, PgUp/PgDn by month, Shift+PgUp/PgDn by year, Home/End to the start and end of the week. Enter selects the start, then the end. Esc closes.
 
 ## Anti-patterns (don't)
 - A trigger that says only "Custom" or "Last quarter" with no dates. Users can't tell whether it's the calendar or fiscal quarter, or whether today is included.
 - Firing queries on the start-date click of a custom range.
-- Comparisons of different lengths (7 days vs 30 days) left silently in place after the user changes the main range. Adobe Analytics community users report this breaking.
+- Comparisons of different lengths (7 days vs 30 days) left silently in place after the user changes the main range. An Adobe Analytics community post warns "the comparison will most likely fail (even with relative date ranges)".
 - Comparing a partial current period with a full previous one without a label, which always shows a scary decline.
 - A calendar-only picker with no typed entry, or month/day/year dropdown triples (NN/g).
 - Placeholder-only date format hints that vanish when typing starts (Carbon).
 - Timezone unspecified, so a daily revenue number differs between the dashboard and the CSV export.
-- Each widget carrying its own hidden date range that silently overrides the global one. If widget overrides exist (as in Adriel), show them on the widget.
+- Each widget carrying its own hidden date range that silently overrides the global one. If widget overrides exist (in Adriel, "the dashboard date range is completely ignored for that widget"), show them on the widget.
 
 ## Good references
-- [Google Looker Studio — date ranges](https://docs.cloud.google.com/looker/docs/studio/set-report-date-ranges) — clear comparison taxonomy (previous period, previous year, fixed, advanced offsets with day-of-week alignment), an explicit "Include today" checkbox, and comparison rendering rules for time series and tables.
+- [Google Looker Studio — date ranges](https://docs.cloud.google.com/looker/docs/studio/set-report-date-ranges) — clear comparison taxonomy (previous period, previous year, fixed, advanced offsets with day-of-week alignment), an explicit "Include today" checkbox on rolling ranges, and how comparisons render in time series and tables.
 - [Grafana — time range picker](https://grafana.com/docs/grafana/latest/dashboards/use-dashboards/) — quick ranges, a filterable list, recently used ranges, relative syntax for power users, `from`/`to`/`timezone` URL params, and `t-`/`t+` zoom shortcuts.
-- [Date Range Picker UX — Square, Stripe & GA compared](https://mfsbo.github.io/mfsbo/posts/2025-09-27-date-range-picker-patterns-square-stripe-google-analytics.html) — Stripe's tiered presets keep most sessions to a single click. GA's explicit "Compare to" toggle supports benchmarking.
-- [Carbon — Date picker](https://carbondesignsystem.com/components/date-picker/usage/) — always offer typed entry, set min/max, and document the range keyboard flow (Enter start, Enter end).
+- [Date Range Picker UX — Square, Stripe & GA compared](https://mfsbo.github.io/mfsbo/posts/2025-09-27-date-range-picker-patterns-square-stripe-google-analytics.html) — an opinion piece (Laws of UX applied to screenshots, no usage data): Stripe's tiered presets aim to keep sessions single-click, and GA's explicit "Compare to" toggle supports benchmarking.
+- [Carbon — Date picker](https://carbondesignsystem.com/components/date-picker/usage/) — always offer typed entry, format as helper text not placeholder, set min/max, and the range keyboard flow (Arrows + Enter for the start, Arrows + Enter for the end).
 
 ## Bad references
 - [Adobe Analytics community — "Fully dynamic Compare date range"](https://experienceleaguecommunities.adobe.com/adobe-analytics-3/fully-dynamic-compare-date-range-2873) — users report that changing the main range leaves a fixed-length comparison mismatched. It's a real-world failure of length matching.
@@ -158,9 +158,8 @@ export function comparisonFor(r: DateRange, mode: CompareMode): DateRange {
 - https://mfsbo.github.io/mfsbo/posts/2025-09-27-date-range-picker-patterns-square-stripe-google-analytics.html
 - https://carbondesignsystem.com/components/date-picker/usage/
 - https://www.nngroup.com/articles/date-input/
-- https://www.cloudzero.com/blog/custom-date-comparisons/ (presets show exact dates and match the period length, via search summary)
-- https://experienceleaguecommunities.adobe.com/adobe-analytics-3/fully-dynamic-compare-date-range-2873 (via search summary)
-- https://docs.adriel.com/dashboards/filters-and-dates/date-ranges (widget comparison overrides, via search summary)
-- modern-web-guidance: `skills/modern-web-guidance/guides/js/support-global-calendar-systems.md` (locale and calendar awareness)
-- modern-web-guidance: `skills/modern-web-guidance/guides/ui-components/dialog.md` (non-modal `<dialog popover>`)
-- modern-web-guidance: `skills/modern-web-guidance/guides/ui-atoms/viewport-aware-dropdowns.md`
+- https://www.cloudzero.com/blog/custom-date-comparisons/ (presets show exact dates; custom comparisons match the base period's length)
+- https://experienceleaguecommunities.adobe.com/adobe-analytics-3/fully-dynamic-compare-date-range-2873
+- https://docs.adriel.com/dashboards/filters-and-dates/date-ranges (widget period and comparison override the dashboard's)
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Temporal
+- https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Anchor_positioning/Using

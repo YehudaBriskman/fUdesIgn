@@ -12,11 +12,11 @@ Decision table, first match wins:
 | Irreversible or destructive action, or a required input before an action can proceed ("Delete scenario?", "Sign in to save") | **Modal dialog** | `<dialog>` + `showModal()` / `command="show-modal"` |
 | Short focused task that would lose context as a page (rename, add a column, 3–6 field form) | **Modal dialog** (≤ ~6 fields). Bigger forms get their own page | `<dialog>` modal |
 | Inspect or edit one record while the list stays visible and usable (row details, audit trail, filter panel) | **Non-modal side panel / drawer** | `<dialog popover="manual">` or a layout column; `<dialog>` modal only if it truly blocks |
-| Mobile primary navigation | **Navigation drawer** (modal) | `<dialog>` + scroll-snap swipe (see repo guide) |
+| Mobile primary navigation | **Navigation drawer** (modal) | `<dialog>` + `showModal()`; optional scroll-snap swipe to close |
 | A list of commands or choices anchored to a trigger | **Menu / listbox popover** | `<div popover>` + anchor positioning |
 | Rich non-blocking content anchored to a control (date picker, column chooser, "how is this metric computed") | **Popover** with a close button | `popover="auto"` (light-dismiss) |
 | A 1-line label for an icon or a term, on hover/focus | **Tooltip** | `popover="hint"` + `interestfor` |
-| Explanation the user may want deliberately (an "i" next to a KPI) | **Toggletip** | `popover="hint"` + `interestfor` + `popovertarget` |
+| Explanation the user may want deliberately (an "i" next to a KPI) | **Toggletip** (opens on click or tap) | `popover` (auto) + `popovertarget` or `commandfor`/`command="toggle-popover"`; MDN's interest-invoker example pairs it with a separate `hint` tooltip |
 | Background result of an action that's already visible elsewhere | **Toast**, sparingly, persistent by default | `popover="manual"` in one region. See `comp-notifications-alerts.md` |
 | Error, warning or anything the user must act on | **Inline alert / banner**, never a toast | in-flow element |
 
@@ -44,7 +44,7 @@ NN/g's limits for modals: use them for critical warnings, missing critical info,
   - Non-modal panels must have a visible Close button and must not trap focus.
   - If the panel shows a record, put its id in the URL (`?inspect=txn_123`) so the view is shareable. The *open/closed* state of a pure modal does not go in the URL.
 - **Tooltips**
-  - Plain text, ≤ ~80 characters, never task-critical (NN/g).
+  - Plain text, never task-critical (NN/g: "keep it brief"; NN/g sets no length, so cap it at ~80 characters as a house rule).
   - Show on hover *and* keyboard focus, after a ~300–500 ms hover delay and immediately on focus. Hide after ~100 ms of leaving.
   - Must be hoverable, dismissible with Esc and persistent while hovered (WCAG 1.4.13).
   - In a horizontal toolbar, position them on the axis the toolbar doesn't stack along (`block-end`). Otherwise the hint covers the next button and swallows its click.
@@ -63,14 +63,14 @@ NN/g's limits for modals: use them for critical warnings, missing critical info,
 
 ## Good references
 - [NN/g — Modal & Nonmodal Dialogs](https://www.nngroup.com/articles/modal-nonmodal-dialog/) — the 4 legitimate modal uses and 3 forbidden ones, plus the Gmail compose window as a model non-modal side task.
-- [NN/g — Tooltip Guidelines](https://www.nngroup.com/articles/tooltip-guidelines/) — no task-critical info, no redundant text, brief, provide a keyboard trigger, and use a tap-to-open "i" on touch.
-- [Stripe Dashboard](https://dashboard.stripe.com) (product) — payment details open as full routes or side panels with their own URLs. Destructive actions (refund, cancel subscription) get a focused modal that restates the amount.
+- [NN/g — Tooltip Guidelines](https://www.nngroup.com/articles/tooltip-guidelines/) — no task-critical info, no redundant text, brief, show on keyboard focus as well as mouse hover, and use a click- or tap-opened popup tip on touch.
+- Stripe Dashboard (product, requires a login) — payment details open as full routes or side panels with their own URLs. Destructive actions (refund, cancel subscription) get a focused modal that restates the amount.
 - [Linear](https://linear.app) (product) — issue peek opens a non-modal side panel. The list stays keyboard-navigable and Esc closes the peek.
 
 ## Bad references
 - [NN/g — Modal & Nonmodal Dialogs](https://www.nngroup.com/articles/modal-nonmodal-dialog/) — documents page-load newsletter modals and checkout-blocking login modals as trust-eroding.
-- [NN/g — Tooltip Guidelines](https://www.nngroup.com/articles/tooltip-guidelines/) — Amtrak's password requirements hidden in a tooltip: the info is needed while typing and disappears.
-- [Scott O'Hara — A toast to a11y toasts](https://www.scottohara.me/blog/2019/07/08/a-toast-to-a11y-toasts.html) — a popover on its own is not an accessible toast: it isn't a live region, has no role, and is inert behind a modal.
+- [NN/g — Tooltip Guidelines](https://www.nngroup.com/articles/tooltip-guidelines/) — Amtrak's password requirements hidden in a hover tooltip: the info is needed while typing and disappears. Sprint's "Add new line" button repeats its own label in a tooltip.
+- [Scott O'Hara — A toast to a11y toasts](https://www.scottohara.me/blog/2019/07/08/a-toast-to-a11y-toasts.html) — "popover alone isn't enough to make a toast component": it has no implicit role, isn't a live region, and is inert (unreachable by assistive tech) while a modal dialog is open.
 
 ## Accessibility
 - Native modal: don't add `role="dialog"`, `aria-modal`, `inert` toggling or an Esc handler. Do provide a name and a visible close or cancel button.
@@ -156,13 +156,11 @@ Feature-detect polyfills, and load them only when missing: `'commandForElement' 
 - https://www.scottohara.me/blog/2019/07/08/a-toast-to-a11y-toasts.html
 - https://primer.style/accessibility/toasts/
 - https://carbondesignsystem.com/components/notification/usage/
-- modern-web-guidance: `skills/modern-web-guidance/guides/ui-components/dialog.md`
-- modern-web-guidance: `skills/modern-web-guidance/guides/ui-behaviors/declarative-dialog-popover-control.md`
-- modern-web-guidance: `skills/modern-web-guidance/guides/ui-behaviors/light-dismiss-a-dialog.md`
-- modern-web-guidance: `skills/modern-web-guidance/guides/ui-behaviors/prevent-page-scroll-under-modal-dialog.md`
-- modern-web-guidance: `skills/modern-web-guidance/guides/ui-behaviors/interest-triggered-tooltips.md`
-- modern-web-guidance: `skills/modern-web-guidance/guides/ui-behaviors/animate-to-from-top-layer.md`
-- modern-web-guidance: `skills/modern-web-guidance/guides/ui-components/navigation-drawer.md`
-- modern-web-guidance: `skills/modern-web-guidance/guides/ui-components/persistent-toast-notifications.md` (anchor-positioning fallback section)
-- modern-web-guidance: `skills/modern-web-guidance/guides/ui-components/toolbar.md` (tooltip axis rule)
-- modern-web-guidance: `skills/modern-web-guidance/guides/ui-components/menu.md`
+- https://vercel.com/design/guidelines (first tooltip in a group delayed, peers instant)
+- https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog (`closedby` values and defaults, Esc behaviour)
+- https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button (`command`/`commandfor` values, `interestfor`)
+- https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/popover (`auto` / `manual` / `hint` behaviour)
+- https://developer.mozilla.org/en-US/docs/Web/API/Popover_API/Using_interest_invokers
+- https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Anchor_positioning/Using
+- https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@starting-style
+- https://html.spec.whatwg.org/multipage/popover.html (an unknown `popover` value falls back to `manual`)

@@ -8,20 +8,20 @@
 | Need | Use | Not |
 |---|---|---|
 | 2–7 sibling panels of *different* content on one page, one visible at a time | **Tabs** (`tablist` / `tab` / `tabpanel`) | segmented control |
-| Sections that are separate *pages*/routes (each with its own URL, loads data) | **Navigation styled as tabs**: `<nav>` with links and `aria-current="page"` | ARIA tabs. The repo's tabs guide says "DO NOT use … the WAI-ARIA tabs pattern for page navigation" |
+| Sections that are separate *pages*/routes (each with its own URL, loads data) | **Navigation styled as tabs**: `<nav>` with links and `aria-current="page"` | ARIA tabs, which promise in-page panels and arrow-key behaviour that links don't have |
 | Switch the mode, scope, unit or granularity of the *same* content (chart: Day / Week / Month; values: $ / %; Table / Chart) | **Segmented control**: a radio group styled as joined buttons, 2–5 options | tabs, because the content isn't a different panel |
 | Select one or more *values* to filter a set (e.g. sectors, statuses), possibly many, possibly removable | **Pills / chips**: toggle buttons or checkboxes. Removable chips for applied filters | segmented control (no multi-select, doesn't scale past 5) |
 | Content users must compare side by side | **Neither**: one page with subheadings, or a split view | tabs. NN/g: use tabs only when users don't need to compare across them |
 
 Rules of thumb:
-- **Count.** A segmented control works for 2–5 options. Android Compose's M3 guidance says 2–5; eBay Playbook says 2–4. With more, use a select or menu. Tabs work up to about 7 visible; beyond that, overflow into a "More" menu.
+- **Count.** A segmented control works for 2–5 options. Android's Compose docs give 2–5 items (more than five → chips); eBay Playbook: "Segmented buttons can have two to four segments." With more, use a select or menu. Tabs work up to about 7 visible; beyond that, overflow into a "More" menu.
 - **Does selecting change *what* is shown or *how* it's shown?** If what, use tabs. If how, use a segmented control.
 
 ## Rules (do)
 - **Tabs**
-  - Use a single row, never wrapped. Put the tab list *above* the panel, and keep labels to 1–2 words in sentence case (NN/g #6, #8, #13, #14).
+  - Use a single row, never wrapped. Put the tab list *above* the panel, and keep labels to 1–2 words in one consistent case, never all caps (NN/g).
   - Put the most-used tab first and select it by default. Non-default tabs get much less attention (NN/g).
-  - Indicate the selected tab in **at least two ways**, e.g. a 2–3px underline plus weight or colour (NN/g #10). Never use colour alone (WCAG 1.4.1).
+  - Indicate the selected tab in **at least two ways**, e.g. a 2–3px underline plus weight or colour (NN/g: "Use at least two selection indicators"). Never use colour alone (WCAG 1.4.1).
   - Draw the underline with a border, not `box-shadow`. Forced-colors mode removes shadows.
   - Never change a tab's box size on selection: no `font-weight` jump that reflows neighbours. Pre-reserve the bold width or use `font-variation-settings` with a fixed-width trick.
   - Keyboard: Tab enters the selected tab. Arrow keys move between tabs, and Home/End go to the first and last. Selection follows focus by default.
@@ -33,7 +33,7 @@ Rules of thumb:
   - Make segments equal width, or fit them to content with consistent padding.
   - Don't mix icon-only and text segments in one control. Icon-only segments need `aria-label` and a tooltip.
   - Use the same height as adjacent buttons and inputs (28/32px in dashboards).
-  - On narrow widths, collapse to a `<select>` (Primer offers a `dropdown` variant for narrow).
+  - On narrow widths, collapse to a `<select>` (Primer's SegmentedControl offers `hideLabels` and `dropdown` variants for narrow viewports).
 - **Pills / chips**
   - Selectable chips are `<button aria-pressed>` or checkboxes. A selected chip shows a check icon *and* a fill change.
   - Removable chips carry an "×" button with `aria-label="Remove filter: Sector = Energy"`.
@@ -46,19 +46,19 @@ Rules of thumb:
   - Use `history.pushState` for distinct view changes, so Back steps through them. Use `replaceState` for refinements like a slider being dragged or typing.
 
 ## Anti-patterns (don't)
-- ARIA `role="tab"` on links that load new routes, or the reverse: a `<nav>` of links visually mixed with in-page tabs in one control (NN/g #16, #17).
+- ARIA `role="tab"` on links that load new routes, or the reverse: a `<nav>` of links visually mixed with in-page tabs in one control (NN/g: mixing them "will disorient users").
 - A segmented control with 8 options, or one that changes *which dataset* is shown (that's a tab or a select).
 - Two rows of tabs. Tabs whose labels are truncated to "Fin…" or "Valu…".
 - Selected state shown only by a colour change, or by a background that disappears in forced-colors mode.
 - Tab or filter state held only in memory, so refresh resets the view and a shared link shows something else (Alfy: "in-memory-only SPA state").
-- Pills used as breadcrumbs or as tabs without a selected-state cue. The repo's breadcrumb guide warns that pills without separators read as same-level filters.
+- Pills used as breadcrumbs or as tabs without a selected-state cue. Pills without separators read as same-level filters.
 - `replaceState` on a tab switch the user expects to undo with Back.
 
 ## Good references
-- [NN/g — Tabs, Used Right](https://www.nngroup.com/articles/tabs-used-right/) — 22 testable rules: one row, list above the panel, two selection indicators, no all-caps, no mixing of navigation tabs and in-page tabs.
-- [Stripe Dashboard](https://dashboard.stripe.com) (product) — chart granularity and comparison sit in compact segmented and select controls above the chart, while the report sections are real routes. Mode and content are kept apart.
+- [NN/g — Tabs, Used Right](https://www.nngroup.com/articles/tabs-used-right/) — testable rules: one row, list above the panel, at least two selection indicators, 1–2 word labels, no all-caps, high-use tab first and selected by default, no mixing of navigation tabs and in-page tabs.
+- Stripe Dashboard (product, requires a login) — chart granularity and comparison sit in compact segmented and select controls above the chart, while the report sections are real routes. Mode and content are kept apart.
 - [Linear docs — Filters](https://linear.app/docs/filters) — applied filters live in the URL, so shared links reproduce the view. View options are deliberately excluded.
-- [Ahmad Alfy — Your URL is your state](https://alfy.blog/2025/10/31/your-url-is-your-state.html) — clear rules for what goes in the URL (filters, tabs, date ranges, sorting) and what stays out (open modals, tokens, unsaved input), plus push vs replace.
+- [Ahmad Alfy — Your URL is your state](https://alfy.blog/2025/10/31/your-url-is-your-state.html) — what goes in the URL (filters, sorting, active tabs, date ranges, view modes) and what stays out (open modals, tokens, unsaved input, high-frequency state), plus `pushState` for distinct changes vs `replaceState` for refinements.
 - [Grafana](https://grafana.com/docs/grafana/latest/dashboards/use-dashboards/) — `?from=now-6h&to=now` and dashboard variables in the URL make every view shareable and bookmarkable.
 
 ## Bad references
@@ -67,7 +67,7 @@ Rules of thumb:
 - [Alfy's anti-pattern list](https://alfy.blog/2025/10/31/your-url-is-your-state.html) — opaque params (`?x=1&f=a3`) and base64 blobs make shared URLs unreadable and undebuggable.
 
 ## Accessibility
-- Tabs: `role="tablist"` with an accessible name, `aria-selected`, and `role="tabpanel"` with `aria-labelledby`. Don't use `aria-controls`; no screen reader uses it (per the repo guide).
+- Tabs: `role="tablist"` with an accessible name, `aria-selected`, and `role="tabpanel"` with `aria-labelledby`. The APG pattern also sets `aria-controls` on each tab; it's harmless, but don't rely on it, because screen reader support for it is uneven.
 - Give a visible panel with no focusable content `tabindex="0"`.
 - Use `focusgroup="tablist nomemory"` where supported (Chrome/Edge 150+). Otherwise use a roving-tabindex fallback, loaded only if `'focusGroup' in HTMLElement.prototype` is false.
 - A segmented control is a radio group: one Tab stop, arrows move *and* select, and it has a `legend` (can be visually hidden).
@@ -155,13 +155,13 @@ declare function selectTab(tab: TabId): void;
 
 ## Sources
 - https://www.nngroup.com/articles/tabs-used-right/
-- https://developer.android.com/develop/ui/compose/components/segmented-button (2–5 options, via search summary)
-- https://playbook.ebay.com/design-system/components/segmented-button (2–4 options, via search summary)
+- https://developer.android.com/develop/ui/compose/components/segmented-button (2–5 items, chips beyond five)
+- https://playbook.ebay.com/design-system/components/segmented-button (2–4 segments)
 - https://primer.style/components/segmented-control
 - https://alfy.blog/2025/10/31/your-url-is-your-state.html
 - https://linear.app/docs/filters
 - https://grafana.com/docs/grafana/latest/dashboards/use-dashboards/
-- modern-web-guidance: `skills/modern-web-guidance/guides/ui-components/tabs.md`
-- modern-web-guidance: `skills/modern-web-guidance/guides/ui-behaviors/anchor-positioning-tab-underline.md`
-- modern-web-guidance: `skills/modern-web-guidance/guides/ui-behaviors/search-hidden-content.md` (referenced by the tabs guide)
-- modern-web-guidance: `skills/modern-web-guidance/guides/ui-components/breadcrumbs.md` (pills-without-separators warning)
+- https://www.w3.org/WAI/ARIA/apg/patterns/tabs/
+- https://open-ui.org/components/scoped-focusgroup.explainer/ (`focusgroup="tablist"`, `nomemory`, `focusgroupstart`, inferred roles)
+- https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/hidden (`until-found`)
+- https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Anchor_positioning/Using

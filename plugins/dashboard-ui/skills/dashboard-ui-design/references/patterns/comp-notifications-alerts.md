@@ -18,16 +18,16 @@
 
 - NN/g: choose by information type, urgency and whether action is needed; never use transient toasts for errors.
 - Primer goes further: "Toasts pose significant accessibility concerns and are not recommended." Use banners for errors and dialogs for interruptions.
-- Carbon keeps toasts but makes them persistent by default (auto-dismiss is opt-in at 5 s), and limits toast and inline messages to 2 lines.
+- Carbon keeps toasts but makes them persistent by default (auto-dismiss after 5 s is opt-in), places them top-right, and limits toast and inline messages to 2 lines.
 
 ## Rules (do)
 - **4 statuses, each with icon + colour + title text:** Info, Success, Warning, Error. Never use colour alone (see `color-semantic-status.md`). Use the same heading word for the same status across the product (GOV.UK).
 - **Content.**
   - Title ≤ ~60 characters, no trailing period, saying what happened.
   - Body of 1–2 sentences that doesn't repeat the title.
-  - Errors *must* include the next step or action (Carbon). Example: title "Couldn't load Q3 filings", body "SEC EDGAR didn't respond. Your other data is unaffected.", action "Retry".
+  - Errors *must* tell the user what to do next (Carbon: "User actions are mandatory for error messages"). Example: title "Couldn't load Q3 filings", body "SEC EDGAR didn't respond. Your other data is unaffected.", action "Retry".
 - **Proximity.**
-  - Put the message where the problem is: in the failing card, under the field, above the submit button for form-level errors (Carbon).
+  - Put the message where the problem is: in the failing card, under the field, at the bottom of the form just above the submit and cancel buttons for form-level errors (Carbon).
   - Don't put widget errors in a global toast. Primer cites the broken gestalt proximity, because users can't connect the message to its cause.
 - **One action max** per alert, labelled with 1–2 words ("Retry", "View details"), plus optional dismiss.
 - **Dismissal.**
@@ -39,7 +39,7 @@
   - ≤1 page-level alert. Combine related messages or show the highest priority (GOV.UK: one notification banner per page).
   - Toasts stack at most 3, then collapse to "+N more" linking to the notification centre.
 - **Toasts, if used at all.**
-  - Use `popover="manual"` in one fixed region (bottom-inline-end, or top-inline-end per Carbon), with the newest nearest the edge.
+  - Use `popover="manual"` in one fixed region (Carbon uses top-right; bottom-inline-end is also common, but Primer notes it covers submit buttons), with the newest nearest the edge.
   - The region is a named `role="region"` ("Notifications").
   - Announce via `ariaNotify()` (Baseline Sept 2026) or a pre-existing polite live region.
   - Don't steal focus.
@@ -54,7 +54,7 @@
 
 ## Anti-patterns (don't)
 - Error toasts that vanish after 3–5 s ("Something went wrong").
-- Toasts as the only path to Undo or "View export". Scott O'Hara, Primer and the repo guide all forbid this.
+- Toasts as the only path to Undo or "View export". Scott O'Hara and Primer both rule this out.
 - Toasts on routine success where the result is already visible. They teach users to ignore all toasts (banner blindness).
 - A stack of 4 banners at the top of the page pushing the dashboard below the fold.
 - Callouts used as post-action feedback, or with action buttons (Carbon).
@@ -65,15 +65,15 @@
 
 ## Good references
 - [IBM Carbon — Notifications](https://carbondesignsystem.com/components/notification/usage/) — a clear taxonomy (inline, toast, actionable, callout), a status table, a 2-line limit, errors that require an action, persistent-by-default toasts, form-level errors placed above the submit button, and one action per notification.
-- [Primer — Accessible notifications and messages](https://primer.style/accessibility/toasts/) — the case against toasts mapped to specific WCAG SCs (2.2.1, 1.3.2, 2.1.1, 4.1.3, 1.4.4, 1.4.10), with a replacement for each scenario.
+- [Primer — Accessible notifications and messages](https://primer.style/accessibility/toasts/) — "Toasts pose significant accessibility concerns and are not recommended for use", mapped to 8 WCAG SCs (2.2.1, 1.3.2, 2.1.1, 4.1.3, 1.4.4, 1.4.10, 2.4.3, 3.2.4), with a replacement for each scenario.
 - [GOV.UK — Notification banner](https://design-system.service.gov.uk/components/notification-banner/) — one per page, placed before the H1, `role="region"` by default and `role="alert"` only for the success-after-action variant, and not used for validation.
-- [NN/g — Indicators, validations, notifications](https://www.nngroup.com/articles/indicators-validations-notifications/) — the 3-way distinction (contextual vs global, passive vs action-required) and "keep errors out of transient toasts".
+- [NN/g — Indicators, validations, notifications](https://www.nngroup.com/articles/indicators-validations-notifications/) — contextual vs global and passive vs action-required, and a toast is "a bad way to implement an error message, be it validation or otherwise".
 - [Grafana](https://grafana.com) / [Datadog](https://www.datadoghq.com) (products) — panel-level error and "no data" states render *inside* the affected panel with the query error on hover, so one failure doesn't block the dashboard.
 
 ## Bad references
 - [Scott O'Hara — A toast to a11y toasts](https://www.scottohara.me/blog/2019/07/08/a-toast-to-a11y-toasts.html) — common failures: an "Undo" announced as plain text with no role, pause-on-hover that doesn't work for screen reader virtual cursors, and focus lost after Undo.
-- [Primer — toasts](https://primer.style/accessibility/toasts/) — toasts in bottom corners covering submit buttons, and toasts outside a magnifier user's viewport on large displays.
-- [W3C WAI-IG thread on auto-dismissing toasts](https://lists.w3.org/Archives/Public/w3c-wai-ig/2025AprJun/0076.html) — experts disagree on whether timed toasts violate WCAG 2.2.1. That uncertainty is itself a reason not to rely on them.
+- [Primer — toasts](https://primer.style/accessibility/toasts/) — toasts in bottom corners covering submit buttons, toasts that fall outside a screen magnifier's window, and toasts that appear far from the cursor on large displays.
+- [W3C WAI-IG thread on auto-dismissing toasts](https://lists.w3.org/Archives/Public/w3c-wai-ig/2025AprJun/0076.html) (June 2025) — practitioners disagree on whether timed toasts violate WCAG 2.2.1, and Adrian Roselli argues they do. That uncertainty is itself a reason not to rely on them.
 
 ## Accessibility
 - Inline alerts present on load don't need a live region. Alerts injected later go into a container that existed at load time, with `role="status"` (polite) or `role="alert"` (critical only).
@@ -159,10 +159,7 @@ declare global { interface Document { ariaNotify?: (message: string) => void } }
 - https://design-system.service.gov.uk/components/notification-banner/
 - https://www.nngroup.com/articles/indicators-validations-notifications/
 - https://www.scottohara.me/blog/2019/07/08/a-toast-to-a11y-toasts.html
-- https://lists.w3.org/Archives/Public/w3c-wai-ig/2025AprJun/0076.html (via search summary)
-- https://polaris.shopify.com/components/toast (avoid toasts for errors, use a banner; via search summary)
-- https://adrianroselli.com/2020/01/defining-toast-messages.html (via search summary)
-- modern-web-guidance: `skills/modern-web-guidance/guides/ui-components/persistent-toast-notifications.md`
-- modern-web-guidance: `skills/modern-web-guidance/guides/accessibility/accessibility.md` (live region urgency table)
-- modern-web-guidance: `skills/modern-web-guidance/guides/accessibility/accessible-error-announcement.md`
-- modern-web-guidance: `skills/modern-web-guidance/guides/ui-behaviors/animate-element-entry-exit.md`
+- https://lists.w3.org/Archives/Public/w3c-wai-ig/2025AprJun/0076.html
+- https://adrianroselli.com/2020/01/defining-toast-messages.html (status/log roles; timed toasts conflict with 2.2.1)
+- https://developer.mozilla.org/en-US/docs/Web/API/Document/ariaNotify
+- https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/popover

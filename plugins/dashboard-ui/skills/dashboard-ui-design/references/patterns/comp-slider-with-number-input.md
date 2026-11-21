@@ -9,7 +9,7 @@
 - **Use the input alone** (with stepper buttons) when the value is precise by nature: a share count, a tax rate from a filing, a date.
 - **Use a slider alone** only for genuinely approximate, low-stakes settings: chart opacity, row density, the zoom of a minimap.
 - **Use a range (two-thumb) slider + two inputs** for min/max filters (market cap $1B–$50B). For skewed distributions, use a *log* or bucketed scale, or users can't hit small values.
-- **Don't** use a slider when the range is wide relative to the precision needed. NN/g: a weight slider in 0.1 lb increments is a precision trap. Don't use one for ratings with fine granularity either.
+- **Don't** use a slider when the range is wide relative to the precision needed. NN/g: a weight slider in 0.1 lb increments is a precision trap. Don't use one for ratings with fine granularity either (NN/g's example: a 6–10 wine rating in tenths).
 
 ## Rules (do)
 - **One value, two controls.** The slider and the input share a single source of truth.
@@ -27,7 +27,7 @@
 - **Format the value with its unit** via `aria-valuetext` ("8.25 percent") when the raw number isn't self-explanatory. Use a suffix in the input (`%`, `$B`).
 - **Show the default or reference value** as a tick or marker on the track ("Consensus 8.2%"), with a "Reset" link. In valuation tools, users anchor on the base case.
 - **Recompute cost.** If one recompute is under 100 ms, update outputs live during the drag. Otherwise throttle (`requestAnimationFrame`, or once per 100–150 ms) and run a final compute on `change`. Never queue a server request per `input` event.
-- **Track size.** A track of 4–6px and a thumb of 16–20px inside a ≥40px-tall interactive box. Under `pointer: coarse` the thumb gets a ≥44px hit area. Keep the slider short (160–320px). Long tracks don't add precision and cost travel time (NN/g).
+- **Track size.** A track of 4–6px and a thumb of 16–20px inside a ≥40px-tall interactive box. Under `pointer: coarse` the thumb gets a ≥44px hit area. Keep the slider short (160–320px, house default). NN/g cites the steering law: longer, narrower tracks take more time to control accurately.
 - **Contrast.** The track meets ≥3:1 against the background, the filled portion is distinct from the unfilled, and the focus ring meets ≥3:1.
 - **Range sliders.**
   - Use two native range inputs overlaid, or a well-tested library. Each thumb is labelled "Minimum market cap" and "Maximum market cap".
@@ -36,7 +36,7 @@
 
 ## Anti-patterns (don't)
 - A slider as the only way to enter a precise financial assumption. Users can't land on 7.35% by dragging.
-- A value bubble rendered with `::before`/`::after` on slider pseudo-elements. It isn't interoperable, and the repo guide says not to use it.
+- A value bubble rendered with `::before`/`::after` on slider pseudo-elements. Generated content on `<input>` and its thumb pseudo-elements isn't interoperable; render the value in a real element instead.
 - Sliders starting at an arbitrary point that users then hunt from (NN/g). Start at the base or default case and mark it.
 - Linear scales for log-distributed data (market caps from $50M to $3T), where 95% of companies crowd the first 2% of the track.
 - Firing an expensive query on every `input` event during the drag.
@@ -44,10 +44,10 @@
 - Combining WebKit and Firefox thumb pseudo-elements in one comma-separated selector. The browser drops the whole rule.
 
 ## Good references
-- [NN/g — Slider design: rules of thumb](https://www.nngroup.com/articles/gui-slider-controls/) — use sliders only for approximate values and narrow ranges, avoid fine increments (the Weightbot example), use coarse steps (Kayak's whole hours), keep labels clear of the finger, and offer typing when precision matters.
+- [NN/g — Slider design: rules of thumb](https://www.nngroup.com/articles/gui-slider-controls/) — "Sliders work best when the specific value does not matter to the user": narrow ranges, no fine increments or random start values (Weightbot), steps that match the task (Kayak's whole hours), labels above or beside the thumb, and typing when precision matters.
 - [Kayak flight filters](https://www.kayak.com) (product, cited by NN/g) — time sliders snap to whole hours, so the slider's precision matches the decision.
 - [Desmos](https://www.desmos.com/calculator) (product) — every parameter slider has an editable numeric value and editable min, max and step, so exploration and precision coexist.
-- modern-web-guidance `forms/slider.md` — native range input, separate WebKit and Firefox pseudo-element rules, a fill driven by `progress()` and a `--control-value` custom property, `aria-valuetext` for units, and a 3:1 track and focus contrast.
+- [MDN — `<input type="range">`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/range) — `min`/`max`/`step`, tick marks via `<datalist>`, and per-engine styling hooks (`::-webkit-slider-*`, `::-moz-range-*`) that must sit in separate rules.
 
 ## Bad references
 - [NN/g — Slider design](https://www.nngroup.com/articles/gui-slider-controls/) — the Weightbot slider (0.1 lb precision on a long range) is the canonical bad example: users overshoot repeatedly.
@@ -150,7 +150,5 @@ export function bindSliderInput(range: HTMLInputElement, num: HTMLInputElement, 
 - https://www.nngroup.com/articles/gui-slider-controls/
 - https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html
 - https://www.nngroup.com/articles/response-times-3-important-limits/
-- modern-web-guidance: `skills/modern-web-guidance/guides/forms/slider.md`
-- modern-web-guidance: `skills/modern-web-guidance/guides/ui-atoms/position-aware-tooltips.md` (value bubble anchored to the thumb)
-- modern-web-guidance: `skills/modern-web-guidance/guides/forms/brand-consistent-forms.md` (`accent-color` for the simple case)
-- modern-web-guidance: `skills/modern-web-guidance/guides/accessibility/accessibility.md`
+- https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/range
+- https://www.w3.org/WAI/WCAG22/Understanding/target-size-enhanced.html
