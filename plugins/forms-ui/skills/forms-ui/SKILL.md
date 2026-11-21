@@ -49,7 +49,7 @@ Break one of these only with a written reason.
 7. No `type="number"` for identifiers or money: use `type="text"` with `inputmode="numeric"` or `"decimal"` and a locale-aware parser.
 8. One field per value: one name, one card number, one phone, one OTP. Never auto-advance between fields.
 9. Never block paste, and never ask people to retype email or password; offer show-password instead.
-10. Radios for 2–6 exclusive options, a select for 7–15, a combobox beyond that. A switch only when the change applies immediately.
+10. Radios for 2–5 exclusive options, a select for 6–10, a combobox beyond that (Baymard: drop-downs are a poor choice below 5 or above 10 options). A switch only when the change applies immediately.
 11. Field text is at least 16 px; fields are at least 44 px tall on touch; borders and focus rings are 3:1 or more.
 
 **Validation**
@@ -84,10 +84,10 @@ Break one of these only with a written reason.
 | One opt-in applied on submit | Checkbox |
 | Yes/No that needs a deliberate answer | Two radios, none preselected |
 | On/off applied immediately | Switch |
-| 2–6 exclusive | Radios, stacked |
-| 7–15 exclusive | Native select |
+| 2–5 exclusive | Radios, stacked |
+| 6–10 exclusive | Native select |
 | Long or remote set | Combobox (APG pattern) |
-| Many of many | Checkboxes (≤ ~15), else multi-select combobox |
+| Many of many | Checkboxes (≤ ~15, this skill's cut-off), else multi-select combobox |
 
 **Input type** (`finput-types-autocomplete-keyboards.md`, `finput-money-number-phone.md`, `finput-dates-and-times.md`)
 

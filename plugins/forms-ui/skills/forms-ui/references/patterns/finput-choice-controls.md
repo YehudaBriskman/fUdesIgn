@@ -1,14 +1,14 @@
 # Checkboxes, radios and switches: which and how
 
-> Radios for one choice from 2–6 visible options, checkboxes for any number of choices or a single opt-in that takes effect on submit, a switch only for a setting that takes effect immediately; never a select for 2–3 options and never a switch inside a form that has a Save button.
+> Radios for one choice from 2–5 visible options, checkboxes for any number of choices or a single opt-in that takes effect on submit, a switch only for a setting that takes effect immediately; never a select for 2–3 options and never a switch inside a form that has a Save button.
 
 **Category:** Inputs · **Applies to:** choice questions, consent, settings, filters, conditional reveals · **Priority:** must
 
 ## When to use / when not
 | Situation | Control |
 |---|---|
-| One answer from 2–6 options, all worth seeing | **Radios**, stacked |
-| One answer from 7–15 known options | **Select** (or radios if scanning matters more than space) |
+| One answer from 2–5 options, all worth seeing | **Radios**, stacked |
+| One answer from 6–10 known options | **Select** (or radios if scanning matters more than space) |
 | One answer from 15+ or a searchable set (countries, currencies) | **Select** or **combobox** (`finput-select-combobox-autocomplete.md`) |
 | Any number from a set | **Checkboxes** (or a multi-select combobox beyond ~15) |
 | One yes/no that applies when the form is submitted (terms, "email me") | **Single checkbox** |

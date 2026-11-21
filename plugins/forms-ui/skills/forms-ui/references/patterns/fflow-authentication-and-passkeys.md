@@ -24,7 +24,7 @@
   - Also offer an explicit "Sign in with a passkey" button for devices without autofill support.
   - After a password sign-in, offer "Create a passkey" once, with a plain explanation ("Sign in with your fingerprint, face or screen lock"). Don't nag.
   - Manage passkeys in settings: list with names, created/last used, remove.
-  - Microsoft reports passkey sign-ins succeeding about 98% of the time against about 32% for passwords, and being about 3× faster (2024); Google reports similar gains.
+  - Microsoft reports passkey sign-ins succeeding 98% of the time against 32% for passwords, three times faster than a password and eight times faster than a password plus traditional MFA (Microsoft Security blog, December 2024).
 - **OTP**: one field, `inputmode="numeric"`, `autocomplete="one-time-code"`, hint above saying where the code went; WebOTP for SMS where supported; "Send a new code" after ~30–60 s, with the wait stated (modern-web-guidance SMS OTP guide).
 - **Errors**: generic for credentials ("Email or password is incorrect"); clear the password, keep the email. Lockout and rate limits state when they can try again.
 - **Password reset**: always say "If an account exists for that email, we've sent a link" (no account enumeration); links expire and are single-use.
