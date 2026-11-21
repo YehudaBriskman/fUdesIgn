@@ -23,6 +23,13 @@ plugins/
       references/INDEX.md                all 19 patterns, each with its one-line rule
       references/patterns/*.md           one file per pattern (see below)
       assets/marketing.css               marketing layer (fluid type, sections, CTA, inverse band) on the dashboard-ui roles
+  motion-ui/
+    .claude-plugin/plugin.json
+    skills/motion-ui/
+      SKILL.md                           workflow, 18 non-negotiables, decision tables, token defaults
+      references/INDEX.md                all 19 patterns, each with its one-line rule
+      references/patterns/*.md           one file per pattern
+      assets/motion-tokens.css           durations, curves, spring linear() tokens, reduced-motion overrides
 templates/PATTERN_TEMPLATE.md            the format every pattern file follows
 docs/research-brief.md                   how the research was run
 ```
@@ -51,6 +58,19 @@ docs/research-brief.md                   how the research was run
 | `mkperf-` | Performance and SEO: LCP and hero media, web fonts, headings and metadata (OG images) | 3 |
 | `mkref-` | References: an anti-pattern gallery with named good and bad sites, a 35-check review rubric | 2 |
 
+### motion-ui: 19 patterns in 6 clusters
+
+General product-UI motion and gesture. Motion for data views (number tweening, chart transitions, live recompute) stays in dashboard-ui's `motion-*` and `prog-*` patterns, which motion-ui links to.
+
+| Prefix | Cluster | Files |
+|---|---|---|
+| `mfound-` | Foundations: purpose and frequency budget, durations and easing, choreography and stagger, reduced motion and vestibular safety | 4 |
+| `mspring-` | Springs: duration and bounce mapped across CSS `linear()`, Motion, React Spring, SwiftUI and Material 3; generated CSS spring tokens | 2 |
+| `mgesture-` | Gestures: 1:1 drag, momentum projection and snapping, rubber-banding, sheets and swipe-to-dismiss, interruptibility and velocity | 5 |
+| `mtrans-` | Transitions: enter/exit with `@starting-style` and the top layer, spatial origin, View Transitions (same- and cross-document), buttons, toggles and toasts, scroll-driven animation | 5 |
+| `mperf-` | Performance: compositor-only properties, `will-change`, FLIP, INP | 1 |
+| `mref-` | Review: an 18-check motion rubric with a frame-capture recipe, an anti-pattern gallery | 2 |
+
 Each pattern file has these sections: the rule, when to use and when not, rules with numbers, anti-patterns, good references, bad references, accessibility, motion, a tokens table, an implementation sketch, a checklist and sources.
 
 ## Research
@@ -68,9 +88,10 @@ Some claims rest on search summaries because the source page wouldn't load, and 
 /plugin marketplace add YehudaBriskman/fUdesIgn
 /plugin install dashboard-ui@fudesign
 /plugin install marketing-ui@fudesign
+/plugin install motion-ui@fudesign
 ```
 
-Each skill then triggers on its own design, build and review tasks (dashboards, or landing and marketing pages). You can also copy a skill folder, such as `plugins/marketing-ui/skills/marketing-ui/`, into `~/.claude/skills/`.
+Each skill then triggers on its own design, build and review tasks (dashboards, landing and marketing pages, or product-UI motion and gestures). You can also copy a skill folder, such as `plugins/marketing-ui/skills/marketing-ui/`, into `~/.claude/skills/`.
 
 ## Adding a pattern or plugin
 
