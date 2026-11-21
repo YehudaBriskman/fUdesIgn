@@ -29,6 +29,10 @@
   - Mark today.
   - Disable impossible dates, such as the future for actuals or before the data starts, but keep them visible.
   - **Don't shift the months after the start date is picked** (NN/g: users click the wrong date when the view jumps).
+- **Calendar plus typed input, never three dropdowns.** This is Tesler's law (the law of conservation of complexity, from Larry Tesler of Xerox PARC and Apple): the complexity of entering a date can't be removed, only moved, and the product should carry it rather than the user.
+  - Three `<select>`s for day, month and year are the easiest control to build and the slowest to use: NN/g notes that split drop-downs "require a lot of unnecessary steps", and none of them answers "this Friday" or "the last two weeks" without mental arithmetic.
+  - The calendar shows weekdays and proximity; the typed field takes what people actually know. Accept relative words where the product's users think in them ("today", "yesterday", "this Friday", "last 2 weeks"), resolve them in the dashboard's timezone and echo the absolute dates before Apply. Leave the relative syntax out for audiences that don't need it, as with Grafana-style expressions above.
+  - The presets above are the same principle: they turn the most common ranges into one click.
 - **Typed entry always available** (Carbon: there "should always be a simple way to enter dates in a text field"; NN/g): two text fields `Start` / `End` above the calendar.
   - Accept `-`, `/`, `.` and spaces as separators, and ignore leading zeros (NN/g).
   - Show the format as helper text, never as a placeholder only (Carbon: placeholder text "will disappear from view once the user begins typing").
@@ -62,7 +66,7 @@
 - Firing queries on the start-date click of a custom range.
 - Comparisons of different lengths (7 days vs 30 days) left silently in place after the user changes the main range. An Adobe Analytics community post warns "the comparison will most likely fail (even with relative date ranges)".
 - Comparing a partial current period with a full previous one without a label, which always shows a scary decline.
-- A calendar-only picker with no typed entry, or month/day/year dropdown triples (NN/g).
+- A calendar-only picker with no typed entry, or month/day/year dropdown triples (NN/g): simple to build, hard to use, and the user does the date arithmetic the system should do (Tesler's law).
 - Placeholder-only date format hints that vanish when typing starts (Carbon).
 - Timezone unspecified, so a daily revenue number differs between the dashboard and the CSV export.
 - Each widget carrying its own hidden date range that silently overrides the global one. If widget overrides exist (in Adriel, "the dashboard date range is completely ignored for that widget"), show them on the widget.
@@ -148,6 +152,7 @@ export function comparisonFor(r: DateRange, mode: CompareMode): DateRange {
 - [ ] The trigger shows the preset name *and* the resolved absolute dates. The popover footer shows the timezone.
 - [ ] Presets apply in one click. Custom ranges need an explicit Apply. Esc restores the previous range.
 - [ ] Typed entry is available with a visible format hint and lenient parsing.
+- [ ] No day/month/year dropdown triples; the calendar and the typed field carry the complexity (relative words resolved and echoed where the audience uses them).
 - [ ] Comparison is an explicit toggle, length-matched, with its resolved dates displayed, and recomputed when the range changes.
 - [ ] Partial current periods are labelled or compared on the same elapsed days.
 - [ ] The range and comparison round-trip via the URL (relative or absolute, as intended).
@@ -158,7 +163,9 @@ export function comparisonFor(r: DateRange, mode: CompareMode): DateRange {
 - https://grafana.com/docs/grafana/latest/dashboards/use-dashboards/
 - https://mfsbo.github.io/mfsbo/posts/2025-09-27-date-range-picker-patterns-square-stripe-google-analytics.html
 - https://carbondesignsystem.com/components/date-picker/usage/
-- https://www.nngroup.com/articles/date-input/
+- https://www.nngroup.com/articles/date-input/ (Angie Li, 2017: split drop-downs add unnecessary steps; pickers for dates within a year; accept any separator)
+- https://lawsofux.com/teslers-law/ (Tesler's law, the law of conservation of complexity)
+- https://en.wikipedia.org/wiki/Larry_Tesler (Xerox PARC 1973–80, where he and Tim Mott developed copy and paste on the Gypsy editor; Apple 1980–97)
 - https://www.cloudzero.com/blog/custom-date-comparisons/ (presets show exact dates; custom comparisons match the base period's length)
 - https://experienceleaguecommunities.adobe.com/adobe-analytics-3/fully-dynamic-compare-date-range-2873
 - https://docs.adriel.com/dashboards/filters-and-dates/date-ranges (widget period and comparison override the dashboard's)

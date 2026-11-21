@@ -15,6 +15,7 @@ Decision table, first match wins:
 | Mobile primary navigation | **Navigation drawer** (modal) | `<dialog>` + `showModal()`; optional scroll-snap swipe to close |
 | A list of commands or choices anchored to a trigger | **Menu / listbox popover** | `<div popover>` + anchor positioning |
 | Rich non-blocking content anchored to a control (date picker, column chooser, "how is this metric computed") | **Popover** with a close button | `popover="auto"` (light-dismiss) |
+| A quick look at a linked record (owner, status) without leaving the page | **Preview card** on hover/focus, with a touch alternative | `popover="hint"` + `interestfor`; see `comp-entity-links-and-hover-previews.md` |
 | A 1-line label for an icon or a term, on hover/focus | **Tooltip** | `popover="hint"` + `interestfor`, with a script fallback (see Platform support) |
 | Explanation the user may want deliberately (an "i" next to a KPI) | **Toggletip** (opens on click or tap) | `popover` (auto) + `popovertarget` or `commandfor`/`command="toggle-popover"`; MDN's interest-invoker example pairs it with a separate `hint` tooltip |
 | Background result of an action that's already visible elsewhere | **Toast**, sparingly, persistent by default | `popover="manual"` in one region. See `comp-notifications-alerts.md` |
@@ -39,6 +40,11 @@ NN/g's limits for modals: use them for critical warnings, missing critical info,
   - Use `auto` for menus and pickers (one open at a time, Esc or outside-click closes them). Use `manual` for toasts and persistent panels. Use `hint` for tooltips, so opening one doesn't close an open menu.
   - Anchor them to the trigger with CSS anchor positioning: `position-area: block-end span-inline-end; position-try-fallbacks: flip-block, flip-inline`.
   - Gate `inset: auto; margin: 0` inside `@supports (position-area: block-end)`. Otherwise unsupported browsers strand the popover at (0,0). Either keep the UA-centred default or load `@oddbird/css-anchor-positioning` conditionally.
+- **Trigger affordances point where the content opens** (a convention, not a study finding).
+  - A chevron is a promise about direction: down for a menu that opens below the trigger, up for one that opens above it (an account menu at the foot of the sidebar), inline-end for a submenu, mirrored in RTL.
+  - When anchor positioning flips the popover (`position-try-fallbacks: flip-block`), the chevron should follow. If you can't detect the flip, use a direction-neutral affordance (an up-down chevron pair, or none) instead of a wrong arrow.
+  - If the chevron rotates while open, it rotates towards the content.
+  - Choose a menu's contents by the question the user has at that trigger, not by copying another product's menu. A single-account app doesn't need the user's email at the top of the account menu; a multi-account app does.
 - **Drawers / side panels**
   - Desktop width is 360–480px. They slide in from the inline-end edge for record details.
   - Non-modal panels must have a visible Close button and must not trap focus.
@@ -73,6 +79,7 @@ NN/g's limits for modals: use them for critical warnings, missing critical info,
 - Toasts that carry errors or the only path to an action.
 - `display: flex` set unconditionally on `dialog`, which forces closed dialogs visible. Scope it to `dialog[open]`.
 - Locking background scroll with `body { overflow: hidden }`: the scrollbar disappears, the layout shifts and sticky headers break.
+- A down chevron on a menu that opens upward, or an arrow that stays put when the popover flips: the affordance was copied, the reason for it wasn't.
 
 ## Good references
 - [NN/g — Modal & Nonmodal Dialogs](https://www.nngroup.com/articles/modal-nonmodal-dialog/) — the 4 legitimate modal uses and 3 forbidden ones, plus the Gmail compose window as a model non-modal side task.
@@ -161,6 +168,14 @@ dlg?.addEventListener('close', () => {
 });
 declare function deleteScenario(): Promise<void>;
 ```
+```css
+/* The chevron points where the menu opens; set data-opens from the placement you chose */
+.menu-trigger .chevron { transition: rotate 150ms; }
+.menu-trigger[data-opens="up"] .chevron { rotate: 180deg; }
+.menu-trigger[data-opens="inline-end"] .chevron { rotate: -90deg; }
+:dir(rtl) .menu-trigger[data-opens="inline-end"] .chevron { rotate: 90deg; }
+@media (prefers-reduced-motion: reduce) { .menu-trigger .chevron { transition: none; } }
+```
 Feature-detect polyfills, and load them only when missing: `'commandForElement' in HTMLButtonElement.prototype` (invokers), `Object.hasOwn(HTMLElement.prototype, 'popover')`, `CSS.supports('anchor-name: --a')`, `'interestForElement' in HTMLButtonElement.prototype` and `'closedBy' in HTMLDialogElement.prototype`. See the Platform support table under Rules for each fallback.
 
 ## Checklist
@@ -169,6 +184,7 @@ Feature-detect polyfills, and load them only when missing: `'commandForElement' 
 - [ ] Destructive confirmations autofocus the safe action and name the action in the confirm button.
 - [ ] Background scroll is contained by `overscroll-behavior`, not by `body { overflow: hidden }`.
 - [ ] Anchored popovers fall back gracefully where anchor positioning or `position-area` is unsupported, and every non-Baseline feature in use (`closedby`, `popover="hint"`, `interestfor`) has a scripted fallback.
+- [ ] Every chevron or arrow on a trigger points where its content opens (or is direction-neutral when placement can flip).
 - [ ] Tooltips hold no task-critical content, open on focus as well as hover, and can be hovered and dismissed with Esc.
 - [ ] No toast carries an error or the only route to an action.
 - [ ] Animations use `allow-discrete` as a separate declaration and are disabled under reduced motion.
