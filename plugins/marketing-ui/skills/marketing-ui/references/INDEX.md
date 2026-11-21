@@ -1,10 +1,8 @@
 # Pattern index
 
-Every pattern file in `patterns/`, grouped by cluster. **Priority** says how binding it is: must = always apply, should = apply unless there's a reason not to, nice = optional.
-19 patterns in total.
+19 patterns. **Priority:** must = always apply · should = apply unless there is a reason not to · nice = optional.
 
-
-## Foundations: narrative, conversion, accessibility
+## Foundations: narrative, conversion, accessibility (`mkfound-`)
 
 | Pattern | Priority | Rule |
 |---|---|---|
@@ -12,7 +10,7 @@ Every pattern file in `patterns/`, grouped by cluster. **Priority** says how bin
 | [CTAs and conversion evidence](patterns/mkfound-cta-and-conversion.md) | must | Give each view one primary CTA whose label names the action and its outcome, put the risk reversers right beside it, strip every form field you cannot justify, and never manufacture urgency. |
 | [Page structure and narrative](patterns/mkfound-page-narrative.md) | must | One page serves one goal: the hero says what it is and for whom, proof and features answer "does it work for me", objections are cleared before the ask, and the same primary CTA closes every major section. |
 
-## Sections: hero, proof, features, pricing, FAQ, footer
+## Sections: hero, proof, features, pricing, FAQ, footer (`mksect-`)
 
 | Pattern | Priority | Rule |
 |---|---|---|
@@ -23,7 +21,7 @@ Every pattern file in `patterns/`, grouped by cluster. **Priority** says how bin
 | [Pricing tables](patterns/mksect-pricing-tables.md) | must | Show real prices for 3–4 tiers with the billing unit, currency and tax status next to every number, recommend at most one plan, state the annual saving honestly, and put the full comparison in a real `<table>` with row and column headers. |
 | [Social proof: logos, testimonials and reviews](patterns/mksect-social-proof.md) | must | Show proof a visitor can check: 5–8 permitted customer logos at one optical size, testimonials from named people with a role, company and photo that state a specific outcome, and nothing invented, paid-for without disclosure or rotating on its own. |
 
-## Style: type, colour, dark sections, motion, generated-default tells
+## Style: type, colour, dark sections, motion, generated-default tells (`mkstyle-`)
 
 | Pattern | Priority | Rule |
 |---|---|---|
@@ -33,7 +31,7 @@ Every pattern file in `patterns/`, grouped by cluster. **Priority** says how bin
 | [Generated-default tells](patterns/mkstyle-generated-default-tells.md) | must | Refuse every tell in this catalogue by default, and allow one only when the brief names it or the subject earns it in a sentence you can write down; detect them in the rendered DOM, not by eye. |
 | [Motion and scroll on marketing pages](patterns/mkstyle-scroll-motion.md) | must | Spend motion on one orchestrated moment (usually the hero load), keep any scroll reveals short (≤ 400–600ms, ≤ 16–24px, transform and opacity only) and progressive, never hijack the scroll, and make every piece of content visible without JavaScript or animation. |
 
-## Performance and SEO: LCP, fonts, metadata
+## Performance and SEO: LCP, fonts, metadata (`mkperf-`)
 
 | Pattern | Priority | Rule |
 |---|---|---|
@@ -41,7 +39,7 @@ Every pattern file in `patterns/`, grouped by cluster. **Priority** says how bin
 | [SEO structure: headings and metadata](patterns/mkperf-seo-headings-and-metadata.md) | must | Every marketing page has one descriptive h1 that matches its `<title>`, a heading outline that reads as a table of contents, a unique title and description, a canonical URL, complete Open Graph and Twitter tags with a 1200×630 image, and only the structured data Google still uses. |
 | [Web fonts on marketing pages](patterns/mkperf-web-fonts.md) | must | Self-host subsetted WOFF2, keep the critical path to 2 families and about 4 files, preload only the 1–2 fonts the hero needs, and give every web font a metric-matched fallback so the swap moves nothing. |
 
-## References: anti-pattern gallery and review rubric
+## References: anti-pattern gallery and review rubric (`mkref-`)
 
 | Pattern | Priority | Rule |
 |---|---|---|

@@ -1,16 +1,15 @@
 # Pattern index
 
-Every pattern file in `patterns/`, grouped by cluster. **Priority** says how binding it is: must = always apply, should = apply unless there's a reason not to, nice = optional.
-11 patterns in total.
+11 patterns. **Priority:** must = always apply · should = apply unless there is a reason not to · nice = optional.
 
-## Foundations: token architecture and profiles
+## Foundations: token architecture and profiles (`dsfound-`)
 
 | Pattern | Priority | Rule |
 |---|---|---|
 | [Domain and product-type profiles](patterns/dsfound-domain-profiles.md) | should | Start the system from the profile whose users and constraints match the product (finance, analytics, dev tools, consumer, marketing, health), take its generator inputs and rules, and record the evidence that chose it; change a default only with a recorded reason. |
 | [Token architecture: primitive → semantic → component, naming and versioning](patterns/dsfound-token-architecture.md) | must | Keep three token tiers with references pointing one way only (components → semantic roles → primitives), name each tier by what it is for, and version the token set like a public API. |
 
-## Tokens: format, theming and scales
+## Tokens: format, theming and scales (`dstoken-`)
 
 | Pattern | Priority | Rule |
 |---|---|---|
@@ -20,13 +19,13 @@ Every pattern file in `patterns/`, grouped by cluster. **Priority** says how bin
 | [Theming and multi-brand](patterns/dstoken-theming-multi-brand.md) | should | A theme or a brand is a different set of inputs to the same generator, applied by swapping the role tier under one attribute; components and role names never change per brand. |
 | [Generating a typography scale](patterns/dstoken-typography-scale.md) | must | Generate the type scale from a base size and one ratio chosen for the product's density, in rem, with line height falling as size rises; keep the scale short and name steps by role. |
 
-## Stack mapping
+## Stack mapping (`dsmap-`)
 
 | Pattern | Priority | Rule |
 |---|---|---|
 | [Mapping tokens to the stack (Tailwind v4, shadcn/ui, CSS Modules, vanilla CSS, MUI)](patterns/dsmap-stack-mappings.md) | must | Keep the generated role tokens as the single source and expose them through each stack's native mechanism (Tailwind `@theme`, shadcn variables, MUI `createTheme`), so components use the stack's idiom while every value still comes from one verified file. |
 
-## Reference: decision record, governance, anti-patterns
+## Reference: decision record, governance, anti-patterns (`dsref-`)
 
 | Pattern | Priority | Rule |
 |---|---|---|

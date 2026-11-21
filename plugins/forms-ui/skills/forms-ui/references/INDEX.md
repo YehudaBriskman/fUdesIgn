@@ -1,10 +1,8 @@
 # Pattern index
 
-Every pattern file in `patterns/`, grouped by cluster. **Priority** says how binding it is: must = always apply, should = apply unless there's a reason not to, nice = optional.
-19 patterns in total.
+19 patterns. **Priority:** must = always apply · should = apply unless there is a reason not to · nice = optional.
 
-
-## Foundations: layout, labels, required/optional, accessibility, microcopy
+## Foundations: layout, labels, required/optional, accessibility, microcopy (`ffound-`)
 
 | Pattern | Priority | Rule |
 |---|---|---|
@@ -14,7 +12,7 @@ Every pattern file in `patterns/`, grouped by cluster. **Priority** says how bin
 | [Single-column layout, grouping and fieldsets](patterns/ffound-layout-single-column-grouping.md) | must | Lay a form out as one column, labels above fields, in the order people think about the answers; group related fields with space first and a `<fieldset>` + `<legend>` when the group shares one question. |
 | [Required vs optional fields](patterns/ffound-required-optional-marking.md) | must | First remove every field you don't need; then, if most fields are required, mark the few optional ones with the word "(optional)" in the label; if you use an asterisk instead, explain it once at the top and still set `required` on the control. |
 
-## Inputs: types and autofill, choice controls, selects and comboboxes, money/number/phone, dates, file upload
+## Inputs: types and autofill, choice controls, selects and comboboxes, money/number/phone, dates, file upload (`finput-`)
 
 | Pattern | Priority | Rule |
 |---|---|---|
@@ -25,7 +23,7 @@ Every pattern file in `patterns/`, grouped by cluster. **Priority** says how bin
 | [Selects, comboboxes and autocomplete](patterns/finput-select-combobox-autocomplete.md) | must | Use a native `<select>` for 7–15 known options and a combobox (type to filter) for long or searchable sets; a custom combobox follows the WAI-ARIA APG pattern exactly, keeps focus in the input, and never auto-selects or submits on its own. |
 | [Input types, autocomplete, inputmode and enterkeyhint](patterns/finput-types-autocomplete-keyboards.md) | must | Give every field the right `type`, an `autocomplete` token for anything about the user, an `inputmode` that summons the right keyboard and an `enterkeyhint` that names what Enter does; never block paste and never split one value across several boxes. |
 
-## Validation: timing and inline errors, error summary and focus, error messages
+## Validation: timing and inline errors, error summary and focus, error messages (`fvalid-`)
 
 | Pattern | Priority | Rule |
 |---|---|---|
@@ -33,7 +31,7 @@ Every pattern file in `patterns/`, grouped by cluster. **Priority** says how bin
 | [Error summary, focus and announcements](patterns/fvalid-error-summary-and-focus.md) | must | When a submit fails, show an error summary at the top of the form that lists every error as a link to its field, move focus to the summary, prefix the page title with "Error:", and keep the same messages inline at each field; announce async results with a polite status region. |
 | [Validation timing and inline errors](patterns/fvalid-timing-and-inline-errors.md) | must | Validate a field when the user leaves it after changing it (`:user-invalid` / blur), never while they type; clear the error as soon as the value is fixed; validate everything again on submit; and show each error as text directly above the field, kept until fixed. |
 
-## Flows: submission and double submit, multi-step and saving progress, authentication and passkeys
+## Flows: submission and double submit, multi-step and saving progress, authentication and passkeys (`fflow-`)
 
 | Pattern | Priority | Rule |
 |---|---|---|
@@ -41,7 +39,7 @@ Every pattern file in `patterns/`, grouped by cluster. **Priority** says how bin
 | [Multi-step forms, wizards and saving progress](patterns/fflow-multi-step-and-save-progress.md) | should | Split a long form into steps only when each step is a coherent group of questions; show where people are and how much is left, let them go back without losing answers, end with a "Check your answers" page, and save progress automatically so a timeout or closed tab never costs them their work. |
 | [Submit buttons, submission states and double submit](patterns/fflow-submit-buttons-and-double-submit.md) | must | Keep the submit button enabled until a valid submit starts; then mark it busy on itself (same size, spinner + "Saving…", `aria-disabled`), ignore repeat clicks, send an idempotency key so the server can't do the work twice, and end in a clear success or an inline error that keeps every answer. |
 
-## References: anti-pattern catalogue, review rubric
+## References: anti-pattern catalogue, review rubric (`fref-`)
 
 | Pattern | Priority | Rule |
 |---|---|---|

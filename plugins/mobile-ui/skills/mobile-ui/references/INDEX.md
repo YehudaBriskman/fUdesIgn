@@ -1,10 +1,8 @@
 # Pattern index
 
-Every pattern file in `patterns/`, grouped by cluster. **Priority** says how binding it is: must = always apply, should = apply unless there's a reason not to, nice = optional.
-19 patterns in total.
+19 patterns. **Priority:** must = always apply · should = apply unless there is a reason not to · nice = optional.
 
-
-## Foundations: reach, targets, viewport, type, colour, layout
+## Foundations: reach, targets, viewport, type, colour, layout (`mofound-`)
 
 | Pattern | Priority | Rule |
 |---|---|---|
@@ -18,7 +16,7 @@ Every pattern file in `patterns/`, grouped by cluster. **Priority** says how bin
 | [Typography, Dynamic Type and OS text scale](patterns/mofound-type-text-scale.md) | must | Set body text at 16 px or more in `rem`, never below 11–13 px for anything, opt in to the OS text size where the browser supports it, and build every layout so 200% text still fits without clipping or horizontal scroll. |
 | [Viewport units and the on-screen keyboard](patterns/mofound-viewport-units-keyboard.md) | must | Size app shells with `dvh`, sheets and heroes that must not jump with `svh`, never use plain `100vh` for a full-height layout on mobile, and plan for the on-screen keyboard, which by default covers content rather than resizing the layout. |
 
-## Navigation, overlays and gestures
+## Navigation, overlays and gestures (`monav-`)
 
 | Pattern | Priority | Rule |
 |---|---|---|
@@ -26,14 +24,14 @@ Every pattern file in `patterns/`, grouped by cluster. **Priority** says how bin
 | [Gestures: swipe actions, pull to refresh, edge back](patterns/monav-gestures-swipe-refresh-back.md) | must | Treat every gesture as a shortcut with a visible equivalent, build swipes on native scrolling (scroll snap) rather than custom touch handlers, keep the screen edges and the bottom strip free for the system's back and home gestures, and never hijack the browser's own pull-to-refresh without replacing it. |
 | [Sheets and bottom sheets with detents](patterns/monav-sheets-detents.md) | should | On phones, put secondary tasks, pickers and action menus in a bottom sheet that rises from the thumb zone, snaps to a small set of detents (medium about 50%, large near full height), and can always be dismissed by a visible control, a scrim tap, a downward swipe and the platform back/Esc. |
 
-## Input and feedback
+## Input and feedback (`moinput-`)
 
 | Pattern | Priority | Rule |
 |---|---|---|
 | [Haptics and the Vibration API](patterns/moinput-haptics-vibration.md) | nice | Use haptics sparingly to confirm a commit, a snap or an error that the user caused, always together with a visual cue, and treat the web's Vibration API as a progressive enhancement that does nothing on iPhones. |
 | [Mobile forms: keyboards, input modes and autofill](patterns/moinput-mobile-forms-input-modes.md) | must | Get the right keyboard and autofill for every field (`type`, `inputmode`, `autocomplete`, `enterkeyhint`), keep inputs at 16 px or more, use one column with labels above fields, and never split one value across several boxes. |
 
-## Platform: PWA, performance, native conventions
+## Platform: PWA, performance, native conventions (`moplat-`)
 
 | Pattern | Priority | Rule |
 |---|---|---|
@@ -41,7 +39,7 @@ Every pattern file in `patterns/`, grouped by cluster. **Priority** says how bin
 | [Native feel: Apple HIG and Material 3 conventions on the web](patterns/moplat-native-feel-hig-material.md) | should | Pick one coherent set of conventions per app (a neutral web style, or adapt per platform where it matters), follow the platform for behaviour users rely on (back, sheets, pickers, text scale, share), and never ship a costume of the other platform's chrome. |
 | [PWA: install, offline and the app-like shell](patterns/moplat-pwa-install-offline-shell.md) | should | Make the site installable with a complete manifest, offer install only at a moment of value through the browser's own mechanism, cache an app shell and an offline fallback with a service worker, and design an honest offline state instead of a browser error page. |
 
-## Review: rubric and anti-patterns
+## Review: rubric and anti-patterns (`moref-`)
 
 | Pattern | Priority | Rule |
 |---|---|---|
