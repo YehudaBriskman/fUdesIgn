@@ -33,7 +33,7 @@ Follow these steps in order. In a later session, start at step 0 and then go str
    - Write the inputs to `design/theme.json` and run:
      `node <skill>/scripts/theme.mjs --config design/theme.json --out design/tokens --format css,tailwind,dtcg,design-md,report`
      (`shadcn` instead of or beside `tailwind` for shadcn projects).
-   - The script checks every role pair in light, dark and both high-contrast themes against WCAG 2 (4.5:1 text, 3:1 non-text) and APCA (Lc 75 body, 60 text, 15 non-text), gamut-maps to sRGB, and moves foreground lightness until each pair passes. It prints each adjustment. It exits 1 and lists the failing pairs when it cannot comply, for example with `--lock-accent` and a brand colour too light for text.
+   - The script checks every role pair in light, dark and both high-contrast themes against WCAG 2 (4.5:1 text, 3:1 non-text) and APCA (Lc 75 body, 60 text, 30 non-text), gamut-maps to sRGB, and moves foreground lightness until each pair passes. It prints each adjustment. It exits 1 and lists the failing pairs when it cannot comply, for example with `--lock-accent` and a brand colour too light for text.
    - On failure, don't edit the output. Change an input (unlock the accent, use the exact brand colour only for the logo) and run it again.
    - Type, spacing and radius come from `dstoken-typography-scale.md` and `dstoken-spacing-radius-scales.md`. Dark mode is explained in `dstoken-dark-mode-generation.md`. For more than one brand, see `dstoken-theming-multi-brand.md`.
 
@@ -64,7 +64,7 @@ Break one only with a written reason in DESIGN.md Deviations.
 1. Components use semantic roles and scale steps, never raw colour, size or radius literals, and never primitive ramp tokens.
 2. Roles are named by job (`--text-muted`), never by appearance (`--gray-500`, `--blue`) or theme (`--dark-bg`).
 3. Every background role has a declared foreground, and the pair is verified in light, dark and high contrast.
-4. Text meets WCAG 2 4.5:1 and APCA |Lc| 60 (body text Lc 75). Non-text UI meets 3:1 and Lc 15. No profile, brand or page override lowers these floors.
+4. Text meets WCAG 2 4.5:1 and APCA |Lc| 60 (body text Lc 75). Non-text UI meets 3:1 and Lc 30 (APCA's minimum for solid semantic non-text; Lc 15 is only for non-semantic dividers). No profile, brand or page override lowers these floors.
 5. Dark mode is generated as its own theme, not inverted, and is checked with APCA as well as WCAG 2.
 6. Tokens have one source: the generator inputs. CSS, Tailwind, shadcn, DTCG and the DESIGN.md front matter are regenerated outputs, never hand-edited.
 7. The brand accent is for actions, focus, selection and the logo. Chrome stays neutral.

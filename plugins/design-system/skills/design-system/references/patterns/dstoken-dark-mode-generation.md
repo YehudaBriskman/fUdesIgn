@@ -38,7 +38,7 @@
 - Dark themes that pass WCAG 2 on paper but use mid-blue links on dark grey (around Lc 45) — readable for some, tiring for many.
 
 ## Accessibility
-- Thresholds used by the generator: body text WCAG 4.5:1 and |Lc| ≥ 75; other text 4.5:1 and |Lc| ≥ 60; non-text 3:1 and |Lc| ≥ 15. They apply to dark exactly as to light.
+- Thresholds used by the generator: body text WCAG 4.5:1 and |Lc| ≥ 75; other text 4.5:1 and |Lc| ≥ 60; non-text 3:1 and |Lc| ≥ 30. They apply to dark exactly as to light.
 - Respect `prefers-contrast: more` in dark as well; it is a separate generated block.
 - Never force dark on users (some people with astigmatism read light-on-dark worse); always provide the override.
 
