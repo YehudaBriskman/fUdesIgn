@@ -28,6 +28,7 @@
 - **One sheet at a time.** A sheet opening another sheet replaces it or pushes within it; stacked sheets push the parent back slightly (iOS) at most one level.
 - **Use the platform element:** `<dialog>` opened with `showModal()` gives top layer, focus trap, Esc and (Chrome 134+, Firefox 141+) back-gesture close requests; stop page scroll beneath with `overscroll-behavior: contain` on the dialog (modern-web-guidance `ui-behaviors/prevent-page-scroll-under-modal-dialog.md`).
 - **Snap with scroll snap where possible:** a vertical scroll container whose snap points are the detents gives native momentum without gesture code; otherwise use pointer events with velocity projection.
+- **Undo instead of confirm for reversible actions.** Keep confirmation sheets for irreversible ones (house rule, see `prog-optimistic-ui-and-undo.md`); frequent or primary actions live in the visible UI, not behind a menu.
 
 ## Anti-patterns (don't)
 - A sheet that can only be dismissed by swiping (no button, no Esc, no back).

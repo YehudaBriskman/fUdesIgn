@@ -40,6 +40,7 @@
 - **Inline sparklines in a column:** fixed 96×20px (80–120px wide), no axes, a shared Y scale across rows *if* the reader compares rows (say so in the header: "Trend (30d, shared scale)"), otherwise per-row scale. Put them after the numeric value they explain.
 - **Empty cells:** see `data-loading-empty-error-states.md`. Never a bare `-` in a numeric column, where it reads as minus.
 - **Status columns:** text plus icon badge, never colour alone. See `color-semantic-status.md`.
+- **Inactive is a data state, not a disabled control.** An inactive, archived or deactivated record carries a text label ("Inactive"); dimming alone is allowed only if its text still meets 4.5:1, because WCAG's contrast exemption covers disabled controls, not records. Never reuse disabled styling for it. (Source corpus: local `dashboard-ux-orchestration`.)
 
 ## Anti-patterns (don't)
 - Centred numbers or centred headers over right-aligned numbers.
@@ -164,3 +165,5 @@
 - Repo: modern-web-guidance/skills/modern-web-guidance/guides/ui-atoms/single-line-overflow.md
 - Repo: modern-web-guidance/skills/modern-web-guidance/guides/ui-atoms/responsive-table.md
 - Repo: modern-web-guidance/skills/modern-web-guidance/guides/visual-design/typography.md
+- https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html
+- https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html

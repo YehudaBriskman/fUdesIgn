@@ -19,6 +19,7 @@ Follow these steps in order. Each one names the files to open.
 1. **Cut and shape.**
    - List every field and the reason it's needed. Delete what the service can do without (`ffound-required-optional-marking.md`; Baymard: most checkouts need about 8 fields).
    - Decide the shape: one page, steps, or a task list (decision table below; `fflow-multi-step-and-save-progress.md`). If the edit is one field in a dashboard, use inline edit instead (`comp-inline-edit-and-forms.md`, dashboard-ui).
+   - Prefill, detect and default before you ask, and show the resolved value with a one-action override: the product carries the complexity, not the user (`dsfound-conservation-of-complexity.md` (design-system)).
 2. **Lay out.** One column, labels above, fieldsets for grouped questions, widths that hint at the answer (`ffound-layout-single-column-grouping.md`).
 3. **Write the words.** Labels, hints, optional markers, button labels, why-we-ask lines, the confirmation (`ffound-labels-hints-placeholders.md`, `ffound-required-optional-marking.md`, `ffound-form-microcopy.md`).
 4. **Pick each control.**

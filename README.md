@@ -13,7 +13,7 @@ plugins/
     .claude-plugin/plugin.json
     skills/dashboard-ui-design/
       SKILL.md                           workflow, 29 non-negotiables, decision tables, token defaults
-      references/INDEX.md                all 85 patterns, each with its one-line rule
+      references/INDEX.md                all 89 patterns, each with its one-line rule
       references/patterns/*.md           one file per pattern (see below)
       assets/tokens.css                  starter light and dark tokens, every value traced to a pattern
   marketing-ui/
@@ -27,7 +27,7 @@ plugins/
     .claude-plugin/plugin.json
     skills/mobile-ui/
       SKILL.md                           workflow, 20 non-negotiables, decision tables, token defaults
-      references/INDEX.md                all 19 patterns, each with its one-line rule
+      references/INDEX.md                all 20 patterns, each with its one-line rule
       references/patterns/*.md           one file per pattern
       assets/mobile.css                  touch, safe-area, bar, sheet and rem type tokens on the dashboard-ui roles
   motion-ui/
@@ -48,7 +48,7 @@ plugins/
     .claude-plugin/plugin.json
     skills/design-system/
       SKILL.md                           6-step workflow (detect, profile, generate, map, DESIGN.md, keep consistent), 10 non-negotiables
-      references/INDEX.md                all 11 patterns, each with its one-line rule
+      references/INDEX.md                all 12 patterns, each with its one-line rule
       references/patterns/*.md           dsfound-, dstoken-, dsmap-, dsref- (see below)
       scripts/theme.mjs                  verified OKLCH theme generator: CSS, Tailwind v4, shadcn, DTCG, DESIGN.md front matter
       scripts/theme.test.mjs             node --test suite (APCA reference values, gamut, outputs, CLI)
@@ -74,6 +74,12 @@ plugins/
       references/INDEX.md                all 20 patterns, each with its one-line rule
       references/patterns/*.md           a11y-, aaria-, atest-, alaw-, aref- (see below)
       assets/a11y.css                    skip link, .sr-only, focus ring, 2.4.11 scroll padding, targets, forced colours on the dashboard-ui roles
+  components-ui/
+    .claude-plugin/plugin.json
+    skills/components-ui/
+      SKILL.md                           6-step workflow, 13 non-negotiables, decision table
+      references/INDEX.md                all 10 patterns, each with its one-line rule
+      references/patterns/*.md           cpfound-, cpover-, cpctl-, cpref- (reuse ladder, state matrix, dialog, popover/menu/tooltip, toast, drag and drop, virtualised lists, rubric)
   design-review/
     .claude-plugin/plugin.json
     skills/design-review/SKILL.md        capture → lint → rendered gate → fresh-eye review → rubric → handover
@@ -82,16 +88,16 @@ templates/PATTERN_TEMPLATE.md            the format every pattern file follows
 docs/research-brief.md                   how the research was run
 ```
 
-### dashboard-ui: 85 patterns in 9 clusters
+### dashboard-ui: 89 patterns in 9 clusters
 
 | Prefix | Cluster | Files |
 |---|---|---|
-| `found-` | Foundations: hierarchy, dashboard types, overview → details, grid and spacing, density, data-ink, typography for data, scanning, responsive reflow, progressive disclosure | 10 |
+| `found-` | Foundations: hierarchy, dashboard types, overview → details, grid and spacing, density, data-ink, typography for data, scanning, responsive reflow, progressive disclosure | 15 |
 | `color-` | Colour: system architecture (OKLCH ramps → roles), semantic and money colours, data-viz palettes, dark mode, contrast, minimal colour | 6 |
 | `style-` | Soft and rounded style: radius scale and nested corners, shadows vs borders, surfaces and layering, glass | 4 |
-| `data-` | Data display: KPI cards, number and money formatting, deltas, table layout and interaction, list rows, cards vs tables vs lists, loading/empty/error states, freshness, units and sources | 10 |
+| `data-` | Data display: KPI cards, number and money formatting, deltas, table layout and interaction, list rows, cards vs tables vs lists, loading/empty/error states, freshness, units and sources | 12 |
 | `chart-` | Charts: choose by question, time series, bars, pies and gauges (mostly not), sparklines, uncertainty, financial charts, tooltips and labels, accessibility, honesty, a bad-chart gallery | 11 |
-| `comp-` | Components: buttons, tabs/segmented/pills, overlays (dialog, popover, drawer, toast, tooltip), filters, date ranges, ⌘K, inline edit, sliders, app shell, alerts, keyboard and focus, entity cross-links and hover previews | 14 |
+| `comp-` | Components: buttons, tabs/segmented/pills, overlays (dialog, popover, drawer, toast, tooltip), filters, date ranges, ⌘K, inline edit, sliders, app shell, alerts, keyboard and focus, entity cross-links and hover previews | 16 |
 | `motion-` | Motion and interaction: principles and tokens, number tweening, chart transitions, View Transitions, micro-interactions, reduced motion, linked exploration, live what-if recompute | 8 |
 | `prog-` | Progressive UI: loading states, stale-while-revalidate, optimistic UI and undo, perceived-performance thresholds | 4 |
 | `ref-` | References: fintech, dev/ops, product-analytics and investing teardowns, an anti-pattern catalog, research findings, a 39-check review rubric | 7 |
@@ -106,14 +112,14 @@ docs/research-brief.md                   how the research was run
 | `mkperf-` | Performance and SEO: LCP and hero media, web fonts, headings and metadata (OG images) | 3 |
 | `mkref-` | References: an anti-pattern gallery with named good and bad sites, a 35-check review rubric | 2 |
 
-### mobile-ui: 19 patterns in 5 clusters
+### mobile-ui: 20 patterns in 5 clusters
 
 Mobile web, responsive apps and PWAs, with Apple HIG and Material 3 conventions. Grid reflow and container queries stay in dashboard-ui's `found-responsive-reflow.md`, which mobile-ui links to.
 
 | Prefix | Cluster | Files |
 |---|---|---|
 | `mofound-` | Foundations: thumb zones and reach, touch targets (44 pt, 48 dp, 24 px), safe areas, viewport units and the keyboard, Dynamic Type and text scale, dark mode and system colours, orientation and foldables, lists and cards, tables | 9 |
-| `monav-` | Navigation: bottom bar vs tabs vs drawer, sheets and detents, gestures (swipe actions, pull to refresh, edge back) | 3 |
+| `monav-` | Navigation: bottom bar vs tabs vs drawer, sheets and detents, gestures (swipe actions, pull to refresh, edge back) | 4 |
 | `moinput-` | Input: keyboards, `inputmode` and autofill, haptics and the Vibration API's limits | 2 |
 | `moplat-` | Platform: PWA install, offline and app shell, low-end performance budgets, native feel across HIG and Material 3 | 3 |
 | `moref-` | Review: a 30-check rubric with a 390×844 / 360×800 capture recipe, an anti-pattern catalog | 2 |
@@ -141,11 +147,11 @@ General product-UI motion and gesture. Motion for data views (number tweening, c
 | `fflow-` | Flows: submit states and double submit, multi-step forms and saving progress, sign-in, sign-up and passkeys | 3 |
 | `fref-` | References: a 16-item anti-pattern catalogue with a DOM audit, a 31-check review rubric | 2 |
 
-### design-system: 11 patterns in 4 clusters, plus a theme generator
+### design-system: 12 patterns in 4 clusters, plus a theme generator
 
 | Prefix | Cluster | Files |
 |---|---|---|
-| `dsfound-` | Foundations: token tiers (primitive → semantic → component), naming and semver; evidence-based domain profiles (finance, analytics, dev tools, consumer, marketing, health) | 2 |
+| `dsfound-` | Foundations: token tiers (primitive → semantic → component), naming and semver; evidence-based domain profiles (finance, analytics, dev tools, consumer, marketing, health); conservation of complexity (Tesler) as a decision rule | 3 |
 | `dstoken-` | Tokens: DTCG 2025.10 format, theming and multi-brand, dark-mode generation (WCAG 2 + APCA), type scale, spacing and radius | 5 |
 | `dsmap-` | Stack mapping: Tailwind v4 `@theme`, shadcn/ui variables, CSS Modules, vanilla CSS, MUI `createTheme` | 1 |
 | `dsref-` | Reference: the DESIGN.md decision record, governance and drift detection, a 12-item anti-pattern list | 3 |
@@ -216,6 +222,7 @@ Some claims rest on search summaries because the source page wouldn't load, and 
 /plugin install ai-ui@fudesign
 /plugin install i18n-rtl@fudesign
 /plugin install accessibility@fudesign
+/plugin install components-ui@fudesign
 /plugin install design-review@fudesign
 ```
 

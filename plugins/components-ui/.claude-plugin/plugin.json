@@ -1,0 +1,19 @@
+{
+  "name": "components-ui",
+  "description": "Interactive component behaviour and library choice: a reuse-first selection ladder, state matrix and async model, dialogs, popovers, menus, tooltips, toasts, drag and drop and virtualised lists, with a review rubric.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Yehuda Briskman"
+  },
+  "keywords": [
+    "components",
+    "dialog",
+    "popover",
+    "toast",
+    "drag-and-drop",
+    "virtualisation",
+    "accessibility",
+    "react"
+  ],
+  "license": "PolyForm-Internal-Use-1.0.0"
+}

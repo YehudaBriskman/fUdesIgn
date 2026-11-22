@@ -1,6 +1,6 @@
 # Pattern index
 
-19 patterns. **Priority:** must = always apply · should = apply unless there is a reason not to · nice = optional.
+20 patterns. **Priority:** must = always apply · should = apply unless there is a reason not to · nice = optional.
 
 ## Foundations: reach, targets, viewport, type, colour, layout (`mofound-`)
 
@@ -21,6 +21,7 @@
 | Pattern | Priority | Rule |
 |---|---|---|
 | [Bottom navigation vs tab bars vs drawers](patterns/monav-bottom-nav-tabs-drawers.md) | must | On compact screens, put 3–5 top-level destinations in a visible bottom bar (iOS tab bar, M3 navigation bar); use top tabs only to switch views inside one destination; use a drawer only for more than 5 destinations or secondary items, never as the sole navigation of a small app. |
+| [Contextual modes and state restore](patterns/monav-contextual-modes-and-state-restore.md) | should | Model each mobile screen mode (browse, select, edit, compose, choose-template, search) as a named state with a visible exit, make device back, swipe-back and Esc leave the mode before they leave the screen, keep a mode's primary action in one place, and restore draft, selection, scroll and focus when a sheet or mode closes. |
 | [Gestures: swipe actions, pull to refresh, edge back](patterns/monav-gestures-swipe-refresh-back.md) | must | Treat every gesture as a shortcut with a visible equivalent, build swipes on native scrolling (scroll snap) rather than custom touch handlers, keep the screen edges and the bottom strip free for the system's back and home gestures, and never hijack the browser's own pull-to-refresh without replacing it. |
 | [Sheets and bottom sheets with detents](patterns/monav-sheets-detents.md) | should | On phones, put secondary tasks, pickers and action menus in a bottom sheet that rises from the thumb zone, snaps to a small set of detents (medium about 50%, large near full height), and can always be dismissed by a visible control, a scrim tap, a downward swipe and the platform back/Esc. |
 

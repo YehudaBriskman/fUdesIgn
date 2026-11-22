@@ -21,6 +21,7 @@
 - **Two-column grids** only for visual items (products, photos) at 360 px and up, each tile 160 px wide or more.
 - **Swipe actions** on rows are shortcuts, never the only route (`monav-gestures-swipe-refresh-back.md`).
 - **Empty, loading and error states** at list level: skeleton rows matching the real row height; empty state with one action.
+- **Cards only where they group or act.** Avoid card-in-card; at 360 px each nested card spends padding twice, so prefer headers, dividers and spacing. Mobile empty states differ by cause (the first, collection and no-results cases are in NN/g; offline, permission and deleted are this repo's additions): first run, empty collection, no search results (quote the query and offer to clear it), filtered, permission, offline with stale data still shown, and deleted with Undo.
 
 ## Anti-patterns (don't)
 - Each row a separate bordered card with shadow: 12 px gaps and borders cost one row in five of screen height.
@@ -109,3 +110,4 @@
 - https://github.com/GoogleChrome/modern-web-guidance/blob/main/skills/modern-web-guidance/guides/user-experience/content-first-noise-reduction.md
 - plugins/dashboard-ui/skills/dashboard-ui-design/references/patterns/data-cards-vs-tables-vs-lists.md
 - plugins/dashboard-ui/skills/dashboard-ui-design/references/patterns/data-list-rows.md
+- https://www.nngroup.com/articles/empty-state-interface-design/

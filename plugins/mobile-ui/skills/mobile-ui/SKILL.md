@@ -5,7 +5,7 @@ description: Design, build or review mobile web pages, responsive apps and PWAs 
 
 # Mobile UI design
 
-A research-backed playbook for mobile web and responsive apps: 19 pattern files, each with rules, anti-patterns, good and bad references, accessibility, tokens, an implementation sketch and a checklist. This file gives the workflow, the non-negotiable rules and the quick decision tables. Open the pattern files for depth.
+A research-backed playbook for mobile web and responsive apps: 20 pattern files, each with rules, anti-patterns, good and bad references, accessibility, tokens, an implementation sketch and a checklist. This file gives the workflow, the non-negotiable rules and the quick decision tables. Open the pattern files for depth.
 
 - **Pattern index:** `references/INDEX.md` lists every pattern with its one-line rule.
 - **Pattern files:** `references/patterns/<prefix>-<name>.md`. The prefixes are `mofound` (foundations), `monav` (navigation, sheets, gestures), `moinput` (forms and haptics), `moplat` (PWA, performance, native conventions) and `moref` (review rubric and anti-patterns).
@@ -17,6 +17,7 @@ A research-backed playbook for mobile web and responsive apps: 19 pattern files,
 1. **Set the platform baseline.**
    - Use the viewport tag `width=device-width, initial-scale=1, viewport-fit=cover` with no zoom blocking, `color-scheme` and `theme-color` for both schemes, and `assets/mobile.css` (`mofound-safe-areas.md`, `mofound-dark-mode-system-colors.md`).
    - Decide the conventions: neutral web, or adapted per platform (`moplat-native-feel-hig-material.md`).
+   - Prefer detecting, defaulting and remembering over asking on a small screen; see `dsfound-conservation-of-complexity.md` (design-system).
 2. **Lay out for the thumb.**
    - Put the primary actions in the lower half and the destructive ones away from them (`mofound-thumb-zones-reach.md`).
    - Use 3–5 top-level destinations in a bottom bar, a rail at 600 px and up (`monav-bottom-nav-tabs-drawers.md`).

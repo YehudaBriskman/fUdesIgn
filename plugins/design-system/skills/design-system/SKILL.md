@@ -7,7 +7,7 @@ description: Set up and maintain a coherent design system in the user's project 
 
 Sets up a design system in the user's project and keeps it consistent across sessions. It has three parts:
 - **A generator:** `scripts/theme.mjs` turns a few inputs into verified tokens.
-- **Patterns:** 11 pattern files under `references/patterns/`, each with rules, references, tokens, a sketch and a checklist. `references/INDEX.md` lists them with their one-line rules. The prefixes are `dsfound` (foundations), `dstoken` (tokens), `dsmap` (stack mapping) and `dsref` (decision record, governance, anti-patterns).
+- **Patterns:** 12 pattern files under `references/patterns/`, each with rules, references, tokens, a sketch and a checklist. `references/INDEX.md` lists them with their one-line rules. The prefixes are `dsfound` (foundations), `dstoken` (tokens), `dsmap` (stack mapping) and `dsref` (decision record, governance, anti-patterns).
 - **A decision record:** `assets/DESIGN.template.md`, the DESIGN.md written into the user's project.
 
 The role names are those of the dashboard-ui plugin's `tokens.css`, so its patterns and this plugin's output fit together.
@@ -31,7 +31,7 @@ Follow these steps in order. In a later session, start at step 0 and then go str
      3. *What would they want to know next?* The follow-up question after the first answer; it decides what links to what.
      4. *What are you willing to leave out?* Name features, data and decoration you won't build, and the trade-off you accept for it.
    - **Check every borrowed pattern against its reason.** For each pattern taken from another product or a kit (an account popover, a three-field date, an onboarding deck, a card grid), write the reason it exists in its source and whether that reason holds here. If it doesn't, the parts survive but the reason doesn't: drop or redesign the pattern. A single-account app has no reason to lead its account menu with the email address that disambiguates accounts in a multi-account mail client.
-   - **Decide who carries the complexity.** Tesler's law (the law of conservation of complexity): some complexity can't be removed, only moved, so move it into the system rather than onto the user. Note where that costs build effort (forms-ui `finput-dates-and-times.md` has a worked example).
+   - **Decide who carries the complexity.** Tesler's law (the law of conservation of complexity): some complexity can't be removed, only moved, so move it into the system rather than onto the user. Note where that costs build effort (forms-ui `finput-dates-and-times.md` has a worked example). The full rule, audit and exceptions: `dsfound-conservation-of-complexity.md`.
    - Record the answers in DESIGN.md under Overview → Design brief. The profile, the emphasis and every later deviation should trace back to them.
    - From the users and task, not the industry label, pick finance, analytics, dev tools, consumer, marketing or health. If none fits, derive one by combining axes. Add the condition modifiers that apply (real-time, large dataset, regulated money, red-up market, older audience). See `dsfound-domain-profiles.md`.
    - The profile gives `contrast`, `density`, `radius`, type base and motion budget. The brand gives `hue`, `tint` and `accent`. Ask the user only for what you cannot infer (usually the brand colour).

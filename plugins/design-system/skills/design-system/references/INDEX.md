@@ -1,11 +1,12 @@
 # Pattern index
 
-11 patterns. **Priority:** must = always apply · should = apply unless there is a reason not to · nice = optional.
+12 patterns. **Priority:** must = always apply · should = apply unless there is a reason not to · nice = optional.
 
 ## Foundations: token architecture and profiles (`dsfound-`)
 
 | Pattern | Priority | Rule |
 |---|---|---|
+| [Conservation of complexity (Tesler's law)](patterns/dsfound-conservation-of-complexity.md) | must | Complexity cannot be removed, only moved: before each design choice, decide who carries it, and carry it in the product unless one of five named exceptions applies. |
 | [Domain and product-type profiles](patterns/dsfound-domain-profiles.md) | should | Start the system from the profile whose users and constraints match the product (finance, analytics, dev tools, consumer, marketing, health), take its generator inputs and rules, and record the evidence that chose it; change a default only with a recorded reason. |
 | [Token architecture: primitive → semantic → component, naming and versioning](patterns/dsfound-token-architecture.md) | must | Keep three token tiers with references pointing one way only (components → semantic roles → primitives), name each tier by what it is for, and version the token set like a public API. |
 

@@ -18,6 +18,7 @@
 - **Two weights per family in UI.** Regular (400) and semibold (600) carry almost every hierarchy; add a third only with a stated reason.
 - **Numbers get tabular lining figures.** `font-variant-numeric: tabular-nums lining-nums` on any number that changes or aligns.
 - **Write the scale as tokens.** One shorthand token per role (`--type-body: 400 0.875rem/1.45 var(--font-sans)`) plus tracking tokens, so components never set size and line height separately.
+- **One UI family by default.** Add a second only for a named role (display, mono) and cap the product at two families (house rule). Reading-heavy surfaces use body ≥ 16 px; dense data UI may use 14 px but must support 200% zoom (WCAG 1.4.4).
 
 ## Anti-patterns (don't)
 - A 12-step scale where the app uses 4. Unused steps get used by accident.
@@ -102,3 +103,4 @@ export function typeScale(basePx: number, ratio: number): Record<Role, string> {
 - https://www.w3.org/WAI/WCAG22/Understanding/resize-text.html
 - https://www.w3.org/WAI/WCAG22/Understanding/text-spacing.html
 - Repo: `found-typography-for-data.md` (dashboard-ui), `assets/tokens.css`
+- https://www.w3.org/WAI/WCAG22/Understanding/resize-text.html

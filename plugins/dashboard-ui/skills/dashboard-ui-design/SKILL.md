@@ -5,7 +5,7 @@ description: Design, build or review data-heavy dashboard UIs (analytics, financ
 
 # Dashboard UI design
 
-A research-backed playbook for dashboards: 85 pattern files, each with rules, anti-patterns, good and bad references, accessibility, tokens, an implementation sketch and a checklist. This file gives the workflow, the non-negotiable rules and the quick decision tables. Open the pattern files for depth.
+A research-backed playbook for dashboards: 89 pattern files, each with rules, anti-patterns, good and bad references, accessibility, tokens, an implementation sketch and a checklist. This file gives the workflow, the non-negotiable rules and the quick decision tables. Open the pattern files for depth.
 
 - **Pattern index:** `references/INDEX.md` lists every pattern with its one-line rule.
 - **Pattern files:** `references/patterns/<prefix>-<name>.md`. The prefixes are `found` (foundations), `color` and `style` (visual style), `data` (data display), `chart`, `comp` (components), `motion`, `prog` (progressive loading), and `ref` (product teardowns, anti-patterns, review rubric).
@@ -24,6 +24,7 @@ Follow these steps in order. Each one names the files to open.
    - Use the inverted KPI pyramid: the answer top-leading, trends in the middle, detail at the bottom (`found-scanning-kpi-pyramid.md`).
    - Use a 12-column grid and a 4px spacing scale (`found-layout-grid-spacing.md`). Reflow by priority, with container queries per widget (`found-responsive-reflow.md`).
    - Disclose progressively, at most 2 levels deep (`found-progressive-disclosure.md`).
+   - Where a choice is "simple to build" versus "simple to use", make the product carry the complexity, not the user (`dsfound-conservation-of-complexity.md` (design-system)).
    - Design against worst-case data from the start: long names, huge or negative numbers, empties, 1,000 rows (`found-worst-case-data.md`).
 3. **Pick containers and data display.**
    - Choose the container: table for many comparable records, list for find-and-open, cards for a few heterogeneous summaries (`data-cards-vs-tables-vs-lists.md`).

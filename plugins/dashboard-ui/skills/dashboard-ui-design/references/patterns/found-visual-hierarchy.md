@@ -20,6 +20,7 @@
 - **Give every KPI context: comparison, target or trend.** A bare number is not a focal point, it's a riddle (Few Pitfall #2: "quarter-to-date sales total $736,502 without any context means little. Compared to what?").
 - **Use weight, not boxes, to separate levels.** Prefer a 600 weight or a size step to an extra border or card. NN/g: add borders or backgrounds only when spacing fails, and sparingly, because they add clutter.
 - **Reserve bright, saturated color** for the 0–2 items that need attention now. Everything else stays neutral, so an alert is visible pre-attentively.
+- **Map relationships before layout.** Next to the priority list, mark which items belong to the same entity or process, which are alternatives and which are cause and effect; group and order by those relationships, not by the data model. (Source corpus: local `visual-hierarchy-layout`; NN/g on visual hierarchy.)
 
 ## Anti-patterns (don't)
 - **Uniform prominence.** Six equally bold, equally colorful charts leave "a wash of sameness and no clue where to focus" (Few Pitfall #10).
@@ -108,3 +109,4 @@
 - https://www.datawrapper.de/blog/fonts-for-data-visualization
 - modern-web-guidance/skills/modern-web-guidance/guides/visual-design/precise-text-alignment.md
 - modern-web-guidance/skills/modern-web-guidance/guides/css/css-layout.md
+- https://www.nngroup.com/articles/visual-hierarchy-ux-definition/

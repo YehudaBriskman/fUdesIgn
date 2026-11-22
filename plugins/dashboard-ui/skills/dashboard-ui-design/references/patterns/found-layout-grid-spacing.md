@@ -29,6 +29,7 @@
 - **Use gutters of 16px below 1312px and 24px at 1312px or wider.** Page margins are 16px below 600px, 24px up to 1199px and 32px from 1200px.
 - **Use `gap`, never child margins,** for spacing between grid and flex items.
 - **Group with space before borders.** Add a 1px hairline only when space alone fails, for example between dense table rows. Use a card background only when widgets have different interaction scopes.
+- **Repeated records share anchors.** Label, value and action sit at the same horizontal positions in every row or card of a set, so the eye compares down a column (house rule). If the project already has a spacing or column scale, use it; the 4 px and 4/8/12 values here are defaults, not a reason to replace a working system.
 
 ## Anti-patterns (don't)
 - **Arbitrary values** (13px, 18px, 22px) scattered across components. They produce "almost aligned" edges users feel but can't name (Linear's redesign aligned labels, icons and buttons for exactly this reason).

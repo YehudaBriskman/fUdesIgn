@@ -35,6 +35,7 @@
 - **Allow several sections open at once.** Avoid exclusive (`name=`) accordions when users might compare, and offer "Expand all" and "Collapse all" for 4 or more sections (NN/g recommends both buttons; the threshold of 4 is ours).
 - **Remember disclosure state** per user for analytical views (an expanded group stays expanded on return). Reset it for shared links unless the state is encoded in the URL.
 - **On compact windows**, disclosure replaces columns: KPIs 5–8 go behind "Show more metrics", and secondary charts go behind section headers (see `found-responsive-reflow.md`).
+- **Hide by frequency and by risk.** Rarely used is not enough reason to bury something: a high-consequence warning, limit or irreversible action stays visible, or one clearly labelled step away. (Source corpus: local `dashboard-ux-orchestration`; the risk half is this repo's inference, since NN/g's progressive-disclosure guidance is frequency-based.)
 
 ## Anti-patterns (don't)
 - **Mystery meat:** a "⋯" icon with no label holding the export, date range and units.
@@ -131,3 +132,4 @@ summary { cursor: pointer; min-block-size: 2.75rem; display: flex; align-items: 
 - modern-web-guidance/skills/modern-web-guidance/guides/ui-behaviors/search-hidden-content.md
 - modern-web-guidance/skills/modern-web-guidance/guides/ui-components/hovercard.md
 - modern-web-guidance/skills/modern-web-guidance/guides/user-experience/content-first-noise-reduction.md
+- https://www.nngroup.com/articles/progressive-disclosure/
