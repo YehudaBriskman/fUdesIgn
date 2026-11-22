@@ -22,6 +22,7 @@
 - **Each role has fg and bg, plus emphasis and border if you need them.** tokens.css ships `--{role}-fg` and `--{role}-bg` (a 10% `color-mix` tint); Primer adds an emphasis background with `fgColor-onEmphasis` and a border. Text uses `-fg` on surface (≥ 4.5:1). Badges use `-fg` on `-bg` (≥ 4.5:1). Status icons need ≥ 3:1; Carbon also asks for 3:1 between status colours and against the page background.
 - **Yellow never carries text on white.** Yellow fills need dark text, and yellow as a foreground needs a darkened amber (~L 0.55). Carbon notes light orange and yellow shapes need outlines in light themes.
 - **Cap visible indicators.** More than 5–6 status indicators in one view overwhelms (Carbon).
+- **Red, amber and green are conventions, not laws.** Their meaning varies by locale and domain (red can mean a price rise in some East Asian markets), so keep status role tokens swappable and never rely on hue alone. Blue does not mean trust by itself.
 
 ## Anti-patterns (don't)
 - Red/amber/green "traffic light" cells as the only encoding. All three are equally saturated, so nothing ranks above anything else, and red/green collapse for deuteranopes (Few's heatmap example, Stacey Barr, Grafana's dashboard tips).

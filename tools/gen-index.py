@@ -32,6 +32,10 @@ CLUSTERS = {
     'atest': 'Testing: screen readers, manual test plan, automated checks',
     'alaw': 'Law and statements: EAA, ADA Title II, Section 508, EN 301 549, Israel IS 5568',
     'aref': 'Review: audit rubric and report, anti-patterns',
+    'cpfound': 'Foundations: reuse before build, library categories and licences, state matrix and async states',
+    'cpover': 'Overlays: dialog, popover/menu/tooltip, toast',
+    'cpctl': 'Controls: drag and drop, virtualised lists and tables',
+    'cpref': 'References: anti-pattern catalogue, review rubric',
 }
 # optional routing note printed under the count line, keyed by skill folder name
 NOTES = {

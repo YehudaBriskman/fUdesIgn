@@ -35,6 +35,7 @@
 - **Use fluid type inside widgets with `clamp(rem, cqi, rem)`,** max ≤ 2.5× min (modern-web-guidance `css/fluid-scaling.md`).
 - **Use `dvh` for full-height panels** on mobile, and `env(safe-area-inset-*)` padding for fixed bars.
 - **Test at 360, 768, 1024, 1280, 1440, 1920 and 2560px,** plus 1280px at 200% zoom.
+- **Resize continuously, not only at named breakpoints.** Drag the viewport from 320 px to wide and add a breakpoint or container query where the content breaks, rather than where a device class starts. WCAG 1.4.10 Reflow is the floor (320 CSS px, no two-dimensional scrolling for text). (Source corpus: local `visual-hierarchy-layout`, `mobile-ux-architecture`.)
 
 ## Anti-patterns (don't)
 - **Viewport media queries inside widgets.** The tile breaks when placed in a 320px sidebar on a 1920px screen.
@@ -139,3 +140,4 @@
 - modern-web-guidance/skills/modern-web-guidance/guides/ui-atoms/responsive-table.md
 - modern-web-guidance/skills/modern-web-guidance/guides/user-experience/form-factor-adaptation.md
 - modern-web-guidance/skills/modern-web-guidance/guides/ui-behaviors/move-dom-element-without-losing-state.md
+- https://www.w3.org/WAI/WCAG22/Understanding/reflow.html

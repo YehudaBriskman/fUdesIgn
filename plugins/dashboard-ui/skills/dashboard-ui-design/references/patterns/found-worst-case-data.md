@@ -37,6 +37,7 @@
 - **Report before fixing.** First list every break with a screenshot and the stress value that caused it, then fix. This stops the reviewer from quietly fixing only the easy ones.
 - **Capture at 2 widths × 2 themes.** Run the worst-case set at 1440px and 390px, in light and dark (see `style-theme-consistency.md`). Long names fail at 390px first.
 - **Make the stress set part of CI** once it exists: a visual snapshot of each view under `fixture=worst` catches regressions.
+- **Label sample data.** Any demo or placeholder number, name or chart is visibly marked as sample data; never present invented values as real, and state assumptions about data shape, frequency and risk before laying out. (Source corpus: local `dashboard-ux-orchestration`.)
 
 ## Anti-patterns (don't)
 - Lorem-ipsum metrics: "Metric A 1,234 +12%" on every card. Placeholder data hides every length and sign problem (see `ref-ai-default-tells.md`).

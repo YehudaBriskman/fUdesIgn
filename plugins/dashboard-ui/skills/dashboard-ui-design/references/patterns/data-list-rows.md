@@ -32,6 +32,7 @@
 - **Count and sort:** show "248 accounts" and the current sort ("Sorted by: Last activity") above the list (Polaris ResourceList has a total-count option and a sort select).
 - **Long lists:** paginate or "Load more". NN/g: infinite scroll without a Load More button "can make it impossible to access the footer". For more than about 300 rows, use `content-visibility: auto` on row groups.
 - **Unread or new state:** a bold primary label plus a dot with accessible text ("Unread"), not colour alone.
+- **Avatar never the only identifier.** A person's row shows the name as text; the avatar is redundant, and a missing image falls back to initials. (WCAG 1.1.1; source corpus: local `dashboard-ux-orchestration`.)
 
 ## Anti-patterns (don't)
 - Rows with 6 or more facts scattered across two lines. Nothing can be scanned, so use a table.
@@ -140,3 +141,4 @@
 - Repo: modern-web-guidance/skills/modern-web-guidance/guides/ui-behaviors/swipe-to-reveal.md
 - Repo: modern-web-guidance/skills/modern-web-guidance/guides/ui-behaviors/animate-element-entry-exit.md
 - Repo: modern-web-guidance/skills/modern-web-guidance/guides/performance/defer-rendering-heavy-content.md
+- https://www.w3.org/WAI/WCAG22/Understanding/non-text-content.html

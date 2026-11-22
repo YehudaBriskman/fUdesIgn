@@ -11,7 +11,7 @@
     {
       "name": "dashboard-ui",
       "source": "./plugins/dashboard-ui",
-      "description": "Dashboard UI design: 71 researched patterns (hierarchy, data display, charts, colour, components, motion, progressive UI) plus a review rubric and starter tokens.",
+      "description": "Dashboard UI design: 89 researched patterns (hierarchy, data display, charts, colour, components, motion, progressive UI) plus a review rubric and starter tokens.",
       "version": "0.1.0",
       "category": "design",
       "license": "PolyForm-Internal-Use-1.0.0"
@@ -27,7 +27,7 @@
     {
       "name": "mobile-ui",
       "source": "./plugins/mobile-ui",
-      "description": "Mobile web, responsive apps and PWAs: 19 researched patterns (thumb reach, 44pt/48dp/24px targets, safe areas, dvh/svh and the keyboard, bottom nav, sheets and detents, gestures, mobile forms, lists and tables, Dynamic Type, dark mode, haptics, PWA install and offline, low-end performance, foldables) with Apple HIG and Material 3 conventions, plus a review rubric and mobile tokens.",
+      "description": "Mobile web, responsive apps and PWAs: 20 researched patterns (thumb reach, 44pt/48dp/24px targets, safe areas, dvh/svh and the keyboard, bottom nav, sheets and detents, gestures, mobile forms, lists and tables, Dynamic Type, dark mode, haptics, PWA install and offline, low-end performance, foldables) with Apple HIG and Material 3 conventions, plus a review rubric and mobile tokens.",
       "version": "0.1.0",
       "category": "design",
       "license": "PolyForm-Internal-Use-1.0.0"
@@ -67,7 +67,7 @@
     {
       "name": "i18n-rtl",
       "source": "./plugins/i18n-rtl",
-      "description": "Internationalisation and right-to-left UI with Hebrew and Arabic as first-class cases: 19 researched patterns (logical properties, what mirrors and what must not, dir and dir=auto, bidi isolation of mixed Hebrew/English/number text, digits, minus sign and ₪ position, Hebrew and Hijri calendars and week start, directional icons, Hebrew and Arabic typography, RTL forms, tables and charts, :dir() and Tailwind rtl:, ICU plurals with Hebrew dual forms and gender, text expansion, locale negotiation without flags, pseudo-localisation and a Playwright RTL recipe) plus a Hebrew-site teardown with IS 5568, an anti-pattern catalogue, a review rubric and logical-property utilities.",
+      "description": "Internationalisation and right-to-left UI with Hebrew and Arabic as first-class cases: 19 researched patterns (logical properties, what mirrors and what must not, dir and dir=auto, bidi isolation of mixed Hebrew/English/number text, digits, minus sign and \u20aa position, Hebrew and Hijri calendars and week start, directional icons, Hebrew and Arabic typography, RTL forms, tables and charts, :dir() and Tailwind rtl:, ICU plurals with Hebrew dual forms and gender, text expansion, locale negotiation without flags, pseudo-localisation and a Playwright RTL recipe) plus a Hebrew-site teardown with IS 5568, an anti-pattern catalogue, a review rubric and logical-property utilities.",
       "version": "0.1.0",
       "category": "design",
       "license": "PolyForm-Internal-Use-1.0.0"
@@ -84,6 +84,14 @@
       "name": "design-review",
       "source": "./plugins/design-review",
       "description": "Evidence-based UI review: Playwright capture, a deterministic rendered gate (12 detectors), a static UI lint (10 rules), a fresh-eye reviewer brief and a handover record.",
+      "version": "0.1.0",
+      "category": "design",
+      "license": "PolyForm-Internal-Use-1.0.0"
+    },
+    {
+      "name": "components-ui",
+      "source": "./plugins/components-ui",
+      "description": "Interactive component behaviour: reuse-first selection ladder, state matrix and async model, dialogs, popovers and menus, tooltips, toasts, drag and drop, virtualised lists, plus anti-patterns and a review rubric.",
       "version": "0.1.0",
       "category": "design",
       "license": "PolyForm-Internal-Use-1.0.0"
