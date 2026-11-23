@@ -25,7 +25,7 @@
   - *minor*: a token is added, or a value changes visibly (a new accent, a contrast step);
   - *patch*: a value changes invisibly (rounding, a gamut fix, a comment).
   Deprecate before removing. Keep the old name as an alias for one minor release (`--fg: var(--text)`) and mark it (`$deprecated` in DTCG, a comment in CSS). Record the version and the reason in the DESIGN.md decision log (`dsref-design-md-format.md`).
-- **One source of truth.** Tokens live in one generated or authored file (CSS, DTCG JSON or DESIGN.md front matter). The others are outputs. Hand-editing an output is drift (`dsref-governance-drift.md`).
+- **One source of truth.** Tokens live in one generated or authored file (CSS, DTCG JSON as in `dstoken-dtcg-format.md`, or DESIGN.md front matter). The others are outputs. Hand-editing an output is drift (`dsref-governance-drift.md`).
 
 ## Anti-patterns (don't)
 - Components that read `--gray-600`, `#2563eb` or `oklch(...)` directly. Dark mode then needs a per-component override.

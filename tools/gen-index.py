@@ -36,6 +36,10 @@ CLUSTERS = {
     'cpover': 'Overlays: dialog, popover/menu/tooltip, toast',
     'cpctl': 'Controls: drag and drop, virtualised lists and tables',
     'cpref': 'References: anti-pattern catalogue, review rubric',
+    'uxcog': 'Cognition and perception: biases graded, reading patterns, Fitts and Hick, response time',
+    'uxeth': 'Ethics: choice architecture and dark patterns',
+    'uxres': 'Research methods: usability testing, information scent and IA, grading evidence',
+    'uxwrt': 'Writing: UX writing and content design',
 }
 # optional routing note printed under the count line, keyed by skill folder name
 NOTES = {

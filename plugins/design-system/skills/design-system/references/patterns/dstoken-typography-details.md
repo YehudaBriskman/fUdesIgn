@@ -14,7 +14,7 @@ Dates are from MDN's Baseline banners as read in November 2026. Support moves; r
 
 | Feature | Baseline | Note |
 |---|---|---|
-| `text-box-trim`, `text-box-edge`, `text-box` | 2026, Newly available | MDN's compat table was truncated when read: verify versions, and keep the `@supports` fallback |
+| `text-box-trim`, `text-box-edge`, `text-box` | 2026, Newly available (since August 2026) | Chrome and Edge 133, Safari 18.2, Firefox 154 (BCD); keep the `@supports` fallback for older installs |
 | `text-underline-offset` | Widely available (since Nov 2020) | |
 | `font-variant-position` | Widely available (Sept 2023) | |
 | `font-variant-caps` | Widely available (Jan 2020) | |

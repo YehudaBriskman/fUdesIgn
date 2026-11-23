@@ -6,7 +6,7 @@
 
 ## When to use / when not
 - Use this when a design choice needs a cited reason, for example in a review comment, an ADR, or a disagreement over gauges or spinners.
-- These are research summaries, not visual specs. Pair them with the rubric (ref-design-review-rubric.md) for scoring.
+- These are research summaries, not visual specs. Pair them with the rubric (ref-design-review-rubric.md) for scoring, and grade a finding before relying on it (`uxres-evidence-grading.md`).
 - Caveat: Few's white paper is © 2005 (the edition online is dated February 2006), Baymard's card study is from August 2018 and covers e-commerce account dashboards, NN/g's dashboard article is from 2017, its progress-indicator article from 2014, and its response-time limits date from 1993. They are durable, but cite them with dates.
 
 ## Rules (do)
@@ -23,7 +23,7 @@
 - **Highlight sparingly:** "When everything is visually prominent, nothing stands out." Non-data elements (logo, nav) are subdued (pitfall 10).
 - **No decoration:** no faux control panels, LEDs or switches (pitfall 11).
 - **Colour:** "keep colors subdued and neutral, except when you are using color to highlight something". Colour on already-labelled bars means nothing, but the brain still searches for a meaning (pitfall 12).
-- **Aesthetics matter:** an ugly display hurts use, but beauty comes from displaying the data well, not from ornament (pitfall 13). Aesthetic-usability caveat: in Kurosu and Kashimura 1995 (26 ATM layouts, 252 participants) beauty ratings tracked perceived ease more than actual ease, and polish makes users forgive problems, so test with tasks, not looks (lawsofux.com Aesthetic-Usability Effect). Evidence grades for all named laws: `ref-ux-laws-evidence-map.md`.
+- **Aesthetics matter:** an ugly display hurts use, but beauty comes from displaying the data well, not from ornament (pitfall 13). Aesthetic-usability caveat: in Kurosu and Kashimura 1995 (26 ATM layouts, 252 participants) beauty ratings correlated with rated apparent ease (r = 0.59) more than with inherent usability (replicated in Israel with r = 0.92, Tractinsky 1997), so test with tasks, not looks. That polish makes users forgive problems is a separate claim these studies do not test (lawsofux.com Aesthetic-Usability Effect). Evidence grades for all named laws: `ref-ux-laws-evidence-map.md`.
 - **Bullet graph (Bullet Graph Design Specification):** Few designed it to replace gauges. The featured measure is a 100% black bar "approximately 1/3rd the thickness of its container"; the comparative measure is a short perpendicular line (a second one at 75% black); qualitative ranges are "limited to a maximum of five and ideally to three", drawn as intensities of one hue, darker for poor states: 2 ranges 35/10%, 3 ranges 40/25/10%, 4 ranges 50/35/20/10%, 5 ranges 50/35/20/10/3% black.
 
 ### Nielsen Norman Group

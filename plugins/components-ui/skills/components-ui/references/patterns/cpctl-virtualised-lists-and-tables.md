@@ -21,7 +21,7 @@ Profile first: a list that scrolls at 60 fps does not need it. Treat the thresho
 **If you virtualise**
 - Use a maintained library (Virtuoso, TanStack Virtual, or a grid with built-in virtualisation) rather than writing windowing yourself.
 - **Semantics:** on a table or grid set `aria-rowcount` to the total (`-1` if unknown) and `aria-rowindex` on each rendered row; for lists use `aria-setsize` and `aria-posinset` ([WAI-ARIA 1.2](https://www.w3.org/TR/wai-aria-1.2/#aria-setsize)).
-- **Stable row height** or measured heights with a good estimate; reserve space to avoid layout jumps. Overscan 5–10 rows to hide blank flashes.
+- **Stable row height** (on phones, row heights follow `mofound-lists-and-cards.md`; phone tables, `mofound-tables-on-mobile.md`) or measured heights with a good estimate; reserve space to avoid layout jumps. Overscan 5–10 rows to hide blank flashes.
 - **Keep focus:** a focused row that scrolls out must not be unmounted silently; keep it mounted or restore focus on return. Page Up, Page Down, Home and End move by page and to the ends.
 - **Find and jump:** offer in-app search and "jump to row" since browser find cannot see unrendered rows; deep links scroll to the item.
 - **Preserve scroll** across data refresh and back navigation; keep sticky headers truly sticky.

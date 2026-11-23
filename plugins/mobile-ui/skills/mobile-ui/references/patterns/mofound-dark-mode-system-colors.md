@@ -6,7 +6,7 @@
 
 ## When to use / when not
 - **Use** on every mobile app or site. A large share of phone users run dark mode, many on an automatic sunset schedule, so the theme can flip while the app is open.
-- **Use** an in-app override (System / Light / Dark) only as a secondary setting; System is the default.
+- **Use** an in-app override (System / Light / Dark) only as a secondary setting; System is the default (following the platform scheme is one of the conventions in `moplat-native-feel-hig-material.md`).
 - **Not** an inversion filter. Dark is a separately tuned palette: dashboard-ui `color-dark-mode.md` has the full rules and contrast values; this file adds the mobile specifics.
 
 ## Rules (do)

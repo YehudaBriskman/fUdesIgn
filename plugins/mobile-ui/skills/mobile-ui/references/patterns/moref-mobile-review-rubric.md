@@ -5,7 +5,7 @@
 **Category:** Reference / review tool · **Applies to:** any mobile web page, PWA or responsive app screen · **Priority:** must
 
 ## When to use / when not
-- Run it in design review, before release, and when auditing an existing mobile site. Pair with `moref-mobile-anti-patterns.md`.
+- Run it in design review, before release, and when auditing an existing mobile site. Pair with `moref-mobile-anti-patterns.md`; grade the strength of any research a finding cites with `uxres-evidence-grading.md`.
 - Checks marked **[DOM]** are verified in code or computed styles, **[VIS]** on a screenshot, **[INT]** by interacting, **[DEV]** on a real device.
 - For dashboards viewed on phones, also score dashboard-ui `ref-design-review-rubric.md`; this rubric covers the mobile-specific layer.
 - Not a substitute for testing with people on their own phones.

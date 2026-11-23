@@ -15,7 +15,7 @@
 | Tiny, reversible action (toggle, "Saved") | Quiet inline status only; do not build a celebration |
 
 ## The evidence, and its limits
-- The peak-end rule says people retrospectively judge an episode mostly by its most intense moment and its ending, not by an average. The lab basis is Kahneman, Fredrickson, Schreiber and Redelmeier (1993): participants held a hand in 14 °C water for 60 s, or for 60 s plus 30 s in water about 1 °C warmer, and chose to repeat the longer trial because its ending was less unpleasant.
+- The peak-end rule says people retrospectively judge an episode mostly by its most intense moment and its ending, not by an average. The lab basis is Kahneman, Fredrickson, Schreiber and Redelmeier (1993): participants held a hand in 14 °C water for 60 s, or for 60 s plus 30 s in water about 1 °C warmer, and chose to repeat the longer trial because its ending was less unpleasant. It was one small study of 32 men: 22 of 32 (69%) chose the long trial, and for the 11 who felt little relief the split was 6 to 5 for the short trial, so the effect tracks the felt improvement in the ending.
 - That is **lab evidence for retrospective evaluation of a short, uniform episode**. It is not a measured UI effect. The product examples usually cited (Mailchimp's send animation, Uber's waiting screens) are **anecdotal**: nobody has shown a completion screen changes recall or retention by a known amount.
 - So treat it as a prioritisation hint, not a law. It is **not** a licence to neglect the middle of a flow, and not a reason to add delight to a task that failed.
 
@@ -23,10 +23,10 @@
 - **Say what happened, specifically.** "Application submitted" beats "Success"; name the thing ("Your order #4821 is placed") and keep the reference visible and copyable.
 - **Give one next step.** State what happens now and when ("We'll email a decision within 5 working days"), then offer one primary action (`Track order`, `Add a payment method`). Secondary links stay secondary.
 - **Make the result findable again**: a confirmation email or a page the user can return to, and a printable or savable reference where the outcome matters (applications, payments).
-- **Never end on an error or dead end.** Every failure screen offers a way forward: retry, edit the answer, another route, or a human. No "Something went wrong" alone (`fvalid-error-messages.md`).
+- **Never end on an error or dead end.** Every failure screen offers a way forward: retry, edit the answer, another route, or a human. No "Something went wrong" alone (`fvalid-error-messages.md`). A screen that fails to load, rather than a submit that fails, follows `data-loading-empty-error-states.md`.
 - **Recover the worst moment first.** Find the step where users fail or wait most (failed payment, file rejected, session timeout) and make it the best-designed screen: keep every answer, explain the cause in plain words, put the fix next to the message, and keep the draft.
 - **Partial success is stated as such**: "2 of 3 files uploaded; retry the failed one", not a green banner over a red problem.
-- **Move focus to the result** (its `<h1>` or `role="status"` region) so keyboard and screen-reader users land on it (WCAG 4.1.3 for status messages).
+- **Move focus to the result** (its `<h1>` or `role="status"` region) so keyboard and screen-reader users land on it (a house practice after a page change; WCAG 4.1.3 covers status messages announced *without* moving focus, so use a `role="status"` live region when focus stays put).
 - **Keep the celebration proportionate.** Match tone to the stakes: an illustration for a finished onboarding is fine; for a tax filing, a calm confirmation. Do not delay the result with an animation.
 - **Close the loop on reversibility**: after delete or cancel, show what was removed and an undo or reactivate path for as long as it truly exists, and state the deadline.
 
@@ -97,4 +97,4 @@ export function showResult(): void {
 - https://lawsofux.com/peak-end-rule/
 - https://design-system.service.gov.uk/patterns/confirmation-pages/
 - https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html
-- Kahneman, Fredrickson, Schreiber, Redelmeier (1993), "When More Pain Is Preferred to Less: Adding a Better End", Psychological Science 4(6) (as summarised on lawsofux.com; the paper itself was not fetched)
+- Kahneman, Fredrickson, Schreiber, Redelmeier (1993), "When More Pain Is Preferred to Less: Adding a Better End", Psychological Science 4(6) (full text read 2026-11-23)

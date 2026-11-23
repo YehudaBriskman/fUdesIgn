@@ -39,7 +39,7 @@
 - Regions exist in the DOM before content is added: a persistent `role="status"` container (polite) for success and info, a separate persistent `role="alert"` container (assertive) only for errors (`aaria-live-regions-announcements.md`). WCAG 4.1.3 Status Messages.
 - Do not move focus to a toast; keep the user's place.
 - Text contrast 4.5:1, icon plus text, not colour alone.
-- Keep text to the point: screen readers read it once.
+- Keep text to the point: screen readers read it once (wording: `uxwrt-ux-writing-and-content-design.md`). On phones a light haptic may back the visual cue, never replace it (`moinput-haptics-vibration.md`).
 
 ## Motion / interaction (if relevant)
 - Enter 200 ms ease-out from the nearest edge, exit 150 ms; with reduced motion, fade only.

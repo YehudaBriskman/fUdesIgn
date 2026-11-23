@@ -50,7 +50,7 @@ Use when the user navigates and something persists or relates across the two vie
 - The `::view-transition` overlay takes pointer input while it runs; keep transitions short so the page doesn't feel blocked.
 
 ## Motion / interaction (if relevant)
-Directional shifts follow `mtrans-spatial-origin-and-continuity.md`; shared-element morphs use the container-transform timing (400 ms, emphasized) only for list → detail.
+Directional shifts follow `mtrans-spatial-origin-and-continuity.md`; shared-element morphs use the container-transform timing (400 ms, emphasized) only for list → detail. A shared element that should follow an arc is in `mtrans-arc-paths-and-mask-reveals.md`.
 
 ## Tokens and values
 | Token | Value | Use |

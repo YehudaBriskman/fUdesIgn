@@ -17,7 +17,7 @@
 - **Do not hide primary actions** behind hover-only reveals or unlabelled icons. Hover-only is also invisible on touch.
 - **Offer a way to find what is not shown.** A palette or search covers the long tail: `comp-command-palette-search.md` in this plugin; for field-level pick-lists use `finput-select-combobox-autocomplete.md` (forms-ui). Show recents and the current value so users pick instead of retype.
 - **Keep context on screen.** Selected filters as chips, the active date range in the header, the entity name in the panel title. Users compare what they can see, not what they saw one click ago (Few's pitfall 1 on fragmented displays, `ref-ux-research-findings.md`).
-- **Default to remembered state, not blank state.** Restore last filters, sort and period where the user chose them; never hide that state.
+- **Default to remembered state, not blank state.** Restore last filters, sort and period where the user chose them; never hide that state. A multi-step flow needs the same memory across steps: `fflow-multi-step-and-save-progress.md`.
 - **Show units, definitions and sources next to the number** instead of in a glossary (`data-units-footnotes-sources.md`, `found-microcopy-for-data.md`).
 
 ### Paradox of the active user: help lives in the task
@@ -36,7 +36,7 @@
 
 ### Warning: 7±2 is not a UI limit
 - Miller (1956) reported a span of roughly 7±2 items for digits, fewer for letters and words, and used "magical" rhetorically; the span depends on the material (Wikipedia, Magical Number Seven).
-- Cowan (2001) proposed about 4 chunks for young adults, fewer for children and older adults. This is a debated working-memory estimate: other analyses report about 2 chunks (Gobet and Clarkson, via Wikipedia). Cowan's abstract was not fetched first-hand here.
+- Cowan (2001, Behavioral and Brain Sciences 24) argued for a central capacity of about four chunks (range three to five), observable only under conditions that block rehearsal and chunking (his four boundary conditions). This is a debated working-memory estimate: other analyses report about 2 chunks (Gobet and Clarkson, via Wikipedia; not verified). Visible UI lists rarely meet Cowan's conditions, which is why 4 is not a UI cap.
 - lawsofux.com itself says: "Don't cite the magical number seven to justify unnecessary design restrictions."
 - **So:** never write "max 7 nav items", "max 7 series" or "max 5 tabs" and cite Miller or Cowan. Menus and tables are visible, so users scan them rather than hold them in memory. Valid reasons to limit an item count are scan time, space, and testing results, stated as a house default.
 - Cowan's figure may be used only as a loose caution for things users must keep in mind and compare across a screen change, never as a threshold to pass or fail a design.
@@ -62,7 +62,7 @@
 - A first-run tour of 8 modal steps shown before the user touches the product: users skip it (the paradox of the active user) and the hints are gone when needed.
 
 ## Accessibility
-- Recognition helps everyone and is essential for users with memory or attention differences: visible labels, consistent placement, no timeouts on help (WCAG 3.2.3 consistent navigation, 3.2.4 consistent identification, 3.3.2 labels or instructions).
+- Recognition helps everyone and is essential for users with memory or attention differences: visible labels, consistent placement, help that does not vanish on a timer (WCAG 2.2.1 if it is time-limited). Related criteria: 3.3.2 labels or instructions, 3.2.3 consistent navigation, 3.2.4 consistent identification, 3.2.6 consistent help (repeated help in the same relative order).
 - Contextual help must be keyboard reachable and not hover-only; a tooltip is dismissible, hoverable and persistent (WCAG 1.4.13).
 - Never rely on a placeholder as the only label; it disappears and forces recall.
 

@@ -14,7 +14,7 @@
 
 | Pattern | Priority | Rule |
 |---|---|---|
-| [FAQ and objection handling](patterns/mksect-faq-and-objections.md) | should | Answer the 5–10 real objections that sales and support hear most (price, security, migration, cancellation) in plain sentences near the final CTA, and never use the FAQ to hide something a buyer needs to decide. |
+| [FAQ and objection handling](patterns/mksect-faq-and-objections.md) | should | Answer the 5–10 real objections that sales and support hear most (price, security, migration, cancellation) in plain sentences near the final CTA, and never use the FAQ to hide something a buyer needs to decide (the dark-pattern test is `uxeth-choice-architecture-and-dark-patterns.md`). |
 | [Feature sections and bento grids](patterns/mksect-features-and-bento.md) | must | Lead each feature with the benefit, show 3–6 features per section using real product UI rather than icons, and build any bento grid with one hero tile, 5–7 tiles and a DOM order that matches the visual order and the mobile priority order. |
 | [Footer](patterns/mksect-footer.md) | should | End the page with a final CTA band, then one `<footer>` landmark that holds grouped utility links, contact, legal and cookie settings, status and language, with clear labels and real tap targets, and nothing that belongs higher up. |
 | [The hero](patterns/mksect-hero.md) | must | The first viewport says what the product is and who it is for in a 6–12 word headline, backs it with a one-sentence subhead, one primary and at most one secondary CTA, and shows the real product, not a stock photo or a carousel. |

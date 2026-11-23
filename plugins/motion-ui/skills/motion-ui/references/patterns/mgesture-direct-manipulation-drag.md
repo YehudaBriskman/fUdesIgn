@@ -5,7 +5,7 @@
 **Category:** Gestures · **Applies to:** draggable cards and list items, sliders and scrubbers, resizable panes, sheets and drawers, swipe actions, carousels, map and canvas panning · **Priority:** must
 
 ## When to use / when not
-Use whenever something on screen can be grabbed and moved. The rules here cover the *during* phase; the release is in `mgesture-momentum-projection-and-snap.md`, edges in `mgesture-rubber-banding-and-bounds.md`, and sheets in `mgesture-sheets-and-swipe-to-dismiss.md`. Don't build a custom drag for what native scrolling already does (a horizontally scrolling list with `scroll-snap` is often enough).
+Use whenever something on screen can be grabbed and moved. The rules here cover the *during* phase; the release is in `mgesture-momentum-projection-and-snap.md`, edges in `mgesture-rubber-banding-and-bounds.md`, and sheets in `mgesture-sheets-and-swipe-to-dismiss.md`. The dashboard-ui spring-physics companion is `motion-drag-and-spring-physics.md`. Don't build a custom drag for what native scrolling already does (a horizontally scrolling list with `scroll-snap` is often enough).
 
 ## Rules (do)
 - **Track 1:1, no easing during the drag.** The element's position = pointer position − grab offset, set every pointer event (or once per frame). Any smoothing or transition during the drag reads as lag. WWDC18: the content must stay under the finger.

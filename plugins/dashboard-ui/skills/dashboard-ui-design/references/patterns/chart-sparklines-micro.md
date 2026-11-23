@@ -28,7 +28,7 @@
 - A sparkline with no number and no window ("decorative squiggle"); KPI cards that show only a line and a percent with no period label.
 - Inconsistent windows or scales across a card grid.
 - A red line because the last point is below the first, on a metric where down is good.
-- Auto-scaled sparkline on a near-flat series: a 0.2% wiggle fills the full height and looks like a crash. Set a minimum y-span (for example ±1% of the mean) so noise looks like noise.
+- Auto-scaled sparkline on a near-flat series: a 0.2% wiggle fills the full height and looks like a crash. Set a minimum y-span (for example ±1% of the mean) so noise looks like noise. The baseline and axis rules in `chart-honesty-chartjunk.md` apply to a sparkline too.
 - Tooltips as the only way to read values (Fossheim: don't hide important data behind hovers).
 - Stoplight backgrounds behind the sparkline. Tufte warns against "vulgar stoplight charts" masking the line.
 

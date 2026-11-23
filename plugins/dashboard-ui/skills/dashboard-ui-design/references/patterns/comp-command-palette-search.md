@@ -27,7 +27,7 @@
   - Match against title *and* aliases or synonyms ("export", "download" and "csv" all hit "Export table as CSV"). Display the matched alias in muted text so users learn the canonical name.
   - Rank by match score × context boost × usage frequency.
   - Drop results below a threshold rather than showing 300 weak matches.
-- **Grouping.** Group results by type (Commands, Companies, Reports, Pages, Settings) with ≤ 5 per group by default and "Show all N" per group. Keep group order stable, so muscle memory works.
+- **Grouping.** Group results by type (Commands, Companies, Reports, Pages, Settings) with ≤ 5 per group by default and "Show all N" per group. Keep group order stable, so muscle memory works (the recall-versus-recognition reasoning is in `found-cognitive-load-and-recall.md`).
 - **Each row shows:** an icon, a title, muted context (e.g. `AAPL · Apple Inc. · Nasdaq`, or the page path) and, on the right, the keyboard shortcut in `<kbd>`. That way the palette teaches shortcuts (Superhuman, Linear).
 - **Context.** Commands that apply to the current selection appear first ("Archive 3 selected rows"). Hide only commands that are *completely* irrelevant; boost or dampen the rest.
 - **Execution.**

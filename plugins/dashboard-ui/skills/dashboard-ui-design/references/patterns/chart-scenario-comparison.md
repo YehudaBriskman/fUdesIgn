@@ -26,7 +26,7 @@
   - With exactly 3 scenarios, a two-handle range control on a 0–100 track is an alternative: the segments are bear / base / bull, and dragging a divider trades share between neighbours only. Always pair it with typed inputs.
   - Block compute (keep last value, marked stale) while the total isn't 100%.
 - **Switcher.** A segmented control (`radiogroup` or toggle buttons with `aria-pressed`) with the selection in the URL (`?s=bull`). Choosing a scenario changes all views on the page together. Keep the base visible as a ghost or reference line when another scenario is selected (see `comp-tabs-segmented-pills.md`).
-- **One axis, one unit.** Plot all scenarios on the same scale as price (see `chart-financial-price-value.md`). The range strip's x-axis is value per share; draw price as a solid vertical line and the weighted value as a dashed one.
+- **One axis, one unit.** Plot all scenarios on the same scale as price (see `chart-financial-price-value.md`; where scenarios are bars they start at zero, `chart-bars-baseline-sorting.md`). The range strip's x-axis is value per share; draw price as a solid vertical line and the weighted value as a dashed one.
 - **Colour.** Scenarios are ordered categories: use one hue stepped in lightness (light = bear, mid = base, dark = bull) or neutral ink with the base emphasised. Don't use red / green; bear is not an error and bull is not success (see `data-verdict-rating-badges.md`).
 - **Comparison table.**
   - Columns: Bear, Base, Bull (and saved ones). Rows: the inputs that differ, then outputs.

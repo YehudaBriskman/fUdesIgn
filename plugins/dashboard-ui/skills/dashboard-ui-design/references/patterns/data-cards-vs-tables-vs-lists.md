@@ -16,7 +16,7 @@
 | Compare 2–5 options side by side on many attributes | 2–5 | many | **Comparison table** (attributes as rows) |
 
 - NN/g: "Cards work best for collections of heterogeneous items." For very homogeneous items, use a vertical list. Cards are "less appropriate than lists when people search for information", "a poor choice when users need to compare between multiple options", "less scannable than lists", "typically deemphasize the ranking of content", and "take more space". Lists win on scanning because each attribute sits in a fixed position.
-- If you can't name the columns, you don't have a table. If every card has the same four fields, you have a table drawn badly.
+- If you can't name the columns, you don't have a table. If every card has the same four fields, you have a table drawn badly. If the question is "what happened, in what order", use a timeline (`data-activity-timeline.md`).
 
 ## Rules (do)
 - **Default to a table** for records with 3 or more shared numeric attributes (transactions, holdings, invoices, deployments, companies in a screen).

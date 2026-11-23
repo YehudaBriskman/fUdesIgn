@@ -12,7 +12,7 @@
 
 ## Rules (do)
 - **Know the grips.** Hoober's field study (1,333 observations, 780 of them touching the screen) found 49% one-handed, 36% cradled (one hand holds, the other taps) and 15% two-handed among people touching the screen. One-handed use is the largest single group, so design for it first.
-- **People prefer the centre.** Hoober and Berkman's follow-up work found users tap most accurately and most willingly in the middle of the screen, and scroll content into the centre before tapping. Accuracy degrades at the edges: aim for about 7 mm targets in the centre and about 11–12 mm at the top, bottom and corners.
+- **People prefer the centre.** Hoober and Berkman's follow-up work found users tap most accurately and most willingly in the middle of the screen, and scroll content into the centre before tapping. Accuracy degrades at the edges: aim for about 7 mm targets in the centre and about 11–12 mm at the top, bottom and corners. Why distance and size trade off, and what Fitts's law does not say: `uxcog-fitts-and-hick-correct-use.md`.
 - **Three zones at 390×844** (a rough guide, mirror for left hands):
   - *easy*: the lower-middle third (roughly y 480–760 px, centre 70% of the width);
   - *stretch*: the middle band and the bottom corners;
@@ -44,7 +44,7 @@
 - Sites whose only "Continue" on a checkout step is a top-right text link: hard to reach, easy to miss, and easy to confuse with a header link.
 
 ## Accessibility
-- Reach is also a motor accessibility issue: people with tremor or limited grip strength are helped most by large, centred, well-spaced targets.
+- Reach is also a motor accessibility issue: people with tremor or limited grip strength are helped most by large, centred, well-spaced targets (`a11y-pointer-targets-dragging.md`).
 - Moving controls to the bottom must not break DOM and focus order. The bottom bar can come after `<main>` in the DOM; keep the reading order logical (WCAG 1.3.2, 2.4.3).
 - Reserve `scroll-padding-bottom` for any fixed bottom bar so focused fields scroll clear of it (WCAG 2.4.11).
 

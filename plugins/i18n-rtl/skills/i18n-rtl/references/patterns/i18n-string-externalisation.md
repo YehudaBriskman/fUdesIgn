@@ -10,7 +10,7 @@
 - Plurals, gender and ICU MessageFormat syntax are in `i18n-plurals-gender-messageformat.md`.
 
 ## Rules (do)
-- **One message = one complete sentence** (or one complete label) with named placeholders: `"order.shipped": "Order {orderId} shipped to {name}."`. Translators reorder placeholders; Hebrew puts the recipient before the verb as often as after.
+- **One message = one complete sentence** (or one complete label) with named placeholders: `"order.shipped": "Order {orderId} shipped to {name}."`. Translators reorder placeholders; Hebrew puts the recipient before the verb as often as after. Write the source sentence plainly first (`uxwrt-ux-writing-and-content-design.md`), because every unclear English string is translated unclear.
 - **Never concatenate translated fragments.** `t("you_have") + n + t("messages")` can't be translated into languages with different word order, case or agreement, and it can't be bidi-isolated (see `rtl-bidi-isolation-mixed-text.md`).
 - **Never reuse a string across contexts because the English matches.** "Open" (verb, a button) and "Open" (adjective, a status) are different words in Hebrew (`פתיחה` / `פתוח`). One key per use, with a description: `{ "id": "ticket.status.open", "description": "Status badge: the ticket is not closed yet" }`.
 - **Give translators context:** a description, the placeholder types and example values, the maximum length if the slot is constrained, and a screenshot link for anything visual. Most bad translations are context failures.

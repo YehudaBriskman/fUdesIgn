@@ -15,10 +15,10 @@
   --motion-exit-ratio: 0.75;   /* exit = enter × 0.75 (house rule) */
 
   /* ── Easing (mfound-durations-and-easing.md) ──────────────────────────────── */
-  --motion-ease-standard: cubic-bezier(0.2, 0, 0.38, 0.9);   /* on-screen move (Carbon productive) */
+  --motion-ease-standard: cubic-bezier(0.2, 0, 0.38, 0.9);   /* on-screen move (Carbon productive; not M3 standard) */
   --motion-ease-enter: cubic-bezier(0, 0, 0.38, 0.9);        /* enter, settle, respond */
   --motion-ease-exit: cubic-bezier(0.2, 0, 1, 0.9);          /* leave for good */
-  --motion-ease-emphasized: cubic-bezier(0.2, 0, 0, 1);      /* rare arrival (M3 emphasized) */
+  --motion-ease-emphasized: cubic-bezier(0.2, 0, 0, 1);      /* rare arrival; this is M3's STANDARD curve (M3 emphasized is a path) */
   --motion-ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);      /* iOS-style sheet (Vaul, Ionic) */
 
   /* ── Springs as CSS linear() (mspring-css-linear-and-tokens.md) ───────────────

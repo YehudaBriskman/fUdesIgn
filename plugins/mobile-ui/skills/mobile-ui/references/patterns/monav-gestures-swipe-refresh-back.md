@@ -7,7 +7,7 @@
 ## When to use / when not
 - **Swipe actions** on list rows for 1–3 frequent actions (archive, delete, mark read, pin), as shortcuts.
 - **Pull to refresh** on feeds and inboxes that change while open and have no live updates. Not on forms, maps or pages that update themselves.
-- **Edge back** is the platform's: iOS Safari swipes back from the left edge, Android gesture navigation from both edges. Do not compete with it.
+- **Edge back** is the platform's: iOS Safari swipes back from the left edge, Android gesture navigation from both edges. Do not compete with it (back inside a mode: `monav-contextual-modes-and-state-restore.md`; platform conventions: `moplat-native-feel-hig-material.md`).
 - **Not** gestures as the only way to do something (WCAG 2.5.1 Pointer Gestures, 2.5.7 Dragging Movements).
 
 ## Rules (do)

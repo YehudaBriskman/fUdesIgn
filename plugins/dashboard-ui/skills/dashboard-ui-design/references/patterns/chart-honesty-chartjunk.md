@@ -54,7 +54,7 @@
 - [Kaiser Fung, Junk Charts Trifecta Checkup](https://jonpage.github.io/r-course/trifecta.html) — check Question, Data, Visual separately.
 
 ## Bad references
-See chart-bad-gallery.md for the full annotated gallery. Short list:
+See chart-bad-gallery.md for the full annotated gallery. A misleading chart is a methodology failure as well as a visual one: disclose how a figure was made (`found-methodology-explainability.md`). Short list:
 - [Fox Business: Bush tax cuts](https://www.mediamatters.org/fox-business/dishonest-fox-chart-bush-tax-cut-edition) — truncated bars.
 - [Reuters: Gun deaths in Florida](https://www.livescience.com/45083-misleading-gun-death-chart.html) — inverted axis.
 - [Apple Macworld 2008 3D pie](https://daringfireball.net/linked/2008/02/07/snake-oil) — perspective distortion.

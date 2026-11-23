@@ -46,7 +46,7 @@
 
 ## Anti-patterns (don't)
 - An unsorted tornado, or one sorted by the order of inputs in the model.
-- Bars drawn from zero instead of from the base case. That makes it a bar chart of levels, not swings.
+- Bars drawn from zero instead of from the base case (the zero rule is for level bars: `chart-bars-baseline-sorting.md`). That makes it a bar chart of levels, not swings.
 - Different test ranges per input with no label ("±10%" for one, "P5–P95" for another).
 - Red/green tornado bars that read as loss/gain.
 - A WACC × growth grid with cells where g ≥ WACC showing "$12,480".
