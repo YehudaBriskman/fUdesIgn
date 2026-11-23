@@ -16,7 +16,8 @@ Use when the user navigates and something persists or relates across the two vie
 - **Start from the default.** The UA stylesheet cross-fades the old and new snapshots over 0.25 s. That is right for most routes; only customise when there's a spatial relationship to show.
 - **Directional by type, not by guesswork.** Pass `types: ['forward']` or `['back']` (SPA), or add types in `pageswap`/`pagereveal` (MPA) from the Navigation API's `navigation.activation`, and style `:active-view-transition-type(forward)`.
 - **Small shifts.** Forward: the old view moves 16–24 px toward the leading edge and fades out, the new one comes 16–24 px from the trailing edge. Duration `--motion-dur-medium` 240 ms with `--motion-ease-standard`. No full-width slides on desktop.
-- **Name 1–3 shared elements.** The element the user tapped (thumbnail → hero), and maybe the page title. Names must be unique at the moment of capture, or the whole transition is skipped. For lists, set the name only on the clicked item, or use `view-transition-name: match-element` (Chrome 137, Firefox 144, Safari 18.4) with a class.
+- **Name 1–3 shared elements.** The element the user tapped (thumbnail → hero), and maybe the page title. Names must be unique at the moment of capture, or the whole transition is skipped. For lists, set the name only on the clicked item, or use `view-transition-name: match-element` (Chrome 137, Firefox 144, Safari 18.4) with a class. `match-element` gives each selected element a unique automatic name, but MDN says it works for same-document transitions only (names cannot carry across documents), so cross-document transitions still need explicit unique names. `view-transition-name` itself is Baseline 2025, newly available since October 2025 (MDN, re-checked 2026-11-23). Motion's `layoutId` is the library analogue for shared elements (`mtrans-spatial-origin-and-continuity.md`). Without `startViewTransition`, skip the animation and just update.
+- **Old and new overlap, one duration.** Outgoing and incoming content share the same duration and run together; never fade the old out to blank and then fade the new in (a blank frame reads as a flash). The default root cross-fade already does this, so keep both pseudo-elements on one `animation-duration` (Emil Kowalski also masks the overlap with a 2 px blur; a heuristic).
 - **Fix stretched text.** Shared elements whose aspect ratio changes distort; use `height: 100%` / `object-fit` on the old/new pseudo-elements, or `width: fit-content` on both states.
 - **The app shell doesn't move.** Give persistent chrome (header, sidebar) its own `view-transition-name` with `animation: none`, so it stays crisp instead of cross-fading with the page.
 - **Focus and announcements.** After the update, move focus to the new view's main heading (`tabindex="-1"`) and update `document.title`; View Transitions don't do either.
@@ -49,7 +50,7 @@ Use when the user navigates and something persists or relates across the two vie
 - The `::view-transition` overlay takes pointer input while it runs; keep transitions short so the page doesn't feel blocked.
 
 ## Motion / interaction (if relevant)
-Directional shifts follow `mtrans-spatial-origin-and-continuity.md`; shared-element morphs use the container-transform timing (400 ms, emphasized) only for list → detail.
+Directional shifts follow `mtrans-spatial-origin-and-continuity.md`; shared-element morphs use the container-transform timing (400 ms, emphasized) only for list → detail. A shared element that should follow an arc is in `mtrans-arc-paths-and-mask-reveals.md`.
 
 ## Tokens and values
 | Token | Value | Use |
@@ -124,6 +125,7 @@ addEventListener('pagereveal', (event: Event) => {
 - https://developer.chrome.com/docs/web-platform/view-transitions/cross-document
 - https://drafts.csswg.org/css-view-transitions-1/
 - https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API
+- https://developer.mozilla.org/en-US/docs/Web/CSS/view-transition-name (Baseline 2025, `match-element` same-document only; fetched)
 - https://developer.mozilla.org/en-US/docs/Web/API/Window/pagereveal_event
 - https://developer.mozilla.org/en-US/docs/Web/CSS/view-transition-name
 - https://webstatus.dev/features/view-transitions

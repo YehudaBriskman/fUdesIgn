@@ -19,6 +19,8 @@
 - **Give the P1 element the most surrounding space.** Use 32px (`--space-6`), 2× the standard 16px gap, around the hero group.
 - **Give every KPI context: comparison, target or trend.** A bare number is not a focal point, it's a riddle (Few Pitfall #2: "quarter-to-date sales total $736,502 without any context means little. Compared to what?").
 - **Use weight, not boxes, to separate levels.** Prefer a 600 weight or a size step to an extra border or card. NN/g: add borders or backgrounds only when spacing fails, and sparingly, because they add clutter.
+- **Von Restorff: one emphasised item per region.** A distinct item among uniform ones is better recalled in free recall (von Restorff 1933; reviewed by Hunt 1995; recognition effects are rare and appear only with test-order controls). That is a memory result, not evidence that the item is noticed first or clicked more, and a UI conversion benefit is folklore. So: one accent per group (one primary button, one highlighted plan), never colour alone (WCAG 1.4.1), no looping motion as the emphasis, and not styled like an ad or promo banner, which users learn to skip (NN/g Martha Stewart example in `found-gestalt-grouping.md`).
+- **Serial position is a labelled heuristic only.** Lab free-recall lists remember the first and last items best (lawsofux.com). A nav bar is persistently visible, not recalled, so treat "key items at the ends" as a tie-breaker for equal-priority items, never as evidence.
 - **Reserve bright, saturated color** for the 0–2 items that need attention now. Everything else stays neutral, so an alert is visible pre-attentively.
 - **Map relationships before layout.** Next to the priority list, mark which items belong to the same entity or process, which are alternatives and which are cause and effect; group and order by those relationships, not by the data model. (Source corpus: local `visual-hierarchy-layout`; NN/g on visual hierarchy.)
 
@@ -99,6 +101,8 @@
 
 ## Sources
 - https://www.nngroup.com/articles/visual-hierarchy-ux-definition/
+- https://lawsofux.com/von-restorff-effect/
+- https://lawsofux.com/serial-position-effect/
 - https://www.nngroup.com/articles/dashboards-preattentive/
 - https://www.perceptualedge.com/articles/Whitepapers/Common_Pitfalls.pdf (Pitfalls #2, #9, #10, #11, #12)
 - https://carbondesignsystem.com/data-visualization/dashboards/

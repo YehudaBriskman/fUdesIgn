@@ -14,13 +14,16 @@
 - **Proximity first.** Closeness is the strongest, cheapest cue and can overpower similarity of colour or shape (NN/g). Use whitespace as the first and usually only separator. Split 12 controls into 3 clusters of 4; NN/g's 12-field form reads as less daunting in 3 chunks.
 - **Inner gap < outer gap, measurably.** Inner gap at most 2/3 of the outer gap (house default: 8px inside, 24px between; 1.5x is the floor, 2-3x typical). No cited source prescribes a ratio; they only require closer inside, looser between.
 - **Ambiguous gaps are the bug.** A gap that is neither clearly inner nor outer (12px where inner is 8 and outer 16) sends the item to the wrong group. Use two gap values per region.
-- **Common region only for a shared interaction scope.** A border or background says "these share a purpose" and is a strong cue that can overpower proximity (NN/g). Use it when members share a scope: filters for one chart, one form that saves together, one entity's card with its own actions. Boxes added out of caution create clutter.
+- **Common region only for a shared interaction scope.** A border or background says "these share a purpose" and is a strong cue that can overpower proximity (Palmer 1992, demonstrations; NN/g). Use it when members share a scope: filters for one chart, one form that saves together, one entity's card with its own actions. Boxes added out of caution create clutter.
 - **Region test.** Delete the border. If space and alignment still show the grouping, leave it deleted. Re-add only for a reason you can state in one sentence.
 - **One container level per datum.** Never wrap a card in a card; use a heading, hairline or space inside.
 - **Similarity means sameness of role.** Same-role elements share geometry, type size, weight and colour (every KPI tile the same height, every row action the same icon button). Different-role elements differ in at least two traits (house default), e.g. shape and colour plus an icon, as with NN/g's Etsy badges.
 - **Spend the "different" on purpose.** One break in a uniform set is a signal (one primary action). Two or three is noise.
 - **Continuity: align to shared edges.** Items on one path share a start edge or baseline: labels on one inline-start line, numbers on one decimal edge (`data-table-layout-and-typography.md`), card titles on one baseline. A few px of misalignment reads as another group. NN/g eye-tracking shows the left edge of text gets disproportionate fixations, so protect it.
 - **Figure vs ground.** Controls differ from their surface by contrast, not decoration. If a non-text boundary is the only cue that a control exists, it needs 3:1 against adjacent colours (WCAG 1.4.11). A decorative border is exempt, another reason to ask if it is needed.
+- **Prägnanz: the simplest reading wins.** Perception settles on the simplest organisation it can find (Wertheimer lineage; a descriptive framing, not a measurable rule, and sourced here only to Wikipedia's Principles of grouping). Practical use: fewer cues, simple shapes, shared edges. If you need a border, a tint and an icon to say "these go together", the layout is fighting the reader.
+- **Element connectedness and uniform connectedness: a visible link or filled region groups.** In Palmer and Rock's terms (1994), elements joined by a line or arrow are *element connectedness*, and a closed region of uniform colour, lightness or texture (a filled band or card) is *uniform connectedness*; the lawsofux.com name covers both. Palmer and Rock report that uniform-connectedness effects occur even when opposed by proximity and similarity. Stepper rails, timeline spines and flow diagrams use the link cue. The evidence is demonstrations on static displays, so test it in your layout. Order when cues conflict, house default: connection and region, then proximity, then similarity; never let one cue contradict another.
+- **Links look distinct from body text.** Similarity also marks role: a link, nav item or button must differ from running text in at least colour plus one more cue (underline, weight, shape), and non-links must not borrow the link look (lawsofux.com Law of Similarity).
 - **Do not fake relationships.**
   - A connector (line, arrow, bracket) must map to a real flow or dependency.
   - A pill row with one highlighted must *be* tabs: switch a panel, with tab roles and arrow keys. Otherwise use the matching pattern (`comp-tabs-segmented-pills.md`).
@@ -124,6 +127,9 @@ section { display: grid; gap: var(--group-gap-outer); }      /* between clusters
 
 ## Sources
 - https://www.nngroup.com/articles/gestalt-proximity/
+- https://lawsofux.com/law-of-uniform-connectedness/
+- https://lawsofux.com/law-of-similarity/
+- https://en.wikipedia.org/wiki/Principles_of_grouping
 - https://www.nngroup.com/articles/gestalt-similarity/
 - https://www.nngroup.com/articles/common-region/
 - https://www.nngroup.com/articles/principles-visual-design/

@@ -6,7 +6,7 @@
 
 ## When to use / when not
 - After building or changing an interactive component, and when reviewing someone else's.
-- Run `cpref-component-anti-patterns.md` first. For whole-screen visual review use the `design-review` plugin.
+- Run `cpref-component-anti-patterns.md` first. Grade the strength of any research a finding cites with `uxres-evidence-grading.md`. For whole-screen visual review use the `design-review` plugin.
 
 ## Rules (do)
 Score 2 = met with evidence, 1 = partly, 0 = missing. `M` marks a must-check.

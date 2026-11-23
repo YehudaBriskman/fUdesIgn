@@ -7,7 +7,7 @@
 ## When to use / when not
 - **Per feature:** passes 1–3 on the changed flow (about 15–30 minutes).
 - **Per release or audit:** all seven passes on each key flow and on one page per template.
-- **Scope by flows, not pages:** sign up, sign in, search, browse to detail, add to cart and pay, submit a form, change settings, get help. A flow passes only if every step passes.
+- **Scope by flows, not pages:** sign up, sign in, search, browse to detail, add to cart and pay, submit a form, change settings, get help. A flow passes only if every step passes. For sessions with real users rather than access passes, see `uxres-usability-testing-five-users-and-beyond.md`.
 
 ## Rules (do)
 - **Pass 1 — Automated scan** (`atest-automated-axe-playwright.md`): zero violations at WCAG 2.2 AA tags; triage "needs review" items into the manual passes.

@@ -12,7 +12,7 @@
 
 ## Rules (do)
 - **Language:** `<html lang="en">` (SC 3.1.1). Mark passages in another language with `lang` on the element (SC 3.1.2).
-- **Landmarks:** one `<header>`, one `<nav aria-label="Main">`, one `<main id="main">`, one `<footer>`. Additional `<nav>` elements get distinct labels ("Footer").
+- **Landmarks:** one `<header>`, one `<nav aria-label="Main">`, one `<main id="main">`, one `<footer>` (`mksect-footer.md`). Additional `<nav>` elements get distinct labels ("Footer").
 - **Headings:** exactly one `<h1>` (the hero headline). Each section starts with an `<h2>`; tiles and cards inside use `<h3>`. Never skip a level for visual size: style the right level with a size token instead. See `mkperf-seo-headings-and-metadata.md`.
 - **Skip link:** the first focusable element is "Skip to main content", pointing at `#main`, visible on focus (SC 2.4.1).
 - **Alt text for product screenshots:**

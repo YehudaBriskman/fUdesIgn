@@ -26,7 +26,7 @@
 | "where" | Spatial | Choropleth (rates only) | Proportional symbol (counts), cartogram |
 
 - Default to the basic three: bar, line, scatter. NN/g: these let people "quickly and accurately perceive the differences between values"; pie, bubble, mosaic, waffle, Sankey and stacked area "require users to visually assess angle, area, or volume". Use a complex type only when it shows something a basic one cannot.
-- Use position on a common scale whenever precision matters (bar ends, dots, line points). Encodings below that (length without common baseline, angle, area, colour saturation) are for gist only.
+- Use position on a common scale whenever precision matters (bar ends, dots, line points; rank and magnitude bars: `chart-bars-baseline-sorting.md`). Encodings below that (length without common baseline, angle, area, colour saturation) are for gist only.
 - Put the important comparison next to each other: group bars by the comparison the reader should make (NN/g). Two series that must be compared go in one chart; two that are independent go in two.
 - Replace stacked bars by small multiples when the middle segments matter. NN/g: segments that share a baseline are easy to compare, the middle ones "much harder"; "use a series of 3 bar charts instead."
 - One chart, one message. If the panel needs two messages, use two charts with a shared x-axis (see chart-tooltips-crosshair-labels.md for synchronised crosshairs).
@@ -38,7 +38,7 @@
 - Line chart over unordered categories (countries, products). Lines imply continuity; use bars.
 - Bars for a 200-point daily series. Use a line.
 - Area chart for a single series where the filled area adds no meaning: Datawrapper says use a line.
-- Dual-axis "line + column" to imply correlation (see chart-honesty-chartjunk.md).
+- Dual-axis "line + column" to imply correlation (see chart-honesty-chartjunk.md; wrong-choice examples: `chart-bad-gallery.md`).
 - Radar charts for comparing products on 6+ metrics: area depends on axis order. Use a grouped dot plot.
 - Picking a chart from a library gallery ("this one looks cool") rather than from the question.
 - Word clouds for anything quantitative.

@@ -1,11 +1,12 @@
 # Pattern index
 
-89 patterns. **Priority:** must = always apply · should = apply unless there is a reason not to · nice = optional.
+91 patterns. **Priority:** must = always apply · should = apply unless there is a reason not to · nice = optional.
 
 ## Foundations (`found-`)
 
 | Pattern | Priority | Rule |
 |---|---|---|
+| [Cognitive load and recall: make the screen carry the memory](patterns/found-cognitive-load-and-recall.md) | must | Show options instead of asking users to remember them, put help where the task is, cut load that does not serve the task, and never justify a hard item limit with "7±2". |
 | [Pick the dashboard type before the layout](patterns/found-dashboard-types.md) | must | Decide whether a view is operational, analytical or strategic. That choice sets the refresh rate, density, interactivity and time scale, and mixing them on one screen serves none of them. |
 | [Data-ink minimalism done right (not "empty and vague")](patterns/found-data-ink-minimalism.md) | must | Remove ink that carries no information, but never remove the context that makes a number meaningful: labels, units, comparisons, targets and time frame. |
 | [Density: comfortable vs compact](patterns/found-density-modes.md) | should | Treat density as value per unit of space and time, not as how full the screen looks. Ship two density modes driven by the same tokens: comfortable by default, compact for expert and analytical views. |
@@ -134,4 +135,5 @@
 | [Fintech and money dashboards: Stripe, Mercury, Ramp, Robinhood, Wise](patterns/ref-fintech-money-dashboards.md) | should | A money dashboard should answer "how much is there, is that good, and where did it go" on the first screen, and every number should be one click from the records behind it. |
 | [Investing and valuation tools: Koyfin, Simply Wall St, TradingView, Morningstar, Finviz, Bloomberg](patterns/ref-investing-valuation-tools.md) | should | Investing UIs succeed when they compress a judgement into a glyph the eye can compare across many securities (a snowflake, a style box, a heatmap tile) while keeping the method open and the raw numbers one hover away. |
 | [Product analytics dashboards: PostHog, Amplitude, Mixpanel](patterns/ref-product-analytics-dashboards.md) | should | An analytics board is a curated narrative of at most 12 insights for a named audience. Each insight carries its comparison period, and text cards say what "good" looks like. |
+| [UX laws evidence map: what to cite and what not to](patterns/ref-ux-laws-evidence-map.md) | should | Cite a named law only at the grade its evidence earns; where it has no testable UI rule, say so and point to the repo pattern that does the real work. |
 | [Dashboard UX research findings: NN/g, Baymard, Few](patterns/ref-ux-research-findings.md) | must | Base dashboard decisions on the few findings that are actually evidenced: position and length beat angle and area, every measure needs context, waits have hard thresholds, and consistency beats variety. |

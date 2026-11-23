@@ -6,7 +6,7 @@
 
 ## When to use / when not
 - **Use** on every mobile app or site. A large share of phone users run dark mode, many on an automatic sunset schedule, so the theme can flip while the app is open.
-- **Use** an in-app override (System / Light / Dark) only as a secondary setting; System is the default.
+- **Use** an in-app override (System / Light / Dark) only as a secondary setting; System is the default (following the platform scheme is one of the conventions in `moplat-native-feel-hig-material.md`).
 - **Not** an inversion filter. Dark is a separately tuned palette: dashboard-ui `color-dark-mode.md` has the full rules and contrast values; this file adds the mobile specifics.
 
 ## Rules (do)
@@ -44,7 +44,10 @@
 - Saving the user's override must not stop the System choice from following later OS changes.
 
 ## Motion / interaction (if relevant)
-- Theme changes are instant. Do not cross-fade the whole page; at most 150 ms on colour properties for an in-app toggle, and none under reduced motion.
+- **Theme switch (the one place this is decided; `mfound-reduced-motion-vestibular.md` in motion-ui links here).**
+  - Suppress per-property colour transitions during the swap, so tokens do not animate at different speeds and flash mismatched colours. The next-themes README documents this as its opt-in `disableTransitionOnChange` option ("disable all CSS transitions when switching themes"). The mechanics (a temporary `transition: none` rule, a forced reflow, then removal) were not fetched from a primary source; treat them as a common technique and test them. It also cancels in-flight transitions, so apply it only for the swap.
+  - Optionally, wrap the swap in a root cross-fade of at most 150 ms with `document.startViewTransition` (feature-detect; fall back to the plain swap). This softens the brightness jump a hard cut causes. Under `prefers-reduced-motion: reduce` use the plain swap or a fade of 150 ms or less, never movement.
+  - Never stagger colour fades per element, and never run a long page-wide fade.
 
 ## Tokens and values
 | Token | Light | Dark | Use |
@@ -87,6 +90,7 @@ body { background: var(--canvas); color: var(--text); }
 
 ## Sources
 - https://developer.apple.com/design/human-interface-guidelines/dark-mode
+- https://github.com/pacocoursey/next-themes (README, `disableTransitionOnChange`, fetched)
 - https://m3.material.io/styles/color/roles
 - https://web.dev/articles/prefers-color-scheme
 - https://developer.mozilla.org/en-US/docs/Web/CSS/system-color

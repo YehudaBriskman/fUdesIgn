@@ -18,18 +18,20 @@
 
 ## Rules (do)
 - **Step indicator** for 3–7 steps: "Step 2 of 4: Delivery" as text, optionally a stepper. For branching flows where the total changes, show section names, not a count that jumps. Don't show progress bars that crawl to 90% and then reveal 5 more pages.
+- **Show real progress; start nonzero only for work truly done.** The goal-gradient effect (effort rises as a goal nears) and "endowed progress" (a task framed as already begun is more likely to be finished; Nunes & Dreze 2006, field evidence from a loyalty card) both argue for visible progress. The honest use: count steps genuinely completed, and pre-fill from the account so the first step really is done ("Step 2 of 4" because details were imported). Never invent a head start, pad the step count or add a bogus "profile 60% complete".
+- **A progress bar is not free.** NN/g's progress-indicator research on wait animations found a moving bar made people willing to wait longer, but that is about system waits, not form steps, and a bar that stalls or jumps destroys the trust it bought (`aichat-thinking-and-step-progress.md`, dashboard-ui). Put the step count in text; keep any bar proportional to steps done.
 - **Back always works** and keeps answers: a "Back" link at the top-left of each step (GOV.UK back link), and the browser Back button restores the previous step (URL per step, or History API).
 - **Validate per step** on "Continue"; never let people reach the end to discover an error from step 1.
-- **Check your answers** before the final submit: every answer listed with a "Change" link that returns to that question and then back to the summary (GOV.UK pattern). Required by WCAG 3.3.4 for legal, financial and data-changing submissions unless reversible.
+- **Check your answers** before the final submit: every answer listed with a "Change" link that returns to that question and then back to the summary (GOV.UK pattern). It satisfies the Confirmed option of WCAG 3.3.4 (AA), which applies to legal, financial and data-changing submissions; reversibility or checked input are the alternatives.
 - **Don't ask again** (WCAG 3.3.7): carry earlier answers forward; offer "same as" choices; pre-fill from the account.
 - **Save progress automatically**:
   - Server-side draft saved on each "Continue" (and debounced on change for long steps, every ~2–5 s idle). Show a quiet "Saved" state with time, not a toast.
   - For anonymous flows, also keep a local draft (`sessionStorage` or `localStorage`) keyed by form and version, and restore with a visible "We restored your answers from 10:42. Start again" note. Never store passwords, card numbers or one-time codes locally.
   - Long flows offer explicit "Save and come back later", which explains how to return (sign in, or an emailed link).
   - Drafts expire on a stated schedule ("We'll keep your answers for 28 days").
-- **Timeouts**: warn ≥ 2 minutes before a session times out with a dialog offering "Stay signed in" (WCAG 2.2.1 needs at least 20 s to respond); keep the draft so re-authenticating returns people to the same step with answers intact (2.2.5).
+- **Timeouts**: warn ≥ 2 minutes before a session times out with a dialog offering "Stay signed in" (WCAG 2.2.1's Extend option needs a warning and at least 20 s to respond); keep the draft so re-authenticating returns people to the same step with answers intact (2.2.5).
 - **Final step button** names the commitment ("Submit application", "Pay £24.00"), not "Continue".
-- **Confirmation** says what happened, the reference and what's next (`ffound-form-microcopy.md`).
+- **Confirmation** says what happened, the reference and what's next (`ffound-form-microcopy.md`, `fflow-completion-and-end-states.md`).
 - **Focus on step change**: move focus to the new step's `<h1>` (or the error summary if there are errors) and update `document.title` ("Delivery – Step 2 of 4 – Checkout").
 
 ## Anti-patterns (don't)
@@ -54,11 +56,12 @@
 ## Accessibility
 - Step position in the `<h1>` or a caption, and in `document.title`.
 - Focus moves to the new step's heading on change.
-- Timeout warnings are a modal `<dialog>` with an accessible name and a button to extend (WCAG 2.2.1).
+- Timeout warnings are a modal `<dialog>` with an accessible name and a button to extend (house choice; WCAG 2.2.1 requires the option to extend, not a modal).
 - Steppers are lists of links or plain text, not tabs (they don't switch views of one panel).
 
 ## Motion / interaction (if relevant)
 - Step changes are page-like: a quick fade (≤ 150 ms) or none. No sideways slides under reduced motion; avoid them generally for forms.
+- If a step does move, it enters from the direction of travel (Continue from the inline-end side, Back from the inline-start side), mirrored in RTL, with small travel (`mtrans-spatial-origin-and-continuity.md`, motion-ui).
 
 ## Tokens and values
 | Token | Value | Use |
@@ -122,6 +125,7 @@ export function wireDraft(form: HTMLFormElement, key: string, version: number, o
 - [ ] No secrets are stored locally; drafts expire on a stated schedule.
 - [ ] Timeouts warn in time, can be extended and don't lose data.
 - [ ] Focus and `document.title` update on each step.
+- [ ] Progress shown is real: no invented head start, no padded count, no stalling bar.
 
 ## Sources
 - https://design-system.service.gov.uk/patterns/check-answers/
@@ -129,6 +133,8 @@ export function wireDraft(form: HTMLFormElement, key: string, version: number, o
 - https://design-system.service.gov.uk/patterns/question-pages/
 - https://design-system.service.gov.uk/components/back-link/
 - https://www.nngroup.com/articles/wizards/
+- https://www.nngroup.com/articles/progress-indicators/
+- https://lawsofux.com/goal-gradient-effect/
 - https://www.w3.org/WAI/tutorials/forms/multi-page/
 - https://baymard.com/blog/checkout-flow-average-form-fields
 - https://www.w3.org/WAI/WCAG22/Understanding/timing-adjustable.html

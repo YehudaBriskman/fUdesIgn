@@ -16,7 +16,7 @@
 - **Borders get relatively stronger.** Dark `border-strong` is L 0.56 against surface 0.215 (≥ 3:1 on every surface). Shadows barely show on dark surfaces, so elevation comes from the surface step, with a border where needed.
 - **Status backgrounds mix more.** The generator mixes 18% of the status foreground into the surface in dark (10% in light) so the tint is visible at all.
 - **Ship light and dark from one run.** Both come from the same inputs, so a change to the accent or contrast updates both and both are verified.
-- **Follow the OS, allow an override.** `prefers-color-scheme` plus `:root[data-theme="light|dark"]`; set `color-scheme: light dark` so form controls and scrollbars match. `light-dark()` is a compact alternative for single values where the browser support suits the project.
+- **Follow the OS, allow an override.** `prefers-color-scheme` plus `:root[data-theme="light|dark"]` (in DTCG exports the modes are sibling groups, `dstoken-dtcg-format.md`); set `color-scheme: light dark` so form controls and scrollbars match. `light-dark()` is a compact alternative for single values where the browser support suits the project.
 - **Dark high contrast is a separate theme.** The generator runs dark at contrast 100 (text L 0.99, border-strong 0.64, text-muted 0.85) and emits it under `@media (prefers-contrast: more) and (prefers-color-scheme: dark)`.
 
 ## Anti-patterns (don't)

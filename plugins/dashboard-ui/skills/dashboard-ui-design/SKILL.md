@@ -5,7 +5,7 @@ description: Design, build or review data-heavy dashboard UIs (analytics, financ
 
 # Dashboard UI design
 
-A research-backed playbook for dashboards: 89 pattern files, each with rules, anti-patterns, good and bad references, accessibility, tokens, an implementation sketch and a checklist. This file gives the workflow, the non-negotiable rules and the quick decision tables. Open the pattern files for depth.
+A research-backed playbook for dashboards: 91 pattern files, each with rules, anti-patterns, good and bad references, accessibility, tokens, an implementation sketch and a checklist. This file gives the workflow, the non-negotiable rules and the quick decision tables. Open the pattern files for depth.
 
 - **Pattern index:** `references/INDEX.md` lists every pattern with its one-line rule.
 - **Pattern files:** `references/patterns/<prefix>-<name>.md`. The prefixes are `found` (foundations), `color` and `style` (visual style), `data` (data display), `chart`, `comp` (components), `motion`, `prog` (progressive loading), and `ref` (product teardowns, anti-patterns, review rubric).

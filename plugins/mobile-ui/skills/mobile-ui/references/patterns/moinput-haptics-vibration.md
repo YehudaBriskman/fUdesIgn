@@ -5,7 +5,7 @@
 **Category:** Input · **Applies to:** swipe commits, sheet detent snaps, toggles, long-press menus, errors, pull-to-refresh trigger, scanners and games · **Priority:** nice
 
 ## When to use / when not
-- **Use** for moments a native app would tick: crossing a swipe-commit threshold, a sheet snapping to a detent, a long-press menu opening, a failed payment or scan.
+- **Use** for moments a native app would tick: crossing a swipe-commit threshold, a sheet snapping to a detent, a long-press menu opening, a failed payment or scan. Haptics are a platform convention (`moplat-native-feel-hig-material.md`), and one never replaces a visible, correctly sized control (`mofound-touch-targets.md`).
 - **Not** for every tap, scroll, page load, notification or marketing moment. Haptics lose meaning (and drain battery) when frequent.
 - **Not** as the only feedback: many devices cannot vibrate, many users turn system haptics off, and the web API is missing on iOS.
 

@@ -1,6 +1,6 @@
 # Pattern index
 
-19 patterns. **Priority:** must = always apply · should = apply unless there is a reason not to · nice = optional.
+20 patterns. **Priority:** must = always apply · should = apply unless there is a reason not to · nice = optional.
 
 ## Foundations: layout, labels, required/optional, accessibility, microcopy (`ffound-`)
 
@@ -36,6 +36,7 @@
 | Pattern | Priority | Rule |
 |---|---|---|
 | [Sign-in, sign-up and passkeys](patterns/fflow-authentication-and-passkeys.md) | must | Make authentication work with password managers and passkeys: real `<form>`s, `autocomplete="username webauthn"` / `current-password` / `new-password`, paste allowed, a show-password toggle, one-field OTPs, and passkeys offered through conditional UI (autofill) before any password. |
+| [Completion and end states](patterns/fflow-completion-and-end-states.md) | should | End every flow on a clear, specific success state that says what happened and what comes next; never end on an error, a dead end or a blank page, and spend design effort on the single worst moment of the flow (a rejected payment, a failed upload, a timeout) because that is where people judge the whole thing. |
 | [Multi-step forms, wizards and saving progress](patterns/fflow-multi-step-and-save-progress.md) | should | Split a long form into steps only when each step is a coherent group of questions; show where people are and how much is left, let them go back without losing answers, end with a "Check your answers" page, and save progress automatically so a timeout or closed tab never costs them their work. |
 | [Submit buttons, submission states and double submit](patterns/fflow-submit-buttons-and-double-submit.md) | must | Keep the submit button enabled until a valid submit starts; then mark it busy on itself (same size, spinner + "Saving…", `aria-disabled`), ignore repeat clicks, send an idempotency key so the server can't do the work twice, and end in a clear success or an inline error that keeps every answer. |
 

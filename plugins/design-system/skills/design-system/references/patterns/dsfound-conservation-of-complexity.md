@@ -10,7 +10,7 @@
 - Dates are the worked example elsewhere; read them instead of re-deriving it here: dashboard-ui `comp-date-range-picker.md` and forms-ui `finput-dates-and-times.md`. This file is the general rule they instantiate.
 
 ## Rules (do)
-- **State the rule in the design brief.** Per screen or flow, one line: "the user carries X; the system carries Y; it costs us Z." Record it in DESIGN.md under "Who carries the complexity?". "The user carries everything" is a finding, not a plan.
+- **State the rule in the design brief.** Per screen or flow, one line: "the user carries X; the system carries Y; it costs us Z." Record it in DESIGN.md under "Who carries the complexity?" and keep it from drifting (`dsref-governance-drift.md`). "The user carries everything" is a finding, not a plan.
 - **Run the four-way audit on every flow.** Each hit is complexity pushed onto the user:
   1. *Counting*: steps, fields or clicks the system could have skipped. House default: flag a flow with more than 1 step beyond the minimum after defaults and prefill.
   2. *Remembering*: the user holds a value, rule or location from one screen to the next. NN/g's recognition-over-recall heuristic (#6) is the test.

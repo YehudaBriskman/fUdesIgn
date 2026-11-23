@@ -54,7 +54,7 @@
 
 ## Motion / interaction (if relevant)
 - Removing a row collapses it over about 150 ms (house default; see `motion-reduced-motion.md` for tokens), and the Undo toast stays at least 8 s (house default). Under `prefers-reduced-motion`, the row disappears instantly. A restored row returns to its previous position.
-- Toasts: `cpover-toast-and-feedback.md`. Undo is not the only way back; the audit log can re-add the person.
+- Toasts: `cpover-toast-and-feedback.md`. What to show once an invite is sent, and what comes next: `fflow-completion-and-end-states.md`. Undo is not the only way back; the audit log can re-add the person.
 
 ## Tokens and values
 | Token | Default | Use |

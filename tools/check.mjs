@@ -26,7 +26,8 @@ const PREFIXES = ['found', 'color', 'style', 'data', 'chart', 'comp', 'motion', 
   'dsfound', 'dstoken', 'dsmap', 'dsref',
   'rtl', 'i18n', 'iref',
   'a11y', 'aaria', 'atest', 'alaw', 'aref',
-  'cpfound', 'cpover', 'cpctl', 'cpref']
+  'cpfound', 'cpover', 'cpctl', 'cpref',
+  'uxcog', 'uxeth', 'uxres', 'uxwrt']
 const LINK = new RegExp(`\\b((?:${PREFIXES.join('|')})-[a-z0-9-]+\\.md)\\b`, 'g')
 
 const sketches = args.includes('--sketches')

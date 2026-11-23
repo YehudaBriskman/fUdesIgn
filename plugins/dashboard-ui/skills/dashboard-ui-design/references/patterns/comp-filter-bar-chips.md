@@ -6,7 +6,7 @@
 
 ## When to use / when not
 - **Global filter bar** (top of the dashboard, under the page header): use it for dimensions that apply to *every* widget, such as date range, company or ticker, region, currency or segment. Keep to 3–5 always-visible controls. Further dimensions go behind a "+ Filter" button.
-- **Local filters** (inside a card or table header): use these for dimensions that only affect that widget. The card must show its local filter state in its header, so nobody misreads a card that differs from the global scope.
+- **Local filters** (inside a card or table header): use these for dimensions that only affect that widget. The card must show its local filter state in its header, so nobody misreads a card that differs from the global scope. A log filters by actor, action and date range; see `data-activity-timeline.md`.
 - **Faceted sidebar** (vertical list of facets with counts): use it for large catalog-like datasets with many attributes, such as a screener with 20+ fields. It costs metadata and UI effort, so justify it first (NN/g: "a simple filter can often be easier to understand and faster to use").
 - **Don't** use a filter where a *view switch* is meant. "Income statement / Balance sheet" is a tab, not a filter (see `comp-tabs-segmented-pills.md`).
 - **Instant vs batch apply:**

@@ -48,7 +48,7 @@
 - Bing Chat's 2023 broom icon for "new topic" ([NN/g, prompt controls](https://www.nngroup.com/articles/prompt-controls-genai/)): an unlabelled metaphor for a core action.
 
 ## Accessibility
-- The thread is a list of `<article>` elements, each named by its author line (`aria-labelledby`), so screen-reader users can jump turn by turn. The model's headings inside an answer start one level below the thread heading (`aifound-accessible-generated-content.md`).
+- The thread is a list of `<article>` elements, each named by its author line (`aria-labelledby`), so screen-reader users can jump turn by turn (landmark and heading rules for the page around it: `a11y-structure-landmarks-headings.md`). The model's headings inside an answer start one level below the thread heading (`aifound-accessible-generated-content.md`).
 - The thread container is **not** a live region while tokens stream (see `aichat-streaming-text.md`).
 - The action row is a `role="toolbar"` with one Tab stop and arrow keys inside (dashboard-ui `comp-keyboard-shortcuts-focus.md`). Every icon button has an accessible name ("Copy response", "Good response").
 - Provide a "Skip to composer" link and a keyboard shortcut to focus the composer (for example `/` when focus is not in a field, which can be turned off: WCAG 2.1.4).

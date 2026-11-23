@@ -5,7 +5,7 @@
 **Category:** Charts and data visualisation · **Applies to:** forecasts, valuation ranges, Monte Carlo output, latency percentiles, survey results, A/B tests, model calibration · **Priority:** must (for any forecast or estimate)
 
 ## When to use / when not
-- Distribution charts (histogram, box, strip, density, ECDF) when the question is "how spread out / what is typical / are there outliers". FT Visual Vocabulary "Distribution" row.
+- Distribution charts (histogram, box, strip, density, ECDF) when the question is "how spread out / what is typical / are there outliers". FT Visual Vocabulary "Distribution" row. The question-to-chart table is `chart-choose-by-question.md`.
 - Uncertainty displays (fan chart, interval band, graded error bars, quantile dot plot) whenever a number is an estimate or a projection. A valuation tool showing one value per share with no range overstates precision.
 - Not: a box plot for fewer than ~10 observations (show the dots), a density curve for small samples (Wilke: density plots "can be misleading for data sets of only a few points"), a histogram of 3 bins.
 

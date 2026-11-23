@@ -11,7 +11,7 @@
     {
       "name": "dashboard-ui",
       "source": "./plugins/dashboard-ui",
-      "description": "Dashboard UI design: 89 researched patterns (hierarchy, data display, charts, colour, components, motion, progressive UI) plus a review rubric and starter tokens.",
+      "description": "Dashboard UI design: 91 researched patterns (hierarchy, data display, charts, colour, components, motion, progressive UI) plus a review rubric and starter tokens.",
       "version": "0.1.0",
       "category": "design",
       "license": "PolyForm-Internal-Use-1.0.0"
@@ -35,7 +35,7 @@
     {
       "name": "motion-ui",
       "source": "./plugins/motion-ui",
-      "description": "Product-UI motion and gesture: 19 researched patterns (purpose and frequency, durations and easing, springs mapped across CSS, Motion, React Spring, SwiftUI and Material 3, drag, momentum, sheets, enter/exit, View Transitions, scroll-driven animation, performance, reduced motion) plus a frame-based review rubric and motion tokens.",
+      "description": "Product-UI motion and gesture: 20 researched patterns (purpose and frequency, durations and easing, springs mapped across CSS, Motion, React Spring, SwiftUI and Material 3, drag, momentum, sheets, enter/exit, View Transitions, scroll-driven animation, performance, reduced motion) plus a frame-based review rubric and motion tokens.",
       "version": "0.1.0",
       "category": "design",
       "license": "PolyForm-Internal-Use-1.0.0"
@@ -43,7 +43,7 @@
     {
       "name": "forms-ui",
       "source": "./plugins/forms-ui",
-      "description": "Web form design: 19 researched patterns (layout, labels, input types and autofill, choice controls, money/date/phone/file inputs, validation and errors, submission, multi-step flows, passkeys) plus an anti-pattern catalogue, a review rubric and starter form styles.",
+      "description": "Web form design: 20 researched patterns (layout, labels, input types and autofill, choice controls, money/date/phone/file inputs, validation and errors, submission, multi-step flows, passkeys) plus an anti-pattern catalogue, a review rubric and starter form styles.",
       "version": "0.1.0",
       "category": "design",
       "license": "PolyForm-Internal-Use-1.0.0"
@@ -51,7 +51,7 @@
     {
       "name": "design-system",
       "source": "./plugins/design-system",
-      "description": "Set up and keep a coherent design system in your project: 11 researched patterns (token architecture and versioning, DTCG, theming and multi-brand, dark mode, type, spacing and radius scales, Tailwind v4/shadcn/CSS Modules/MUI mappings, evidence-based domain profiles, drift detection), a verified OKLCH theme generator (WCAG 2 + APCA, light/dark/high contrast) and a DESIGN.md decision record.",
+      "description": "Set up and keep a coherent design system in your project: 13 researched patterns (token architecture and versioning, DTCG, theming and multi-brand, dark mode, type, spacing and radius scales, Tailwind v4/shadcn/CSS Modules/MUI mappings, evidence-based domain profiles, drift detection), a verified OKLCH theme generator (WCAG 2 + APCA, light/dark/high contrast) and a DESIGN.md decision record.",
       "version": "0.1.0",
       "category": "design",
       "license": "PolyForm-Internal-Use-1.0.0"
@@ -67,7 +67,7 @@
     {
       "name": "i18n-rtl",
       "source": "./plugins/i18n-rtl",
-      "description": "Internationalisation and right-to-left UI with Hebrew and Arabic as first-class cases: 19 researched patterns (logical properties, what mirrors and what must not, dir and dir=auto, bidi isolation of mixed Hebrew/English/number text, digits, minus sign and \u20aa position, Hebrew and Hijri calendars and week start, directional icons, Hebrew and Arabic typography, RTL forms, tables and charts, :dir() and Tailwind rtl:, ICU plurals with Hebrew dual forms and gender, text expansion, locale negotiation without flags, pseudo-localisation and a Playwright RTL recipe) plus a Hebrew-site teardown with IS 5568, an anti-pattern catalogue, a review rubric and logical-property utilities.",
+      "description": "Internationalisation and right-to-left UI with Hebrew and Arabic as first-class cases: 19 researched patterns (logical properties, what mirrors and what must not, dir and dir=auto, bidi isolation of mixed Hebrew/English/number text, digits, minus sign and ₪ position, Hebrew and Hijri calendars and week start, directional icons, Hebrew and Arabic typography, RTL forms, tables and charts, :dir() and Tailwind rtl:, ICU plurals with Hebrew dual forms and gender, text expansion, locale negotiation without flags, pseudo-localisation and a Playwright RTL recipe) plus a Hebrew-site teardown with IS 5568, an anti-pattern catalogue, a review rubric and logical-property utilities.",
       "version": "0.1.0",
       "category": "design",
       "license": "PolyForm-Internal-Use-1.0.0"
@@ -92,6 +92,14 @@
       "name": "components-ui",
       "source": "./plugins/components-ui",
       "description": "Interactive component behaviour: reuse-first selection ladder, state matrix and async model, dialogs, popovers and menus, tooltips, toasts, drag and drop, virtualised lists, plus anti-patterns and a review rubric.",
+      "version": "0.1.0",
+      "category": "design",
+      "license": "PolyForm-Internal-Use-1.0.0"
+    },
+    {
+      "name": "ux-foundations",
+      "source": "./plugins/ux-foundations",
+      "description": "The evidence under UI decisions: graded cognitive biases, choice architecture and dark patterns, usability testing and IA methods, reading and pointing models, UX writing and evidence grading.",
       "version": "0.1.0",
       "category": "design",
       "license": "PolyForm-Internal-Use-1.0.0"

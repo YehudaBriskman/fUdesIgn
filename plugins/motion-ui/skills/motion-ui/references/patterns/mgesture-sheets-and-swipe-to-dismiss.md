@@ -16,7 +16,7 @@ Use a sheet for a secondary task that keeps the parent in context, especially on
 - **Settle with velocity.** Closing after a flick is a spring that starts at the release velocity (bounce 0.15 at most; Apple's dismiss example used 80% damping). Opening on tap uses bounce 0.
 - **Swipe actions on rows.**
   - Reveal actions as the row moves (the action is already visible under the finger).
-  - Light, reversible actions (archive, mark read) may commit once a threshold is crossed mid-swipe, with haptic or visual confirmation at the threshold; Rauno's rule is that destructive ones (delete, close) wait for release.
+  - Light, reversible actions (archive, mark read) may commit once a threshold is crossed mid-swipe, with haptic (`moinput-haptics-vibration.md`) or visual confirmation at the threshold; Rauno's rule is that destructive ones (delete, close) wait for release.
   - Delete always has undo (a toast or inline "Undo" for at least 8 s; see dashboard-ui's `prog-optimistic-ui-and-undo.md`).
 - **Toast swipe.** A toast can be swiped away in its exit direction; Sonner dismisses above a swipe velocity of 0.11 (px/ms, tuned by trial) and pauses its 4 s timer while hovered or when the tab is hidden.
 - **Use `<dialog>` for modal sheets.** You get the top layer, focus trapping and Escape; animate it with the enter/exit recipe in `mtrans-enter-exit-top-layer.md`.

@@ -24,7 +24,7 @@ Always. The budget is the same everywhere: a frame at 60 Hz is 16.7 ms (8.3 ms a
 - `will-change: transform` on every card "for performance".
 - Reading `offsetHeight` inside a `pointermove` handler that also writes styles.
 - Animating `filter: blur(20px)` or `backdrop-filter` on a full-screen surface.
-- JS `scroll` listeners that set styles on every event (use scroll-driven animations or `IntersectionObserver`).
+- JS `scroll` listeners that set styles on every event (use scroll-driven animations, see `mtrans-scroll-driven-animations.md`, or `IntersectionObserver`).
 - Starting a heavy data fetch or render synchronously in the click handler before the press feedback paints.
 
 ## Good references

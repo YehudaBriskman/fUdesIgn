@@ -45,7 +45,7 @@
   - Don't steal focus.
   - Pause auto-dismiss while hovered or focused. Prefer persistence for anything with an action.
   - Never show toasts while a modal is open; queue them until it closes. A popover opened outside the modal is inert to assistive tech while the modal is up (Scott O'Hara).
-  - Keep a history (notification centre) so a missed toast is recoverable.
+  - Keep a history (notification centre) so a missed toast is recoverable. Invites and access changes also need a recipient and an audit entry: `comp-sharing-and-permissions.md`.
 - **Data-freshness alerts** are first-class in dashboards. Every widget can enter `stale`, `partial`, `error` or `empty` states with an inline message and a timestamp ("As of Nov 20, 16:00 ET"). Don't silently render stale numbers.
 - **Live region urgency.**
   - `assertive` / `role="alert"` only for critical, time-sensitive events (session timeout, data loss, connection lost).

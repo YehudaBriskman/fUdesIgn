@@ -5,7 +5,7 @@
 **Category:** Platform · **Applies to:** web apps used repeatedly (tools, inboxes, trackers, shops with accounts), installed PWAs on Android, iOS and desktop · **Priority:** should
 
 ## When to use / when not
-- **Use** for apps people return to weekly or more and that benefit from a home-screen icon, standalone display, offline reading or push.
+- **Use** for apps people return to weekly or more and that benefit from a home-screen icon, standalone display, offline reading or push; installed-app expectations (back, sheets, text scale) are in `moplat-native-feel-hig-material.md`.
 - **Not** for one-visit sites (a campaign page, a single article): no install prompts there.
 - **Not** a reason to block the web experience. Installation and standalone display are enhancements; everything works in a tab (modern-web-guidance `pwa/install-web-app.md`).
 

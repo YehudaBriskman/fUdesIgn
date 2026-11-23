@@ -5,7 +5,7 @@
 **Category:** Chat and conversation · **Applies to:** chat threads, assistant side panels, generated drafts, image and code generation, any "try again" action · **Priority:** must
 
 ## When to use / when not
-- Every multi-turn chat and every generator with a retry button.
+- Every multi-turn chat and every generator with a retry button. Where the action row sits in a turn: `aichat-layout-and-message-anatomy.md`.
 - One-shot inline transforms (rewrite this sentence) use accept/reject and undo instead; see `aiinline-ghost-text-and-diffs.md`.
 - Agent runs that changed external state can't be "regenerated" by replaying; offer a new run and keep the old one's audit trail (`aiagent-approval-and-audit.md`).
 

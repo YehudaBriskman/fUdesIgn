@@ -29,7 +29,7 @@
 - [Design Tokens Format Module](https://tr.designtokens.org/format/) — the specification: token and group structure, types, aliases, `$deprecated`.
 - [design-tokens/community-group](https://github.com/design-tokens/community-group) — the group's repository, with the issues where the colour object and the resolver were decided.
 - [Style Dictionary](https://styledictionary.com/) — a build tool that reads DTCG and writes CSS, iOS and Android outputs.
-- [google-labs-code/design.md](https://github.com/google-labs-code/design.md) — its CLI exports DESIGN.md front matter to DTCG, so DESIGN.md and DTCG can round-trip.
+- [google-labs-code/design.md](https://github.com/google-labs-code/design.md) — its CLI exports DESIGN.md front matter to DTCG, so DESIGN.md and DTCG can round-trip (the decision record that points at the token file is `dsref-design-md-format.md`).
 
 ## Bad references
 - Token JSON exported as `{ "primary": "#325ac2" }` with no `$value` and no type — any consumer must guess what each value is, and dark mode becomes a second file with no shared keys.

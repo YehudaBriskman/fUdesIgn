@@ -5,7 +5,7 @@
 **Category:** Review · **Applies to:** design and code review of any animated UI: PR reviews, audits, pre-release checks, agent self-review · **Priority:** must
 
 ## When to use / when not
-Use before calling motion work done and when asked to critique an existing interface's motion. Start flagged by default and let each animation earn a pass (Emil Kowalski's review stance). Use dashboard-ui's `ref-design-review-rubric.md` for the rest of a data UI; this rubric only covers motion and gesture.
+Use before calling motion work done and when asked to critique an existing interface's motion. Start flagged by default and let each animation earn a pass (Emil Kowalski's review stance). Grade the strength of any research a finding cites with `uxres-evidence-grading.md`. Use dashboard-ui's `ref-design-review-rubric.md` for the rest of a data UI; this rubric only covers motion and gesture.
 
 ## Rules (do)
 - **Evidence first.** For each interaction (open/close each overlay, each route, each gesture, each toggle), capture:

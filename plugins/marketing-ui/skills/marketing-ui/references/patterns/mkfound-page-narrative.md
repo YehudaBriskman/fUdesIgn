@@ -16,7 +16,7 @@
 - **Order sections by goal.** Use the table in Tokens and values. A demo-request page needs more proof and less feature detail than a self-serve page. A purchase page puts price and delivery terms high. A waitlist page is short.
 - **Design for scanners, not readers.** NN/g's log-data study (25 users, 45,237 page views) estimated that people read about 20% of the words on an average page and have time for at most 28%. Each section needs a heading that carries the claim on its own, a short lead, then detail.
 - **Support the scanning patterns NN/g documented in eyetracking (2019 update):**
-  - F-pattern: users read the start of lines and the top of the page. Put the key words first in headings and bullets.
+  - F-pattern: users read the start of lines and the top of the page. Put the key words first in headings and bullets (limits of the pattern: `uxcog-reading-and-scanning-patterns.md`).
   - Layer-cake: users read headings and dip into one block. This is the pattern to design for, so give every section an H2 that states a benefit, not a label ("Ship changes without a deploy", not "Features").
   - Spotted: users fixate on links, numbers and bold words. Use numbers that mean something ("2-minute setup").
   - Commitment: rare on marketing pages, common on pricing and FAQ. Keep those in readable prose.

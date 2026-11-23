@@ -5,7 +5,7 @@
 **Category:** References · **Applies to:** reviewing any dialog, menu, popover, toast, list, drag interaction or async action · **Priority:** must
 
 ## When to use / when not
-- First pass of a component review, and when auditing generated code that "looks right".
+- First pass of a component review, and when auditing generated code that "looks right". Manipulative defaults (pre-checked consent, lopsided confirm buttons) are covered in `uxeth-choice-architecture-and-dark-patterns.md`.
 - Scoring and the report format are in `cpref-component-review-rubric.md`. Colour and layout faults are in the dashboard-ui `ref-` patterns.
 
 ## Rules (do)

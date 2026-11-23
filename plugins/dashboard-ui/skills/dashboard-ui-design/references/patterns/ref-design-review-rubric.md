@@ -7,7 +7,7 @@
 ## When to use / when not
 - Run it in design review, before release, and when auditing a competitor or an existing screen.
 - An agent can run it from screenshots, DOM access and a scriptable browser. Checks marked **[DOM]** are verified in code or computed styles, **[VIS]** on a screenshot, and **[INT]** by interacting.
-- Not a substitute for usability testing with real users and tasks. It catches known failure modes, not task fit.
+- Not a substitute for usability testing with real users and tasks. It catches known failure modes, not task fit. When a finding cites a UX law, cite the rule and grade the law with `ref-ux-laws-evidence-map.md`.
 
 ## Rules (do)
 **Scoring unit:** score each page type separately (for example overview, entity detail, list, settings), using one representative instance plus the extra instances H1 asks for. The dashboard score is the mean of the page-type percentages; a must-check at 0 on any page type blocks the whole dashboard.
@@ -37,7 +37,7 @@
 | B3 | Variance is shown directly as a signed %, pp or difference | [VIS] each KPI with a comparison | Every comparison | Some | None (two raw numbers to subtract) | Show "+4.2% vs …" instead of both raw values |
 | B4 | Known targets or thresholds are drawn (bullet tick, reference line, "of $4.2M target") | [VIS] each metric whose target, budget or SLO exists in the data or spec. N/A if none exists | All | Some | None | Add a reference line or bullet-graph tick |
 
-### C. Encoding and chart choice (NN/g; Few pitfalls 5–8; chart-pies-donuts-gauges.md)
+### C. Encoding and chart choice (NN/g; Few pitfalls 5–8; chart-pies-donuts-gauges.md, `chart-honesty-chartjunk.md`, `chart-bad-gallery.md`)
 | ID | Check | Recipe | 2 | 1 | 0 | Typical fix |
 |---|---|---|---|---|---|---|
 | C1 (must) | No radial gauges, no 3D charts, no pie or donut with more than 5 slices | [VIS] inspect every chart; count pie and donut slices | None present | — | Any present | Gauge → bullet graph; pie > 5 → sorted bars; 3D → 2D |

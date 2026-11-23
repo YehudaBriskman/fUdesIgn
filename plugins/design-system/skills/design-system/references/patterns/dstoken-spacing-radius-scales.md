@@ -15,6 +15,7 @@
 - **Radius from one base.** `xs = base × 0.5`, `sm × 0.75`, `md × 1`, `lg × 1.5`, `xl × 2`, plus `none` and `full`. Base 8 gives 4/6/8/12/16 (the dashboard-ui values); `theme.mjs --radius` changes the base for the whole set.
 - **Radius by size.** Small controls get small radii, containers larger: badges xs, inputs and small buttons sm, buttons and popovers md, cards lg, dialogs xl.
 - **Nested corners are concentric.** Inner radius = max(2px, outer radius − padding − border width). A 12px card with 8px padding holds 4px-radius children.
+- **Type and spacing are chosen together.** Font sizes round to a 2px grid, so they sit on the same pixel grid as the 4px space steps (`dstoken-typography-scale.md`).
 - **Targets aren't spacing.** Minimum target size is its own token (`--target-min`: 24px, 44px on coarse pointers; WCAG 2.5.8 sets 24px as the AA minimum).
 - **Tailwind's `--spacing` multiplier is 4px**, so Tailwind's `p-4` is 16px = `--space-4`, but Tailwind's `p-6` (24px) is our `--space-5`. Map by pixels, not by step number (`dsmap-stack-mappings.md`).
 

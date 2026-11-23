@@ -8,7 +8,7 @@
 - **Use** for the vertical order of any dashboard and the internal order of each card (label → value → comparison → sparkline → footer).
 - **Use** the "five-second test": a target user, shown the page for 5 seconds, can say the state of the main metric (Sisense: "Your dashboard should provide the relevant information in about 5 seconds").
 - **Not** a reason to put everything in the top-left. Scanning patterns describe where eyes go when the design provides *no* strong cues. NN/g: "The F-pattern is the default pattern when there are no strong cues". Your job is to provide the cues.
-- **Z-pattern** is folk wisdom for sparse, marketing-style layouts. NN/g's eyetracking research doesn't define it (it only mentions a "zigzag" on image-heavy pages). Don't design dashboards around it.
+- **Z-pattern** is folk wisdom for sparse, marketing-style layouts. NN/g's eyetracking research doesn't define it (it only mentions a "zigzag" on image-heavy pages). Don't design dashboards around it. The graded reading-pattern evidence is in `uxcog-reading-and-scanning-patterns.md`.
 
 ## Rules (do)
 - **Use the inverted pyramid, three bands top to bottom** (Sisense: "Display the most significant insights on the top part of the dashboard", trends in the middle, granular details at the bottom):

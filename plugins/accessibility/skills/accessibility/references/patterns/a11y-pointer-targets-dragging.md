@@ -6,7 +6,7 @@
 
 ## When to use / when not
 - **Always** for anything clickable or draggable, on every pointer type. 2.5.8 is not a touch-only rule.
-- **Touch layouts** go further (44 pt / 48 dp house rule, thumb reach, spacing): mobile-ui `mofound-touch-targets.md` owns those numbers. Gesture physics are owned by motion-ui `mgesture-direct-manipulation-drag.md` and mobile-ui `monav-gestures-swipe-refresh-back.md`.
+- **Touch layouts** go further (44 pt / 48 dp house rule, thumb reach, spacing): mobile-ui `mofound-touch-targets.md` owns those numbers; the sound use of Fitts's law behind them is in `uxcog-fitts-and-hick-correct-use.md`. Gesture physics are owned by motion-ui `mgesture-direct-manipulation-drag.md` and mobile-ui `monav-gestures-swipe-refresh-back.md`.
 - **Exceptions to 2.5.8:** inline links in a sentence, targets whose size is set by the user agent (unstyled native controls), an equivalent control elsewhere on the page that meets the size, and cases where the small size is essential (a map pin at its real location).
 
 ## Rules (do)

@@ -17,7 +17,7 @@
   2. Contact: email or a contact page, support, sales, and a postal address if required.
   3. Product and company links: features, pricing, docs, changelog, about, careers, press.
   4. Trust utilities: a status page, security or trust centre, DPA, compliance.
-  5. Language and region selector.
+  5. Language and region selector (`i18n-locale-negotiation-and-switchers.md`).
   6. Social links (3–5 maximum) and an optional newsletter.
 - **Group into 3–5 columns of 3–7 links each,** with a short visible heading per group ("Product", "Company", "Legal"). NN/g recommends showing the hierarchy (bold group labels, lighter links) and avoiding vague labels such as "Resources".
 - **Legal requirements depend on where you sell:**
@@ -50,7 +50,7 @@
 - Generic SaaS template pattern (no single site named): a footer with 7 columns, many "Resources" links to thin SEO pages, social icons without names, and no cookie settings link.
 
 ## Accessibility
-- Use exactly one page-level `<footer>` that is a direct child of `<body>` (not inside `<main>`, `<article>` or `<section>`), so it maps to the `contentinfo` landmark. Don't add `role="contentinfo"` to section-level footers.
+- Use exactly one page-level `<footer>` that is a direct child of `<body>` (not inside `<main>`, `<article>` or `<section>`), so it maps to the `contentinfo` landmark (`a11y-structure-landmarks-headings.md`). Don't add `role="contentinfo"` to section-level footers.
 - Wrap link columns in `<nav aria-label="Footer">`. Each group heading is a real heading (`<h2>` styled small) or the list's label, so screen reader users can jump between groups.
 - Social icon links get names ("Plausible on Mastodon"); the SVG is `aria-hidden="true"`.
 - The language selector uses `lang` and `hreflang` on each option link.

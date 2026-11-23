@@ -40,7 +40,7 @@ Use when the scroll position itself is the information (how far through, which s
 
 ## Accessibility
 - Wrap movement in `prefers-reduced-motion: no-preference`; under `reduce`, progress indicators can still update (they're not motion of content), reveals are removed.
-- WCAG 2.3.3: scroll-linked parallax is "usually non-essential" motion from interaction; remove it under reduced motion, or better, don't add it.
+- WCAG 2.3.3: scroll-linked parallax is "usually non-essential" motion from interaction; remove it under reduced motion, or better, don't add it (dashboard-side rules: `motion-reduced-motion.md`).
 
 ## Motion / interaction (if relevant)
 Scroll-driven animations follow the scroll exactly, so there's nothing to interrupt; they must never add inertia or lag of their own.

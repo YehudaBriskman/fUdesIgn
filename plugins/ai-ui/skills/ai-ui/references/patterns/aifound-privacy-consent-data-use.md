@@ -7,7 +7,7 @@
 ## When to use / when not
 - Every AI feature that sends user content to a model or stores it. On-device features still need a notice (what stays local, what doesn't).
 - Agent permissions to act (send, pay, delete) are in `aiagent-approval-and-audit.md`; this file covers data. Feedback consent is detailed in `aichat-feedback-and-reporting.md`.
-- This is design guidance, not legal advice. Legal requirements (GDPR lawful basis, sector rules) still need review.
+- This is design guidance, not legal advice. Legal requirements (GDPR lawful basis, sector rules) still need review. Consent defaults and the dark-pattern line: `uxeth-choice-architecture-and-dark-patterns.md`.
 
 ## Rules (do)
 - **Short notice at the input, full policy one click away.** One line under the composer or in the AI panel header: "Chats are kept 30 days and are not used to train models. Data settings". The link opens the setting itself, not a policy PDF.

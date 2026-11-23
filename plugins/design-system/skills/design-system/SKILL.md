@@ -7,7 +7,7 @@ description: Set up and maintain a coherent design system in the user's project 
 
 Sets up a design system in the user's project and keeps it consistent across sessions. It has three parts:
 - **A generator:** `scripts/theme.mjs` turns a few inputs into verified tokens.
-- **Patterns:** 12 pattern files under `references/patterns/`, each with rules, references, tokens, a sketch and a checklist. `references/INDEX.md` lists them with their one-line rules. The prefixes are `dsfound` (foundations), `dstoken` (tokens), `dsmap` (stack mapping) and `dsref` (decision record, governance, anti-patterns).
+- **Patterns:** 13 pattern files under `references/patterns/`, each with rules, references, tokens, a sketch and a checklist. `references/INDEX.md` lists them with their one-line rules. The prefixes are `dsfound` (foundations), `dstoken` (tokens), `dsmap` (stack mapping) and `dsref` (decision record, governance, anti-patterns).
 - **A decision record:** `assets/DESIGN.template.md`, the DESIGN.md written into the user's project.
 
 The role names are those of the dashboard-ui plugin's `tokens.css`, so its patterns and this plugin's output fit together.

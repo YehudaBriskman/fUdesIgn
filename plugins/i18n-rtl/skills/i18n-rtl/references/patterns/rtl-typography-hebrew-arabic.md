@@ -30,6 +30,7 @@
 - **Numbers.** Hebrew fonts' Latin digits often lack `tnum`. Check `font-variant-numeric: tabular-nums` actually changes widths in your Hebrew font; if not, set numeric cells in a matched Latin font (see `data-number-formatting.md`).
 - **Niqqud and harakat** (vowel marks) need extra line-height and fonts that position them well; they appear in children's, religious and language-learning content, and in names. Test with a pointed string.
 - **Load only the scripts you need.** `@font-face` with `unicode-range: U+0590-05FF, U+FB1D-FB4F` (Hebrew) and `U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFF` (Arabic) lets Latin-only pages skip the download.
+- Quotation marks and apostrophes follow the `lang` of an ancestor (`<q>`, `quotes: auto`); see `dstoken-typography-details.md` in design-system.
 
 ## Anti-patterns (don't)
 - Shipping a Latin-only webfont and letting Hebrew fall back to Times New Roman or Arial in some browsers, with different metrics and line-height per OS.

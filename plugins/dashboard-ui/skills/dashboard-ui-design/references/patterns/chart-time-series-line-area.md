@@ -5,7 +5,7 @@
 **Category:** Charts and data visualisation · **Applies to:** revenue/usage trends, price history, KPI detail views, forecast vs actual · **Priority:** must
 
 ## When to use / when not
-- Line: ordered x (time), 10+ points, one to ~5 highlighted series. Also the right answer for "which share overtook which" (Datawrapper area guide).
+- Line: ordered x (time), 10+ points, one to ~5 highlighted series. Also the right answer for "which share overtook which" (Datawrapper area guide). This is the "how does it change" row of `chart-choose-by-question.md`.
 - Stacked area: only when the total is meaningful and you have several series and many dates. Fewer than ~10 dates: stacked columns read better.
 - Not for unordered categories (use bars), not for a single value per period with only 3 to 6 periods (use columns), not for comparing shares at one moment.
 

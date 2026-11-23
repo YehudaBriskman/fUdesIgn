@@ -6,7 +6,7 @@
 
 ## When to use / when not
 - **Use** when building an app-like web experience (PWA, hybrid shell, logged-in product) that users will compare with native apps.
-- **Adapt behaviour, not branding.** Behaviour (back, dismissal, keyboard, share, date pickers) should match the OS; the visual brand can stay yours on both.
+- **Adapt behaviour, not branding.** Behaviour (back, dismissal, keyboard, share, date pickers) should match the OS; the visual brand can stay yours on both. Sheet dismissal and detents follow `mgesture-sheets-and-swipe-to-dismiss.md`; haptics are covered in `moinput-haptics-vibration.md`.
 - **Not** pixel-copying iOS or Android widgets in a web page. Costume controls age badly (each OS redesign, such as iOS 26's Liquid Glass or M3 Expressive, makes them look wrong) and confuse users on the other platform.
 
 ## Rules (do)

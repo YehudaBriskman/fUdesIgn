@@ -7,7 +7,7 @@
 ## When to use / when not
 - **Relative:** recency matters more than the exact instant (last deploy, last login, activity feed, "updated").
 - **Absolute:** the exact instant matters (transaction time, audit log, legal or financial records, anything screenshotted or exported), or the event is older than the threshold.
-- **Both:** audit trails and tables that are screenshotted for incidents. Aaron Parecki: with a relative date in a screenshot, "Months later, you've completely lost the date."
+- **Both:** audit trails and tables that are screenshotted for incidents. Aaron Parecki: with a relative date in a screenshot, "Months later, you've completely lost the date." Row layout for such event lists: `data-activity-timeline.md`.
 - **Data freshness indicator:** always on dashboards backed by batch, ETL or cached data, and on any number that can be stale. SaaSframe: "Explain freshness near the metrics where users rely on it."
 
 ## Rules (do)

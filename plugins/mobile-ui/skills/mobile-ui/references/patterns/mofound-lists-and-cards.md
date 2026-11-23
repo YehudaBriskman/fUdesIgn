@@ -11,8 +11,8 @@
 - For the desktop decision (table vs list vs cards), see dashboard-ui `data-cards-vs-tables-vs-lists.md`; this file covers the compact-width version.
 
 ## Rules (do)
-- **Row anatomy:** leading (avatar 40 px or icon 24 px) · title (one line, `--mo-type-headline` or body) · supporting line (one line, muted) · trailing (value, time, chevron or switch). Matches iOS list cells and M3 list items.
-- **Row heights:** at least 44 px (iOS minimum); M3 list items are 56 dp (one line), 72 dp (two lines) and 88 dp (three lines). Let rows grow with text size.
+- **Row anatomy:** leading (avatar 40 px or icon 24 px) · title (one line, `--mo-type-headline` or body) · supporting line (one line, muted) · trailing (value, time, chevron or switch). Matches iOS list cells and M3 list items. Why one line each scans well: `uxcog-reading-and-scanning-patterns.md`.
+- **Row heights:** at least 44 px (iOS minimum, and see `mofound-touch-targets.md`); M3 list items are 56 dp (one line), 72 dp (two lines) and 88 dp (three lines). Let rows grow with text size.
 - **One primary target per row.** The whole row opens the item. A second action (switch, checkbox, overflow) sits at the trailing edge with its own 44–48 px target and 8 px from the row's edge; do not nest more.
 - **Insets and separators:** 16 px page margin; separators inset to the text start (not under the avatar), 1 px `--border`. Or use grouped sections ("inset grouped" on iOS) with 8–12 px radius containers for settings.
 - **Section headers** sticky at the top of their section (`position: sticky`) for long, grouped lists (by date, by letter).

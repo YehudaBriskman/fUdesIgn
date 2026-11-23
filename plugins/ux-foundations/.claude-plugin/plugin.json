@@ -1,0 +1,8 @@
+{
+  "name": "ux-foundations",
+  "description": "The evidence under UI decisions, not UI itself: graded cognitive biases and laws, choice architecture and dark patterns, usability testing and information architecture methods, reading and pointing models, UX writing, and how to grade a claim before citing it.",
+  "version": "0.1.0",
+  "author": { "name": "Yehuda Briskman" },
+  "keywords": ["ux", "research", "cognition", "ethics", "dark-patterns", "usability-testing", "ux-writing", "evidence"],
+  "license": "PolyForm-Internal-Use-1.0.0"
+}

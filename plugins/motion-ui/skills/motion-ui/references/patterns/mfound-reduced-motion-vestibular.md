@@ -28,7 +28,7 @@ Always. dashboard-ui's `motion-reduced-motion.md` covers the mechanics (static-f
   - motion in a different direction or speed from scrolling (parallax, scroll-jacking);
   - full-viewport zoom or rotation;
   - slow, looping oscillation (bobbing, breathing, wobbling backgrounds);
-  - sudden full-screen brightness changes (theme switch without a short fade);
+  - sudden full-screen brightness changes (theme switch without a short fade; the theme-switch recipe lives in mobile-ui's `mofound-dark-mode-system-colors.md`: suppress per-property colour transitions, optional root cross-fade of at most 150 ms, no per-element staggered fades);
   - spinning or swirling patterns.
 - **Keep motion small by default.** In-place entrances travel ≤ 24 px; scale starts at 0.95–0.97. Small motion rarely needs a reduced variant beyond dropping the travel.
 - **Honour the companions.** `prefers-reduced-transparency` swaps blur and translucency for solid surfaces (Chromium only, so treat it as an enhancement and keep translucent surfaces legible without it); `prefers-contrast: more` adds solid outlines. Apple's Liquid Glass guidance asks for the same three checks: reduce motion, reduce transparency, increase contrast.
@@ -41,7 +41,7 @@ Always. dashboard-ui's `motion-reduced-motion.md` covers the mechanics (static-f
 - Removing the drag follow under reduced motion, so the sheet jumps instead of tracking.
 - Parallax hero sections in an app's signed-in screens.
 - A full-screen zoom transition from a grid tile into a detail page with no reduced alternative.
-- Theme toggles that hard-cut the whole screen from white to black.
+- Theme toggles that hard-cut the whole screen from white to black, or that fade every element's colour separately (see `mofound-dark-mode-system-colors.md` for the single recipe).
 - Reduced motion handled only in CSS while a JS library (Motion, GSAP, Lottie) keeps animating.
 
 ## Good references
@@ -49,7 +49,7 @@ Always. dashboard-ui's `motion-reduced-motion.md` covers the mechanics (static-f
 - [W3C technique C39](https://www.w3.org/WAI/WCAG22/Techniques/css/C39): using the reduced-motion query to prevent motion from interactions.
 - [WCAG 2.3.3 Animation from Interactions (AAA)](https://www.w3.org/WAI/WCAG22/Understanding/animation-from-interactions.html): motion triggered by interaction can be disabled unless essential; vestibular disorders as the reason.
 - [Val Head, Designing safer web animation for motion sensitivity (A List Apart)](https://alistapart.com/article/designing-safer-web-animation-for-motion-sensitivity/): the trigger list (scaling and zooming, spinning, parallax, multi-speed motion, large movement).
-- [Apple HIG, motion](https://developer.apple.com/design/human-interface-guidelines/motion) and [accessibility](https://developer.apple.com/design/human-interface-guidelines/accessibility): replace sliding and zooming with dissolves when Reduce Motion is on.
+- [Apple HIG, accessibility](https://developer.apple.com/design/human-interface-guidelines/accessibility): replace sliding and zooming with dissolves when Reduce Motion is on. The HIG [motion](https://developer.apple.com/design/human-interface-guidelines/motion) page says to make motion optional and to avoid animating frequent interactions, but carries no Reduce Motion section and no numbers.
 - [Motion, `useReducedMotion` and `MotionConfig reducedMotion="user"`](https://motion.dev/docs/react-accessibility): turns off transform and layout animations while keeping opacity and colour.
 
 ## Bad references
