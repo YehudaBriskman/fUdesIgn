@@ -21,10 +21,10 @@
 | Default effect | Strong for enrolment and consent | Johnson and Goldstein 2003: revealed donation consent 42% opt-in vs 82% opt-out (161 online respondents; the opt-out rate did not differ significantly from a neutral condition at 79%). Country registry comparison is correlational. | Preselect the choice most users would make when asked, for safe settings. | Preselecting consent, data sharing or paid add-ons. |
 | Choice overload | Conditional | Scheibehenne, Greifeneder and Todd 2010: 63 conditions from 50 experiments (N = 5,036), "mean effect size of virtually zero but considerable variance". Preconditions emerged, no sufficient conditions. | Group and filter long lists because scanning cost is real. | Cutting options on the claim that "more choice reduces conversion". |
 | Loss aversion | Contested | Gal and Rucker 2018 review the evidence and conclude it "does not support that losses, on balance, tend to be any more impactful than gains". | Describe a real consequence plainly (what will be lost if you delete). | Loss-framed pressure copy ("Don't miss out") as a proven lever. |
-| Anchoring | Unverified here | Tversky and Kahneman 1974 (Science 185:1124-1131) is the standard citation; its text was not retrievable for this note. | Show a real list price or previous price only when it was genuinely charged. | Inflated "was" prices (a false-belief dark pattern per the FTC report). |
+| Anchoring | Strong in lab estimation tasks | Tversky and Kahneman 1974: a number from 0 to 100 was set by spinning a wheel of fortune in subjects' presence; median estimates of the percentage of African countries in the UN were 25 and 45 for groups given 10 and 65. "Payoffs for accuracy did not reduce the anchoring effect." The paper reports no sample sizes or pricing data; transfer to price display is inference. | Show a real list price or previous price only when it was genuinely charged. | Inflated "was" prices (a false-belief dark pattern per the FTC report). |
 | Goal gradient | Strong in loyalty field data | Kivetz, Urminsky and Zheng 2006: 949 completed ten-stamp cards; interpurchase time fell about 20% (0.7 days) from first to last purchase. | Show real progress toward a real goal. | Fake progress bars. |
 | Endowed progress | Strong in one field study | Nunes and Dreze 2006: 300 car-wash cards; redemption 34% with two pre-filled stamps (10 stamps, 8 needed) vs 19% with none (8 needed). | Start a multi-step flow with already-done steps that are really done. | Pre-filling a meter with progress the user did not make. |
-| Social proof | Unverified here | No primary read for this note. | Show real counts and real, attributable reviews. | Invented numbers, "N people viewing" (FTC false-belief list). |
+| Social proof | Conditional | Salganik, Dodds and Watts 2006 (abstract): 14,341 participants downloaded unknown songs with or without knowledge of earlier choices; stronger social influence "increased both inequality and unpredictability of success", and success was "only partly determined by quality". An artificial music market, not a page-conversion test. Asch 1951 and the hotel-towel study were not read. | Show real counts and real, attributable reviews. | Invented numbers, "N people viewing" (FTC false-belief list). |
 
 ### Reading the table
 - **Default effect** is the one to use deliberately. It is also the one that most needs the ethics test, because it works whether or not the default serves the user.
@@ -88,7 +88,8 @@
 ## Sources
 - Gal and Rucker 2018, https://doi.org/10.1002/jcpy.1047 (abstract via Crossref API)
 - Scheibehenne, Greifeneder and Todd 2010, https://doi.org/10.1086/651235 ; open record https://archive-ouverte.unige.ch/unige:76440 (abstract-level figures only)
-- Tversky and Kahneman 1974, https://doi.org/10.1126/science.185.4157.1124 (bibliographic record only)
+- Tversky and Kahneman 1974, https://sites.socsci.uci.edu/~bskyrms/bio/readings/tversky_k_heuristics_biases.pdf (full text read)
+- Salganik, Dodds and Watts 2006, https://doi.org/10.1126/science.1121066 (abstract via Crossref API; full text paywalled)
 - Johnson and Goldstein 2003, https://www.dangoldstein.com/papers/DefaultsScience.pdf
 - Kivetz, Urminsky and Zheng 2006, https://business.columbia.edu/sites/default/files-efs/pubfiles/1200/goalgradient.pdf
 - Nunes and Dreze 2006, J Consumer Research 32(4):504-512, DOI 10.1086/500480

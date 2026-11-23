@@ -42,7 +42,7 @@
 
 ## Good references
 - [FTC, Bringing Dark Patterns to Light (staff report, Sept 2022)](https://www.ftc.gov/reports/bringing-dark-patterns-light) — the four categories used here, each with enforcement examples and the drip-pricing and free-trial findings above. Read the PDF, not only the landing page.
-- [Mathur et al., Dark Patterns at Scale (CSCW 2019)](https://arxiv.org/abs/1907.07032) — about 11K shopping sites and about 53K pages crawled; 1,818 instances in 15 types and 7 categories. Gives prevalence, not effect sizes.
+- [Mathur et al., Dark Patterns at Scale (CSCW 2019)](https://arxiv.org/abs/1907.07032) — about 11K shopping sites and about 53K pages crawled; 1,818 instances in 15 types and 7 categories, found on 1,254 sites (about 11.1%); 183 sites engaged in deceptive practices and 22 third-party entities sold dark patterns as a turnkey solution (full text read). Gives prevalence, not effect sizes.
 - [NN/g, Deceptive Patterns](https://www.nngroup.com/articles/deceptive-patterns/) — plain-language names (obstruction, nagging, confirmshaming, preselection, sludge) and the point that harm falls harder on time-poor and low-literacy users.
 - [deceptive.design, Types](https://www.deceptive.design/types) — an 18-name vocabulary for review comments.
 - [GOV.UK Design System, Radios](https://design-system.service.gov.uk/components/radios/) — avoids a preselected answer on questions because people miss it.
@@ -63,7 +63,7 @@
 
 ## Regulatory context (read, then ask counsel)
 - **FTC (US)**: the staff report ties dark patterns to Section 5 of the FTC Act (unfair or deceptive acts) and ROSCA (online negative-option sales must give a simple cancellation mechanism). It lists four categories: false beliefs, hidden or delayed disclosure, unauthorized charges, and obscured privacy choices.
-- **EU Digital Services Act, Article 25**: addresses deceptive or manipulative interface design on online platforms. Its wording was not read for this note; open the Official Journal text at https://eur-lex.europa.eu/eli/reg/2022/2065/oj before citing it.
+- **EU Digital Services Act, Article 25**: addresses deceptive or manipulative interface design on online platforms. Art. 25(1): providers of online platforms "shall not design, organise or operate their online interfaces in a way that deceives or manipulates the recipients of their service or in a way that otherwise materially distorts or impairs the ability of the recipients of their service to make free and informed decisions." Art. 25(2) excludes practices covered by Directive 2005/29/EC or Regulation (EU) 2016/679. Art. 25(3) lets the Commission issue guidelines, with examples: giving more prominence to certain choices, repeatedly requesting a choice already made, and making termination harder than subscribing. The article does not use the words "dark patterns"; Recital 67 does ("Dark patterns on online interfaces of online platforms are practices that materially distort or impair, either on purpose or in effect, the ability of recipients of the service to make autonomous and informed choices or decisions"). Source: https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32022R2065 (read).
 
 ## Tokens and values
 | Token | Value | Use |
@@ -103,7 +103,7 @@ The step counts are house defaults derived from the FTC categories, not sourced 
 
 ## Sources
 - FTC staff report, Bringing Dark Patterns to Light, Sept 2022: https://www.ftc.gov/reports/bringing-dark-patterns-light ; PDF read in full (48 pages): https://www.ftc.gov/system/files/ftc_gov/pdf/P214800%20Dark%20Patterns%20Report%209.14.2022%20-%20FINAL.pdf
-- Mathur et al., Dark Patterns at Scale: https://arxiv.org/abs/1907.07032 (abstract-level figures)
+- Mathur et al., Dark Patterns at Scale: https://arxiv.org/abs/1907.07032 (full text read; PDF via arXiv)
 - NN/g, Deceptive Patterns: https://www.nngroup.com/articles/deceptive-patterns/
 - deceptive.design types: https://www.deceptive.design/types
 - Johnson and Goldstein 2003, Do defaults save lives? Science 302(5649):1338-1339; author PDF https://www.dangoldstein.com/papers/DefaultsScience.pdf (opt-in 42%, opt-out 82%, n = 161; country comparison is correlational)
