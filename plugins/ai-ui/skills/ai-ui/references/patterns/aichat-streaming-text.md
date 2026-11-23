@@ -7,7 +7,7 @@
 ## When to use / when not
 - Stream when the output is long (more than about 2 lines) and the user is waiting for it: chat answers, summaries, drafts.
 - Don't stream short outputs (alt text, a title, a label, a classification) or results the user isn't blocked on. Render them whole, with a short transition. Chrome's built-in AI guidance makes the same split.
-- What to show before the first token is in `aichat-thinking-and-step-progress.md`. Markdown rendering and sanitising are in `aichat-markdown-code-tables.md`.
+- What to show before the first token is in `aichat-thinking-and-step-progress.md`. Markdown rendering and sanitising are in `aichat-markdown-code-tables.md`. How the turn sits in the thread while it streams: `aichat-layout-and-message-anatomy.md`.
 
 ## Rules (do)
 **Render cadence**

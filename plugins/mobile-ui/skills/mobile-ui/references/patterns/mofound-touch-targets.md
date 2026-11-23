@@ -5,9 +5,9 @@
 **Category:** Foundations · **Applies to:** buttons, icon buttons, links in lists, checkboxes, radios, chips, steppers, tab items, close buttons · **Priority:** must
 
 ## When to use / when not
-- **Use** for every interactive element on a page that can be used with touch. Size by input (`pointer: coarse`), not by screen width: tablets and touch laptops are wide but coarse.
+- **Use** for every interactive element on a page that can be used with touch. Size by input (`pointer: coarse`), not by screen width: tablets and touch laptops are wide but coarse. Where the control sits is `mofound-thumb-zones-reach.md`.
 - **Not** for links inside running text: WCAG 2.5.8 exempts inline targets, and Apple and Google apply their minimums to controls. Give inline links generous line height instead.
-- **Not** a reason to draw every control huge. The *hit area* must meet the size; the visible glyph can be 24 px inside a 44–48 px target.
+- **Not** a reason to draw every control huge. The *hit area* must meet the size; the visible glyph can be 24 px inside a 44–48 px target (the size-versus-distance reasoning: `uxcog-fitts-and-hick-correct-use.md`).
 
 ## Rules (do)
 - **Units:** with `width=device-width`, 1 CSS px ≈ 1 iOS pt ≈ 1 Android dp. So 44 pt ≈ 44 px and 48 dp ≈ 48 px.

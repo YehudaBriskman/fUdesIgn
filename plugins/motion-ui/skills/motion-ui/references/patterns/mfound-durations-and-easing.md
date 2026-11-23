@@ -18,7 +18,7 @@ Use for every time-based (tween) animation. For anything a finger or pointer dri
   | Full-screen or large panel, shared-element morph | 300–400 ms | `--motion-dur-long` 400 ms |
   | Rare expressive moment | up to 600 ms | none; write it inline with a comment |
 
-  NN/g: around 100 ms for simple feedback, 200–300 ms for large changes, and "at 500 ms, animations start to feel like a real drag".
+  NN/g: around 100 ms for simple feedback, 200–300 ms for large changes, and "at 500 ms, animations start to feel like a real drag". Material 1 (legacy, m1.material.io) gives matching numbers: mobile transitions about 300 ms, tablet about 30% longer, desktop 150–200 ms, enter 225 ms and leave 195 ms. Material 3 states no such range, only that duration grows with the area and distance travelled. The 240 ms medium token is a house value; the nearest M3 token is Medium1 at 250 ms.
 - **Scale with distance.** Material's guidance and Rauno both tie duration to how far something travels and how big it is: a 24 px nudge and a full-height sheet are not the same token. Small trigger, short motion.
 - **Exit faster than enter.** Exit = about 0.75 × enter (240 → 180 ms, 150 → 110 ms). People wait for an entrance; they've already moved on during an exit. The ratio is a house rule, and 0.75 to 0.8 is an accepted band (the token stays 0.75; no source fixes either number); Material's "accelerate" exit tokens are also shorter than their "decelerate" enters.
 - **Easing by direction.**
@@ -28,9 +28,11 @@ Use for every time-based (tween) animation. For anything a finger or pointer dri
   | Entering, appearing, settling, responding to input | ease-out | `--motion-ease-enter` `cubic-bezier(0, 0, 0.38, 0.9)` |
   | Leaving for good (dismissed, deleted) | ease-in | `--motion-ease-exit` `cubic-bezier(0.2, 0, 1, 0.9)` |
   | Moving from one on-screen place to another | ease-in-out | `--motion-ease-standard` `cubic-bezier(0.2, 0, 0.38, 0.9)` |
-  | Rare, important arrival | emphasized | `--motion-ease-emphasized` `cubic-bezier(0.2, 0, 0, 1)` (M3) |
+  | Rare, important arrival | emphasized (house name) | `--motion-ease-emphasized` `cubic-bezier(0.2, 0, 0, 1)` (this is M3's *standard* curve, used here as the common CSS stand-in for emphasis; see the note below the table) |
   | Sheets and drawers that should feel like iOS | strong ease-out | `--motion-ease-drawer` `cubic-bezier(0.32, 0.72, 0, 1)` (used by Vaul and Ionic for iOS-style sheets) |
   | Opacity cross-fade, progress, spinners | linear | `linear` |
+
+  Naming trap: this repo's `--motion-ease-standard` `(0.2, 0, 0.38, 0.9)` is Carbon's productive curve, not Material's. Material 3's own *standard* easing is `cubic-bezier(0.2, 0, 0, 1)`, which is what `--motion-ease-emphasized` holds. M3's *emphasized* easing is defined by a path (a two-segment spline), not a single cubic-bezier, so no one CSS curve is it; M3 ships `emphasized decelerate (0.05, 0.7, 0.1, 1)` and `emphasized accelerate (0.3, 0, 0.8, 0.15)` as the cubic-bezier pair for enters and exits. Token values are house choices; only the labels were corrected.
 
 - **Never `ease-in` on something the user is waiting for.** It starts slowly, so the first frames look like lag (Emil Kowalski). An exit is the only place ease-in belongs, and even there a short ease-out is usually fine.
 - **Prefer custom curves over the CSS keywords.** `ease`, `ease-in-out` and `ease-out` keywords are weak; the built-in `ease-out` is `cubic-bezier(0, 0, 0.58, 1)`, which feels mushy next to a stronger curve with a fast start.
@@ -48,7 +50,7 @@ Use for every time-based (tween) animation. For anything a finger or pointer dri
 
 ## Good references
 - [IBM Carbon, motion](https://carbondesignsystem.com/elements/motion/overview/): productive vs expressive curves, entrance vs exit vs standard, duration steps 70–700 ms.
-- [Material 3 easing and duration tokens](https://m3.material.io/styles/motion/easing-and-duration/tokens-specs): emphasized `cubic-bezier(0.2, 0, 0, 1)`, emphasized decelerate `(0.05, 0.7, 0.1, 1)` for enters, emphasized accelerate `(0.3, 0, 0.8, 0.15)` for exits, and duration steps short1 50 ms to extra-long4 1000 ms.
+- [Material 3 easing and duration tokens](https://m3.material.io/styles/motion/easing-and-duration/tokens-specs): standard `cubic-bezier(0.2, 0, 0, 1)` (emphasized itself is a path, not a cubic-bezier), emphasized decelerate `(0.05, 0.7, 0.1, 1)` for enters, emphasized accelerate `(0.3, 0, 0.8, 0.15)` for exits, and duration steps short1 50 ms to extra-long4 1000 ms.
 - [Emil Kowalski, Great animations](https://emilkowal.ski/ui/great-animations): fast start, ease-out for UI, under 300 ms, interruptible.
 - [Vaul drawer](https://vaul.emilkowal.ski/): iOS-like sheet curve `cubic-bezier(0.32, 0.72, 0, 1)` at 500 ms for a full-height sheet.
 - [NN/g, animation duration](https://www.nngroup.com/articles/animation-duration/): the 100 ms / 200–300 ms / 500 ms anchors.
@@ -75,8 +77,8 @@ Tweens are not interruptible with velocity. If the user can reverse the action m
 | `--motion-exit-ratio` | 0.75 | exit = enter × 0.75 |
 | `--motion-ease-enter` | `cubic-bezier(0, 0, 0.38, 0.9)` | enter, settle |
 | `--motion-ease-exit` | `cubic-bezier(0.2, 0, 1, 0.9)` | permanent exit |
-| `--motion-ease-standard` | `cubic-bezier(0.2, 0, 0.38, 0.9)` | on-screen move |
-| `--motion-ease-emphasized` | `cubic-bezier(0.2, 0, 0, 1)` | rare arrival |
+| `--motion-ease-standard` | `cubic-bezier(0.2, 0, 0.38, 0.9)` | on-screen move (Carbon productive, not M3 standard) |
+| `--motion-ease-emphasized` | `cubic-bezier(0.2, 0, 0, 1)` | rare arrival (M3 standard curve under a house name) |
 | `--motion-ease-drawer` | `cubic-bezier(0.32, 0.72, 0, 1)` | iOS-style sheet |
 
 ## Implementation sketch

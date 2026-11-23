@@ -31,7 +31,7 @@
 - **Numbers are LTR runs.** A number inside Hebrew text displays its digits left to right automatically; a *range* or *ratio* (`10–20`, `3/4`, `1:2`) or a negative number next to a Latin word may not. Wrap ranges and signed values in `<span dir="ltr">` or LRI…PDI. Formatting details are in `rtl-numbers-digits-currency.md`.
 - **Hebrew punctuation is part of the script, not ASCII.**
   - Gershayim `״` (U+05F4) marks acronyms and Hebrew-numeral years: `ת״א`, `תשפ״ז` (this is exactly what `Intl.DateTimeFormat("he-u-ca-hebrew")` emits).
-  - Geresh `׳` (U+05F3) marks abbreviations and numeral letters: `א׳ בתשרי`.
+  - Geresh `׳` (U+05F3) marks abbreviations, numeral letters (`א׳ בתשרי`) and loanword sounds (`ג׳`, `ז׳`, `צ׳`).
   - Maqaf `־` (U+05BE) is the Hebrew hyphen; W3C's Hebrew layout draft says it "should behave like a hyphen".
   - ASCII `"` and `'` are common substitutes in typed text and are acceptable in input, but use the Hebrew characters in UI copy and fonts that have them.
 - **Brackets mirror by themselves.** `(` and `)` have the Bidi_Mirrored property, so in RTL text the glyph for U+0028 is drawn as `)`. Don't swap them in translations; translators who "fix" them produce `)טקסט(`.
@@ -121,4 +121,5 @@ export function fill(pattern: string, values: Record<string, string | number>): 
 - https://doc.wikimedia.org/codex/latest/style-guide/bidirectionality.html
 - https://trojansource.codes/
 - https://www.walla.co.il (headless-browser inspection, November 2026)
+- Unicode's NamesList marks U+05F3 as preferred for geresh and U+05F4 as preferred for gershayim when writing Hebrew; ASCII `'` and `"` are common keyboard substitutes, so search and validation should accept both.
 - Local verification: Node v26.12 `Intl.DateTimeFormat("he-u-ca-hebrew")` output uses U+05F3 and U+05F4.

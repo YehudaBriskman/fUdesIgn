@@ -28,7 +28,7 @@ Use a spring when the motion can be interrupted or when it continues a gesture: 
 ## Good references
 - [WWDC18, Designing Fluid Interfaces](https://developer.apple.com/videos/play/wwdc2018/803/): damping and response; start at 100% damping; 80% for the momentum-carrying dismiss.
 - [WWDC23, Animate with springs](https://developer.apple.com/videos/play/wwdc2023/10158/): perceptual duration plus bounce; bounce bands; retargeted springs keep velocity.
-- [SwiftUI `Animation.smooth/snappy/bouncy`](https://developer.apple.com/documentation/swiftui/animation/smooth%28duration:extrabounce:%29): presets at duration 0.5 with bounce 0, 0.15 and 0.3; `Spring(duration:bounce:)` defaults to 0.5 and 0.
+- [SwiftUI `Animation.smooth/snappy/bouncy`](https://developer.apple.com/documentation/swiftui/animation/smooth%28duration:extrabounce:%29): Apple's docs describe `smooth` as no bounce, `snappy` as a small amount and `bouncy` as a higher amount, with no numbers. The values 0, 0.15 and 0.3 at 0.5 s are commonly measured, not published by Apple. `Spring(duration:bounce:)` defaults to 0.5 and 0 (not re-checked here).
 - [androidx Material 3 motion tokens](https://github.com/androidx/androidx/tree/androidx-main/compose/material3/material3/src/commonMain/kotlin/androidx/compose/material3/tokens): `StandardMotionTokens.kt` and `ExpressiveMotionTokens.kt` hold the spring values below.
 - [Material Components for Android, Motion](https://github.com/material-components/material-components-android/blob/master/docs/theming/Motion.md): spatial vs effects springs, fast/default/slow by component size.
 - [Motion, spring](https://motion.dev/docs/spring) and [its source](https://github.com/motiondivision/motion/blob/main/packages/motion-dom/src/animation/generators/spring.ts): `bounce`, `visualDuration`, velocity inheritance, the bounce→ζ mapping "as SwiftUI does".
@@ -57,8 +57,8 @@ Conversions computed with the formula above (mass 1). "Duration" is SwiftUI-styl
 | M3 Expressive, fast spatial | k 800, ζ 0.6 | 0.6 | 0.22 s | 0.4 |
 | M3 Expressive, default spatial | k 380, ζ 0.8 | 0.8 | 0.32 s | 0.2 |
 | M3 Expressive, slow spatial | k 200, ζ 0.8 | 0.8 | 0.44 s | 0.2 |
-| SwiftUI `.smooth` / `.snappy` / `.bouncy` | duration 0.5 | 1 / 0.85 / 0.7 | 0.5 s | 0 / 0.15 / 0.3 |
-| SwiftUI legacy `.spring(response: 0.5, dampingFraction: 0.825)` | | 0.825 | 0.5 s | 0.175 |
+| SwiftUI `.smooth` / `.snappy` / `.bouncy` (values commonly measured, not published by Apple) | duration 0.5 | 1 / 0.85 / 0.7 | 0.5 s | 0 / 0.15 / 0.3 |
+| SwiftUI legacy `.spring(response: 0.5, dampingFraction: 0.825)` (default as commonly cited; not verified at developer.apple.com) | | 0.825 | 0.5 s | 0.175 |
 | React Spring `default` | tension 170, friction 26 | 1.0 | 0.48 s | 0 |
 | React Spring `gentle` / `stiff` / `wobbly` | 120/14 · 210/20 · 180/12 | 0.64 / 0.69 / 0.45 | 0.57 / 0.43 / 0.47 s | 0.36 / 0.31 / 0.55 |
 | React Spring `slow` / `molasses` | 280/60 · 280/120 | 1.79 / 3.59 | 0.38 s | overdamped |

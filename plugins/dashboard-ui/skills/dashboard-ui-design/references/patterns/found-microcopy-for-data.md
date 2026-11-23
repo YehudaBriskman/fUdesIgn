@@ -7,7 +7,7 @@
 ## When to use / when not
 - **Use** whenever a view gets new text: a metric, a column, a filter, a state, an action.
 - **Use** it in review. Copy defects (two names for one action, "Error occurred", "N/A" in a numeric column) are cheap to fix and visible to every user.
-- **Not** for long-form explainers. Methodology pages follow `found-methodology-explainability.md`. Footnotes and sources follow `data-units-footnotes-sources.md`.
+- **Not** for long-form explainers. Methodology pages follow `found-methodology-explainability.md`. Footnotes and sources follow `data-units-footnotes-sources.md`. General interface writing: `uxwrt-ux-writing-and-content-design.md`.
 
 ## Rules (do)
 ### Labels

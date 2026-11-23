@@ -5,7 +5,7 @@
 **Category:** Reference gallery / research · **Applies to:** design reviews, ADRs, critique comments, rubric scoring, any "because law X" argument · **Priority:** should
 
 ## When to use / when not
-- **Use** when a review comment or decision cites "Hick's, Miller's, Zeigarnik..." and you must decide whether the citation holds.
+- **Use** when a review comment or decision cites "Hick's, Miller's, Zeigarnik..." and you must decide whether the citation holds (Hick and Fitts in detail: `uxcog-fitts-and-hick-correct-use.md`).
 - **Use** to find which repo pattern turns a law into a checkable rule.
 - **Not** a spec: each row links to the pattern that carries the numbers.
 - Grades: **Strong** = experimental evidence, replicated or field-tested. **Established** = long-standing perception or HCI finding, qualitative. **Heuristic** = expert rule of thumb, no UI experiments. **Contested** = replication or UI-transfer doubts. **Folklore** = no UI evidence.
@@ -18,10 +18,10 @@
 
 | # | Law | Grade | Testable UI rule, or "not a UI rule" | Repo pattern |
 |---|---|---|---|---|
-| 1 | Aesthetic-usability | Established, perception effect | Judge usability with tasks, not impressions. Polish raises tolerance and hides problems (Kurosu and Kashimura 1995: 26 ATM layouts, 252 people, beauty tracked perceived ease more than actual ease). | `ref-ux-research-findings.md`, `ref-design-review-rubric.md` |
+| 1 | Aesthetic-usability | Established, perception effect | Judge usability with tasks, not impressions. Judge by tasks: Kurosu and Kashimura 1995 (26 ATM layouts rated by 252 people) found beauty ratings correlated with rated apparent ease (r = 0.59), more than with inherent usability; Tractinsky 1997 (Israel, n = 104) found r = 0.92. These are ratings of static images, not task performance. That polish raises tolerance of problems is a separate claim these two studies do not test. | `ref-ux-research-findings.md`, `ref-design-review-rubric.md` |
 | 2 | Proximity | Established (Gestalt, NN/g) | Inner gap smaller than outer gap; NN/g shows 12 fields as 3 chunks of 4. The ratio itself is a house default. | `found-gestalt-grouping.md`, `found-layout-grid-spacing.md` |
-| 3 | Von Restorff | Established in memory research; UI benefit is folklore | One emphasised item per region; not colour or motion alone; do not mimic an ad. | `found-visual-hierarchy.md`, `comp-button-hierarchy.md` |
-| 4 | Zeigarnik | Contested (late-2025 meta-analysis found no recall advantage, per Wikipedia) | Not a UI rule. Never cite it for nagging. Show resumable state instead. | `ref-dashboard-anti-patterns.md`, forms-ui `fflow-multi-step-and-save-progress.md` |
+| 3 | Von Restorff | Established for free recall of the odd item among similar items (von Restorff 1933; Hunt 1995; recognition effects are fragile); a UI attention or conversion benefit is folklore | One emphasised item per region; not colour or motion alone; do not mimic an ad. | `found-visual-hierarchy.md`, `comp-button-hierarchy.md` |
+| 4 | Zeigarnik | Contested (Ghibellini and Meier 2025, Humanit Soc Sci Commun 12, DOI 10.1057/s41599-025-05000-w: no memory advantage for unfinished tasks, but a general tendency to resume them, the Ovsiankina effect) | Not a UI rule. Never cite it for nagging. Show resumable state instead. | `ref-dashboard-anti-patterns.md`, forms-ui `fflow-multi-step-and-save-progress.md` |
 | 5 | Tesler (conservation of complexity) | Heuristic | Complexity moves rather than vanishes; decide who carries it (system or user). | design-system `dsfound-conservation-of-complexity.md` |
 | 6 | Prägnanz | Established, descriptive, too vague to test | Framing only: simplest reading wins; fewer cues, aligned edges. | `found-gestalt-grouping.md` |
 | 7 | Serial position | Strong for lab recall lists; UI transfer is an extrapolation | Heuristic only: tie-break equal-priority items to the ends. Not evidence for a nav layout. | `found-visual-hierarchy.md` |
@@ -33,17 +33,17 @@
 | 13 | Pareto (80/20) | Folklore as a design law | Not a UI rule. Prioritise by measured usage, not an assumed split. | `found-cognitive-load-and-recall.md`, `found-density-modes.md` |
 | 14 | Occam's razor | Heuristic, not testable alone | Not a UI rule. Remove only what is not load-bearing; it can justify stripping needed context. | design-system `dsfound-conservation-of-complexity.md` |
 | 15 | Parkinson's law | Folklore (1955 satirical essay on administration) | Not a UI rule. Its usable piece, short forms and autofill, is covered elsewhere. | forms-ui `finput-types-autocomplete-keyboards.md` |
-| 16 | Uniform connectedness | Established, qualitative | A visible link groups; the connector must map to a real flow. Rank against proximity not verified first-hand. | `found-gestalt-grouping.md` |
+| 16 | Uniform connectedness | Established, qualitative | A visible link or filled region groups; the connector must map to a real flow. Palmer and Rock 1994 report it holds against proximity and similarity (static demonstrations); "element connectedness" (line, arrow) and "uniform connectedness" (filled region) are separate principles there. | `found-gestalt-grouping.md` |
 | 17 | Paradox of the active user | Established HCI observation (Rosson and Carroll 1987), no numbers | Put help in context, keep a findable reference. | `found-cognitive-load-and-recall.md`, `comp-onboarding-and-notices.md` |
 | 18 | Cognitive load (incl. Miller 7±2, Cowan 4) | Load theory strong in education; 7±2 and 4 contested as UI limits | Cut extraneous load; chunk by task. 7±2 and 4 are not UI limits. | `found-cognitive-load-and-recall.md` |
 | 19 | Default effect | Strong for enrollment and consent (Madrian and Shea, NBER w7682); effect varies with stakes | Test: would the user choose this default if asked? Preselect only safe defaults, never consent or upsell. Dark-pattern risk when the default serves the provider. | forms-ui `finput-choice-controls.md`, marketing-ui `mkfound-cta-and-conversion.md` |
-| 20 | Peak-end rule | Strong in lab (Kahneman et al. 1993, cold-water trial); product examples are anecdotal | Do not end a flow on an error or dead end; give the success state a next step. Not an excuse to neglect the middle. | forms-ui flow patterns (success states) |
+| 20 | Peak-end rule | Strong in lab but a single small all-male study (Kahneman et al. 1993, cold-water trial, n = 32; 22 chose the long trial, and the effect tracked felt relief in the ending); product examples are anecdotal | Do not end a flow on an error or dead end; give the success state a next step (`fflow-completion-and-end-states.md`). Not an excuse to neglect the middle. | forms-ui flow patterns (success states) |
 
 ## Anti-patterns (don't)
 - **Law as veto.** "Violates Miller's law" with no test.
 - **Law as decoration.** A pattern that name-drops five laws and cites none.
 - **Percentages from memory.** Johnson and Goldstein organ-donation rates, Kivetz and Nunes and Dreze figures: not fetched first-hand; do not quote.
-- **Zeigarnik, Pareto, Parkinson, Occam as justification** for nagging, feature cuts, deadlines or minimalism.
+- **Zeigarnik, Pareto, Parkinson, Occam as justification** (more on the graded biases: `uxcog-cognitive-biases-graded.md`) for nagging, feature cuts, deadlines or minimalism.
 - **Pretty equals done.** Skipping task testing because the design looks polished.
 - **Dark-pattern defaults** defended with the default effect.
 
@@ -58,7 +58,7 @@
 
 ## Accessibility
 - Laws describe typical perception; they do not cover users with different vision, memory or motor needs. A design that follows a law but fails WCAG still fails.
-- Von Restorff emphasis must not rely on colour or motion alone (WCAG 1.4.1, 2.3.3).
+- Von Restorff emphasis must not rely on colour or motion alone (WCAG 1.4.1 for colour; 2.3.3, Level AAA, if the emphasis is an animation).
 
 ## Tokens and values
 | Token | Value | Use |

@@ -6,7 +6,7 @@
 
 ## When to use / when not
 - Everywhere model output is rendered. Model output is untrusted and unstructured until your renderer makes it structured, so the renderer owns accessibility, not the model.
-- Live-region mechanics for streams are detailed in `aichat-streaming-text.md`; rendering markdown, code and tables in `aichat-markdown-code-tables.md`. This file is the cross-cutting checklist.
+- Live-region mechanics for streams are detailed in `aichat-streaming-text.md`; rendering markdown, code and tables in `aichat-markdown-code-tables.md`. This file is the cross-cutting checklist. Message order and thread structure: `aichat-layout-and-message-anatomy.md`.
 - Note the name clash: the modern-web-guidance guide "accessible generated content" is about CSS `content` (pseudo-element text and icons). It applies here to decorative icons and labels around AI output; its rules are summarised under Rules.
 
 ## Rules (do)

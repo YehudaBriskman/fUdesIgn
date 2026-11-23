@@ -17,7 +17,7 @@ Don't use either for UI chrome. Menus, popovers, sheets and drawers slide or sca
 - **Reveal with the shape that explains it.** Animate `clip-path` between two shapes with the same function and the same number of points (an `inset()` to an `inset()`, a `circle()` to a `circle()`), starting from the trigger's position for an iris. A wipe follows the direction of travel and mirrors in RTL (use logical inset sides).
 - **Mind the cost.** `clip-path` and masks repaint (`mperf-compositor-will-change-and-inp.md`). Keep the area small, avoid animating a mask image, do not stack them on long lists, and measure on a mid-range phone. `clip-path` itself is Widely available since January 2020 (MDN); that is support, not performance.
 - **The page is complete without it.** The final state is the normal layout. If the animation is skipped, interrupted or unsupported, content is simply there.
-- **Reduced motion.** Replace the arc with a straight, short move or an in-place opacity fade of 150 ms or less, and replace the reveal with a plain opacity fade; never remove the feedback that the action worked.
+- **Reduced motion.** Replace the arc with a straight, short move or an in-place opacity fade of 150 ms or less, and replace the reveal with a plain opacity fade; never remove the feedback that the action worked (vestibular background: `a11y-motion-vestibular.md`).
 
 ## Anti-patterns (don't)
 - Arcs on dropdowns, sheets, tooltips or page transitions.

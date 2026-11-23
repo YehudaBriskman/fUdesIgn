@@ -22,16 +22,16 @@
 - **A progress bar is not free.** NN/g's progress-indicator research on wait animations found a moving bar made people willing to wait longer, but that is about system waits, not form steps, and a bar that stalls or jumps destroys the trust it bought (`aichat-thinking-and-step-progress.md`, dashboard-ui). Put the step count in text; keep any bar proportional to steps done.
 - **Back always works** and keeps answers: a "Back" link at the top-left of each step (GOV.UK back link), and the browser Back button restores the previous step (URL per step, or History API).
 - **Validate per step** on "Continue"; never let people reach the end to discover an error from step 1.
-- **Check your answers** before the final submit: every answer listed with a "Change" link that returns to that question and then back to the summary (GOV.UK pattern). Required by WCAG 3.3.4 for legal, financial and data-changing submissions unless reversible.
+- **Check your answers** before the final submit: every answer listed with a "Change" link that returns to that question and then back to the summary (GOV.UK pattern). It satisfies the Confirmed option of WCAG 3.3.4 (AA), which applies to legal, financial and data-changing submissions; reversibility or checked input are the alternatives.
 - **Don't ask again** (WCAG 3.3.7): carry earlier answers forward; offer "same as" choices; pre-fill from the account.
 - **Save progress automatically**:
   - Server-side draft saved on each "Continue" (and debounced on change for long steps, every ~2–5 s idle). Show a quiet "Saved" state with time, not a toast.
   - For anonymous flows, also keep a local draft (`sessionStorage` or `localStorage`) keyed by form and version, and restore with a visible "We restored your answers from 10:42. Start again" note. Never store passwords, card numbers or one-time codes locally.
   - Long flows offer explicit "Save and come back later", which explains how to return (sign in, or an emailed link).
   - Drafts expire on a stated schedule ("We'll keep your answers for 28 days").
-- **Timeouts**: warn ≥ 2 minutes before a session times out with a dialog offering "Stay signed in" (WCAG 2.2.1 needs at least 20 s to respond); keep the draft so re-authenticating returns people to the same step with answers intact (2.2.5).
+- **Timeouts**: warn ≥ 2 minutes before a session times out with a dialog offering "Stay signed in" (WCAG 2.2.1's Extend option needs a warning and at least 20 s to respond); keep the draft so re-authenticating returns people to the same step with answers intact (2.2.5).
 - **Final step button** names the commitment ("Submit application", "Pay £24.00"), not "Continue".
-- **Confirmation** says what happened, the reference and what's next (`ffound-form-microcopy.md`).
+- **Confirmation** says what happened, the reference and what's next (`ffound-form-microcopy.md`, `fflow-completion-and-end-states.md`).
 - **Focus on step change**: move focus to the new step's `<h1>` (or the error summary if there are errors) and update `document.title` ("Delivery – Step 2 of 4 – Checkout").
 
 ## Anti-patterns (don't)
@@ -56,7 +56,7 @@
 ## Accessibility
 - Step position in the `<h1>` or a caption, and in `document.title`.
 - Focus moves to the new step's heading on change.
-- Timeout warnings are a modal `<dialog>` with an accessible name and a button to extend (WCAG 2.2.1).
+- Timeout warnings are a modal `<dialog>` with an accessible name and a button to extend (house choice; WCAG 2.2.1 requires the option to extend, not a modal).
 - Steppers are lists of links or plain text, not tabs (they don't switch views of one panel).
 
 ## Motion / interaction (if relevant)

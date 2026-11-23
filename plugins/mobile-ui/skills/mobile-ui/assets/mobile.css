@@ -32,7 +32,7 @@
   --motion-dur-micro: 100ms;
   --motion-dur-medium: 240ms;
   --motion-ease-standard: cubic-bezier(0.2, 0, 0.38, 0.9);
-  --motion-ease-emphasized: cubic-bezier(0.2, 0, 0, 1);
+  --motion-ease-emphasized: cubic-bezier(0.2, 0, 0, 1); /* M3 STANDARD curve; M3 emphasized is a path. standard above is Carbon */
   --target-min: 24px;
   --canvas: light-dark(oklch(0.985 0.003 250), oklch(0.18 0.006 250));
   --surface: light-dark(oklch(1 0 0), oklch(0.215 0.008 250));

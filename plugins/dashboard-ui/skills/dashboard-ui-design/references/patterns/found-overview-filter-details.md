@@ -8,7 +8,7 @@
 - **Use** for any dashboard over a collection: accounts, transactions, services, holdings or experiments. It's Shneiderman's Visual Information-Seeking Mantra (1996): *"Overview first, zoom and filter, then details-on-demand."*
 - **Use** to decide what lives on the home view (overview only), what goes in the filter bar (narrowing), and what goes behind a click (a record, a breakdown or raw rows).
 - **Adapt the depth to the dashboard type** (see `found-dashboard-types.md`). Strategic and operational views stop mostly at the overview. Analytical views lean on filter and details.
-- **Not** a license to hide the overview behind a filter form. If the first screen is "Select a date range and segment to begin", the mantra is inverted.
+- **Not** a license to hide the overview behind a filter form. If the first screen is "Select a date range and segment to begin", the mantra is inverted. Nor should the overview be something users must remember while they filter: `found-cognitive-load-and-recall.md`.
 
 ## Rules (do)
 - **The overview shows the whole collection at once,** with no required interaction. Few defines a dashboard as information "consolidated and arranged on a single screen so the information can be monitored at a glance." Target: P1 and P2 content is visible at 1280×720 without scrolling.

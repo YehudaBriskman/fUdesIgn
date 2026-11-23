@@ -40,8 +40,8 @@ The modern-web-guidance forms guide gives the same split by count: checkbox for 
 - A select with 2–3 options: hides the choices behind a click.
 - Radios laid out in a horizontal row of 5 with wrapping labels.
 - Custom checkboxes built from `<div>`s, or native inputs hidden with `display: none`.
-- Preselected consent or upsell checkboxes ("Add insurance"). The default effect makes this a dark pattern: it works precisely because people do not change it.
-- Auto-submitting or navigating when a radio changes (WCAG 3.2.2).
+- Preselected consent or upsell checkboxes ("Add insurance"). The default effect makes this a dark pattern (`uxeth-choice-architecture-and-dark-patterns.md`): it works precisely because people do not change it.
+- Auto-submitting or navigating when a radio changes (WCAG 3.2.2, unless the user is told in advance).
 
 ## Good references
 - [GOV.UK Design System — Radios](https://design-system.service.gov.uk/components/radios/) and [Checkboxes](https://design-system.service.gov.uk/components/checkboxes/) — stacked by default, inline only for two short options, "or" divider, exclusive "None", conditional reveals.

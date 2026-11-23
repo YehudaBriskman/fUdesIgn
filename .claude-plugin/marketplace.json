@@ -67,7 +67,7 @@
     {
       "name": "i18n-rtl",
       "source": "./plugins/i18n-rtl",
-      "description": "Internationalisation and right-to-left UI with Hebrew and Arabic as first-class cases: 19 researched patterns (logical properties, what mirrors and what must not, dir and dir=auto, bidi isolation of mixed Hebrew/English/number text, digits, minus sign and \u20aa position, Hebrew and Hijri calendars and week start, directional icons, Hebrew and Arabic typography, RTL forms, tables and charts, :dir() and Tailwind rtl:, ICU plurals with Hebrew dual forms and gender, text expansion, locale negotiation without flags, pseudo-localisation and a Playwright RTL recipe) plus a Hebrew-site teardown with IS 5568, an anti-pattern catalogue, a review rubric and logical-property utilities.",
+      "description": "Internationalisation and right-to-left UI with Hebrew and Arabic as first-class cases: 19 researched patterns (logical properties, what mirrors and what must not, dir and dir=auto, bidi isolation of mixed Hebrew/English/number text, digits, minus sign and ₪ position, Hebrew and Hijri calendars and week start, directional icons, Hebrew and Arabic typography, RTL forms, tables and charts, :dir() and Tailwind rtl:, ICU plurals with Hebrew dual forms and gender, text expansion, locale negotiation without flags, pseudo-localisation and a Playwright RTL recipe) plus a Hebrew-site teardown with IS 5568, an anti-pattern catalogue, a review rubric and logical-property utilities.",
       "version": "0.1.0",
       "category": "design",
       "license": "PolyForm-Internal-Use-1.0.0"
@@ -92,6 +92,14 @@
       "name": "components-ui",
       "source": "./plugins/components-ui",
       "description": "Interactive component behaviour: reuse-first selection ladder, state matrix and async model, dialogs, popovers and menus, tooltips, toasts, drag and drop, virtualised lists, plus anti-patterns and a review rubric.",
+      "version": "0.1.0",
+      "category": "design",
+      "license": "PolyForm-Internal-Use-1.0.0"
+    },
+    {
+      "name": "ux-foundations",
+      "source": "./plugins/ux-foundations",
+      "description": "The evidence under UI decisions: graded cognitive biases, choice architecture and dark patterns, usability testing and IA methods, reading and pointing models, UX writing and evidence grading.",
       "version": "0.1.0",
       "category": "design",
       "license": "PolyForm-Internal-Use-1.0.0"

@@ -80,6 +80,12 @@ plugins/
       SKILL.md                           6-step workflow, 13 non-negotiables, decision table
       references/INDEX.md                all 10 patterns, each with its one-line rule
       references/patterns/*.md           cpfound-, cpover-, cpctl-, cpref- (reuse ladder, state matrix, dialog, popover/menu/tooltip, toast, drag and drop, virtualised lists, rubric)
+  ux-foundations/
+    .claude-plugin/plugin.json
+    skills/ux-foundations/
+      SKILL.md                           6-step workflow for grading a claim, non-negotiables
+      references/INDEX.md                all 8 patterns, each with its one-line rule
+      references/patterns/*.md           uxcog-, uxeth-, uxres-, uxwrt- (biases and laws graded, reading, Fitts and Hick, choice architecture and dark patterns, usability testing, information scent, evidence grading, UX writing)
   design-review/
     .claude-plugin/plugin.json
     skills/design-review/SKILL.md        capture → lint → rendered gate → fresh-eye review → rubric → handover
@@ -223,6 +229,7 @@ Some claims rest on search summaries because the source page wouldn't load, and 
 /plugin install i18n-rtl@fudesign
 /plugin install accessibility@fudesign
 /plugin install components-ui@fudesign
+/plugin install ux-foundations@fudesign
 /plugin install design-review@fudesign
 ```
 

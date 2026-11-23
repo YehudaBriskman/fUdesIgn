@@ -20,7 +20,7 @@
 **Sorting and orientation**
 - Sort descending by value (largest at top for horizontal bars) unless categories have an inherent order: time, age bands, Likert scales, funnel steps (Storytelling with Data "Death to pie charts" redesign).
 - Horizontal bars when labels are long or numerous (NN/g: horizontal bars are "a good option when you're working with long labels", because nothing has to be abbreviated or rotated). Rule of thumb: horizontal when any label exceeds ~10 characters, or more than ~7 categories. Never rotate category labels 45° or 90° to make columns fit.
-- Columns (vertical) for time periods, so time reads left to right.
+- Columns (vertical) for time periods, so time reads left to right. In right-to-left UIs the bar and axis direction changes: `rtl-tables-and-charts.md`.
 - Keep "Other" and "Unknown" at the bottom regardless of size.
 
 **Geometry**

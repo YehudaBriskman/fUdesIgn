@@ -8,7 +8,7 @@
 - **Timeline** when sequence and causality are the point: one subject, one reader, top to bottom (record history, incident, deploy).
 - **Filterable table** for search, comparison, sorting or export across many subjects, such as an organisation-wide audit log. GitHub's audit log is one: no free-text search, qualifier filters (operation, actor, repo, action, country, created) and a filter-respecting JSON or CSV export.
 - **Plain list rows** for "recent activity" where each item only links onward (`data-list-rows.md`); choosing between forms: `data-cards-vs-tables-vs-lists.md`.
-- **Both** is normal: a timeline on the record page, a table at `/audit` (`data-table-interaction.md`). Do not build one component that morphs between them.
+- **Both** is normal: a timeline on the record page, a table at `/audit` (`data-table-interaction.md`). Do not build one component that morphs between them. Permission changes (invites, role changes, removals) belong in either view as events: `comp-sharing-and-permissions.md`.
 - **Not** a timeline: a schedule (calendar or Gantt) or a metric over time (`chart-time-series-line-area.md`).
 
 ## Rules (do)

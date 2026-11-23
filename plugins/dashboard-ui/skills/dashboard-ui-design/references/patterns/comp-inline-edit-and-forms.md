@@ -14,7 +14,7 @@
 | Toggling a boolean that takes effect immediately | **Switch** (`<input type="checkbox" role="switch">`), no save button. The native `switch` attribute renders a switch only in Safari 17.4+; other browsers show a plain checkbox, which still works |
 
 - Atlassian: inline edit is for *existing* information on screens updated often ("Use a form instead when the information doesn't already exist"), and "Don't use inline edit inside of a form."
-- Don't use inline edit for fields whose change has big consequences (currency, fiscal year start). Route those through a confirm dialog.
+- Don't use inline edit for fields whose change has big consequences (currency, fiscal year start). Route those through a confirm dialog. A member's role is the exception that works in place, with undo: `comp-sharing-and-permissions.md`.
 
 ## Rules (do)
 - **Affordance.** In read view, editable values show a hover background (`--surface-2`), a pencil icon on hover or focus, and `cursor: text`. On touch, which has no hover, show the pencil persistently or make the whole row a clear button.

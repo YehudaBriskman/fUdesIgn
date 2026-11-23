@@ -7,7 +7,7 @@
 ## When to use / when not
 - Any time a model can cause effects beyond the conversation: tools, APIs, file systems, forms, payments, messages to other people.
 - For progress display while the agent runs, see `aichat-thinking-and-step-progress.md`; for exposing your own UI as agent tools, see `aiagent-webmcp-agent-readable-ui.md`.
-- Undo and optimistic patterns for ordinary UI are in `prog-optimistic-ui-and-undo.md`; this file adds the agent-specific rules.
+- Undo and optimistic patterns for ordinary UI are in `prog-optimistic-ui-and-undo.md`; this file adds the agent-specific rules. Roles and who may approve follow the vocabulary in `comp-sharing-and-permissions.md`.
 
 ## Rules (do)
 **Risk tiers (decide per tool, in code, not in the prompt)**
@@ -36,7 +36,7 @@
 
 **Audit log**
 - One entry per action: timestamp (absolute, with timezone), actor (agent name and version, on behalf of which user), tool, inputs (redacted secrets), result, approval (who approved, which rule), and an **Undo** or "Restore" link where possible.
-- Searchable and filterable by run, tool and tier; exportable; kept at least as long as the undo window (≥ 30 days).
+- Searchable and filterable by run, tool and tier; exportable; kept at least as long as the undo window (≥ 30 days). Showing the trail as a timeline or a table: `data-activity-timeline.md`.
 - The agent's own textual report is not the record: the log is written by the tool layer, so an agent that misreports what it did is contradicted by the log.
 
 ## Anti-patterns (don't)

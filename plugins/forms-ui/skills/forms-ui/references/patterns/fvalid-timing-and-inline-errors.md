@@ -54,7 +54,7 @@
 - Sign-up forms that colour every field green and red as you type, with the message inside a tooltip on the field.
 
 ## Accessibility
-- Error text is real text, linked by `aria-describedby`; `aria-invalid` set only while invalid (WCAG 3.3.1, 4.1.2).
+- Error text is real text, linked by `aria-describedby`; `aria-invalid` set only while invalid (text error: 3.3.1; programmatic link: 1.3.1; error state: 4.1.2).
 - Don't announce blur-time errors with `role="alert"`: the user is moving to the next field and the interruption collides with its label. The error is read when they return to the field. Submit-time errors are announced via the summary.
 - Errors say how to fix (WCAG 3.3.3; see `fvalid-error-messages.md`).
 - The error border keeps ≥ 3:1 and does not replace the focus ring.

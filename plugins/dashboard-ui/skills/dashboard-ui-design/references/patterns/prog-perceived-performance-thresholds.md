@@ -12,6 +12,7 @@ Always. Use this table as the decision key for which feedback pattern to apply.
 | 0–16 ms | per-frame smoothness (60 fps) | animation frames ≤ 10 ms of app work, 16 ms frame budget (RAIL) |
 | ≤ 100 ms | "instantaneous"; direct manipulation | visible state change (pressed, selected, optimistic update) |
 | 100 ms–1 s | flow uninterrupted, delay noticed | no spinner needed; an inline cue after the 200 ms show-delay is OK |
+| about 400 ms | Doherty threshold, graded **Heuristic**: a 1982 IBM Systems Journal claim (Doherty and Thadani) that productivity rises when system and user respond within 400 ms, not 2 s; mainframe-era, no modern validation found | treat as a soft target for common interactions; this skill's hard budgets stay 100 ms, 1 s, INP 200 ms |
 | 1–10 s | attention holds, flow breaks | skeleton (first load) or labelled spinner (one module; NN/g: 2–10 s); keep old data on refresh (SWR) |
 | > 10 s | attention lost; users switch tasks or abandon | percent-done/steps, estimate, Cancel, run in background + notify |
 
@@ -26,6 +27,7 @@ Always. Use this table as the decision key for which feedback pattern to apply.
 - **Long tasks:** nothing on the main thread > 50 ms during interaction windows. Chunk table renders, chart layouts and CSV parsing with a 50 ms deadline + `scheduler.yield()`.
 - **Large DOM:** virtualise tables over ~500 rows and switch to canvas/WebGL past ~5 K chart marks (heuristics from practice, not sourced: profile your own data). Use `content-visibility: auto` paired with `contain-intrinsic-size: auto <h>` for below-the-fold panels only (Baseline newly available since September 2025; unsupported browsers simply render everything).
 - **Indicators follow thresholds:** show-delay 200 ms (Vercel range 150–300 ms); once shown, keep them visible 400 ms (Vercel range 300–500 ms); switch to determinate progress past 10 s (or sooner if variance is high). These match SKILL.md's loading table and `prog-loading-states.md`.
+- **Doherty caveat:** Laws of UX lists a "deliberate delay can build trust" takeaway ("purposefully adding a delay ... can actually increase its perceived value"). Do not use it to pad a fast result: it conflicts with "no artificial delay" below and with honest-feedback rules; a delay is acceptable only when it is the true cost of work or aids comprehension, never to fake effort. The 400 ms figure is secondary-sourced (Laws of UX; the IBM paper was not fetched).
 - **Set budgets per interaction type** and enforce them in CI (Lighthouse or Playwright traces with 4× CPU slowdown, Lighthouse's mobile default) **and** in RUM (p75).
 
 ## Anti-patterns (don't)
@@ -43,6 +45,8 @@ Always. Use this table as the decision key for which feedback pattern to apply.
 - Chrome modern web guidance, [Identify INP causes](https://developer.chrome.com/docs/modern-web-guidance/guides/performance/identify-inp-causes) and [Interaction paint timing](https://developer.chrome.com/docs/modern-web-guidance/guides/performance/interaction-paint-timing): field attribution via `web-vitals/attribution` + LoAF (`styleDuration` vs `layoutDuration`); `interaction-contentful-paint` closes the gap between the next frame and the async result paint.
 - [Vercel Web Interface Guidelines](https://vercel.com/design/guidelines): "POST/PATCH/DELETE complete in <500ms"; loading states get "a short show-delay (~150–300 ms) & a minimum visible time (~300–500 ms)".
 - [Square Crossfilter](https://square.github.io/crossfilter/): "extremely fast (<30ms) interaction with coordinated views, even with datasets containing a million or more records", via incremental indexing. Square no longer maintains it; the community fork at github.com/crossfilter/crossfilter is maintained.
+
+- [Laws of UX, Doherty Threshold](https://lawsofux.com/doherty-threshold/): the 400 ms claim and its 1982 origin; secondary, Heuristic grade.
 
 ## Bad references
 - Dashboards that wrap every interaction in a full-page "Processing…" overlay. Even a 300 ms query becomes a visible block, which converts the 100 ms–1 s "flow" band into a 1–10 s-feeling interruption.
@@ -116,6 +120,7 @@ onINP((m) => {
 - https://www.nngroup.com/articles/progress-indicators/
 - https://www.nngroup.com/articles/applying-filters/
 - https://web.dev/articles/rail
+- https://lawsofux.com/doherty-threshold/
 - https://web.dev/articles/inp
 - https://vercel.com/design/guidelines
 - https://square.github.io/crossfilter/

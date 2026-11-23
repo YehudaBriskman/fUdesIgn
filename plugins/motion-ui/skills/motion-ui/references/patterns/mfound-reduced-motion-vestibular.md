@@ -49,7 +49,7 @@ Always. dashboard-ui's `motion-reduced-motion.md` covers the mechanics (static-f
 - [W3C technique C39](https://www.w3.org/WAI/WCAG22/Techniques/css/C39): using the reduced-motion query to prevent motion from interactions.
 - [WCAG 2.3.3 Animation from Interactions (AAA)](https://www.w3.org/WAI/WCAG22/Understanding/animation-from-interactions.html): motion triggered by interaction can be disabled unless essential; vestibular disorders as the reason.
 - [Val Head, Designing safer web animation for motion sensitivity (A List Apart)](https://alistapart.com/article/designing-safer-web-animation-for-motion-sensitivity/): the trigger list (scaling and zooming, spinning, parallax, multi-speed motion, large movement).
-- [Apple HIG, motion](https://developer.apple.com/design/human-interface-guidelines/motion) and [accessibility](https://developer.apple.com/design/human-interface-guidelines/accessibility): replace sliding and zooming with dissolves when Reduce Motion is on.
+- [Apple HIG, accessibility](https://developer.apple.com/design/human-interface-guidelines/accessibility): replace sliding and zooming with dissolves when Reduce Motion is on. The HIG [motion](https://developer.apple.com/design/human-interface-guidelines/motion) page says to make motion optional and to avoid animating frequent interactions, but carries no Reduce Motion section and no numbers.
 - [Motion, `useReducedMotion` and `MotionConfig reducedMotion="user"`](https://motion.dev/docs/react-accessibility): turns off transform and layout animations while keeping opacity and colour.
 
 ## Bad references

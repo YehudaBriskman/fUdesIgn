@@ -8,7 +8,7 @@
 - Use plan cards plus a comparison table for any self-serve product with 2+ paid tiers.
 - Use "Contact sales" only for the enterprise tier, never as the only way to learn any price. NN/g's B2B studies found price was the information business buyers wanted most. Participants left sites that hid it and went to competitors, and hidden prices created a negative halo over the whole brand.
 - If the price really varies (usage, seats, volume), show a starting price, a per-unit rate and 2–3 worked examples ("A team of 10 with 1 TB transfer pays about $X"). NN/g recommends representative scenarios over complex configurators, which users found slow and error-prone.
-- Don't build a pricing table for a single plan; a price line beside the CTA is enough.
+- Don't build a pricing table for a single plan; a price line beside the CTA is enough. Questions about billing and cancellation go in a short FAQ under the table (`mksect-faq-and-objections.md`).
 
 ## Rules (do)
 - **3–4 tiers.** Typical shape: Free or trial, a team tier, a business tier, Enterprise. Current examples: Linear shows Free, Basic, Business and Enterprise; Tailscale shows Personal, Standard, Premium and Enterprise; Vercel shows Hobby, Pro and Enterprise. Past 4 cards, a desktop row no longer fits a 72rem container at a readable width (about 260px per card minimum).

@@ -10,7 +10,7 @@
 - Confirmation dialogs for destructive actions are in `comp-overlay-choice.md` (dashboard-ui) and `fflow-submit-buttons-and-double-submit.md`.
 
 ## Rules (do)
-- **Plain words at a reading age of about 9** (GOV.UK's target). "Date of birth", not "DOB"; "Postcode", not "Postal code identifier".
+- **Plain words at a reading age of about 9** (GOV.UK's target; the wider content-design method is `uxwrt-ux-writing-and-content-design.md`). "Date of birth", not "DOB"; "Postcode", not "Postal code identifier".
 - **Labels**: noun phrase ("Email address") on multi-field pages; the full question ("What is your email address?") on one-question pages, where it doubles as the heading.
 - **Say why you ask** anything personal or surprising, in the hint: "We use this to send your receipt", "We'll only call if delivery fails". Baymard found unexplained phone and birth-date fields are a common abandonment trigger.
 - **Buttons say what happens**: "Create account", "Pay £24.00", "Send invitation", "Save changes". Not "Submit", "OK" or "Continue" on a final step. On multi-step flows, "Continue" for steps and a specific verb for the last one (GOV.UK: "Continue" then "Accept and send"). The modern-web-guidance forms guide asks for actionable labels and for the exact amount on pay buttons.

@@ -11,7 +11,7 @@
 ## Rules (do)
 - **Decide by task (NN/g's mobile tables study):**
   - *Comparing across rows* (prices, scores, schedules): keep the table. Put it in a horizontally scrolling region with a sticky first column (the row identity) and a sticky header row. NN/g calls horizontal scrolling "somewhat acceptable" for large tables if the first column and headers are locked.
-  - *Reading one record at a time* (orders, tickets, contacts): turn each row into a stacked block: the identity on top, 2–4 label/value pairs below, the rest in the detail view (modern-web-guidance `ui-atoms/responsive-table.md`).
+  - *Reading one record at a time* (orders, tickets, contacts): turn each row into a stacked block: the identity on top, 2–4 label/value pairs below, the rest in the detail view (modern-web-guidance `ui-atoms/responsive-table.md`); the block's anatomy is in `mofound-lists-and-cards.md`.
   - *Few rows, few columns* (up to 3 columns at 360 px): just fit it; keep it a table.
 - **Column budget at 360–390 px:** the identifying column plus 2–3 values at 14–16 px text. Move other columns into a detail view or a "Columns" sheet, not off the screen edge.
 - **Scroll region semantics:** `role="region"`, an accessible name (`aria-labelledby` the caption) and `tabindex="0"` so keyboard and switch users can scroll it; show a scroll affordance (a fade or shadow at the clipped edge) since mobile scrollbars are hidden (modern-web-guidance `ui-atoms/scrollability-affordance-hints.md`).

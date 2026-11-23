@@ -7,7 +7,7 @@
 ## When to use / when not
 - Every free-text prompt field.
 - For a constrained request (rewrite tone, pick a length), offer buttons or chips next to the field rather than asking users to type it. NN/g's articulation-barrier research recommends GUI controls beside the text box.
-- Starter and follow-up suggestions are in `aichat-empty-state-and-suggestions.md`. The send-to-stop swap is in `aichat-streaming-text.md`.
+- Starter and follow-up suggestions are in `aichat-empty-state-and-suggestions.md`. The send-to-stop swap is in `aichat-streaming-text.md`. Where the composer sits relative to the thread: `aichat-layout-and-message-anatomy.md`.
 
 ## Rules (do)
 **Field**

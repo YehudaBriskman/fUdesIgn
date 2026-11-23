@@ -5,7 +5,7 @@
 **Category:** Transitions · **Applies to:** popovers, menus, tooltips, select lists, cards expanding to detail, navigation stacks, tabs, side panels · **Priority:** should
 
 ## When to use / when not
-Use whenever an element appears in relation to something else. A centred modal with no specific trigger scales from the centre. Content that replaces unrelated content (a new search result set) has no spatial relationship: cross-fade it.
+Use whenever an element appears in relation to something else. A centred modal with no specific trigger scales from the centre. Content that replaces unrelated content (a new search result set) has no spatial relationship: cross-fade it. When a straight path is wrong because the user should follow a moving object, see `mtrans-arc-paths-and-mask-reveals.md`.
 
 ## Rules (do)
 - **Origin at the trigger.** A menu below-left of its button scales from `top left`; one that flipped above scales from `bottom left`. Emil Kowalski: popovers should scale from their trigger, not from their centre. Radix exposes this as `--radix-popover-content-transform-origin`; with CSS anchor positioning, set the origin per fallback position yourself (there is no automatic hook yet; anchored container queries that can detect the flip are Chrome-only and experimental).
@@ -51,7 +51,7 @@ An expanding card is interruptible: closing it mid-expansion collapses it back f
 |---|---|---|
 | `--popover-origin` | side nearest the trigger | per placement |
 | directional travel | 16–24 px + fade | route and tab changes |
-| container transform | `--motion-dur-long` 400 ms, `--motion-ease-emphasized` | card → detail |
+| container transform | `--motion-dur-long` 400 ms, `--motion-ease-emphasized` (house timing; M3's container-transform default is 300 ms) | card → detail |
 | shared axis | `--motion-dur-medium` 240 ms | siblings, steps |
 | fade through | `--motion-dur-short` 150 ms, `linear` | unrelated content |
 

@@ -9,7 +9,7 @@ Use this pattern first, before choosing a duration or a curve. It decides *wheth
 
 Motion earns its place when it does one of these jobs:
 - **Feedback:** the interface heard you (a press, a toggle, a drag that tracks the finger).
-- **Continuity:** the same object is tracked from one state to the next (a card that grows into a page, a row that moves when sorted).
+- **Continuity:** the same object is tracked from one state to the next (a card that grows into a page, a row that moves when sorted); add an arc only when the user must follow the object (`mtrans-arc-paths-and-mask-reveals.md`).
 - **Orientation:** the user learns where something came from and where it will go back to (a sheet that rises from the bottom edge and leaves the same way).
 - **Attention:** a one-off nudge to something that changed and matters (an inline error after submit, a new message).
 

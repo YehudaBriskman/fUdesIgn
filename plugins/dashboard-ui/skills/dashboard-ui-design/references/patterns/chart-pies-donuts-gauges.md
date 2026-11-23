@@ -37,7 +37,7 @@
 - For usage/quota: a native `<meter>` or a linear bar with value text ("7.2 of 10 GB, 72%") and threshold markers.
 
 ## Anti-patterns (don't)
-- 3D pies and exploded pies. Perspective makes front slices larger: in the Wikipedia example, item C looks at least as large as item A while being less than half its size.
+- 3D pies and exploded pies. Perspective makes front slices larger: in the Wikipedia example, item C looks at least as large as item A while being less than half its size. Documented cases: `chart-bad-gallery.md`; the full honesty rules: `chart-honesty-chartjunk.md`.
 - Pies with 8+ slices and a legend the reader must match by colour.
 - Two pies side by side to show change over time.
 - A grid of 6 donut "KPI rings", each showing one percentage with no target or history.

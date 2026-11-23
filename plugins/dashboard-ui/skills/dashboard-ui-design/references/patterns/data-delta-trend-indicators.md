@@ -8,7 +8,7 @@
 - Use when the reader's question is "is this better or worse than before or than the target?"
 - Don't show a delta without a stated baseline ("vs previous 30 days", "vs Q3 2026", "vs target"). If no comparable period exists (new account, first period, or a baseline of zero), show "No prior data", not `+∞%` or `+100%`.
 - Don't colour deltas for metrics with no agreed good direction (for example "number of SKUs", "headcount"). Use neutral grey.
-- Don't show a percent change when the baseline is tiny. Show the absolute change instead (see rules).
+- Don't show a percent change when the baseline is tiny. Show the absolute change instead (see rules). Honest scaling of any bar or axis drawn beside a delta: `chart-honesty-chartjunk.md`.
 
 ## Rules (do)
 - **Text first.** The delta string always includes an explicit sign: `+12.3%`, `−4.1%`, `0%`. Use `signDisplay: "exceptZero"` and a U+2212 minus (see `data-number-formatting.md`). The arrow and colour are additive.

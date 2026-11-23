@@ -6,7 +6,7 @@
 
 ## When to use / when not
 - **Use** for any element sized to the viewport height on a phone.
-- **Use** the keyboard rules for any screen with a text field near the bottom: chat, comments, search, checkout.
+- **Use** the keyboard rules for any screen with a text field near the bottom: chat, comments, search, checkout. Restoring state when the keyboard closes: `monav-contextual-modes-and-state-restore.md`.
 - **Not** for widths: `100vw` includes the scrollbar on desktop and causes horizontal scroll. Use `100%` or `100dvw` sparingly.
 
 ## Rules (do)

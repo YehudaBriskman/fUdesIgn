@@ -14,7 +14,7 @@
 | Medium width (600–839 px) | Navigation rail on the leading edge |
 | Expanded (840 px and up) | Rail or a persistent drawer/sidebar |
 
-- **Not** a bottom bar on content sites with deep hierarchies (news, docs); use a top bar with search and a menu, and keep the primary action in reach.
+- **Not** a bottom bar on content sites with deep hierarchies (news, docs); use a top bar with search and a menu, and keep the primary action in reach (`mofound-thumb-zones-reach.md`).
 
 ## Rules (do)
 - **3–5 items.** Material 3's navigation bar holds 3–5 destinations ("Avoid putting more than five navigation items in a navigation bar"; fewer than three, use tabs). Apple's HIG gives no fixed count: it says fewer tabs are easier to navigate and that, when horizontal space runs out, the trailing tab becomes a More tab. The 5-item cap is this skill's rule for both platforms. Never 6+ squeezed items.

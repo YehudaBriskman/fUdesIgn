@@ -5,7 +5,7 @@
 **Category:** Charts and data visualisation · **Applies to:** design reviews, onboarding, chart linting, PR review of chart code · **Priority:** should
 
 ## When to use / when not
-- Use as a review companion to chart-honesty-chartjunk.md, chart-bars-baseline-sorting.md and chart-pies-donuts-gauges.md: when a chart "looks off", find its twin here.
+- Use as a review companion to chart-honesty-chartjunk.md, chart-bars-baseline-sorting.md and chart-pies-donuts-gauges.md: when a chart "looks off", find its twin here. To pick the right form in the first place, use `chart-choose-by-question.md`.
 - Use the "dashboard twins" section for failure modes that happen in product UIs, not just in media.
 - Not a style guide on its own: each entry points to the pattern file with the rules.
 

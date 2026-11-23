@@ -22,7 +22,7 @@
 - **Idempotency on the server**: generate a key per form render (hidden input or header `Idempotency-Key`), and make the server return the original result for a repeated key (Stripe's API model). This covers double-clicks, retries, back-button resubmits and flaky networks.
 - **Post/Redirect/Get** for full-page forms: after a successful POST, redirect to a confirmation URL so refresh doesn't resubmit.
 - **Outcome**:
-  - Success: navigate to a confirmation page, or show an inline success message in a `role="status"` region and reset the button. Name what happened ("Invitation sent to a@b.com").
+  - Success: navigate to a confirmation page, or show an inline success message in a `role="status"` region and reset the button. Name what happened ("Invitation sent to a@b.com"); the full success and failure screens are in `fflow-completion-and-end-states.md`.
   - Failure: re-enable the button, keep every answer, show the error inline or in the summary (`fvalid-error-summary-and-focus.md`), and say whether anything was saved.
   - Timeout (> 10 s): keep the busy state with a message ("Still working… don't close this page"), never a silent spinner forever.
 - **Money and legal submits** (WCAG 3.3.4): a review step, a confirm checkbox, or reversibility (cancel within N minutes). The button names the amount: "Pay £24.00".

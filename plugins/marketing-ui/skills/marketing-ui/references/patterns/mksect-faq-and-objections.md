@@ -1,6 +1,6 @@
 # FAQ and objection handling
 
-> Answer the 5–10 real objections that sales and support hear most (price, security, migration, cancellation) in plain sentences near the final CTA, and never use the FAQ to hide something a buyer needs to decide.
+> Answer the 5–10 real objections that sales and support hear most (price, security, migration, cancellation) in plain sentences near the final CTA, and never use the FAQ to hide something a buyer needs to decide (the dark-pattern test is `uxeth-choice-architecture-and-dark-patterns.md`).
 
 **Category:** Sections · **Applies to:** landing-page FAQ blocks, pricing-page FAQs, product-page objection sections, standalone help FAQs · **Priority:** should
 

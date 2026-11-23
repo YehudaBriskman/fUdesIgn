@@ -7,7 +7,7 @@
 ## When to use / when not
 - **Use** at the start of any dashboard project and when one dashboard "keeps growing". Sprawl is usually two or three types fused into one page.
 - Stephen Few (*Information Dashboard Design*, 2006) classifies dashboards by **role: strategic, analytical, operational**. Reviewers note that the role "has the greatest impact on its visual design". NN/g uses the same operational/analytical split. Carbon calls them *presentation* vs *exploration*.
-- **Not** a strict taxonomy. Vendors add "tactical" or "informational" as a fourth type, and those are not Few's. A product can ship all three types as separate views linked by drill-down.
+- **Not** a strict taxonomy. Vendors add "tactical" or "informational" as a fourth type, and those are not Few's. A product can ship all three types as separate views linked by drill-down. Within each view, pick charts by question with `chart-choose-by-question.md`.
 
 ## Rules (do)
 Apply the defaults for the chosen type:
