@@ -121,5 +121,5 @@ export function fill(pattern: string, values: Record<string, string | number>): 
 - https://doc.wikimedia.org/codex/latest/style-guide/bidirectionality.html
 - https://trojansource.codes/
 - https://www.walla.co.il (headless-browser inspection, November 2026)
-- Unicode's NamesList marks U+05F3 as preferred for geresh and U+05F4 as preferred for gershayim when writing Hebrew; ASCII `'` and `"` are common keyboard substitutes, so search and validation should accept both.
+- Unicode's NamesList marks U+05F3 as preferred for geresh and U+05F4 as preferred for gershayim when writing Hebrew; ASCII `'` and `"` are common keyboard substitutes, so search and validation should accept both. Gershayim goes before the last letter of the unbent form (`צה״ל`, `י״ח`) and geresh marks single-letter numerals such as `ק׳` (en.wikipedia Gershayim and Geresh, read; the Academy of the Hebrew Language's own pages were unreachable, so its rulings are unconfirmed).
 - Local verification: Node v26.12 `Intl.DateTimeFormat("he-u-ca-hebrew")` output uses U+05F3 and U+05F4.

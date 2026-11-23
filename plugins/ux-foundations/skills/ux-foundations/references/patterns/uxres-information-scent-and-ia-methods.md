@@ -12,8 +12,8 @@
 
 ## Rules (do)
 ### The theory, graded
-- **Information foraging theory (Pirolli and Card, 1999)** treats searching and browsing as rational, goal-driven activity in which people weigh the effort of finding information against its value. It borrows from optimal foraging theory in ecology. Its terms: *patch* (cluster of related information), *scent* (estimating an item's value from navigation cues and metadata), *diet* (choosing one source over another). Grade: **Established**, peer-reviewed (Psychological Review 106(4), 643-675); we read the bibliographic record and secondary summaries, not the 1999 full text.
-- **A later computational model, SNIF-ACT (Fu and Pirolli, 2007, Human-Computer Interaction 22, 355-412),** models users evaluating the links on a page in sequence and deciding to click or go back from how relevant the link text seems to the goal. We read its abstract only. It supports the practical point that link text drives the click-or-back decision.
+- **Information foraging theory (Pirolli and Card, 1999)** treats searching and browsing as rational, goal-driven activity in which people weigh the effort of finding information against its value. It borrows from optimal foraging theory in ecology. Its terms: *patch* (cluster of related information), *scent* (estimating an item's value from navigation cues and metadata), *diet* (choosing one source over another). Grade: **Established**, peer-reviewed (Psychological Review 106(4), 643-675); we did not read the 1999 full text (no open copy found; Fu and Pirolli 2007, read in full, cites it for the same account: people "develop information-seeking strategies that optimize the utility of information gained in relation to the cost of interaction").
+- **A later computational model, SNIF-ACT (Fu and Pirolli, 2007, Human-Computer Interaction 22, 355-412),** models users evaluating the links on a page in sequence and deciding to click or go back from how relevant the link text seems to the goal. Read in full (Google-hosted PDF): it tests the model against protocol data from 8 participants on two information tasks. It supports the practical point that link text drives the click-or-back decision.
 - **The design rules below are practitioner synthesis (NN/g)**, not theorems. NN/g's scent article (Budiu, 2020) does not itself name Pirolli or Card; the attribution above comes from the IxDF glossary and the bibliographic record.
 
 ### Scent rules (NN/g, Budiu 2020)
@@ -58,7 +58,7 @@
 - [NN/g, Tree Testing](https://www.nngroup.com/articles/tree-testing/) — requirements, metrics and honest limits, and the card-sort-then-tree-test sequence.
 - [NN/g, Card Sorting: Uncover Users' Mental Models](https://www.nngroup.com/articles/card-sorting-definition/) — open vs closed, card counts and participant counts.
 - [IxDF, Information Foraging Theory](https://ixdf.org/literature/book/the-glossary-of-human-computer-interaction/information-foraging-theory) — patch, scent, diet and attribution to Pirolli and Card (1999).
-- [Fu and Pirolli, SNIF-ACT (2007)](https://research.google.com/pubs/archive/25938.pdf) — the computational model of link-following; abstract read.
+- [Fu and Pirolli, SNIF-ACT (2007)](https://research.google.com/pubs/archive/25938.pdf) — the computational model of link-following; full text read.
 
 ## Bad references
 - **A label like "Learn more" under every card.** No scent; and links read out of context become a column of identical names.
@@ -117,6 +117,6 @@ Applied by: `comp-app-shell-navigation.md`, `monav-bottom-nav-tabs-drawers.md`, 
 - https://www.nngroup.com/articles/tree-testing/ (fetched; 6 Aug 2023)
 - https://www.nngroup.com/articles/card-sorting-definition/ (fetched)
 - https://ixdf.org/literature/book/the-glossary-of-human-computer-interaction/information-foraging-theory (fetched)
-- https://research.google.com/pubs/archive/25938.pdf (fetched, abstract read; Fu and Pirolli 2007)
-- Pirolli and Card 1999, Psychological Review 106(4) 643-675, DOI 10.1037/0033-295X.106.4.643 (bibliographic record via search; full text not read)
+- https://research.google.com/pubs/archive/25938.pdf (fetched, full text read; Fu and Pirolli 2007)
+- Pirolli and Card 1999, Psychological Review 106(4) 643-675, DOI 10.1037/0033-295X.106.4.643 (bibliographic record via Crossref; full text not read; the theory is described in Fu and Pirolli 2007, section 2.1)
 - Repo: `found-progressive-disclosure.md`, `ref-ux-research-findings.md`, `comp-app-shell-navigation.md`, `monav-bottom-nav-tabs-drawers.md`, `comp-command-palette-search.md`, `comp-tabs-segmented-pills.md`, `mksect-footer.md`, `comp-icons-and-labels.md`, `data-loading-empty-error-states.md`, `ffound-form-accessibility.md`, `found-visual-hierarchy.md`

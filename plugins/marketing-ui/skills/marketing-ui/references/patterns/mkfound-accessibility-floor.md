@@ -30,7 +30,7 @@
 - **Target size:** at least **24×24 CSS px** for every control, or 24px spacing (SC 2.5.8). Marketing CTAs use 48px (`--mk-cta-height`). Inline text links are exempt.
 - **Link text:** names the destination ("Read the Acme case study"), not "Learn more" or "Click here" (SC 2.4.4). Repeated "Learn more" links get visually hidden context. Icon-only links (social icons) need an accessible name.
 - **Forms:** newsletter and demo-request fields have visible `<label>`s. A placeholder is not a label.
-- **Reduced motion:** wrap all non-essential motion in `@media (prefers-reduced-motion: no-preference)`. Parallax, scroll-jacking and large zooms are vestibular triggers (SC 2.3.3). See `mkstyle-scroll-motion.md`.
+- **Reduced motion:** wrap all non-essential motion in `@media (prefers-reduced-motion: no-preference)`. Parallax, scroll-jacking and large zooms are vestibular triggers (SC 2.3.3 Animation from Interactions, Level AAA, so best practice rather than AA). See `mkstyle-scroll-motion.md`.
 
 ## Anti-patterns (don't)
 - Two `<h1>`s because the logo and the hero both use one (18.1% of home pages in WebAIM 2026 have more than one h1).

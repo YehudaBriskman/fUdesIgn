@@ -13,11 +13,11 @@
 ## Evidence grade
 | Law | Grade | Fetched basis | Limit |
 |---|---|---|---|
-| Fitts | **Strong** for pointing on a screen | Crossref confirms Fitts, J. Exp. Psychology 47(6), 381-391, 1954, "The information capacity of the human motor system in controlling the amplitude of movement". MacKenzie 1992 abstract (fetched at yorku.ca): movement modelled "by analogy to the transmission of information", with a refined index of difficulty, and "tremendous inconsistencies" in how studies measure performance. | Fitts' abstract text could not be fetched (PsycNet/PubMed blocked). Device constants and 2-D width handling vary by study. |
-| Hick-Hyman | **Established, narrow** | Crossref confirms Hyman, J. Exp. Psychology 45(3), 188-196, 1953, "Stimulus information as a determinant of reaction time". | Abstract not fetched. The formula below comes from a secondary source (Wikipedia, per `r2-gaps.md`). |
+| Fitts | **Strong** for pointing on a screen | Crossref confirms Fitts, J. Exp. Psychology 47(6), 381-391, 1954, "The information capacity of the human motor system in controlling the amplitude of movement". MacKenzie 1992 abstract (fetched at yorku.ca): movement modelled "by analogy to the transmission of information", with a refined index of difficulty, and "tremendous inconsistencies" in how studies measure performance. | Fitts' full text read (APA centennial reprint, Princeton course mirror): eq. 1 `Id = -log2(Ws/2A)` bits/response, eq. 2 `Ip = (1/t)(-log2(Ws/2A))` bits/sec; best conditions 10.3-11.5 bits/sec. Device constants and 2-D width handling vary by study. |
+| Hick-Hyman | **Established, narrow** | Crossref confirms Hyman, J. Exp. Psychology 45(3), 188-196, 1953, "Stimulus information as a determinant of reaction time". | Full text and abstract unreachable: Hyman is closed on Semantic Scholar (`CLOSED`, abstract elided), Hick 1952 (QJEP 4, 11-26) is paywalled and the Iowa mirror returns 404. The formula below stays secondary (Wikipedia, per `r2-gaps.md`); still unverified against either primary. |
 
 ## Rules (do)
-- **Fitts, Shannon form (the HCI standard):** `MT = a + b * log2(A / W + 1)`, where A is distance to the target, W its width along the movement axis, a and b are constants fitted per device and user group (MacKenzie 1992, fetched, eq. 10). Fitts' original index was `log2(2A/W)`; MacKenzie prefers the Shannon form because it cannot go negative and predicts slightly better.
+- **Fitts, Shannon form (the HCI standard):** `MT = a + b * log2(A / W + 1)`, where A is distance to the target, W its width along the movement axis, a and b are constants fitted per device and user group (MacKenzie 1992, fetched, eq. 10). Fitts' original index was `-log2(Ws/2A)`, i.e. `log2(2A/W)` (Fitts 1954 eq. 1, read in the reprint); MacKenzie prefers the Shannon form because it cannot go negative and predicts slightly better.
 - **Use effective width for measured data:** `We = 4.133 * SD` of endpoint coordinates (MacKenzie, fetched).
 - **Design consequences that hold:** time falls as the target gets larger along the movement axis or nearer. So make frequent targets large, put them near where the pointer or thumb already is, and use screen edges and corners on desktop because the pointer stops there (an inference from the model, labelled as such).
 - **Do not use the equation to compute a size.** a and b are not published for your device. Use the platform minimums: WCAG 2.5.8 24 CSS px, Apple 44 pt, Material 48 dp (`mofound-touch-targets.md`).
@@ -36,7 +36,7 @@
 
 ## Good references
 - [MacKenzie 1992, Fitts' law as a research and design tool in HCI](https://www.yorku.ca/mack/hci1992.html): the Shannon form, effective width, and warnings about inconsistent measurement.
-- [Fitts 1954 via DOI](https://doi.org/10.1037/h0055392) and [Hyman 1953 via DOI](https://doi.org/10.1037/h0056940): bibliographic data confirmed through Crossref only.
+- [Fitts 1954 full text (reprint, Princeton course mirror)](https://www.cs.princeton.edu/courses/archive/fall08/cos436/FittsJEP1954.pdf): eq. 1 and 2, read directly. [Hyman 1953 via DOI](https://doi.org/10.1037/h0056940): bibliographic data confirmed through Crossref only.
 - Repo: `mofound-touch-targets.md`, `mofound-thumb-zones-reach.md`.
 
 ## Bad references
@@ -97,10 +97,11 @@ const id = (a: number, we: number): number => Math.log2(a / we + 1);
 - [ ] Hit area meets platform minimums with spacing.
 - [ ] Long menus are ordered or grouped.
 - [ ] Submenu paths are not argued with Fitts.
-- [ ] Unfetched claims are labelled secondary or house default.
+- [ ] Unfetched claims (Hick/Hyman form) are labelled secondary or house default.
 
 ## Sources
 - https://www.yorku.ca/mack/hci1992.html (fetched; abstract, eq. 10, We = 4.133 SD)
+- https://www.cs.princeton.edu/courses/archive/fall08/cos436/FittsJEP1954.pdf (Fitts 1954 full text, fetched and read; eq. 1-2)
 - https://api.crossref.org/works/10.1037/h0055392 (Fitts 1954 bibliographic record, fetched)
 - https://api.crossref.org/works/10.1037/h0056940 (Hyman 1953 bibliographic record, fetched)
 - https://en.wikipedia.org/wiki/Fitts%27s_law and https://en.wikipedia.org/wiki/Hick%27s_law (secondary, from `r2-gaps.md`)
