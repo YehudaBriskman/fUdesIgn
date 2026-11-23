@@ -5,7 +5,7 @@ description: Design, build or review motion and gestures in product UIs with res
 
 # Motion UI
 
-A research-backed playbook for product-UI motion and gesture: 19 pattern files, each with rules, anti-patterns, good and bad references, accessibility, tokens, an implementation sketch and a checklist. This file gives the workflow, the non-negotiables, the decision tables and the token defaults. Open the pattern files for depth.
+A research-backed playbook for product-UI motion and gesture: 20 pattern files, each with rules, anti-patterns, good and bad references, accessibility, tokens, an implementation sketch and a checklist. This file gives the workflow, the non-negotiables, the decision tables and the token defaults. Open the pattern files for depth.
 
 - **Pattern index:** `references/INDEX.md` lists every pattern with its one-line rule.
 - **Pattern files:** `references/patterns/<prefix>-<name>.md`. The prefixes are `mfound` (purpose, timing, choreography, reduced motion), `mspring` (springs), `mgesture` (drag, momentum, edges, sheets, interruption), `mtrans` (enter/exit, spatial origin, route transitions, micro-interactions, scroll-driven), `mperf` (performance) and `mref` (review rubric, anti-patterns).

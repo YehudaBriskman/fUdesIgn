@@ -22,6 +22,7 @@ The modern-web-guidance forms guide gives the same split by count: checkbox for 
 - **Stack radios and checkboxes vertically**, one per line. Inline (side by side) only for 2 short options like "Yes / No" (GOV.UK).
 - **The whole label row is the target.** Label to the right of the control; row ≥ 44 px tall on touch, ≥ 24 px on desktop; control box 20–24 px.
 - **Radios: preselect only a safe, sensible default**, and never on questions where the answer has consequences or you need a deliberate choice (NN/g recommends a default in general; GOV.UK avoids one for questions because people miss it). House rule: settings get a default; questions don't.
+- **Defaults are advice, not neutral.** Madrian & Shea (NBER w7682) found that moving a 401(k) plan to automatic enrolment raised participation substantially, and many employees kept both the default contribution rate and default fund. People take the default as a recommendation, so a default is a decision you make for them. Test it: **would the user pick this if asked?** If yes, preselect it (a safe setting); if the honest answer is "only because it earns us money or data", do not. Effect size varies with the stakes, and a high consent rate under an opt-out default is not evidence of informed choice.
 - **Order options** by likelihood or naturally (alphabetical for long lists, numeric for ranges). Put "Other" or "None" last, separated by "or" (GOV.UK's divider).
 - **Exclusive "None of these"** in a checkbox group clears the others when checked (GOV.UK `data-behaviour="exclusive"`).
 - **Conditional reveal**: a radio or checkbox can reveal one or two follow-up fields directly beneath it, indented with a left border. Keep it to simple, single questions; anything bigger is a new page (GOV.UK conditional reveal). The revealed fields are not inside the label.
@@ -39,7 +40,7 @@ The modern-web-guidance forms guide gives the same split by count: checkbox for 
 - A select with 2–3 options: hides the choices behind a click.
 - Radios laid out in a horizontal row of 5 with wrapping labels.
 - Custom checkboxes built from `<div>`s, or native inputs hidden with `display: none`.
-- Preselected consent or upsell checkboxes ("Add insurance").
+- Preselected consent or upsell checkboxes ("Add insurance"). The default effect makes this a dark pattern: it works precisely because people do not change it.
 - Auto-submitting or navigating when a radio changes (WCAG 3.2.2).
 
 ## Good references
@@ -112,7 +113,7 @@ export function wireReveals(fieldset: HTMLFieldSetElement): void {
 - [ ] Each group is a fieldset with a question legend.
 - [ ] The full label row is clickable and ≥ 24 px (44 px on touch).
 - [ ] Switches apply immediately and are never inside a Save form.
-- [ ] No preselected consent or upsell; defaults only for safe settings.
+- [ ] No preselected consent or upsell; defaults only for safe settings and only ones the user would pick if asked.
 - [ ] Native inputs are kept in the DOM even when visuals are custom.
 
 ## Sources
@@ -121,6 +122,7 @@ export function wireReveals(fieldset: HTMLFieldSetElement): void {
 - https://www.nngroup.com/articles/checkboxes-vs-radio-buttons/
 - https://www.nngroup.com/articles/toggle-switch-guidelines/
 - https://www.nngroup.com/articles/radio-buttons-default-selection/
+- https://www.nber.org/papers/w7682 (Madrian & Shea, default effect in 401(k) enrolment)
 - https://www.w3.org/WAI/ARIA/apg/patterns/switch/
 - https://www.w3.org/WAI/ARIA/apg/patterns/radio/
 - https://github.com/GoogleChrome/modern-web-guidance/blob/main/skills/modern-web-guidance/guides/forms/switch.md (Apache-2.0, paraphrased)

@@ -10,6 +10,8 @@ Use wherever a draggable value has a boundary. Native scroll containers already 
 ## Rules (do)
 - **Keep responding.** WWDC18: rubber-banding tells the user they've hit an edge while the content still tracks the finger, which also tells a frozen interface apart from content at its end.
 - **Resistance grows with distance.** Use a curve whose slope starts at about 0.55 and falls toward 0, so the element never travels further than the container size d however far the pointer goes. The widely used approximation, reverse-engineered from iOS 6 and shared by Grant Paul, is b(x) = (1 − 1 / (x · c / d + 1)) · d with c = 0.55. Apple never published it; treat it as a good-feeling default, not a platform constant.
+- **Px-capped form (carousels, fixed-travel limits).** When the cap should be a fixed number of pixels rather than the container size, use b(over) = max · over / (over + k), with over = max(0, pull − deadZone). The cap is `max`, the slope at the origin is max / k, and the half-cap point is over = k. Pick k = max / desiredSlope (for example max 64 px and k 150 px gives slope ≈ 0.43). An optional dead zone (for example 12 px, house default) lets small accidental pulls past the edge do nothing before resistance starts.
+- **Relation to the 0.55 form.** They are the same hyperbola. Expand (1 − 1/(c·x/d + 1)) · d = d · c·x / (c·x + d) = d · x / (x + d/c): max = d, k = d / c, slope = max / k = c. So c = 0.55 is the px-capped form with max = d and k ≈ 1.82 · d. The constants of either form are empirical, not a platform specification.
 - **Feel check.** With d = 960 px: 5 px of overshoot shows about 2.7 px; 960 px shows about 341 px.
 - **Alternative curves are fine.** Vaul uses a logarithmic damping (8 · (ln(v + 1) − 2)) for over-drag; Motion's `dragElastic` (0 to 1, default 0.5) scales overshoot linearly. Choose one per product and use it everywhere.
 - **Spring back with bounce 0.** Release past the edge returns to the limit with `spring-default` (bounce 0) carrying the release velocity; a bounce here exaggerates the edge.
@@ -48,6 +50,7 @@ Grabbing the element during the spring-back resumes tracking from its current (r
 | max visual overshoot | < d (the container size) | by construction |
 | spring back | `spring-default` (0.3 s, bounce 0) + release velocity | |
 | pull-to-refresh trigger | 64–80 px of visible pull | house range |
+| px-capped form | max, k = max / slope, dead zone 0–12 px | carousels; house defaults |
 | Motion `dragElastic` | 0.2–0.35 | if using Motion's linear elasticity |
 
 ## Implementation sketch
@@ -69,6 +72,14 @@ export function rubberbandClamp(value: number, min: number, max: number, dimensi
 ```css
 /* Stop the page from scroll-chaining or rubber-banding behind a custom sheet. */
 .sheet-scroll { overscroll-behavior: contain; }
+```
+
+```ts
+/** Px-capped hyperbola: never exceeds `max`; initial slope = max / k; optional dead zone. */
+export function rubberbandCapped(pull: number, max: number, k: number, deadZone = 0): number {
+  const over = Math.max(0, Math.abs(pull) - deadZone);
+  return Math.sign(pull) * (max * over) / (over + k);
+}
 ```
 
 ## Checklist

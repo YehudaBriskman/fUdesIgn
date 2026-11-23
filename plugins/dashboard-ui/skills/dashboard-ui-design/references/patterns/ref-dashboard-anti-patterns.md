@@ -75,6 +75,7 @@ Each anti-pattern below gives the rubric checks, the symptom, why it is bad, and
 Two more, beyond the ten requested, that showed up in the sources:
 - **Decoration:** skeuomorphic dials, LED displays and 3D bars (Few's #11 and #7), and a logo in the top-left prime spot (Few's #9). Rubric: D6, C1, D4.
 - **Fragmenting across screens:** metrics picked one at a time by radio buttons so they can never be compared (Few's #1, figure 2). Rubric: A3 by its spirit; no direct check.
+- **Zeigarnik as a nagging justification:** the claim that unfinished tasks are remembered better does not replicate (a recent meta-analysis found no recall advantage, per Wikipedia). Never cite it for incomplete-profile badges, cliffhangers or reminder nagging; show saved, resumable state instead. See `ref-ux-laws-evidence-map.md`.
 - **Mixed shells and themes:** one entity's page renders in a different layout, or a panel in the opposite light or dark theme. Rubric: H1, D7.
 
 ## Good references
@@ -171,3 +172,4 @@ export function formatMetric(value: number, opts: FormatOptions, locale = naviga
 - https://doi.org/10.1109/MCG.2007.323435
 - https://www.sec.state.ma.us/divisions/securities/download/RH-Consent-Order.pdf
 - https://www.cnbc.com/2021/03/31/robinhood-gets-rid-of-confetti-feature-amid-scrutiny-over-gamification.html
+- https://en.wikipedia.org/wiki/Zeigarnik_effect

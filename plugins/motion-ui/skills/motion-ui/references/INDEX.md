@@ -1,6 +1,6 @@
 # Pattern index
 
-19 patterns. **Priority:** must = always apply · should = apply unless there is a reason not to · nice = optional.
+20 patterns. **Priority:** must = always apply · should = apply unless there is a reason not to · nice = optional.
 
 Motion for data (number tweening, chart transitions, linked exploration, loading states) lives in dashboard-ui's `motion-*` and `prog-*` patterns; these files cover general product-UI motion and link there instead of repeating it.
 
@@ -34,6 +34,7 @@ Motion for data (number tweening, chart transitions, linked exploration, loading
 
 | Pattern | Priority | Rule |
 |---|---|---|
+| [Arc paths and mask reveals](patterns/mtrans-arc-paths-and-mask-reveals.md) | nice | Move an object along an arc only when it travels from one place to another and the user should follow it (add to cart, a drop landing, a chip flying to a counter); reveal content with a `clip-path` or mask only when the shape of the reveal means something; keep menus, sheets and chrome on straight lines and plain fades, and give both a plain opacity fallback under reduced motion. |
 | [Enter and exit: `@starting-style`, `allow-discrete` and the top layer](patterns/mtrans-enter-exit-top-layer.md) | must | Animate dialogs, popovers and menus in and out with CSS transitions (not keyframes), with `@starting-style` for the entry state and `display`/`overlay` with `transition-behavior: allow-discrete` for the exit. Start from opacity 0 plus scale 0.95–0.97 or a translate of 8–24 px, never from `scale(0)`, and make the final, visible state the default. |
 | [Micro-interactions: buttons, toggles and toasts](patterns/mtrans-micro-interactions.md) | should | Buttons press to scale 0.97 on pointer-down in 100 ms and confirm results on themselves; toggles move their thumb with a bounce-0 spring and change colour at the same time; toasts enter from their edge in about 240 ms, stack with a 0.05 scale step, pause while hovered, can be swiped away, and never carry information that exists nowhere else. |
 | [Scroll-driven animations](patterns/mtrans-scroll-driven-animations.md) | nice | Link animation to scroll only for progress and context (a reading-progress bar, a header that condenses, an edge fade under sticky chrome, a gentle reveal as content enters), with CSS `animation-timeline: scroll()` or `view()` on `transform` and `opacity`, inside `@supports` and `prefers-reduced-motion: no-preference`; never scroll-jack, never move content at a different speed from the scroll in a working screen. |
