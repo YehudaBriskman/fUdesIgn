@@ -21,6 +21,9 @@
 - **Spend the "different" on purpose.** One break in a uniform set is a signal (one primary action). Two or three is noise.
 - **Continuity: align to shared edges.** Items on one path share a start edge or baseline: labels on one inline-start line, numbers on one decimal edge (`data-table-layout-and-typography.md`), card titles on one baseline. A few px of misalignment reads as another group. NN/g eye-tracking shows the left edge of text gets disproportionate fixations, so protect it.
 - **Figure vs ground.** Controls differ from their surface by contrast, not decoration. If a non-text boundary is the only cue that a control exists, it needs 3:1 against adjacent colours (WCAG 1.4.11). A decorative border is exempt, another reason to ask if it is needed.
+- **Prägnanz: the simplest reading wins.** Perception settles on the simplest organisation it can find (Wertheimer lineage; a descriptive framing, not a measurable rule, and sourced here only to Wikipedia's Principles of grouping). Practical use: fewer cues, simple shapes, shared edges. If you need a border, a tint and an icon to say "these go together", the layout is fighting the reader.
+- **Uniform connectedness: a visible link groups.** Elements joined by a line, frame, arrow or shared shape read as more related than unlinked ones (Law of Uniform Connectedness, lawsofux.com). Stepper rails, timeline spines and flow diagrams use this cue. Its rank against proximity (reported as stronger, Palmer and Rock 1994) was not verified first-hand here, so test it rather than rely on it. Order when cues conflict, house default: connection and region, then proximity, then similarity; never let one cue contradict another.
+- **Links look distinct from body text.** Similarity also marks role: a link, nav item or button must differ from running text in at least colour plus one more cue (underline, weight, shape), and non-links must not borrow the link look (lawsofux.com Law of Similarity).
 - **Do not fake relationships.**
   - A connector (line, arrow, bracket) must map to a real flow or dependency.
   - A pill row with one highlighted must *be* tabs: switch a panel, with tab roles and arrow keys. Otherwise use the matching pattern (`comp-tabs-segmented-pills.md`).
@@ -124,6 +127,9 @@ section { display: grid; gap: var(--group-gap-outer); }      /* between clusters
 
 ## Sources
 - https://www.nngroup.com/articles/gestalt-proximity/
+- https://lawsofux.com/law-of-uniform-connectedness/
+- https://lawsofux.com/law-of-similarity/
+- https://en.wikipedia.org/wiki/Principles_of_grouping
 - https://www.nngroup.com/articles/gestalt-similarity/
 - https://www.nngroup.com/articles/common-region/
 - https://www.nngroup.com/articles/principles-visual-design/

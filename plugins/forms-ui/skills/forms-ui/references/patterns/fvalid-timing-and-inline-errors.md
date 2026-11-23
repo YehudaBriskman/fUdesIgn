@@ -60,7 +60,8 @@
 - The error border keeps ≥ 3:1 and does not replace the focus ring.
 
 ## Motion / interaction (if relevant)
-- Errors appear instantly. No shaking fields (they read as punishment and fail under vestibular sensitivity).
+- Errors appear instantly. Default is no shaking fields (they read as punishment and add no information the text lacks; shaking is a vestibular risk).
+- If a shake is used anyway, bound it (house default, no research behind the numbers): one pass, ≤ 300 ms, ≤ 8 px horizontal, no repeat; removed under `prefers-reduced-motion`; and never the sole signal, since the inline text, icon and `aria-invalid` carry the error.
 
 ## Tokens and values
 | Token | Value | Use |
@@ -120,6 +121,7 @@ export const emailCheck: Check = (el) =>
 - [ ] `aria-invalid` and `aria-describedby` are set while invalid and removed when fixed.
 - [ ] Input is never cleared or refocused because it's invalid.
 - [ ] The server re-validates, and server errors render in the same inline slot.
+- [ ] Any error shake is one bounded pass, off under reduced motion, and never the only signal.
 
 ## Sources
 - https://alistapart.com/article/inline-validation-in-web-forms/

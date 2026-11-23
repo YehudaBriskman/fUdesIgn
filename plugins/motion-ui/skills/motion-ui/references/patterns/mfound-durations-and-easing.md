@@ -20,7 +20,7 @@ Use for every time-based (tween) animation. For anything a finger or pointer dri
 
   NN/g: around 100 ms for simple feedback, 200–300 ms for large changes, and "at 500 ms, animations start to feel like a real drag".
 - **Scale with distance.** Material's guidance and Rauno both tie duration to how far something travels and how big it is: a 24 px nudge and a full-height sheet are not the same token. Small trigger, short motion.
-- **Exit faster than enter.** Exit = about 0.75 × enter (240 → 180 ms, 150 → 110 ms). People wait for an entrance; they've already moved on during an exit. The ratio is a house rule; Material's "accelerate" exit tokens are also shorter than their "decelerate" enters.
+- **Exit faster than enter.** Exit = about 0.75 × enter (240 → 180 ms, 150 → 110 ms). People wait for an entrance; they've already moved on during an exit. The ratio is a house rule, and 0.75 to 0.8 is an accepted band (the token stays 0.75; no source fixes either number); Material's "accelerate" exit tokens are also shorter than their "decelerate" enters.
 - **Easing by direction.**
 
   | Situation | Curve | Token |

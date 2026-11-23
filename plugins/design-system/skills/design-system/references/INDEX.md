@@ -1,6 +1,6 @@
 # Pattern index
 
-12 patterns. **Priority:** must = always apply · should = apply unless there is a reason not to · nice = optional.
+13 patterns. **Priority:** must = always apply · should = apply unless there is a reason not to · nice = optional.
 
 ## Foundations: token architecture and profiles (`dsfound-`)
 
@@ -18,6 +18,7 @@
 | [DTCG token format](patterns/dstoken-dtcg-format.md) | should | Exchange tokens as W3C Design Tokens (DTCG) JSON: every token has a `$value` and a `$type`, aliases are `{group.token}` paths, and colours carry an explicit colour space so OKLCH survives the trip. |
 | [Spacing and radius scales](patterns/dstoken-spacing-radius-scales.md) | must | Use one 4px-based, non-linear spacing scale and one radius scale derived from a single base, with density changing which steps components use rather than the steps themselves. |
 | [Theming and multi-brand](patterns/dstoken-theming-multi-brand.md) | should | A theme or a brand is a different set of inputs to the same generator, applied by swapping the role tier under one attribute; components and role names never change per brand. |
+| [Typographic details that replace hacks](patterns/dstoken-typography-details.md) | should | Use the platform's typographic properties for trim, underline, superscript, small caps, quotes and truncation instead of padding hacks, fake glyphs and `text-transform`; never let a state change alter a text box's width. |
 | [Generating a typography scale](patterns/dstoken-typography-scale.md) | must | Generate the type scale from a base size and one ratio chosen for the product's density, in rem, with line height falling as size rises; keep the scale short and name steps by role. |
 
 ## Stack mapping (`dsmap-`)

@@ -23,7 +23,7 @@
 - **Highlight sparingly:** "When everything is visually prominent, nothing stands out." Non-data elements (logo, nav) are subdued (pitfall 10).
 - **No decoration:** no faux control panels, LEDs or switches (pitfall 11).
 - **Colour:** "keep colors subdued and neutral, except when you are using color to highlight something". Colour on already-labelled bars means nothing, but the brain still searches for a meaning (pitfall 12).
-- **Aesthetics matter:** an ugly display hurts use, but beauty comes from displaying the data well, not from ornament (pitfall 13).
+- **Aesthetics matter:** an ugly display hurts use, but beauty comes from displaying the data well, not from ornament (pitfall 13). Aesthetic-usability caveat: in Kurosu and Kashimura 1995 (26 ATM layouts, 252 participants) beauty ratings tracked perceived ease more than actual ease, and polish makes users forgive problems, so test with tasks, not looks (lawsofux.com Aesthetic-Usability Effect). Evidence grades for all named laws: `ref-ux-laws-evidence-map.md`.
 - **Bullet graph (Bullet Graph Design Specification):** Few designed it to replace gauges. The featured measure is a 100% black bar "approximately 1/3rd the thickness of its container"; the comparative measure is a short perpendicular line (a second one at 75% black); qualitative ranges are "limited to a maximum of five and ideally to three", drawn as intensities of one hue, darker for poor states: 2 ranges 35/10%, 3 ranges 40/25/10%, 4 ranges 50/35/20/10%, 5 ranges 50/35/20/10/3% black.
 
 ### Nielsen Norman Group
@@ -127,3 +127,4 @@ export function indicatorFor(expectedMs: number, fullPage: boolean): Wait {
 - https://baymard.com/blog/cards-dashboard-layout
 - https://carbondesignsystem.com/data-visualization/dashboards/
 - https://html.spec.whatwg.org/multipage/form-elements.html#the-progress-element
+- https://lawsofux.com/aesthetic-usability-effect/

@@ -5,7 +5,7 @@ description: Design, build or review web forms with researched rules and concret
 
 # Forms UI design
 
-A research-backed playbook for web forms: 19 pattern files, each with rules, anti-patterns, good and bad references, accessibility, tokens, an implementation sketch and a checklist. This file gives the workflow, the non-negotiables and the decision tables. Open the pattern files for depth.
+A research-backed playbook for web forms: 20 pattern files, each with rules, anti-patterns, good and bad references, accessibility, tokens, an implementation sketch and a checklist. This file gives the workflow, the non-negotiables and the decision tables. Open the pattern files for depth.
 
 - **Pattern index:** `references/INDEX.md` lists every pattern with its one-line rule.
 - **Pattern files:** `references/patterns/<prefix>-<name>.md`. Prefixes: `ffound` (foundations), `finput` (inputs), `fvalid` (validation), `fflow` (submission and flows), `fref` (anti-patterns and review rubric).

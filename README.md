@@ -13,7 +13,7 @@ plugins/
     .claude-plugin/plugin.json
     skills/dashboard-ui-design/
       SKILL.md                           workflow, 29 non-negotiables, decision tables, token defaults
-      references/INDEX.md                all 89 patterns, each with its one-line rule
+      references/INDEX.md                all 91 patterns, each with its one-line rule
       references/patterns/*.md           one file per pattern (see below)
       assets/tokens.css                  starter light and dark tokens, every value traced to a pattern
   marketing-ui/
@@ -34,21 +34,21 @@ plugins/
     .claude-plugin/plugin.json
     skills/motion-ui/
       SKILL.md                           workflow, 18 non-negotiables, decision tables, token defaults
-      references/INDEX.md                all 19 patterns, each with its one-line rule
+      references/INDEX.md                all 20 patterns, each with its one-line rule
       references/patterns/*.md           one file per pattern
       assets/motion-tokens.css           durations, curves, spring linear() tokens, reduced-motion overrides
   forms-ui/
     .claude-plugin/plugin.json
     skills/forms-ui/
       SKILL.md                           workflow, 20 non-negotiables, decision tables
-      references/INDEX.md                all 19 patterns, each with its one-line rule
+      references/INDEX.md                all 20 patterns, each with its one-line rule
       references/patterns/*.md           ffound-, finput-, fvalid-, fflow-, fref- (see below)
       assets/forms.css                   starter form styles on the dashboard-ui role tokens
   design-system/
     .claude-plugin/plugin.json
     skills/design-system/
       SKILL.md                           6-step workflow (detect, profile, generate, map, DESIGN.md, keep consistent), 10 non-negotiables
-      references/INDEX.md                all 12 patterns, each with its one-line rule
+      references/INDEX.md                all 13 patterns, each with its one-line rule
       references/patterns/*.md           dsfound-, dstoken-, dsmap-, dsref- (see below)
       scripts/theme.mjs                  verified OKLCH theme generator: CSS, Tailwind v4, shadcn, DTCG, DESIGN.md front matter
       scripts/theme.test.mjs             node --test suite (APCA reference values, gamut, outputs, CLI)
@@ -88,11 +88,11 @@ templates/PATTERN_TEMPLATE.md            the format every pattern file follows
 docs/research-brief.md                   how the research was run
 ```
 
-### dashboard-ui: 89 patterns in 9 clusters
+### dashboard-ui: 91 patterns in 9 clusters
 
 | Prefix | Cluster | Files |
 |---|---|---|
-| `found-` | Foundations: hierarchy, dashboard types, overview → details, grid and spacing, density, data-ink, typography for data, scanning, responsive reflow, progressive disclosure | 15 |
+| `found-` | Foundations: hierarchy, dashboard types, overview → details, grid and spacing, density, data-ink, typography for data, scanning, responsive reflow, progressive disclosure | 16 |
 | `color-` | Colour: system architecture (OKLCH ramps → roles), semantic and money colours, data-viz palettes, dark mode, contrast, minimal colour | 6 |
 | `style-` | Soft and rounded style: radius scale and nested corners, shadows vs borders, surfaces and layering, glass | 4 |
 | `data-` | Data display: KPI cards, number and money formatting, deltas, table layout and interaction, list rows, cards vs tables vs lists, loading/empty/error states, freshness, units and sources | 12 |
@@ -100,7 +100,7 @@ docs/research-brief.md                   how the research was run
 | `comp-` | Components: buttons, tabs/segmented/pills, overlays (dialog, popover, drawer, toast, tooltip), filters, date ranges, ⌘K, inline edit, sliders, app shell, alerts, keyboard and focus, entity cross-links and hover previews | 16 |
 | `motion-` | Motion and interaction: principles and tokens, number tweening, chart transitions, View Transitions, micro-interactions, reduced motion, linked exploration, live what-if recompute | 8 |
 | `prog-` | Progressive UI: loading states, stale-while-revalidate, optimistic UI and undo, perceived-performance thresholds | 4 |
-| `ref-` | References: fintech, dev/ops, product-analytics and investing teardowns, an anti-pattern catalog, research findings, a 39-check review rubric | 7 |
+| `ref-` | References: fintech, dev/ops, product-analytics and investing teardowns, an anti-pattern catalog, research findings, a 39-check review rubric | 9 |
 
 ### marketing-ui: 19 patterns in 5 clusters
 
@@ -124,7 +124,7 @@ Mobile web, responsive apps and PWAs, with Apple HIG and Material 3 conventions.
 | `moplat-` | Platform: PWA install, offline and app shell, low-end performance budgets, native feel across HIG and Material 3 | 3 |
 | `moref-` | Review: a 30-check rubric with a 390×844 / 360×800 capture recipe, an anti-pattern catalog | 2 |
 
-### motion-ui: 19 patterns in 6 clusters
+### motion-ui: 20 patterns in 6 clusters
 
 General product-UI motion and gesture. Motion for data views (number tweening, chart transitions, live recompute) stays in dashboard-ui's `motion-*` and `prog-*` patterns, which motion-ui links to.
 
@@ -133,26 +133,26 @@ General product-UI motion and gesture. Motion for data views (number tweening, c
 | `mfound-` | Foundations: purpose and frequency budget, durations and easing, choreography and stagger, reduced motion and vestibular safety | 4 |
 | `mspring-` | Springs: duration and bounce mapped across CSS `linear()`, Motion, React Spring, SwiftUI and Material 3; generated CSS spring tokens | 2 |
 | `mgesture-` | Gestures: 1:1 drag, momentum projection and snapping, rubber-banding, sheets and swipe-to-dismiss, interruptibility and velocity | 5 |
-| `mtrans-` | Transitions: enter/exit with `@starting-style` and the top layer, spatial origin, View Transitions (same- and cross-document), buttons, toggles and toasts, scroll-driven animation | 5 |
+| `mtrans-` | Transitions: enter/exit with `@starting-style` and the top layer, spatial origin, View Transitions (same- and cross-document), buttons, toggles and toasts, scroll-driven animation, arc paths and mask reveals | 6 |
 | `mperf-` | Performance: compositor-only properties, `will-change`, FLIP, INP | 1 |
 | `mref-` | Review: an 18-check motion rubric with a frame-capture recipe, an anti-pattern gallery | 2 |
 
-### forms-ui: 19 patterns in 5 clusters
+### forms-ui: 20 patterns in 5 clusters
 
 | Prefix | Cluster | Files |
 |---|---|---|
 | `ffound-` | Foundations: single-column layout and fieldsets, labels/hints/placeholders, required vs optional, the WCAG 2.2 form baseline, microcopy | 5 |
 | `finput-` | Inputs: types, `autocomplete`, `inputmode` and `enterkeyhint`; checkboxes, radios and switches; selects and comboboxes; money, number and phone; dates; file upload | 6 |
 | `fvalid-` | Validation: timing and inline errors (`:user-invalid`), error summary and focus, error message wording | 3 |
-| `fflow-` | Flows: submit states and double submit, multi-step forms and saving progress, sign-in, sign-up and passkeys | 3 |
+| `fflow-` | Flows: submit states and double submit, multi-step forms and saving progress, sign-in, sign-up and passkeys, completion and end states | 4 |
 | `fref-` | References: a 16-item anti-pattern catalogue with a DOM audit, a 31-check review rubric | 2 |
 
-### design-system: 12 patterns in 4 clusters, plus a theme generator
+### design-system: 13 patterns in 4 clusters, plus a theme generator
 
 | Prefix | Cluster | Files |
 |---|---|---|
 | `dsfound-` | Foundations: token tiers (primitive → semantic → component), naming and semver; evidence-based domain profiles (finance, analytics, dev tools, consumer, marketing, health); conservation of complexity (Tesler) as a decision rule | 3 |
-| `dstoken-` | Tokens: DTCG 2025.10 format, theming and multi-brand, dark-mode generation (WCAG 2 + APCA), type scale, spacing and radius | 5 |
+| `dstoken-` | Tokens: DTCG 2025.10 format, theming and multi-brand, dark-mode generation (WCAG 2 + APCA), type scale, spacing and radius | 6 |
 | `dsmap-` | Stack mapping: Tailwind v4 `@theme`, shadcn/ui variables, CSS Modules, vanilla CSS, MUI `createTheme` | 1 |
 | `dsref-` | Reference: the DESIGN.md decision record, governance and drift detection, a 12-item anti-pattern list | 3 |
 

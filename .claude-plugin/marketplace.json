@@ -11,7 +11,7 @@
     {
       "name": "dashboard-ui",
       "source": "./plugins/dashboard-ui",
-      "description": "Dashboard UI design: 89 researched patterns (hierarchy, data display, charts, colour, components, motion, progressive UI) plus a review rubric and starter tokens.",
+      "description": "Dashboard UI design: 91 researched patterns (hierarchy, data display, charts, colour, components, motion, progressive UI) plus a review rubric and starter tokens.",
       "version": "0.1.0",
       "category": "design",
       "license": "PolyForm-Internal-Use-1.0.0"
@@ -35,7 +35,7 @@
     {
       "name": "motion-ui",
       "source": "./plugins/motion-ui",
-      "description": "Product-UI motion and gesture: 19 researched patterns (purpose and frequency, durations and easing, springs mapped across CSS, Motion, React Spring, SwiftUI and Material 3, drag, momentum, sheets, enter/exit, View Transitions, scroll-driven animation, performance, reduced motion) plus a frame-based review rubric and motion tokens.",
+      "description": "Product-UI motion and gesture: 20 researched patterns (purpose and frequency, durations and easing, springs mapped across CSS, Motion, React Spring, SwiftUI and Material 3, drag, momentum, sheets, enter/exit, View Transitions, scroll-driven animation, performance, reduced motion) plus a frame-based review rubric and motion tokens.",
       "version": "0.1.0",
       "category": "design",
       "license": "PolyForm-Internal-Use-1.0.0"
@@ -43,7 +43,7 @@
     {
       "name": "forms-ui",
       "source": "./plugins/forms-ui",
-      "description": "Web form design: 19 researched patterns (layout, labels, input types and autofill, choice controls, money/date/phone/file inputs, validation and errors, submission, multi-step flows, passkeys) plus an anti-pattern catalogue, a review rubric and starter form styles.",
+      "description": "Web form design: 20 researched patterns (layout, labels, input types and autofill, choice controls, money/date/phone/file inputs, validation and errors, submission, multi-step flows, passkeys) plus an anti-pattern catalogue, a review rubric and starter form styles.",
       "version": "0.1.0",
       "category": "design",
       "license": "PolyForm-Internal-Use-1.0.0"
@@ -51,7 +51,7 @@
     {
       "name": "design-system",
       "source": "./plugins/design-system",
-      "description": "Set up and keep a coherent design system in your project: 11 researched patterns (token architecture and versioning, DTCG, theming and multi-brand, dark mode, type, spacing and radius scales, Tailwind v4/shadcn/CSS Modules/MUI mappings, evidence-based domain profiles, drift detection), a verified OKLCH theme generator (WCAG 2 + APCA, light/dark/high contrast) and a DESIGN.md decision record.",
+      "description": "Set up and keep a coherent design system in your project: 13 researched patterns (token architecture and versioning, DTCG, theming and multi-brand, dark mode, type, spacing and radius scales, Tailwind v4/shadcn/CSS Modules/MUI mappings, evidence-based domain profiles, drift detection), a verified OKLCH theme generator (WCAG 2 + APCA, light/dark/high contrast) and a DESIGN.md decision record.",
       "version": "0.1.0",
       "category": "design",
       "license": "PolyForm-Internal-Use-1.0.0"

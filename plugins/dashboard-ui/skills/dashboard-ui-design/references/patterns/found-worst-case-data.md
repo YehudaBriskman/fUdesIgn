@@ -28,7 +28,7 @@
   | Failure | One of 3 endpoints returns 500; one is slow (12 s); one returns an empty body | A blank row of cards, a silent fallback, a spinner forever |
 
 - **Fix the cause, not the sample.** Every fix lands in a shared formatter, component or token, not in the view that showed the bug.
-  - Text: truncate with an ellipsis plus the full value in `title` and the accessible name, or wrap to at most 2 lines with `line-clamp`. Never shrink font size to fit.
+  - Text: truncate with an ellipsis plus the full value in `title` and the accessible name, or wrap to at most 2 lines with `line-clamp` (the unprefixed property is not Baseline; keep `-webkit-line-clamp` as the working form). Never shrink font size to fit. For file names and ids keep the tail visible (two-span middle truncation, `dstoken-typography-details.md`).
   - Numbers: one formatter per metric kind (see `data-number-formatting.md`), with explicit null handling.
   - Direction: wrap user-provided names in `<bdi>`, or set `dir="auto"` on the element that holds them. W3C: wrap each opposite-direction phrase tightly so it is isolated from its neighbours.
   - Missing values follow the four-way split: `0`, `—` (no data), "Pending", "Not applicable" (see `data-loading-empty-error-states.md`).

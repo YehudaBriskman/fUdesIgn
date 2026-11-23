@@ -14,8 +14,11 @@ Use for the small, frequent responses that make an interface feel alive. Because
 - **Icon swaps cross-fade with a small scale** (0.8 → 1 and opacity), 150 ms; blurring by 2 px during the swap hides imperfect overlaps (Emil Kowalski).
 - **Toggles.**
   - Thumb moves with `spring-fast` (0.24 s, bounce 0) or `--motion-dur-short` 150 ms ease; track colour changes in the same time.
+  - Optional house flourish, not a rule: the thumb may stretch 5 to 10 percent along its travel axis in flight and squash on the other axis to keep volume (squash and stretch, from Disney's animation principles; craft background, no UI research and no source gives a percentage). Transform-only, settles to scale 1, and off under reduced motion. Skip it in dense or frequent toggles.
   - The state is shown by fill and position and a label or `aria-checked`, never position alone.
   - Optimistic: flip immediately; roll back visibly if the request fails.
+- **Success pulse, one shot.** If a result needs more than the icon swap, pulse the element that was acted on once (opacity or a scale of at most 1.05, 300 ms or less), never looped and never on a neighbour. House default, no primary source; the repo's data-tick flash and "no pulse on a verdict" rules still apply.
+- **Old and new content overlap.** When a label, icon or value is replaced, the outgoing and incoming states share one duration and run together (see the icon swap above); never fade out to nothing and then fade in.
 - **Like / favourite.** A single small scale pop (1 → 1.15 → 1, ≤ 300 ms) only on the *on* transition; nothing on off. This is a rare-delight budget only if the action is occasional.
 - **Toasts.**
   - Enter from the screen edge they live on, 240 ms ease-out or a spring; exit faster, the same way (Sonner uses CSS transitions, not keyframes, so they can be interrupted).
@@ -135,3 +138,4 @@ export function toastTimer(el: HTMLElement, ms: number, onDone: () => void): () 
 - https://m3.material.io/components/snackbar/overview
 - https://developer.mozilla.org/en-US/docs/Web/CSS/@media/hover
 - https://www.w3.org/WAI/WCAG22/Understanding/timing-adjustable.html
+- https://en.wikipedia.org/wiki/Twelve_basic_principles_of_animation (squash and stretch, craft background only)

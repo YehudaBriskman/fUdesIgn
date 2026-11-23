@@ -18,6 +18,8 @@
 
 ## Rules (do)
 - **Step indicator** for 3–7 steps: "Step 2 of 4: Delivery" as text, optionally a stepper. For branching flows where the total changes, show section names, not a count that jumps. Don't show progress bars that crawl to 90% and then reveal 5 more pages.
+- **Show real progress; start nonzero only for work truly done.** The goal-gradient effect (effort rises as a goal nears) and "endowed progress" (a task framed as already begun is more likely to be finished; Nunes & Dreze 2006, field evidence from a loyalty card) both argue for visible progress. The honest use: count steps genuinely completed, and pre-fill from the account so the first step really is done ("Step 2 of 4" because details were imported). Never invent a head start, pad the step count or add a bogus "profile 60% complete".
+- **A progress bar is not free.** NN/g's progress-indicator research on wait animations found a moving bar made people willing to wait longer, but that is about system waits, not form steps, and a bar that stalls or jumps destroys the trust it bought (`aichat-thinking-and-step-progress.md`, dashboard-ui). Put the step count in text; keep any bar proportional to steps done.
 - **Back always works** and keeps answers: a "Back" link at the top-left of each step (GOV.UK back link), and the browser Back button restores the previous step (URL per step, or History API).
 - **Validate per step** on "Continue"; never let people reach the end to discover an error from step 1.
 - **Check your answers** before the final submit: every answer listed with a "Change" link that returns to that question and then back to the summary (GOV.UK pattern). Required by WCAG 3.3.4 for legal, financial and data-changing submissions unless reversible.
@@ -59,6 +61,7 @@
 
 ## Motion / interaction (if relevant)
 - Step changes are page-like: a quick fade (≤ 150 ms) or none. No sideways slides under reduced motion; avoid them generally for forms.
+- If a step does move, it enters from the direction of travel (Continue from the inline-end side, Back from the inline-start side), mirrored in RTL, with small travel (`mtrans-spatial-origin-and-continuity.md`, motion-ui).
 
 ## Tokens and values
 | Token | Value | Use |
@@ -122,6 +125,7 @@ export function wireDraft(form: HTMLFormElement, key: string, version: number, o
 - [ ] No secrets are stored locally; drafts expire on a stated schedule.
 - [ ] Timeouts warn in time, can be extended and don't lose data.
 - [ ] Focus and `document.title` update on each step.
+- [ ] Progress shown is real: no invented head start, no padded count, no stalling bar.
 
 ## Sources
 - https://design-system.service.gov.uk/patterns/check-answers/
@@ -129,6 +133,8 @@ export function wireDraft(form: HTMLFormElement, key: string, version: number, o
 - https://design-system.service.gov.uk/patterns/question-pages/
 - https://design-system.service.gov.uk/components/back-link/
 - https://www.nngroup.com/articles/wizards/
+- https://www.nngroup.com/articles/progress-indicators/
+- https://lawsofux.com/goal-gradient-effect/
 - https://www.w3.org/WAI/tutorials/forms/multi-page/
 - https://baymard.com/blog/checkout-flow-average-form-fields
 - https://www.w3.org/WAI/WCAG22/Understanding/timing-adjustable.html

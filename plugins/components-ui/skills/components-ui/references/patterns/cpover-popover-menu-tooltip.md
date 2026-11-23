@@ -25,6 +25,7 @@
 - Show on hover and on keyboard focus; hide on Escape, blur, and mouse-out. The pointer must be able to move onto the tooltip without it vanishing (WCAG 1.4.13: dismissible, hoverable, persistent).
 - `role="tooltip"` on the bubble, `aria-describedby` from the control (APG marks its tooltip pattern work in progress, so test with a screen reader). If the tooltip supplies the control's only name (an icon button), use `aria-label` for the name and keep the tooltip as a visual repeat.
 - Text is short (one phrase). Anything longer, interactive or essential becomes visible text or a popover.
+- **Skip window.** After one tooltip closes, a neighbour opened within about 300 ms opens instantly, with no open delay and no enter animation, so sweeping across a toolbar feels continuous. The 300 ms is Radix's `skipDelayDuration` default, a library default and not research; outside the window the normal delay applies again. Radix's default open delay (`delayDuration`) is 700 ms, above this repo's 300–500 ms hover range; if a library default is kept, say so deliberately.
 - Touch has no hover: critical information must not live only in a tooltip.
 
 ## Anti-patterns (don't)
@@ -55,7 +56,8 @@
 | Token | Value | Use |
 |---|---|---|
 | Menu item height | 32 px pointer / 44 px coarse | Target size |
-| Tooltip open delay | 300–500 ms hover, 0 ms focus | Hover only |
+| Tooltip open delay | 300–500 ms hover, 0 ms focus | Hover only (Radix default is 700 ms) |
+| Tooltip skip window | about 300 ms, peers instant, no enter animation | Radix `skipDelayDuration` default, not research |
 | Pointer gap tolerance | ≥ 8 px safe corridor | Hoverable content |
 | Popover max height | `min(24rem, 100dvh - 2rem)` | Scroll inside |
 
@@ -113,4 +115,5 @@ menu?.addEventListener('toggle', (e) => {
 - https://developer.mozilla.org/en-US/docs/Web/API/Popover_API
 - https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning
 - https://www.w3.org/WAI/WCAG22/Understanding/content-on-hover-or-focus.html
+- https://www.radix-ui.com/primitives/docs/components/tooltip (delayDuration 700, skipDelayDuration 300 defaults, fetched)
 - Source corpus: local `ui-behavior-component-intelligence` skill (popover, menu, tooltip contracts, restructured)

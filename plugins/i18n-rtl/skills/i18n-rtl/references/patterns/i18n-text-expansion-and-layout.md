@@ -22,7 +22,7 @@
   | over 70 | 130% |
 
   Short labels expand most: "Save" is `Speichern` (German), "Views" became `-mal angesehen` at 2.8× in W3C's Flickr example. Sentences settle around +30–40%.
-- **German, Finnish and Dutch build long compounds** that don't wrap (W3C: "Eingabeverarbeitungsfunktionen" for "Input processing features"). Allow `overflow-wrap: anywhere` on narrow labels and `hyphens: auto` with a correct `lang`, since hyphenation only applies to declared languages.
+- **German, Finnish and Dutch build long compounds** that don't wrap (W3C: "Eingabeverarbeitungsfunktionen" for "Input processing features"). Allow `overflow-wrap: anywhere` on narrow labels and `hyphens: auto` with a correct `lang`, since hyphenation only applies to declared languages. Use `hyphens: auto` on narrow measures or justified text, not headings or proper nouns. `hyphenate-limit-chars: 6 3 3` (house default; the syntax is `<word-min> <before-min> <after-min>`, and `auto` behaves like `5 2 2`) is a progressive enhancement: it is not Baseline.
 - **Hebrew and Arabic are often shorter than English in characters, but not reliably,** and they need more *vertical* space: W3C lists Arabic among the scripts that "need more vertical space" than Latin. Don't use Hebrew's shortness to justify tight widths; the same component ships in German.
 - **No fixed widths on text containers.** Buttons, tabs, chips and badges use `min-inline-size` with padding, never `width`. Table headers wrap (`text-wrap: balance`), and columns size to content.
 - **Wrap first, truncate last.** Two-line button labels are better than a truncated verb. Truncate only user content in fixed rows (file names, titles), and keep the full text in the DOM as the accessible name.

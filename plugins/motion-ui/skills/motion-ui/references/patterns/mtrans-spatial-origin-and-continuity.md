@@ -9,7 +9,7 @@ Use whenever an element appears in relation to something else. A centred modal w
 
 ## Rules (do)
 - **Origin at the trigger.** A menu below-left of its button scales from `top left`; one that flipped above scales from `bottom left`. Emil Kowalski: popovers should scale from their trigger, not from their centre. Radix exposes this as `--radix-popover-content-transform-origin`; with CSS anchor positioning, set the origin per fallback position yourself (there is no automatic hook yet; anchored container queries that can detect the flip are Chrome-only and experimental).
-- **Detail opens out of its item.** A card expanding to a detail view morphs from the card's rectangle (a shared-element View Transition or Motion `layoutId`), and collapses back into it on close. M3 calls this the *container transform*.
+- **Detail opens out of its item.** A card expanding to a detail view morphs from the card's rectangle (a shared-element View Transition or Motion `layoutId`) (reuse one `layoutId` on the card and the detail element so the library animates between them; the platform equivalent is one unique `view-transition-name`, see `mtrans-view-transitions-and-routes.md`), and collapses back into it on close. M3 calls this the *container transform*.
 - **Mirror paths.** Exit reverses the entrance path. A drawer that slid in from the right leaves to the right; a toast that rose from the bottom drops back down.
 - **Consistent direction.**
   - Forward in a hierarchy: new view enters from the trailing edge (right in LTR), the old one shifts toward the leading edge.

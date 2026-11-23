@@ -23,7 +23,7 @@ Rules of thumb:
   - Put the most-used tab first and select it by default. Non-default tabs get much less attention (NN/g).
   - Indicate the selected tab in **at least two ways**, e.g. a 2–3px underline plus weight or colour (NN/g: "Use at least two selection indicators"). Never use colour alone (WCAG 1.4.1).
   - Draw the underline with a border, not `box-shadow`. Forced-colors mode removes shadows.
-  - Never change a tab's box size on selection: no `font-weight` jump that reflows neighbours. Pre-reserve the bold width or use `font-variation-settings` with a fixed-width trick.
+  - Never change a tab's box size on selection: no `font-weight` jump that reflows neighbours. Do not change weight at all (use colour, an underline bar or a fill). If bold is mandatory, pre-reserve the width with a hidden `aria-hidden` bold twin span or a `min-inline-size` (see `dstoken-typography-details.md`).
   - Keyboard: Tab enters the selected tab. Arrow keys move between tabs, and Home/End go to the first and last. Selection follows focus by default.
   - Use *manual activation* (Enter/Space) when a panel is slow to fetch or when selection writes history, sends analytics or reflows the layout heavily.
   - Hide inactive panels with `hidden="until-found"` so find-in-page still finds their text, and sync the selection on `beforematch`. Not Baseline (Chrome/Edge 102, Firefox 148, Safari 26.2 partial); elsewhere it acts like plain `hidden`, so the panel is hidden but not findable.
